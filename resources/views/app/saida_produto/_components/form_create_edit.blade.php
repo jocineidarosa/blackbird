@@ -32,6 +32,21 @@
                 </div>
             </div>
 
+            <div class="row mb-1">
+                <label for="motivo" class="col-md-4 col-form-label text-md-end text-right">Tipo de Saida</label>
+                <div class="col-md-6">
+                    <select name="motivo" id="" class="form-control">
+                        <option value=""> --Selecione o Produto--</option>
+                        @foreach ($produtos as $produto)
+                            <option value="{{ $produto->id }}"
+                                {{ ($produto->motivo ?? old('motivo')) == $produto->id ? 'selected' : '' }}>
+                                {{ $produto->nome }}</option>
+                        @endforeach
+                    </select>
+                    {{ $errors->has('motivo') ? $errors->first('motivo') : '' }}
+                </div>
+            </div>
+
             <div class="row mb-3">
                 <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
                 <div class="col-md-6">

@@ -14,7 +14,7 @@
             </div>
 
             <div class="card-body-template mt-1">
-                <table class="table-template ">
+                <table class="table-template table-hover">
                     <tr>
                         <th colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE FUNCIONAMENTO -
                             {{ $ordem_producao->equipamento->nome }}</th>
@@ -67,7 +67,60 @@
                         <td class="text-right th-title pr-2" colspan="2">Total</td>
                         <td class="pl-2" colspan="2">{{ number_format($total_horimetro, 2) }}</td>
                         <td class="th-title" colspan="8"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="16" ></td>
+                    </tr>
 
+                    <tr>
+                        <td colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE OPERAÇÃO DOS EQUIPAMENTOS</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="th-title">Equipamento</td>
+                        <td class="th-title" colspan="3">Produto</td>
+                        <td class="th-title">quant</td>
+                        <td class="th-title">Horímetro Inicial</td>
+                        <td class="th-title">Horímetro Final</td>
+                        <td class="th-title">Tot.Hm</td>
+                        <td class="th-title">Hora Inicial</td>
+                        <td class="th-title">Hora Final</td>
+                        <td class="th-title">Temp.OP</td>
+                        <td class="th-title" colspan="2">cons/teor</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @foreach ($recursos_producao as $recurso)
+                        <tr>
+                            <td colspan="4">{{ $recurso->equipamento    }}</td>
+                            <td colspan="3">{{ $recurso->produto_id}}</td>
+                            <td>{{ $recurso->quantidade }}</td>
+                            <td>{{ $recurso->horimetro_ini }}</td>
+                            <td>{{ $recurso->horimetro_final }}</td>
+                            <td>{{$recurso->total_horimetro}}</td>
+                            <td>{{ $recurso->hora_inicio }}</td>
+                            <td>{{ $recurso->hora_fim }}</td>
+                            <td>{{$recurso->total_hora}}</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="16"></td>
                     </tr>
 
                     <tr>
@@ -93,36 +146,6 @@
                             <td colspan="16" class="text-center"> Não houve paradas de equipamentos</td>
                         </tr>
                     @endif
-
-                    <tr>
-                        <td colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE OPERAÇÃO DOS EQUIPAMENTOS</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="th-title">Equipamento</td>
-                        <td class="th-title" colspan="3">combustível</td>
-                        <td class="th-title">quant</td>
-                        <td class="th-title">Horímetro Inicial</td>
-                        <td class="th-title">Horímetro Final</td>
-                        <td class="th-title">Total</td>
-                        <td class="th-title">Hora Inicial</td>
-                        <td class="th-title">Hora Final</td>
-                        <td class="th-title">Total</td>
-                        <td class="th-title"></td>
-                    </tr>
-                    @foreach ($recursos_producao as $recurso)
-                        <tr>
-                            <td colspan="4">{{ $recurso->equipamento->nome }}</td>
-                            <td colspan="3">{{ $recurso->produto->nome}}</td>
-                            <td>{{ $recurso->quantidade }}</td>
-                            <td>{{ $recurso->horimetro_inicial }}</td>
-                            <td>{{ $recurso->horimetro_final }}</td>
-                            <td></td>
-                            <td>{{ $recurso->hora_inicio }}</td>
-                            <td>{{ $recurso->hora_fim }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    @endforeach
                 </table>
             </div>
         </div>

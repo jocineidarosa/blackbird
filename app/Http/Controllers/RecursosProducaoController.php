@@ -88,6 +88,7 @@ class RecursosProducaoController extends Controller
         $saida_produto= new SaidaProduto();
         $saida_produto->produto_id=$request->input('produto_id');
         $saida_produto->quantidade=$request->input('quantidade');
+        $saida_produto->motivo='1';
         $saida_produto->data=$request->input('data_inicio');
         $saida_produto->save();
         

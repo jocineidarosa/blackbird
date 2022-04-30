@@ -76,6 +76,22 @@
                 </div>
             </div>
 
+            <div class="row mb-1">
+                <label for="tipo_calculo_teor" class="col-md-4 col-form-label text-md-end text-right">Tipo Cálculo de Teor</label>
+
+                <div class="col-md-6">
+                    <select name="tipo_calculo_teor" id="" class="form-control-template">
+                        <option value=""> --Selecione o Tipo de Cáculo--</option>
+                        @foreach ($tipos_calculo_teor as $tipo_calculo_teor)
+                            <option value="{{ $tipo_calculo_teor->id }}"
+                                {{ ($produto->tipo_calculo_teor ?? old('tipo_calculo_teor')) == $tipo_calculo_teor->id ? 'selected' : '' }}>
+                                {{ $tipo_calculo_teor->tipo_calculo_teor }}</option>
+                        @endforeach
+                    </select>
+                    {{ $errors->has('tipo_calculo_teor') ? $errors->first('tipo_calculo_teor') : '' }}
+                </div>
+            </div>
+
 
             <div class="row mb-1">
                 <label for="estoque_minimo" class="col-md-4 col-form-label text-md-end text-right">Estoque Mínimo</label>

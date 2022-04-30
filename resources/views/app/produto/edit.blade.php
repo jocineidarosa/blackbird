@@ -24,7 +24,14 @@
         </div>
         
         <div class="card-body">
-            @component('app.produto._components.form_create_edit', ['produto'=>$produto, 'marcas'=>$marcas, 'unidades'=>$unidades, 'categorias'=>$categorias])
+            @component('app.produto._components.form_create_edit', 
+            [
+                'produto'=>$produto, 
+                'marcas'=>$marcas, 
+                'unidades'=>$unidades, 
+                'categorias'=>$categorias,
+                'tipos_calculo_teor'=>$tipos_calculo_teor
+            ])
                     
                 @endcomponent  
         </div>

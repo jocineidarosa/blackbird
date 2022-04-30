@@ -75,19 +75,17 @@ class OrdemProducaoController extends Controller
     public function show(OrdemProducao $ordem_producao)
     {
        
-        $total_horas = DB::table('recursos_producao as rp')
+        $recursos_producao = DB::table('recursos_producao as rp')
         ->join('equipamentos as eq', 'eq.id','=','rp.equipamento_id')
         ->selectRaw('sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) as total_hora, rp.*, eq.nome as equipamento')
         ->where('ordem_producao_id', $ordem_producao->id)->get();
 
-        foreach ($total_horas as $totaly){
-            print_r($totaly->equipamento);
-            echo('<br>');
-
+        foreach($recursos_producao as $recurso){//adiciona o campo horimetro_ini na collection
+           $horimetro_inicial = RecursosProducao::where('equipamento_id', $recurso->equipamento_id)
+           ->where('id', '<', $recurso->id)->orderBy('id', 'desc')->first();
+           $recurso->horimetro_ini=$horimetro_inicial->horimetro_final;
+           $recurso->total_horimetro = $recurso->horimetro_final - $recurso->horimetro_ini;
         }
-        exit();
-
-
 
 
         $op_horimetro_inicial = OrdemProducao::where('equipamento_id', $ordem_producao->equipamento_id)
@@ -109,7 +107,7 @@ class OrdemProducaoController extends Controller
         }
         
         $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
-        $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
+        /* $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get(); */
 
 
         return view(

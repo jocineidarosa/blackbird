@@ -23,6 +23,8 @@ class CreateProdutosTable extends Migration
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->foreign('unidade_medida_id')->references('id')->on('unidades_medida');
+            $table->unsignedBigInteger('tipo_calculo_teor_id')->nullable();
+            $table->foreign('tipo_calculo_teor_id')->references('id')->on('tipos_calculo_teor');
             $table->double('estoque_minimo', 8,2)->nullable();
             $table->double('estoque_ideal', 8,2)->nullable();
             $table->double('estoque_maximo', 8,2)->nullable();
