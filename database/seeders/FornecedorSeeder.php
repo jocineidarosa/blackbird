@@ -45,21 +45,6 @@ class FornecedorSeeder extends Seeder
         ]);
 
         Fornecedor::create([
-            'razao_social' => 'Coopercampos coperativa s/a',
-            'nome_fantasia' => 'Coopercampos',
-            'cnpj' => '000000000000000',
-            'insc_estadual' => '00000000000',
-            'endereco' => 'Rua Bento Gonsalves, 1850',
-            'bairro'=>'',
-            'cidade'=>'Campos Novos',
-            'estado'=>'SC',
-            'telefone'=>'5134735020',
-            'contato'=>'',
-            'email'=>'',
-            'site'=>''
-        ]);
-
-        Fornecedor::create([
             'razao_social' => 'Ciber equipamentos Rodoviários SA',
             'nome_fantasia' => 'Ciber',
             'cnpj' => '000000000000000',
@@ -72,6 +57,36 @@ class FornecedorSeeder extends Seeder
             'contato'=>'',
             'email'=>'',
             'site'=>''
+        ]);
+
+        Fornecedor::create([
+            'razao_social' => 'RAVATO DIESEL LTDA',
+            'nome_fantasia' => 'RAVATO',
+            'cnpj' => '02578240000101',
+            'insc_estadual' => '00000000000',
+            'endereco' => 'Rua Rodovia Br 476/Pr., 560',
+            'bairro'=>'CENTRO',
+            'cidade'=>'SAO MATEUS DO SUL',
+            'estado'=>'PR',
+            'telefone'=>'5134735020',
+            'contato'=>'4235202100',
+            'email'=>'sac@ravatto.com.br',
+            'site'=>'https://www.ravato.com.br/'
+        ]);
+
+        Fornecedor::create([
+            'razao_social' => 'COOPERATIVA REGIONAL AGROPECUARIA DE CAMPOS NOVOS',
+            'nome_fantasia' => 'COOPERCAMPOS',
+            'cnpj' => '83158824002750',
+            'insc_estadual' => '00000000000',
+            'endereco' => 'Rua Aldo Pereira Scos, 504',
+            'bairro'=>'GETULIO VARGAS',
+            'cidade'=>'CURITIBANOS',
+            'estado'=>'SC',
+            'telefone'=>'4935416000',
+            'contato'=>'Claudio Hartmann',
+            'email'=>'sac@ravatto.com.br',
+            'site'=>'http://www2.copercampos.com.br'
         ]);
     }
 }

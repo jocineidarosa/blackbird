@@ -154,6 +154,7 @@
                 type: "get",
                 data: {
                     'equipamento_id': equipamento_id,
+                    'table' : 'ordens_producoes'
                 },
                 dataType: "json",
                 success:function(response) {

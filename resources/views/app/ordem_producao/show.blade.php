@@ -73,7 +73,7 @@
                     </tr>
 
                     <tr>
-                        <td colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE OPERAÇÃO DOS EQUIPAMENTOS</td>
+                        <td colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE RECURSOS UTILIZADOS</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="th-title">Equipamento</td>
@@ -108,9 +108,9 @@
                     @foreach ($recursos_producao as $recurso)
                         <tr>
                             <td colspan="4">{{ $recurso->equipamento    }}</td>
-                            <td colspan="3">{{ $recurso->produto_id}}</td>
+                            <td colspan="3">{{ $recurso->produto}}</td>
                             <td>{{ $recurso->quantidade }}</td>
-                            <td>{{ $recurso->horimetro_ini }}</td>
+                            <td>{{ $recurso->horimetro_inicial }}</td>
                             <td>{{ $recurso->horimetro_final }}</td>
                             <td>{{$recurso->total_horimetro}}</td>
                             <td>{{ $recurso->hora_inicio }}</td>

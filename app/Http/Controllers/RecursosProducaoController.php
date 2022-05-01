@@ -77,7 +77,6 @@ class RecursosProducaoController extends Controller
         //salva recursos de produção no banco de dados
         $recurso_producao->produto_id = $request->input('produto_id');
         $recurso_producao->quantidade = $request->input('quantidade');
-        $recurso_producao->horimetro_inicial = $request->input('horimetro_inicial');
         $recurso_producao->horimetro_final = $request->input('horimetro_final');
         $recurso_producao->data_inicio = $request->input('data_inicio');
         $recurso_producao->data_fim = $request->input('data_fim');

@@ -258,10 +258,11 @@
             var equipamento_id = $("#equipamento_id option:selected").val();
             $("#horimetro_inicial").val('');
             $.ajax({
-                url: "{{ route('utils.get-horimetro-inicial-recursos') }}",
+                url: "{{ route('utils.get-horimetro-inicial') }}",
                 type: "get",
                 data: {
                     'equipamento_id': equipamento_id,
+                    'table' : 'recursos_producao'
                 },
                 dataType: "json",
                 success: function(response) {

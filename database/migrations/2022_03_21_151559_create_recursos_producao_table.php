@@ -22,7 +22,6 @@ class CreateRecursosProducaoTable extends Migration
             $table->unsignedBigInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->integer('quantidade');
-            $table->double('horimetro_inicial',8,2)->nullable();
             $table->double('horimetro_final',8,2)->nullable();
             $table->date('data_inicio')->nullable();
             $table->date('data_fim')->nullable();

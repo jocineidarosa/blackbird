@@ -9,6 +9,18 @@ class RecursosProducao extends Model
 {
     use HasFactory;
     protected $table='recursos_producao';
+    protected $fillable=
+    [
+        'ordem_producao_id',
+        'equipamento_id',
+        'produto_id',
+        'quantidade',
+        'horimetro_final',
+        'data_inicio',
+        'data_fim',
+        'hora_inicio',
+        'hora_fim'
+    ];
 
     public function produto(){
         return $this->belongsTo('App\Models\Produto');
