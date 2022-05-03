@@ -15,8 +15,9 @@
     </div>
 </div>
 {{-- acima informções principais da ordem de serviço --}}
+
 <div class="card-header-template">
-    <div>CADASTRO DE RECURSOS - {{ $ordem_producao->equipamento->nome }}</div>
+    <div>CADASTRO DE RECURSOS - {{$ordem_producao->equipamento_id }}</div>
 </div>
 <div class="card-body">
     <form action="{{ route('recursos-producao.store', ['ordem_producao' => $ordem_producao->id]) }}" method="post">
@@ -175,7 +176,7 @@
 
 <div class="card-header-template mb-1">
     <div>
-        CADASTRO DE PARADAS - {{ $ordem_producao->equipamento->nome }}
+        CADASTRO DE PARADAS - {{ $ordem_producao->equipamento_id }}
     </div>
 </div>
 <div class="card-body">

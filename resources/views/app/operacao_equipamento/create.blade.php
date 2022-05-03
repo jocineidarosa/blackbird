@@ -4,18 +4,19 @@
     <main class="content">
         <div class="card">
             <div class="card-header-template">
-                <div>Entrada de Produtos</div>
+                <div>CADASTRO DE OPERAÇÃO DE EQUIPAMENTOS</div>
                 <div>
-                    <a href="{{ route('saida-produto.index') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
                         LISTAGEM
                     </a>
                 </div>
             </div>
 
             <div class="card-body">
-                @component('app.saida_produto._components.form_create_edit', [
-                    'produtos'=>$produtos,
-                    'tipos_saida'=>$tipos_saida
+                @component('app.operacao_equipamento._components.form_create_edit', 
+                    [
+                        'equipamentos'=>$equipamentos,
+                        'produtos'=>$produtos
                     ])
                 @endcomponent
             </div>

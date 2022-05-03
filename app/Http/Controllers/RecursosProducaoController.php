@@ -19,7 +19,8 @@ class RecursosProducaoController extends Controller
      */
     public function index()
     {
-        //
+        $operacoes = RecursosProducao::all();
+        return view('app.operacao_equipamento.index', ['operacoes' => $operacoes]);
     }
 
     /**
@@ -29,19 +30,15 @@ class RecursosProducaoController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-     /**
-     * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function HorimetroInicial( Request $request){
-        dd($request->all());
-        
-
+        $equipamentos = Equipamento::all();
+        $produtos = Produto::all();
+        return view(
+            'app.operacao_equipamento.create',
+            [
+                'equipamentos' => $equipamentos,
+                'produtos' => $produtos
+            ]
+        );
     }
 
     /**
@@ -59,20 +56,19 @@ class RecursosProducaoController extends Controller
         $recurso_producao->ordem_producao_id = $ordem_producao->id;
         $recurso_producao->equipamento_id = $request->input('equipamento_id');
 
-        $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->
-        where('equipamento_id', $recurso_producao->equipamento_id)->get()->first();
+        $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->where('equipamento_id', $recurso_producao->equipamento_id)->get()->first();
 
-        if(isset($exists_recurso_producao)){//verifica re o recurso já existe na ordem se já, não deixa cadastrar.
+        if (isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
             $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
             return view('app.ordem_producao.create', [
-                'produtos' => $produtos, 
+                'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
-                 'recursos_producao' => $recursos_producao,
-                 'paradas_equipamento'=>$paradas_equipamento
+                'recursos_producao' => $recursos_producao,
+                'paradas_equipamento' => $paradas_equipamento
             ]);
             //se já existe o recurso na ordem-> faz a consulta novamente e sai do função,não executa o codigo abaixo
-            
+
         }
         //salva recursos de produção no banco de dados
         $recurso_producao->produto_id = $request->input('produto_id');
@@ -84,27 +80,49 @@ class RecursosProducaoController extends Controller
         $recurso_producao->hora_fim = $request->input('hora_fim');
         $recurso_producao->save();
 
-        $saida_produto= new SaidaProduto();
-        $saida_produto->produto_id=$request->input('produto_id');
-        $saida_produto->quantidade=$request->input('quantidade');
-        $saida_produto->motivo='1';
-        $saida_produto->data=$request->input('data_inicio');
+        $saida_produto = new SaidaProduto();
+        $saida_produto->produto_id = $request->input('produto_id');
+        $saida_produto->recursos_producao_id = $recurso_producao->id ;
+        $saida_produto->quantidade = $request->input('quantidade');
+        $saida_produto->motivo = '1';
+        $saida_produto->data = $request->input('data_inicio');
         $saida_produto->save();
-        
-        $produto=Produto::find($request->input('produto_id'));
-        $produto->estoque_atual=$produto->estoque_atual - $request->input('quantidade');// soma estoque antigo com a entrada de produto
+
+        $produto = Produto::find($request->input('produto_id'));
+        $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
         $produto->save();
 
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
 
-        return view('app.ordem_producao.create', 
-        [
-            'produtos' => $produtos, 
-            'equipamentos' => $equipamentos,
-            'ordem_producao' => $ordem_producao, 
-            'recursos_producao' => $recursos_producao,
-            'paradas_equipamento'=>$paradas_equipamento
-        ]);
+        return view(
+            'app.ordem_producao.create',
+            [
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'ordem_producao' => $ordem_producao,
+                'recursos_producao' => $recursos_producao,
+                'paradas_equipamento' => $paradas_equipamento
+            ]
+        );
+    }
+
+    public function store_avulso(Request $request)
+    {
+        $recursos_producao =RecursosProducao::create($request->all());
+
+        $saida_produto = new SaidaProduto();
+        $saida_produto->produto_id = $request->input('produto_id');
+        $saida_produto->recursos_producao_id= $recursos_producao->id;
+        $saida_produto->quantidade = $request->input('quantidade');
+        $saida_produto->motivo = '1';
+        $saida_produto->data = $request->input('data_inicio');
+        $saida_produto->save();
+
+        $produto = Produto::find($saida_produto->produto_id); //busca o registro do produto com o id da entrada do produto
+        $produto->estoque_atual = $produto->estoque_atual - $saida_produto->quantidade; // soma estoque antigo com a entrada de produto
+        $produto->save();
+
+        return redirect(route('recursos-producao.index'));
     }
 
     /**
@@ -147,8 +165,14 @@ class RecursosProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RecursosProducao $operacao)
     {
-        //
+        $saida_produto= SaidaProduto::where('recursos_producao_id', $operacao->id)->first();
+        $produto = Produto::find($saida_produto->produto_id); //busca o registro do produto com o id da entrada do produto
+        $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade; // soma estoque antigo com a entrada de produto
+        $produto->save();
+        $saida_produto->delete();
+        $operacao->delete();
+        return redirect(route('recursos-producao.index'));
     }
 }

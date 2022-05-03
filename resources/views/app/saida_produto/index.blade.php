@@ -4,6 +4,9 @@
     <main class="content">
         <div class="card">
             <div class="card-header-template">
+                {{$message ??''}}
+            </div>
+            <div class="card-header-template">
                 <div> LISTAGEM DE SAÍDA DE PRODUTOS</div>
                 <div>
                     <a href="{{ route('saida-produto.create') }}" class="btn btn-sm btn-primary">
@@ -41,7 +44,7 @@
                                         action="{{route('saida-produto.destroy', ['saida_produto'=>$saida_produto->id])}}">
                                         @method('DELETE')
                                         @csrf
-                                        <a class="btn btn-sm-template btn-danger" href="#"
+                                        <a class="btn btn-sm-template {{$saida_produto->motivo == '1' ? 'btn-primary' : 'btn-danger'}}" href="#"
                                             onclick="document.getElementById('form_{{$saida_produto->id }}').submit()">Excluir</a>
                                     </form>
                                 </td>

@@ -18,7 +18,8 @@ class OrdemProducao extends Model
         'hora_inicio',
         'hora_fim',
         'horimetro_final',
-        'status'
+        'status',
+        'observacao'
     ];
 
     public function equipamento()

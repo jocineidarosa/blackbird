@@ -76,29 +76,18 @@ class OrdemProducaoController extends Controller
 
     public function show(OrdemProducao $ordem_producao)
     {
-        $recursos_producao = DB::table('recursos_producao as rp')
-            ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
-            ->join('produtos as p', 'p.id' , '=' , 'rp.produto_id')
-            ->selectRaw('sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) 
-            as total_hora, rp.*, eq.nome as equipamento, p.nome as produto')
-            ->where('ordem_producao_id', $ordem_producao->id)->get();
-
-        //adiciona horimetro_inicial, total_horimetro na collection
-        foreach ($recursos_producao as $recurso) {
-            if ($recurso->horimetro_final != null) {
-                $horimetro_inicial = DB::table('recursos_producao')->selectRaw(' max(horimetro_final) as horimetro_inicial')
-                    ->where('equipamento_id', $recurso->equipamento_id)
-                    ->where('horimetro_final', '<', $recurso->horimetro_final)->first();
-                $recurso->horimetro_inicial = $horimetro_inicial->horimetro_inicial;
-                $recurso->total_horimetro = $recurso->horimetro_final - $recurso->horimetro_inicial;
-            } else {
-                $recurso->horimetro_inicial='';
-                $recurso->total_horimetro= '';
-            }
+        $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
+            ->where('equipamento_id', $ordem_producao->equipamento_id)
+            ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
+  
+        if($op_horimetro_inicial->horimetro_inicial == null){
+            $op_horimetro_inicial= $ordem_producao->horimetro_final;
+            $total_horimetro = 0.0;
+        }else{
+            $op_horimetro_inicial=$op_horimetro_inicial->horimetro_inicial;
+            $total_horimetro =  $ordem_producao->horimetro_final - $op_horimetro_inicial;
         }
 
-        $op_horimetro_inicial = OrdemProducao::where('equipamento_id', $ordem_producao->equipamento_id)
-            ->where('id', '<', $ordem_producao->id)->orderBy('id', 'desc')->first();
 
         $hora_inicio = Carbon::createFromDate($ordem_producao->hora_inicio); //formata hora do carbon
         $hora_fim = Carbon::createFromDate($ordem_producao->hora_fim); //formata hora do carbon
@@ -107,25 +96,63 @@ class OrdemProducaoController extends Controller
         $total_horas_equipamento = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
 
         $total_minutos = $hora_fim->diffInMinutes($hora_inicio);
-        $producao_por_hora = round($ordem_producao->quantidade_producao / $total_minutos * 60);
+        if($total_horimetro >0){
+            $producao_por_hora = round($ordem_producao->quantidade_producao / $total_horimetro);
+        }else{
+            $producao_por_hora='';  
+        }
+        
 
-        if (empty($op_horimetro_inicial)) { //caso o registro seja o primeiro, pega ele mesmo como horimetro inicial
-            $horimetro_inicial = $ordem_producao->horimetro_final;
-            $total_horimetro = 0;
-        } else {
-            $horimetro_inicial = $op_horimetro_inicial->horimetro_final;
-            $total_horimetro =  $ordem_producao->horimetro_final - $horimetro_inicial;
+        /**
+         * manipulação da collection de recursos de produtos
+         */
+        $recursos_producao = DB::table('recursos_producao as rp')
+            ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
+            ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
+            ->selectRaw('sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) 
+            as total_hora, rp.*, eq.nome as equipamento, p.nome as produto')
+            ->where('ordem_producao_id', $ordem_producao->id)->get();
+
+        //adiciona horimetro_inicial, total_horimetro na collection
+        foreach ($recursos_producao as $recurso) {
+            if ($recurso->horimetro_final != null) { //VERIFICA SE O EQUIPAMENTO TEM HORÍMETRO
+                $horimetro_inicial = DB::table('recursos_producao')->selectRaw(' max(horimetro_final) as horimetro_inicial')
+                    ->where('equipamento_id', $recurso->equipamento_id)
+                    ->where('horimetro_final', '<', $recurso->horimetro_final)->first();
+                $recurso->horimetro_inicial = $horimetro_inicial->horimetro_inicial;
+                $recurso->total_horimetro = round($recurso->horimetro_final - $recurso->horimetro_inicial, 2);
+                $recurso->consumo_hora = $recurso->quantidade / $recurso->total_horimetro;
+            } else { //CASO O EQUIPMENTO NÃO TENHA HORÍMETRO
+                $recurso->horimetro_inicial = '';
+                $recurso->total_horimetro = '';
+                if($total_horimetro >0 ){
+                    $recurso->consumo_hora = round($recurso->quantidade / $total_horimetro, 2);
+                }else{
+                    $recurso->consumo_hora=0.0;
+                }
+            }
+            $recurso->consumo_quant= $recurso->quantidade / $ordem_producao->quantidade_producao *1000;
+
+            $estoque = Produto::select('estoque_atual')
+            ->where('id', $recurso->produto_id)->first();
+            $recurso->estoque_atual= $estoque->estoque_atual;
+            $recurso->estoque_anterior= $recurso->estoque_atual + $recurso->quantidade;
         }
 
-        $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
-        /* $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get(); */
 
+        /* $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get(); */
+
+        $paradas = DB::table('paradas_equipamentos')
+        ->selectRaw('*, sec_to_time(TIMESTAMPDIFF(SECOND, hora_inicio, hora_fim)) 
+        as total_hora ')
+        ->where('ordem_producao_id', $ordem_producao->id)->get();
+        /* dd($paradas); */
 
         return view(
             'app.ordem_producao.show',
             [
                 'ordem_producao' => $ordem_producao,
-                'horimetro_inicial' => $horimetro_inicial,
+                'op_horimetro_inicial' => $op_horimetro_inicial,
                 'paradas' => $paradas,
                 'recursos_producao' => $recursos_producao,
                 'total_horimetro' => $total_horimetro,

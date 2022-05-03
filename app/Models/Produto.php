@@ -12,8 +12,7 @@ class Produto extends Model
         'nome', 'descricao', 'marca_id',
          'unidade_medida_id', 'categoria_id',
           'estoque_minimo', 'estoque_ideal', 
-          'estoque_maximo', 'estoque_atual',
-          'tipo_calculo_teor'
+          'estoque_maximo', 'estoque_atual'
         ];
 
     public function marca(){
@@ -28,7 +27,4 @@ class Produto extends Model
         return $this->belongsTo('App\Models\UnidadeMedida', 'unidade_medida_id', 'id');
     }
 
-    public function tipo_calculo_teor(){
-        return $this->belongsTo('App\Models\TipoCalculoTeor', 'tipo_calculo_teor', 'id');
-    }
 }

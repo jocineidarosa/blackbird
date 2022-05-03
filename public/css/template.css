@@ -247,11 +247,12 @@ footer.footer {
 
 .card-header-template {
     display: flex;
+    color: #472be2;
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
     margin-bottom: 0;
-    background-color: #c9d0da;
+    background-color: #95e2b3;
     border-bottom: 1px solid rgba(0, 0, 0, .125)
 }
 

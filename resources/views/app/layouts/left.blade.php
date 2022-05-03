@@ -24,9 +24,9 @@
             </li>
 
             <li class="nav-item">
-                <a href="#">
+                <a href="{{route('fornecedor.index')}}">
                     <i class="icofont-chart-histogram mr-2"></i>
-                    Relatório Gerencial
+                    FORNECEDORES
                 </a>
             </li>
 
@@ -41,6 +41,13 @@
                 <a href="{{route('ordem-producao.index')}}">
                     <i class="icofont-layout"></i>
                     ORDEM DE PRODUÇÃO
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('recursos-producao.index')}}">
+                    <i class="icofont-layout"></i>
+                    OPERAÇOES EQUIPAMENTOS
                 </a>
             </li>
 

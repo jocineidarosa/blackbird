@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\SaidaProduto;
+use App\Models\MotivoSaidaProduto;
 
 class SaidaProdutoController extends Controller
 {
@@ -15,8 +16,8 @@ class SaidaProdutoController extends Controller
      */
     public function index()
     {
-        $saidas_produtos= SaidaProduto::all();
-        return view('app.saida_produto.index', ['saidas_produtos'=> $saidas_produtos]);
+        $saidas_produtos = SaidaProduto::all();
+        return view('app.saida_produto.index', ['saidas_produtos' => $saidas_produtos]);
     }
 
     /**
@@ -26,8 +27,16 @@ class SaidaProdutoController extends Controller
      */
     public function create()
     {
-        $produtos= Produto::all();
-        return view('app.saida_produto.create', ['produtos'=>$produtos]);
+        $produtos = Produto::all();
+        $tipos_saida = MotivoSaidaProduto::all();
+
+        return view(
+            'app.saida_produto.create',
+            [
+                'produtos' => $produtos,
+                'tipos_saida' => $tipos_saida
+            ]
+        );
     }
 
     /**
@@ -39,10 +48,10 @@ class SaidaProdutoController extends Controller
     public function store(Request $request)
     {
         SaidaProduto::create($request->all());
-        $produto=Produto::find($request->input('produto_id'));//busca o registro do produto com o id da entrada do produto
-        $produto->estoque_atual=$produto->estoque_atual - $request->input('quantidade');// soma estoque antigo com a entrada de produto
+        $produto = Produto::find($request->input('produto_id')); //busca o registro do produto com o id da entrada do produto
+        $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
         $produto->save();
-        return redirect()->route('entrada-produto.index');
+        return redirect()->route('saida-produto.index');
     }
 
     /**
@@ -85,8 +94,18 @@ class SaidaProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SaidaProduto $saida_produto)
     {
-        //
+        if ($saida_produto->motivo == 1) {
+            $message = 'Não pode ser ecluido';
+        } else {
+            $produto = Produto::find($saida_produto->produto_id); //busca o registro do produto com o id da entrada do produto
+            $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade; // soma estoque antigo com a entrada de produto
+            $produto->save();
+            $message='';
+            $saida_produto->delete();
+        }
+        $saidas_produtos = SaidaProduto::all();
+        return view('app.saida_produto.index', ['saidas_produtos' => $saidas_produtos, 'message' => $message]);
     }
 }

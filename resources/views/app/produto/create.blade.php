@@ -4,7 +4,7 @@
     <main class="content">
         <div class="card">
             <div class="card-header-template">
-                <div>CADASTRO DE PRODUTOS</div>
+                <div>CADASTRO OPERAÇOES DE EQUIPAMENTOS (AVULSO)</div>
                 <div>
                     <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
                         LISTAGEM
@@ -15,10 +15,7 @@
             <div class="card-body">
                 @component('app.produto._components.form_create_edit', 
                     [
-                        'marcas' => $marcas,
-                        'unidades' => $unidades,
-                        'categorias' => $categorias,
-                        'tipos_calculo_teor'=>$tipos_calculo_teor
+                        'equipamentos' => $equipamentos
                     ])
                 @endcomponent
             </div>

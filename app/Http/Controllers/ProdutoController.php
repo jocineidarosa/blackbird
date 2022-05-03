@@ -81,13 +81,11 @@ class ProdutoController extends Controller
         $unidades = UnidadeMedida::all();
         $categorias = Categoria::all();
         $marcas=Marca::all();
-        $tipos_calculo_teor= TipoCalculoTeor::all();
         return view('app.produto.edit', 
             ['produto'=>$produto, 
             'marcas'=>$marcas, 
             'unidades'=>$unidades, 
-            'categorias'=>$categorias,
-            'tipos_calculo_teor'=>$tipos_calculo_teor
+            'categorias'=>$categorias
         ]);
 
     }

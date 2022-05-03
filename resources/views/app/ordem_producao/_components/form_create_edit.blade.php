@@ -48,6 +48,13 @@
         </div>
 
         <div class="row mb-1">
+            <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção por Hora</label>
+            <div class="col-md-6">
+                <input name="producao_hora" id="producao_hora" type="text" class="form-control-disabled" disabled>
+            </div>
+        </div>
+
+        <div class="row mb-1">
             <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data Inicial</label>
 
             <div class="col-md-6">
@@ -96,8 +103,8 @@
                 Inicial</label>
 
             <div class="col-md-6">
-                <input name="horimetro_inicial" id="horimetro_inicial" disabled
-                    class="form-control-disabled" horimetro_inicial="horimetro_inicial"
+                <input name="horimetro_inicial" id="horimetro_inicial" disabled class="form-control-disabled"
+                    horimetro_inicial="horimetro_inicial"
                     value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}" autofocus>
                 {{ $errors->has('horimetro_inicial') ? $errors->first('horimetro_inicial') : '' }}
 
@@ -109,13 +116,20 @@
                 Final</label>
 
             <div class="col-md-6">
-                <input name="horimetro_final" id="horimetro_final" type="number" step="0.01"
-                    class="form-control-template" horimetro_final="horimetro_final"
-                    value="{{ $produto->horimetro_final ?? old('horimetro_final') }}" autofocus>
+                <input name="horimetro_final" id="horimetro_final" class="form-control-template"
+                    value="{{ $produto->horimetro_final ?? old('horimetro_final') }}"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                 {{ $errors->has('horimetro_final') ? $errors->first('horimetro_final') : '' }}
-
             </div>
         </div>
+
+        <div class="row mb-1">
+            <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Total Horimetro</label>
+            <div class="col-md-6">
+                <input name="total_horimetro" id="total_horimetro" type="text" class="form-control-disabled" disabled>
+            </div>
+        </div>
+
 
 
         <div class="row mb-1">
@@ -134,6 +148,21 @@
         </div>
 
 
+        <div class="row mb-1">
+            <label for="observacao" class="col-md-4 col-form-label text-md-end text-right">Observações</label>
+            <div class="col-md-6">
+            <textarea class="form-control" name="observacao"></textarea>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
 
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
@@ -150,18 +179,41 @@
             var equipamento_id = $("#equipamento_id option:selected").val();
             $("#horimetro_inicial").val('');
             $.ajax({
-                url: "{{route('utils.get-horimetro-inicial')}}",
+                url: "{{ route('utils.get-horimetro-inicial') }}",
                 type: "get",
                 data: {
                     'equipamento_id': equipamento_id,
-                    'table' : 'ordens_producoes'
+                    'table': 'ordens_producoes'
                 },
                 dataType: "json",
-                success:function(response) {
+                success: function(response) {
                     $("#horimetro_inicial").val(response);
                 }
             })
-            
+
+        });
+
+        $('#horimetro_final').change(function() {
+            var horimetro_inicial = $('#horimetro_inicial').val();
+            var horimetro_final = $('#horimetro_final').val();
+            var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
+            var quant_producao = $('#quantidade_producao').val();
+            $('#total_horimetro').val(total_horimetro);
+            var producao_hora = (quant_producao / total_horimetro).toFixed(0);
+            $('#producao_hora').val(producao_hora);
+
+
+        });
+
+        $('#quantidade_producao').change(function() {
+            var horimetro_inicial = $('#horimetro_inicial').val();
+            var horimetro_final = $('#horimetro_final').val();
+            var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
+            var quant_producao = $('#quantidade_producao').val();
+            $('#total_horimetro').val(total_horimetro);
+            var producao_hora = (quant_producao / total_horimetro).toFixed(0);
+            $('#producao_hora').val(producao_hora);
+
         });
     });
 

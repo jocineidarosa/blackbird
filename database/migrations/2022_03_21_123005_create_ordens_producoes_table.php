@@ -26,6 +26,7 @@ class CreateOrdensProducoesTable extends Migration
             $table->time('hora_fim')->nullable();
             $table->double('horimetro_final', 8,2)->nullable();
             $table->string('status');
+            $table->text('observacao',400);
             $table->timestamps();
         });
     }

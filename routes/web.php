@@ -37,38 +37,32 @@ Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoCon
 //equipamento
 Route::middleware('auth')->resource('/equipamento', 'App\Http\Controllers\EquipamentoController');
 
-//ordem de produção
-Route::middleware('auth')->resource('/ordem-producao', 'App\Http\Controllers\OrdemProducaoController');
-
-
-
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\EntradaProdutoController');
 
 //saida de produtos
 Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController');
 
+//ordem-producao
+Route::middleware('auth')->resource('/ordem-producao', 'App\Http\Controllers\OrdemProducaoController');
 
+//produto-fornecedor -create
 Route::middleware('auth')->get('produto_fornecedor/create','App\Http\Controllers\ProdutoFornecedorController@create'
 )->name('produto-fornecedor.create');
 
-//produto-fornecedor
-Route::middleware('auth')->post('produto_fornecedor/store','App\Http\Controllers\ProdutoFornecedorController@store'
-)->name('produto-fornecedor.store');
 
 //mostra produto-fornecedor
 Route::middleware('auth')->post('produto_fornecedor/show','App\Http\Controllers\ProdutoFornecedorController@show'
 )->name('produto-fornecedor.show');
 
+//produto-fornecedor-destroy
 Route::middleware('auth')->delete('produto_fornecedor/{produtoFornecedor}/{fornecedor}','App\Http\Controllers\ProdutoFornecedorController@destroy'
 )->name('produto-fornecedor.destroy');
-
+//produto-fornecedor.store
 Route::middleware('auth')->post('produto_fornecedor/store/{fornecedor}','App\Http\Controllers\ProdutoFornecedorController@store'
 )->name('produto-fornecedor.store');
 
-//recursos-ordem-producao
-Route::middleware('auth')->post('recursos-producao/store/{ordem_producao}','App\Http\Controllers\RecursosProducaoController@store'
-)->name('recursos-producao.store');
+
 
 Route::middleware('auth')->post('parada-equipamento/store/{ordem_producao}','App\Http\Controllers\ParadaEquipamentoController@store'
 )->name('parada-equipamento.store');
@@ -80,3 +74,31 @@ Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controlle
 //busca o horimetro inicial de recursos de produção via ajax.
 Route::middleware('auth')->get('utils/get-horimetro-inicial-recursos','App\Http\Controllers\UtilsController@getHorimetroInicialRecursos'
 )->name('utils.get-horimetro-inicial-recursos');
+
+//grupo recursos_producao
+Route::middleware('auth')->prefix('/recursos-producao')->group(function() {
+    Route::get('index','App\Http\Controllers\RecursosProducaoController@index'
+    )->name('recursos-producao.index');  
+
+    Route::get('create','App\Http\Controllers\RecursosProducaoController@create'
+    )->name('recursos-producao.create');
+
+    Route::post('store/{ordem_producao}','App\Http\Controllers\RecursosProducaoController@store'
+    )->name('recursos-producao.store');
+
+    Route::post('store_avulso','App\Http\Controllers\RecursosProducaoController@store_avulso'
+    )->name('recursos-producao.store_avulso');
+
+    Route::get('show/{operacao}','App\Http\Controllers\RecursosProducaoController@show'
+    )->name('recursos-producao.show');
+
+    Route::get('edit/{operacao}','App\Http\Controllers\RecursosProducaoController@edit'
+    )->name('recursos-producao.edit');
+
+    Route::get('update/{operacao}','App\Http\Controllers\RecursosProducaoController@update'
+    )->name('recursos-producao.update');
+    
+    Route::delete('destroy/{operacao}','App\Http\Controllers\RecursosProducaoController@destroy'
+    )->name('recursos-producao.destroy');
+
+});

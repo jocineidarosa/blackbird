@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiposCalculoTeorTable extends Migration
+class CreateCidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateTiposCalculoTeorTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_calculo_teor', function (Blueprint $table) {
+        Schema::create('cidades', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo_calculo_teor', 45);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateTiposCalculoTeorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_calculo_teor');
+        Schema::dropIfExists('cidades');
     }
 }

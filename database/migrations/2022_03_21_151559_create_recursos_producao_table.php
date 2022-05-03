@@ -15,7 +15,7 @@ class CreateRecursosProducaoTable extends Migration
     {
         Schema::create('recursos_producao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ordem_producao_id');
+            $table->unsignedBigInteger('ordem_producao_id')->nullable();
             $table->foreign('ordem_producao_id')->references('id')->on('ordens_producoes');
             $table->unsignedBigInteger('equipamento_id')->nullable();
             $table->foreign('equipamento_id')->references('id')->on('equipamentos');

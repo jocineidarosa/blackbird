@@ -36,11 +36,11 @@
                 <label for="motivo" class="col-md-4 col-form-label text-md-end text-right">Tipo de Saida</label>
                 <div class="col-md-6">
                     <select name="motivo" id="" class="form-control">
-                        <option value=""> --Selecione o Produto--</option>
-                        @foreach ($produtos as $produto)
-                            <option value="{{ $produto->id }}"
-                                {{ ($produto->motivo ?? old('motivo')) == $produto->id ? 'selected' : '' }}>
-                                {{ $produto->nome }}</option>
+                        <option value=""> --Selecione o tipo de Saida--</option>
+                        @foreach ($tipos_saida as $tipo_saida)
+                            <option value="{{ $tipo_saida->id }}"
+                                {{ ($tipo_saida->motivo ?? old('motivo')) == $tipo_saida->id ? 'selected' : '' }}>
+                                {{ $tipo_saida->motivo }}</option>
                         @endforeach
                     </select>
                     {{ $errors->has('motivo') ? $errors->first('motivo') : '' }}

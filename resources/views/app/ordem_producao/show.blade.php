@@ -25,7 +25,7 @@
                         <td class="pl-2" style="width: 6rem;" colspan="2">{{ $ordem_producao->id }}</td>
                         <td class="text-right th-title pr-2" style="width: 6rem;" colspan="2">Data</td>
                         <td class="pl-2" style="width: 5px;" colspan="2">
-                            {{ \Carbon\Carbon::parse($ordem_producao->data_inicio)->format('d/m/Y') }}</td>
+                            {{Carbon\Carbon::parse($ordem_producao->data_inicio)->format('d/m/Y') }}</td>
                         <td class="th-title pr-2 text-right" colspan="2">Estado da Ordem</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->status }}</td>
                     </tr>
@@ -40,7 +40,7 @@
                         <td class="text-right pr-2 th-title" colspan="2">Início</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->hora_inicio }}</td>
                         <td class="text-right pr-2 th-title" style="width: 6rem;" colspan="2">Início</td>
-                        <td class="pl-2" style="width: 6rem;" colspan="2">{{ number_format($horimetro_inicial, 2) }}</td>
+                        <td class="pl-2" style="width: 6rem;" colspan="2">{{number_format($op_horimetro_inicial,2)}}</td>
                         <td class="text-right th-title pr-2" style="width: 10rem;" colspan="2">PRODUTO</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->produto->nome }}</td>
                         <td class="text-right th-title pr-2" colspan="2">QUANTIDADE</td>
@@ -54,8 +54,8 @@
                         <td class="text-right th-title pr-2" colspan="2">Término</td>
                         <td class="pl-2" colspan="2">{{ number_format($ordem_producao->horimetro_final, 2) }}</td>
                         <td class="text-right th-title pr-2" colspan="2">PRODUÇÃO POR HORA</td>
-                        <td class="pl-2" colspan="2">{{ number_format($producao_por_hora) }}
-                            {{ $ordem_producao->produto->unidade_medida->nome }} - POR HORA</td>
+                        <td class="pl-2" colspan="2">{{$producao_por_hora}}
+                            {{ $ordem_producao->produto->unidade_medida->nome }} - POR HORA </td>
                         <td class="th-title" colspan="2"></td>
                         <td class="th-title" colspan="2"></td>
 
@@ -71,54 +71,73 @@
                     <tr>
                         <td colspan="16" ></td>
                     </tr>
+                    <tr>
+                        <td colspan="16" class="th-title">Observações</td>
+                    </tr>
 
                     <tr>
-                        <td colspan="16" class="th-title-main text-center">INFORMAÇÕES SOBRE RECURSOS UTILIZADOS</td>
+                        <td colspan="16">{{$ordem_producao->observacao}}</td>
+                    </tr>
+                    <td colspan="16"></td>
+
+                    <tr>
+                        <td colspan="16" class="th-title-main">INFORMAÇÕES SOBRE RECURSOS UTILIZADOS</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="th-title">Equipamento</td>
                         <td class="th-title" colspan="3">Produto</td>
-                        <td class="th-title">quant</td>
-                        <td class="th-title">Horímetro Inicial</td>
-                        <td class="th-title">Horímetro Final</td>
+                        <td class="th-title">quant/cons.</td>
+                        <td class="th-title">Horm.Ini.</td>
+                        <td class="th-title">Horm.Fim</td>
                         <td class="th-title">Tot.Hm</td>
                         <td class="th-title">Hora Inicial</td>
                         <td class="th-title">Hora Final</td>
                         <td class="th-title">Temp.OP</td>
-                        <td class="th-title" colspan="2">cons/teor</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="th-title">Consm/hora</td>
+                        <td class="th-title">Consm/ton</td>
                     </tr>
                     @foreach ($recursos_producao as $recurso)
                         <tr>
                             <td colspan="4">{{ $recurso->equipamento    }}</td>
                             <td colspan="3">{{ $recurso->produto}}</td>
                             <td>{{ $recurso->quantidade }}</td>
-                            <td>{{ $recurso->horimetro_inicial }}</td>
-                            <td>{{ $recurso->horimetro_final }}</td>
+                            <td>{{ $recurso->horimetro_inicial}}</td>
+                            <td>{{ $recurso->horimetro_final}}</td>
                             <td>{{$recurso->total_horimetro}}</td>
                             <td>{{ $recurso->hora_inicio }}</td>
                             <td>{{ $recurso->hora_fim }}</td>
                             <td>{{$recurso->total_hora}}</td>
-                            <td colspan="2"></td>
+                            <td>{{number_format($recurso->consumo_hora, 2)}} /hora</td>
+                            <td>{{number_format($recurso->consumo_quant, 2)}}/ton</td>
                         </tr>
+
                     @endforeach
+                    <tr>
+                        <td colspan="16"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="16" class="th-title-main">condições de estoque de produtos</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="th-title text-center"> Produto</td>
+                        <td colspan="3" class="th-title text-center"> Estoque Anterior</td>
+                        <td colspan="3" class="th-title text-center"> Ultima Entrada</td>
+                        <td colspan="3" class="th-title text-center"> Consumo</td>
+                        <td colspan="3" class="th-title text-center"> estoque Final</td>
+                    </tr>
+
+                    @foreach ( $recursos_producao as $estoque)
+                        <tr>
+                            <td colspan="4">{{$estoque->produto}}</td>
+                            <td colspan="3">{{$estoque->estoque_anterior}}</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">{{$estoque->quantidade}}</td>
+                            <td colspan="3">{{$estoque->estoque_atual}}</td>
+                        </tr>
+                        
+                    @endforeach
+
+
                     <tr>
                         <td colspan="16"></td>
                     </tr>
@@ -129,16 +148,17 @@
 
                     @if (isset($paradas) && $paradas->count() > 0)
                         <tr>
-                            <td class="text-right th-title pr-2" colspan="2">Hora Inicial</td>
-                            <td class="text-right th-title pr-2" colspan="2">Hora Final</td>
-                            <td class="text-center th-title pr-2" colspan="12">Descrição das Ocorências</td>
+                            <td class="text-center th-title pr-2" colspan="2">Hora Inicial</td>
+                            <td class="text-center th-title pr-2" colspan="2">Hora Final</td>
+                            <td class="text-center th-title pr-2" colspan="2">Total</td>
+                            <td class="text-center th-title pr-2" colspan="10">Descrição das Ocorências</td>
                         </tr>
-
                         @foreach ($paradas as $parada)
                             <tr>
                                 <td class="text-center" colspan="2">{{ $parada->hora_inicio }}</td>
                                 <td class="text-center" colspan="2">{{ $parada->hora_fim }}</td>
-                                <td colspan="12">{{ $parada->descricao }}</td>
+                                <td class="text-center" colspan="2">{{ $parada->total_hora }}</td>
+                                <td colspan="10">{{ $parada->descricao }}</td>
                             </tr>
                         @endforeach
                     @else
