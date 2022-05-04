@@ -25,5 +25,11 @@ class MotivoSaidaProdutoSeeder extends Seeder
                 'motivo' => 'AVULSO'
             ]
         );
+
+        MotivoSaidaProduto::create(
+            [
+                'motivo' => 'TRANSFERÊNCIA'
+            ]
+        );
     }
 }

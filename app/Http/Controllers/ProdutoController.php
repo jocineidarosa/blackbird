@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\UnidadeMedida;
 use App\Models\Categoria;
-use App\Models\TipoCalculoTeor;
 
 //use phpDocumentor\Reflection\Types\This;
 
@@ -34,13 +33,11 @@ class ProdutoController extends Controller
         $marcas = Marca::all();
         $unidades = UnidadeMedida::all();
         $categorias = Categoria::all();
-        $tipos_calculo_teor= TipoCalculoTeor::all();
         return view('app.produto.create', 
             [
                 'marcas'=>$marcas,
                 'unidades'=>$unidades,
-                'categorias'=>$categorias,
-                'tipos_calculo_teor'=>$tipos_calculo_teor
+                'categorias'=>$categorias
             ]);
 
     }

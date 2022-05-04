@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\OrdemProducao;
 use App\Models\Equipamento;
-use App\Models\ParadaEquipamento;
-use App\Models\RecursosProducao;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 
 use function PHPUnit\Framework\isNull;
 
@@ -37,6 +37,8 @@ class OrdemProducaoController extends Controller
     {
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
+        $statuss= Status::all();
+
         return view('app.ordem_producao.create', ['produtos' => $produtos, 'equipamentos' => $equipamentos]);
     }
 
@@ -138,9 +140,6 @@ class OrdemProducaoController extends Controller
             $recurso->estoque_atual= $estoque->estoque_atual;
             $recurso->estoque_anterior= $recurso->estoque_atual + $recurso->quantidade;
         }
-
-
-        /* $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get(); */
 
         $paradas = DB::table('paradas_equipamentos')
         ->selectRaw('*, sec_to_time(TIMESTAMPDIFF(SECOND, hora_inicio, hora_fim)) 

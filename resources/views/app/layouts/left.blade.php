@@ -2,6 +2,28 @@
 <aside class="sidebar">
     <nav class="menu mt-3">
         <ul class="nav-list">
+
+            <li class="nav-item">
+                <a href="{{route('empresa.index')}}">
+                    <i class="icofont-chart-histogram mr-2"></i>
+                    EMPRESAS
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('fornecedor.index')}}">
+                    <i class="icofont-chart-histogram mr-2"></i>
+                    FORNECEDORES
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('cliente.index')}}">
+                    <i class="icofont-chart-histogram mr-2"></i>
+                    CLIENTES
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a href="{{route('produto.index')}}">
                     <i class="icofont-flask"></i>
@@ -23,17 +45,28 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('fornecedor.index')}}">
-                    <i class="icofont-chart-histogram mr-2"></i>
-                    FORNECEDORES
-                </a>
-            </li>
+           
+
+           
 
             <li class="nav-item">
                 <a href="{{route('marca.index')}}">
                     <i class="icofont-copyright"></i>
                     MARCAS 
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('category.index')}}">
+                    <i class="icofont-copyright"></i>
+                    CATEGORIAS 
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('unidade-medida.index')}}">
+                    <i class="icofont-copyright"></i>
+                    UNIDADE DE MEDIDA 
                 </a>
             </li>
 

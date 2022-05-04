@@ -21,8 +21,6 @@ class CreateEmpresasTable extends Migration
             $table->string('insc_estadual')->nullable();
             $table->string('endereco')->nullable();
             $table->string('bairro')->nullable();
-            $table->unsignedBigInteger('estado_id');
-            $table->foreign('estado_id')->references('id')->on('ufs');
             $table->unsignedBigInteger('cidade_id');
             $table->foreign('cidade_id')->references('id')->on('cidades');
             $table->string('telefone')->nullable();

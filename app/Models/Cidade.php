@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Uf;
 
-class Categoria extends Model
+class Cidade extends Model
 {
     use HasFactory;
 
     protected $fillable=[
-        'nome', 'descricao'
+        'nome', 'uf_id'
     ];
+
+    public function uf(){
+        return $this->belongsTo(Uf::class);
+    }
 }

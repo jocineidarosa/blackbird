@@ -20,9 +20,10 @@
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">Estoque Mínimo</th>
-                            <th scope="col">Estoque Máximo</th>
-                            <th scope="col">Estoque Atual</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Un.</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Estoque</th>
                             <th scope="col">Visualizar</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Excluir</th>
@@ -35,8 +36,9 @@
                                 <th scope="row">{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
-                                <td>{{ $produto->estoque_minimo }}</td>
-                                <td>{{ $produto->estoque_maximo }}</td>
+                                <td>{{ $produto->marca->nome }}</td>
+                                <td>{{ $produto->unidade_medida->nome}}</td>
+                                <td>{{ $produto->categoria->nome}}</td>
                                 <td>{{ $produto->estoque_atual }}</td>
                                 <td><a class="btn btn-sm-template btn-primary" href="{{ route('produto.show', ['produto' => $produto->id]) }}">Visualizar</a></td>
                                 <td><a class="btn btn-sm-template btn-primary" href="{{ route('produto.edit', ['produto' => $produto->id]) }}">Editar</a></td>

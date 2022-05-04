@@ -12,6 +12,8 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+     //essa function controla a autenticação da view 'home'
     public function __construct()
     {
         $this->middleware('auth');

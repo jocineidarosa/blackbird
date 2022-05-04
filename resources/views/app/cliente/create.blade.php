@@ -4,20 +4,17 @@
     <main class="content">
         <div class="card">
             <div class="card-header-template">
-                <div>CADASTRO DE PRODUTOS</div>
+                <div>Cadastro de Clientes</div>
                 <div>
-                    <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('cliente.index') }}" class="btn btn-sm btn-primary">
                         LISTAGEM
                     </a>
                 </div>
             </div>
 
             <div class="card-body">
-                @component('app.produto._components.form_create_edit', 
-                    [
-                        'marcas'=>$marcas,
-                        'unidades'=>$unidades,
-                        'categorias'=>$categorias
+                @component('app.cliente._components.form_create_edit', [
+                    'empresas'=>$empresas, 'pessoas'=>$pessoas
                     ])
                 @endcomponent
             </div>

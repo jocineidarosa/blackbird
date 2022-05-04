@@ -25,7 +25,8 @@ class CreateOrdensProducoesTable extends Migration
             $table->time('hora_inicio')->nullable();
             $table->time('hora_fim')->nullable();
             $table->double('horimetro_final', 8,2)->nullable();
-            $table->string('status');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->text('observacao',400);
             $table->timestamps();
         });

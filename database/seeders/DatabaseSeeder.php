@@ -21,11 +21,17 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaSeeder::class);
         $this->call(UnidadeMedidaSeeder::class);
         $this->call(MotivoSaidaProdutoSeeder::class);
+        $this->call(StatusSeeder::class);
         $this->call(FornecedorSeeder::class);
         $this->call(ProdutoSeeder::class);
         $this->call(EquipamentoSeeder::class);
         $this->call(UfSeeder::class);
+        $this->call(CidadeSeeder::class);
+        $this->call(EmpresaSeeder::class);
+        $this->call(PessoaSeeder::class);
         $this->call(ProdutoFornecedorSeeder::class);
+        $this->call(OrdemProducaoSeeder::class);
+        $this->call(RecursosProducaoSeeder::class);
 
     }
 }

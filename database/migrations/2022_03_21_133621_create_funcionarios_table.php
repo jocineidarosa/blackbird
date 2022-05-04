@@ -15,15 +15,12 @@ class CreateFuncionariosTable extends Migration
     {
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
-            $table->string('primeiro_nome');
-            $table->string('ultimo_nome');
-            $table->string('cpf');
-            $table->string('rg');
-            $table->string('endereco');
-            $table->string('num_casa');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('uf');
+            $table->unsignedBigInteger('pessoa_id');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas');
+            $table->string('num_registro');
+            $table->date('data_admissao');
+            $table->date('data_demissao');
+            $table->double('salario');
             $table->timestamps();
         });
     }

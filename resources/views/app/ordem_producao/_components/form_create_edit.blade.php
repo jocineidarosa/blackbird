@@ -132,19 +132,16 @@
 
 
 
-        <div class="row mb-1">
-            <label for="situacao" class="col-md-4 col-form-label text-md-end text-right">Situação</label>
-
-            <div class="col-md-6">
-                <select name="status" id="status" class="form-control-template">
-                    <option value="">--Selecione a Situação--</option>
-                    <option value="ABERTO">Aberto</option>
-                    <option value="EM PRODUÇÃO">Em produção</option>
-                    <option value="CONCLUIDO">Concluida</option>
-                </select>
-                {{ $errors->has('situacao') ? $errors->first('situacao') : '' }}
-
-            </div>
+        <div class="col-md-6">
+            <select name="produto_id" id="" class="form-control-template" required>
+                <option value=""> --Selecione o Produto-</option>
+                @foreach( $statuss as $status)
+                    <option value="{{$status->id }}"
+                        {{ ($ordem_producao->produto_id ?? old('produto_id')) ==$status->id ? 'selected' : '' }}>
+                        {{$status->nome }}</option>
+                @endforeach
+            </select>
+            {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
         </div>
 
 

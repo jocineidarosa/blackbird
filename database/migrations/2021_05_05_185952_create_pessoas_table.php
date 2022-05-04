@@ -23,8 +23,6 @@ class CreatePessoasTable extends Migration
             $table->string('titulo_eleitor');
             $table->string('data_nascimento');
             $table->string('endereço');
-            $table->unsignedBigInteger('uf_id');
-            $table->foreign('uf_id')->references('id')->on('ufs');
             $table->unsignedBigInteger('cidade_id');
             $table->foreign('cidade_id')->references('id')->on('cidades');
             $table->timestamps();

@@ -15,10 +15,11 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_cliente');
-            $table->foreign('tipo_cliente')->references('id')->on('tipos_clientes');
-            $table->unsignedBigInteger('empresa_id');
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->unsignedBigInteger('pessoa_id')->nullable();
+            $table->foreign('pessoa_id')->references('id')->on('pessoas');
+            $table->date('data_inicio');
             $table->timestamps();
         });
     }
