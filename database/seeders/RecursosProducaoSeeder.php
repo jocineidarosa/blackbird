@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\RecursosProducao;
+use App\Models\Produto;
+use Illuminate\Support\Facades\DB;
 
 class RecursosProducaoSeeder extends Seeder
 {
@@ -27,11 +29,9 @@ class RecursosProducaoSeeder extends Seeder
         ]);
 
 
-
-
         RecursosProducao::create([
             'ordem_producao_id'=>'2',
-            'equipamento_id'=>'7',
+            'equipamento_id'=>'7',//caldeira
             'produto_id'=>'2',
             'quantidade'=>'240',
             'horimetro_final'=>'7325.12',
@@ -43,7 +43,7 @@ class RecursosProducaoSeeder extends Seeder
 
          RecursosProducao::create([
             'ordem_producao_id'=>'3',
-            'equipamento_id'=>'7',
+            'equipamento_id'=>'7',//caldeira
             'produto_id'=>'2',
             'quantidade'=>'202',
             'horimetro_final'=>'7331.12',
@@ -60,7 +60,6 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'1495',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-18',
             'data_fim'=>'2021-08-18',
             'hora_inicio'=>'00:00',
@@ -72,7 +71,6 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'13619',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-19',
             'data_fim'=>'2021-08-19',
             'hora_inicio'=>'00:00',
@@ -84,7 +82,6 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'11220',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-20',
             'data_fim'=>'2021-08-20',
             'hora_inicio'=>'00:00',
@@ -97,7 +94,6 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'236',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-18',
             'data_fim'=>'2021-08-18',
             'hora_inicio'=>'00:00',
@@ -109,7 +105,6 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'1968',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-20',
             'data_fim'=>'2021-08-20',
             'hora_inicio'=>'00:00',
@@ -121,12 +116,19 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'1406',
-            'horimetro_final'=>'0',
             'data_inicio'=>'2021-08-20',
             'data_fim'=>'2021-08-20',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
+
+
+         DB::table('produtos')->where('id', 1)->update(['estoque_atual' => 5311]);
+
+         DB::table('produtos')->where('id', 2)->update(['estoque_atual' => 247]);
+
+         DB::table('produtos')->where('id', 3)->update(['estoque_atual' => 2104]);
+
 
     }
 }

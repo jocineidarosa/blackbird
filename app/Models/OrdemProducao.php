@@ -31,4 +31,8 @@ class OrdemProducao extends Model
     {
         return $this->belongsTo('App\Models\Produto');
     }
+
+    public function status(){
+        return $this->belongsTo('App\Models\Status');
+    }
 }

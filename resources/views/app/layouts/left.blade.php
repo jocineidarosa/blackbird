@@ -1,98 +1,82 @@
 <!--Classe principal do menu left-->
 <aside class="sidebar">
     <nav class="menu mt-3">
-        <ul class="nav-list">
 
-            <li class="nav-item">
-                <a href="{{route('empresa.index')}}">
-                    <i class="icofont-chart-histogram mr-2"></i>
-                    EMPRESAS
-                </a>
+        <ul class="accordion-menu">
+            <li>
+                <div class="dropdownlink">
+                    <div>
+                        <i class="icofont-cube mr-2"></i>Suprimentos
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="{{route('produto.index')}}">Produtos</a></li>
+                    <li class="item-menu"><a href="{{route('marca.index')}}">Marcas</a></li>
+                    <li class="item-menu"><a href="{{route('category.index')}}">Categorias</a></li>
+                    <li class="item-menu"><a href="{{route('unidade-medida.index')}}">Unidade de Medida</a></li>
+                    <li class="item-menu"><a href="{{route('entrada-produto.index')}}">Entrada de Produtos</a></li>
+                    <li class="item-menu"><a href="{{route('saida-produto.index')}}">Saída de Produtos</a></li>
+                    <li class="item-menu"><a href="{{route('produto-fornecedor.create')}}">Produto por Fornecedor</a></li>
+                </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('fornecedor.index')}}">
-                    <i class="icofont-chart-histogram mr-2"></i>
-                    FORNECEDORES
-                </a>
+            <li>
+                <div class="dropdownlink">
+                    <div>
+                        <i class="icofont-cube mr-2"></i>Logistica
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="{{route('empresa.index')}}">Empresas</a></li>
+                    <li class="item-menu"><a href="{{route('fornecedor.index')}}">Fornecedores</a></li>
+                    <li class="item-menu"><a href="{{route('cliente.index')}}">Clientes</a></li>
+                </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('cliente.index')}}">
-                    <i class="icofont-chart-histogram mr-2"></i>
-                    CLIENTES
-                </a>
+            <li>
+                <div class="dropdownlink">
+                    <div>
+                        <i class="icofont-industries-4 mr-2"></i>Produção
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="{{route('ordem-producao.index')}}">Ordem de Produção</a></li>
+                    <li class="item-menu"><a href="{{route('recursos-producao.index')}}">Operação de equipamentos</a></li>
+                </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('produto.index')}}">
-                    <i class="icofont-flask"></i>
-                    PRODUTOS
-                </a>
+            <li>
+                <div class="dropdownlink">
+                    <div>
+                        <i class="icofont-fork-lift mr-2"></i>Equipamentos
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="{{route('equipamento.index')}}">Cadastro de Equipamentos</a></li>
+                    <li class="item-menu"><a href="#">paradas de equipamentos</a></li>
+                </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('entrada-produto.index')}}">
-                    <i class="icofont-basket"></i>
-                    ENTRADA DE PRODUTOS
-                </a>
+            <li>
+                <div class="dropdownlink">
+                    <div>
+                        <i class="icofont-gear mr-2"></i>Configuraçoes
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="{{route('register')}}">Cadastro de Usuários</a></li>
+                </ul>
             </li>
 
-            <li class="nav-item">
-            <a href="{{route('saida-produto.index')}}">
-                <i class="icofont-delete"></i>
-                    SAÍDA DE PRODUTOS
-                </a>
-            </li>
-
-           
-
-           
-
-            <li class="nav-item">
-                <a href="{{route('marca.index')}}">
-                    <i class="icofont-copyright"></i>
-                    MARCAS 
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('category.index')}}">
-                    <i class="icofont-copyright"></i>
-                    CATEGORIAS 
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('unidade-medida.index')}}">
-                    <i class="icofont-copyright"></i>
-                    UNIDADE DE MEDIDA 
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('ordem-producao.index')}}">
-                    <i class="icofont-layout"></i>
-                    ORDEM DE PRODUÇÃO
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('recursos-producao.index')}}">
-                    <i class="icofont-layout"></i>
-                    OPERAÇOES EQUIPAMENTOS
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('register')}}">
-                    <i class="icofont-users mr-2"></i>
-                    Usuários 
-                </a>
-            </li>
-
-            
+     
         </ul>
+
+       
     </nav>
 
 </aside>

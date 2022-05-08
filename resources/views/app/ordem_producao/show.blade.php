@@ -27,7 +27,7 @@
                         <td class="pl-2" style="width: 5px;" colspan="2">
                             {{Carbon\Carbon::parse($ordem_producao->data_inicio)->format('d/m/Y') }}</td>
                         <td class="th-title pr-2 text-right" colspan="2">Estado da Ordem</td>
-                        <td class="pl-2" colspan="2">{{ $ordem_producao->status }}</td>
+                        <td class="pl-2" colspan="2">{{ $ordem_producao->status->nome }}</td>
                     </tr>
 
                     <tr>
@@ -84,7 +84,7 @@
                         <td colspan="16" class="th-title-main">INFORMAÇÕES SOBRE RECURSOS UTILIZADOS</td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="th-title">Equipamento</td>
+                        <td colspan="3" class="th-title">Equipamento</td>
                         <td class="th-title" colspan="3">Produto</td>
                         <td class="th-title">quant/cons.</td>
                         <td class="th-title">Horm.Ini.</td>
@@ -95,10 +95,11 @@
                         <td class="th-title">Temp.OP</td>
                         <td class="th-title">Consm/hora</td>
                         <td class="th-title">Consm/ton</td>
+                        <td class="th-title">Estoque Atual</td>
                     </tr>
                     @foreach ($recursos_producao as $recurso)
                         <tr>
-                            <td colspan="4">{{ $recurso->equipamento    }}</td>
+                            <td colspan="3">{{ $recurso->equipamento    }}</td>
                             <td colspan="3">{{ $recurso->produto}}</td>
                             <td>{{ $recurso->quantidade }}</td>
                             <td>{{ $recurso->horimetro_inicial}}</td>
@@ -109,34 +110,11 @@
                             <td>{{$recurso->total_hora}}</td>
                             <td>{{number_format($recurso->consumo_hora, 2)}} /hora</td>
                             <td>{{number_format($recurso->consumo_quant, 2)}}/ton</td>
+                            <td>{{$recurso->estoque_atual}}</td>
                         </tr>
 
                     @endforeach
-                    <tr>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="16" class="th-title-main">condições de estoque de produtos</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="th-title text-center"> Produto</td>
-                        <td colspan="3" class="th-title text-center"> Estoque Anterior</td>
-                        <td colspan="3" class="th-title text-center"> Ultima Entrada</td>
-                        <td colspan="3" class="th-title text-center"> Consumo</td>
-                        <td colspan="3" class="th-title text-center"> estoque Final</td>
-                    </tr>
-
-                    @foreach ( $recursos_producao as $estoque)
-                        <tr>
-                            <td colspan="4">{{$estoque->produto}}</td>
-                            <td colspan="3">{{$estoque->estoque_anterior}}</td>
-                            <td colspan="3"></td>
-                            <td colspan="3">{{$estoque->quantidade}}</td>
-                            <td colspan="3">{{$estoque->estoque_atual}}</td>
-                        </tr>
-                        
-                    @endforeach
-
+                  
 
                     <tr>
                         <td colspan="16"></td>

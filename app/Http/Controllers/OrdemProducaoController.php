@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\OrdemProducao;
 use App\Models\Equipamento;
+use App\Models\ParadaEquipamento;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -97,7 +98,7 @@ class OrdemProducaoController extends Controller
         $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
         $total_horas_equipamento = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
 
-        $total_minutos = $hora_fim->diffInMinutes($hora_inicio);
+        /* $total_minutos = $hora_fim->diffInMinutes($hora_inicio); */
         if($total_horimetro >0){
             $producao_por_hora = round($ordem_producao->quantidade_producao / $total_horimetro);
         }else{
@@ -108,16 +109,25 @@ class OrdemProducaoController extends Controller
         /**
          * manipulação da collection de recursos de produtos
          */
+
+        /* 'sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) 
+            as total_hora */
+
         $recursos_producao = DB::table('recursos_producao as rp')
             ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
             ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
-            ->selectRaw('sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) 
-            as total_hora, rp.*, eq.nome as equipamento, p.nome as produto')
+            ->selectRaw('rp.*, eq.nome as equipamento, p.nome as produto')
             ->where('ordem_producao_id', $ordem_producao->id)->get();
 
         //adiciona horimetro_inicial, total_horimetro na collection
         foreach ($recursos_producao as $recurso) {
-            if ($recurso->horimetro_final != null) { //VERIFICA SE O EQUIPAMENTO TEM HORÍMETRO
+            $hora_inicio = Carbon::createFromDate($recurso->hora_inicio); //formata hora do carbon
+            $hora_fim = Carbon::createFromDate($recurso->hora_fim); //formata hora do carbon
+            $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
+            $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
+            $recurso->total_hora = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
+            
+            if (($recurso->horimetro_final != null) and ($recurso->horimetro_final != 0)) { //VERIFICA SE O EQUIPAMENTO TEM HORÍMETRO
                 $horimetro_inicial = DB::table('recursos_producao')->selectRaw(' max(horimetro_final) as horimetro_inicial')
                     ->where('equipamento_id', $recurso->equipamento_id)
                     ->where('horimetro_final', '<', $recurso->horimetro_final)->first();
@@ -141,10 +151,7 @@ class OrdemProducaoController extends Controller
             $recurso->estoque_anterior= $recurso->estoque_atual + $recurso->quantidade;
         }
 
-        $paradas = DB::table('paradas_equipamentos')
-        ->selectRaw('*, sec_to_time(TIMESTAMPDIFF(SECOND, hora_inicio, hora_fim)) 
-        as total_hora ')
-        ->where('ordem_producao_id', $ordem_producao->id)->get();
+        $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
         /* dd($paradas); */
 
         return view(
@@ -160,7 +167,6 @@ class OrdemProducaoController extends Controller
             ]
         );
     }
-
     /**
      * Show the form for editing the specified resource.
      *
