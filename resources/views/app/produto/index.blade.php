@@ -24,9 +24,8 @@
                             <th scope="col">Un.</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Estoque</th>
-                            <th scope="col">Visualizar</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Excluir</th>
+                            <th scope="col" class="th-operacao">sada</th>
+
                         </tr>
                     </thead>
 
@@ -40,16 +39,15 @@
                                 <td>{{ $produto->unidade_medida->nome}}</td>
                                 <td>{{ $produto->categoria->nome}}</td>
                                 <td>{{ $produto->estoque_atual }}</td>
-                                <td><a class="btn btn-sm-template btn-primary" href="{{ route('produto.show', ['produto' => $produto->id]) }}">Visualizar</a></td>
-                                <td><a class="btn btn-sm-template btn-primary" href="{{ route('produto.edit', ['produto' => $produto->id]) }}">Editar</a></td>
-                                <td>
-                                    <form id="form_{{ $produto->id }}" method="post"
+                                <td><div class="div-op"><a class="btn btn-sm-template btn-primary mx-1" href="{{ route('produto.show', ['produto' => $produto->id]) }}" ><i class="icofont-ui-search" ></i></a>
+                                <a class="btn btn-sm-template btn-success mx-1" href="{{ route('produto.edit', ['produto' => $produto->id]) }}"><i class="icofont-pen-alt-1"></i></a>
+                                <form id="form_{{ $produto->id }}" method="post"
                                         action="{{ route('produto.destroy', ['produto' => $produto->id]) }}">
                                         @method('DELETE')
                                         @csrf
-                                        <a class="btn btn-sm-template btn-danger" href="#"
-                                            onclick="document.getElementById('form_{{ $produto->id }}').submit()">Excluir</a>
-                                    </form>
+                                        <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                            onclick="document.getElementById('form_{{ $produto->id }}').submit()"><i class="icofont-close-squared-alt"></i></a>
+                                    </form></div>
                                 </td>
                                 
                             </tr>

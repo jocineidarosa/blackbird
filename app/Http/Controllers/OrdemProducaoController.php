@@ -7,6 +7,7 @@ use App\Models\Produto;
 use App\Models\OrdemProducao;
 use App\Models\Equipamento;
 use App\Models\ParadaEquipamento;
+use App\Models\RecursosProducao;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,6 @@ class OrdemProducaoController extends Controller
     {
         $produtos = Produto::all();
         $ordens_producoes = OrdemProducao::all();
-
         return view('app.ordem_producao.index', ['produtos' => $produtos, 'ordens_producoes' => $ordens_producoes]);
     }
 
@@ -36,11 +36,31 @@ class OrdemProducaoController extends Controller
      */
     public function create()
     {
+
         $produtos = Produto::all();
+        $ordem_producao=200;
         $equipamentos = Equipamento::all();
         $statuss= Status::all();
+        $recursos_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao)->get();
+        $paradas=ParadaEquipamento::where('ordem_producao_id', $ordem_producao)->get();
+        return view('app.ordem_producao.abas', 
+        [
+            'produtos' => $produtos, 
+            'equipamentos' => $equipamentos,
+            'statuss'=>$statuss,
+            'recursos_producao'=>$recursos_producao,
+            'paradas'=>$paradas
+        ]);
 
-        return view('app.ordem_producao.create', ['produtos' => $produtos, 'equipamentos' => $equipamentos]);
+        /* $produtos = Produto::all();
+        $equipamentos = Equipamento::all();
+        $statuss= Status::all();
+        return view('app.ordem_producao.create', 
+        [
+            'produtos' => $produtos, 
+            'equipamentos' => $equipamentos,
+            'statuss'=>$statuss
+        ]); */
     }
 
     /**
@@ -175,7 +195,6 @@ class OrdemProducaoController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**

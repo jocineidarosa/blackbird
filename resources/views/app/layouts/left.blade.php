@@ -64,6 +64,19 @@
             <li>
                 <div class="dropdownlink">
                     <div>
+                        <i class="icofont-fork-lift mr-2"></i>Manutenção
+                    </div>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <ul class="submenuItems">
+                    <li class="item-menu"><a href="#">Manutenções Agendadas</a></li>
+                    <li class="item-menu"><a href="#">paradas de equipamentos</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <div class="dropdownlink">
+                    <div>
                         <i class="icofont-gear mr-2"></i>Configuraçoes
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>

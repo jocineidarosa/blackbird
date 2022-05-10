@@ -29,8 +29,12 @@
                         'equipamentos' => $equipamentos, 'produtos' => $produtos])
                     @endcomponent
                 @else
-                    @component('app.ordem_producao._components.form_create_edit', ['equipamentos' => $equipamentos, 'produtos' =>
-                        $produtos])
+                    @component('app.ordem_producao._components.form_create_edit', 
+                    [
+                        'equipamentos' => $equipamentos,
+                        'produtos' =>$produtos,
+                        'statuss'=>$statuss
+                    ])
                     @endcomponent
                 @endisset
             @endisset

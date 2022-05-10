@@ -315,3 +315,10 @@ table td{
 .card-group {
     display: block;
 }
+.div-op{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    width: 80px;
+}

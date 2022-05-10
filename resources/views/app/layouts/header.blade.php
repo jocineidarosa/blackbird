@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('css/comum.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/menuleft.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/icofont.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/template.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('css/menuleft.css')}}">
     <script src="{{ asset('js/left.js') }}" defer></script>
     <link rel="stylesheet" href="{{asset('css/menu-left.css')}}">
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery.form.min.js') }}"></script>
-
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     
     <title>BlackBirds - ERP Industrial</title>
