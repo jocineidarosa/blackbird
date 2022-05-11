@@ -13,12 +13,11 @@ class OrdemProducao extends Model
         'equipamento_id',
         'produto_id',
         'quantidade_producao',
-        'data_inicio',
-        'data_fim',
+        'data',
         'hora_inicio',
         'hora_fim',
         'horimetro_final',
-        'status',
+        'status_id',
         'observacao'
     ];
 

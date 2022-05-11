@@ -17,18 +17,16 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active mr-1" id="dados_principais_tab" data-bs-toggle="tab"
-                            data-bs-target="#dados_principais" type="button" role="tab" aria-controls="dasos_principais"
-                            aria-selected="true">Dados Principais</button>
+                        <a href="#dados_principais" class="nav-link active mr-1" id="dados_principais_tab"
+                            data-bs-toggle="tab" role="tab" aria-controls="dados_principais">Dados Principais</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link mr-1" id="recursos-tab" data-bs-toggle="tab" data-bs-target="#recursos"
-                            type="button" role="tab" aria-controls="recursos" aria-selected="false">Recursos de Produção</button>
+                        <a href="#recursos" class="nav-link mr-1" id="recursos_tab" data-bs-toggle="tab"
+                            role="tab" aria-controls="recursos">Recursos</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="paradas_equip_tab" data-bs-toggle="tab"
-                            data-bs-target="#paradas_equip" type="button" role="tab" aria-controls="contact"
-                            aria-selected="false">Paradas de Equipamentos</button>
+                        <a href="#paradas_equip" class="nav-link mr-1" id="paradas_equip_tab"
+                            data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">Paradas de Equipamentos</a>
                     </li>
                 </ul>
                 {{-- --------------------------------------------------------------------- --}}
@@ -151,7 +149,8 @@
                                     class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
                                 <div class="col-md-6">
                                     <input name="horimetro_inicial" id="horimetro_inicial" readonly
-                                        class="form-control-disabled" value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}">
+                                        class="form-control-disabled"
+                                        value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}">
                                     {{ $errors->has('horimetro_inicial') ? $errors->first('horimetro_inicial') : '' }}
 
                                 </div>
@@ -181,7 +180,8 @@
 
 
                             <div class="row mb-1">
-                                <label for="observacao"class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
+                                <label for="observacao"
+                                    class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
                                 <div class="col-md-6">
                                     <select name="produto_id" id="" class="form-control-template" required>
                                         <option value=""> --Selecione a Situação-</option>
@@ -192,7 +192,7 @@
                                         @endforeach
                                     </select>
                                     {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
-                                    
+
                                 </div>
 
                             </div>
@@ -219,14 +219,15 @@
                     </div>
 
                     {{-- ----------------------------------------------------------------------------- --}}
-                    {{-- Recursos de Produção -----------------------------------------------------------}}
+                    {{-- Recursos de Produção --------------------------------------------------------- --}}
 
                     <div class="tab-pane fade mt-3" id="recursos" role="tabpanel" aria-labelledby="recursos-tab">
                         <form action="#}}" method="post">
                             @csrf
-                    
+
                             <div class="row mb-1">
-                                <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
+                                <label for="equipamento_id"
+                                    class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
                                     <select name="equipamento_id" id="equipamento_id" class="form-control" autofocus>
                                         <option value=""> --Selecione o Equipamento--</option>
@@ -238,10 +239,11 @@
                                     {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Material Utilizado</label>
-                    
+                                <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Material
+                                    Utilizado</label>
+
                                 <div class="col-md-6">
                                     <select name="produto_id" id="" class="form-control" required>
                                         <option value=""> --Selecione o Material-</option>
@@ -253,81 +255,95 @@
                                     {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde. Material
+                                <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.
+                                    Material
                                     Utilizado</label>
-                    
+
                                 <div class="col-md-6">
-                                    <input name="quantidade" id="quantidade" type="number" class="form-control " quantidade="quantidade"
-                                        value="{{ $produto->quantidade ?? old('quantidade') }}" required>
+                                    <input name="quantidade" id="quantidade" type="number" class="form-control "
+                                        quantidade="quantidade" value="{{ $produto->quantidade ?? old('quantidade') }}"
+                                        required>
                                     {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="horimetro_inicial" class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
+                                <label for="horimetro_inicial"
+                                    class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
                                 <div class="col-md-6">
-                                    <input name="horimetro_inicial" id="horimetro_inicial" type="text" class="form-control-disabled" disabled>
+                                    <input name="horimetro_inicial" id="horimetro_inicial" type="text"
+                                        class="form-control-disabled" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="horimetro_final" class="col-md-4 col-form-label text-md-end text-right">Horímetro Final</label>
+                                <label for="horimetro_final"
+                                    class="col-md-4 col-form-label text-md-end text-right">Horímetro Final</label>
                                 <div class="col-md-6">
-                                    <input name="horimetro_final" id="horimetro_final" type="text" class="form-control-template">
+                                    <input name="horimetro_final" id="horimetro_final" type="text"
+                                        class="form-control-template">
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro Total</label>
+                                <label for="total_horimetro"
+                                    class="col-md-4 col-form-label text-md-end text-right">Horímetro Total</label>
                                 <div class="col-md-6">
-                                    <input name="total_horimetro" id="total_horimetro" type="text" class="form-control-disabled" disabled>
+                                    <input name="total_horimetro" id="total_horimetro" type="text"
+                                        class="form-control-disabled" disabled>
                                 </div>
                             </div>
-                      
+
                             <div class="row mb-1">
-                                <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data Inicial</label>
-                    
+                                <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data
+                                    Inicial</label>
+
                                 <div class="col-md-6">
-                                    <input name="data_inicio" id="data_inicio" type="date" class="form-control " data_inicio="data_inicio">
+                                    <input name="data_inicio" id="data_inicio" type="date" class="form-control "
+                                        data_inicio="data_inicio">
                                 </div>
                             </div>
-                    
-                    
+
+
                             <div class="row mb-1">
-                                <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
-                    
+                                <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data
+                                    Final</label>
+
                                 <div class="col-md-6">
-                                    <input name="data_fim" id="data_fim" type="date" class="form-control" data_fim="data_fim"
-                                        value="{{ $ordem_producao->data_fim ?? old('data_fim') }}">
+                                    <input name="data_fim" id="data_fim" type="date" class="form-control"
+                                        data_fim="data_fim" value="{{ $ordem_producao->data_fim ?? old('data_fim') }}">
                                     {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
-                    
+
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
-                    
+                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                    Inicial</label>
+
                                 <div class="col-md-6">
-                                    <input name="hora_inicio" id="hora_inicio" type="time" class="form-control" hora_inicio="hora_inicio"
+                                    <input name="hora_inicio" id="hora_inicio" type="time" class="form-control"
+                                        hora_inicio="hora_inicio"
                                         value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
                                     {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
-                    
+
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
-                    
+                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                    Final</label>
+
                                 <div class="col-md-6">
-                                    <input name="hora_fim" id="hora_fim" type="time" class="form-control" hora_fim="hora_fim"
-                                        value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}">
+                                    <input name="hora_fim" id="hora_fim" type="time" class="form-control"
+                                        hora_fim="hora_fim" value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}">
                                     {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
-                    
+
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Cadastrar </button>
@@ -338,39 +354,43 @@
                     <div class="tab-pane fade" id="paradas_equip" role="tabpanel" aria-labelledby="paradas_equip_tab">
                         <form action="#" method="POST">
                             @csrf
-                    
+
                             <div class="row mb-1">
                                 <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
-                    
+
                                 <div class="col-md-6">
                                     <input name="data" id="data" type="date" class="form-control">
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
-                    
+                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                    Inicial</label>
+
                                 <div class="col-md-6">
                                     <input name="hora_inicio" id="hora_inicio" type="time" class="form-control">
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
-                    
+                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                    Final</label>
+
                                 <div class="col-md-6">
                                     <input name="hora_fim" id="hora_fim" type="time" class="form-control">
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-1">
-                                <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
-                    
+                                <label for="descricao"
+                                    class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
+
                                 <div class="col-md-6">
-                                    <input name="descricao" id="descricao" type="text" class="form-control" descricao="descricao">
+                                    <input name="descricao" id="descricao" type="text" class="form-control"
+                                        descricao="descricao">
                                 </div>
                             </div>
-                    
+
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Cadastrar </button>
@@ -405,9 +425,9 @@
                         $("#horimetro_inicial").val(response);
                     }
                 })
-    
+
             });
-    
+
             $('#horimetro_final').change(function() {
                 var horimetro_inicial = $('#horimetro_inicial').val();
                 var horimetro_final = $('#horimetro_final').val();
@@ -416,10 +436,10 @@
                 $('#total_horimetro').val(total_horimetro);
                 var producao_hora = (quant_producao / total_horimetro).toFixed(0);
                 $('#producao_hora').val(producao_hora);
-    
-    
+
+
             });
-    
+
             $('#quantidade_producao').change(function() {
                 var horimetro_inicial = $('#horimetro_inicial').val();
                 var horimetro_final = $('#horimetro_final').val();
@@ -428,12 +448,12 @@
                 $('#total_horimetro').val(total_horimetro);
                 var producao_hora = (quant_producao / total_horimetro).toFixed(0);
                 $('#producao_hora').val(producao_hora);
-    
+
             });
         });
-    
+
         // executa quando a pagina é carregada
-    
+
         window.onload = function() {
             let data_atual = new Date();
             var dia = String(data_atual.getDate()).padStart(2, '0');
@@ -447,6 +467,3 @@
 
 @endsection
 {{-- -------------- --}}
-
-
-

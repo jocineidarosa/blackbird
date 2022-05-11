@@ -20,8 +20,7 @@ class CreateOrdensProducoesTable extends Migration
             $table->unsignedBigInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->float('quantidade_producao', 8,2)->nullable();
-            $table->date('data_inicio')->nullable();
-            $table->date('data_fim')->nullable();
+            $table->date('data')->nullable();
             $table->time('hora_inicio')->nullable();
             $table->time('hora_fim')->nullable();
             $table->double('horimetro_final', 8,2)->nullable();

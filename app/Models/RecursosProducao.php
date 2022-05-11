@@ -16,8 +16,7 @@ class RecursosProducao extends Model
         'produto_id',
         'quantidade',
         'horimetro_final',
-        'data_inicio',
-        'data_fim',
+        'data',
         'hora_inicio',
         'hora_fim'
     ];

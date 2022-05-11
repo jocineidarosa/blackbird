@@ -25,7 +25,7 @@
                         <td class="pl-2" style="width: 6rem;" colspan="2">{{ $ordem_producao->id }}</td>
                         <td class="text-right th-title pr-2" style="width: 6rem;" colspan="2">Data</td>
                         <td class="pl-2" style="width: 5px;" colspan="2">
-                            {{Carbon\Carbon::parse($ordem_producao->data_inicio)->format('d/m/Y') }}</td>
+                            {{Carbon\Carbon::parse($ordem_producao->data)->format('d/m/Y') }}</td>
                         <td class="th-title pr-2 text-right" colspan="2">Estado da Ordem</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->status->nome }}</td>
                     </tr>

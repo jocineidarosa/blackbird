@@ -55,24 +55,12 @@
         </div>
 
         <div class="row mb-1">
-            <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data Inicial</label>
+            <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
 
             <div class="col-md-6">
-                <input name="data_inicio" id="data_inicio" type="date" class="form-control-template "
-                    data_inicio="data_inicio" value="{{ \Carbon\Carbon::now() ?? old('data_inicio') }}">
-                {{ $errors->has('data_inicio') ? $errors->first('data_inicio') : '' }}
-            </div>
-        </div>
-
-
-        <div class="row mb-1">
-            <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
-
-            <div class="col-md-6">
-                <input name="data_fim" id="data_fim" type="date" class="form-control-template" data_fim="data_fim"
-                    value="{{ $produto->data_fim ?? old('data_fim') }}" autofocus>
-                {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
-
+                <input name="data" id="data" type="date" class="form-control-template"
+                 value="{{old('data')}}">
+                {{$errors->has('data') ? $errors->first('data') : '' }}
             </div>
         </div>
 
@@ -130,19 +118,21 @@
             </div>
         </div>
 
-
-
-        <div class="col-md-6">
-            <select name="produto_id" id="" class="form-control-template" required>
-                <option value=""> --Selecione o Produto-</option>
-                @foreach( $statuss as $status)
-                    <option value="{{$status->id }}"
-                        {{ ($ordem_producao->produto_id ?? old('produto_id')) ==$status->id ? 'selected' : '' }}>
-                        {{$status->nome }}</option>
-                @endforeach
-            </select>
-            {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
+        <div class="row mb-1">
+            <label for="status_id" class="col-md-4 col-form-label text-md-end text-right">Situação</label>
+            <div class="col-md-6">
+                <select name="status_id" id="" class="form-control-template" required>
+                    <option value=""> --Selecione a Situação-</option>
+                    @foreach( $statuss as $status)
+                        <option value="{{$status->id }}"
+                            {{ ($ordem_producao->status_id ?? old('status_id')) ==$status->id ? 'selected' : '' }}>
+                            {{$status->nome }}</option>
+                    @endforeach
+                </select>
+                {{ $errors->has('status_id') ? $errors->first('status_id') : '' }}
+            </div>
         </div>
+
 
 
         <div class="row mb-1">
@@ -214,7 +204,6 @@
         var mes = String(data_atual.getMonth() + 1).padStart(2, '0');
         var ano = data_atual.getFullYear();
         data_atual = ano + '-' + mes + '-' + dia;
-        document.getElementById("data_inicio").value = data_atual;
-        document.getElementById("data_fim").value = data_atual;
+        document.getElementById("data").value = data_atual;
     }
 </script>

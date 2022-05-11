@@ -36,8 +36,7 @@ class OrdemProducaoController extends Controller
      */
     public function create()
     {
-
-        $produtos = Produto::all();
+        /* $produtos = Produto::all();
         $ordem_producao=200;
         $equipamentos = Equipamento::all();
         $statuss= Status::all();
@@ -50,9 +49,9 @@ class OrdemProducaoController extends Controller
             'statuss'=>$statuss,
             'recursos_producao'=>$recursos_producao,
             'paradas'=>$paradas
-        ]);
+        ]); */
 
-        /* $produtos = Produto::all();
+        $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss= Status::all();
         return view('app.ordem_producao.create', 
@@ -60,7 +59,7 @@ class OrdemProducaoController extends Controller
             'produtos' => $produtos, 
             'equipamentos' => $equipamentos,
             'statuss'=>$statuss
-        ]); */
+        ]);
     }
 
     /**
@@ -73,23 +72,18 @@ class OrdemProducaoController extends Controller
     {
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
-
-        $data_inicio = $request->input('data_inicio');
-        $data_fim = $request->input('data_fim');
-        $hora_inicio = $request->input('hora_inicio');
-        $hora_fim = $request->input('hora_fim');
-        //verifica se já existe registro com data_inicio, data_fim, hora_inicio, hora_fim.
-        $exists_ordem = OrdemProducao::where('data_inicio', $data_inicio)->where('data_fim', $data_fim)->where('hora_inicio', $hora_inicio)->where('hora_fim', $hora_fim)->get()->first();
-
+        $exists_ordem = OrdemProducao::where('data' ,$request['data'])
+        ->where('equipamento_id', $request['equipamento_id'] )->first();
         if (isset($exists_ordem)) {
             $ordem_producao = OrdemProducao::find($request->session()->get('ordem_producao'));
-            return view('app.ordem_producao.create', ['produtos' => $produtos, 'equipamentos' => $equipamentos, 'ordem_producao' => $ordem_producao]);
+            return redirect(route('ordem-producao.create'));
         }
         $ordem_producao = OrdemProducao::create($request->all());
         $request->session()->put('ordem_producao', $ordem_producao->id); //cria uam session com o id da ordem de produção
         return view('app.ordem_producao.create', ['produtos' => $produtos, 'equipamentos' => $equipamentos, 'ordem_producao' => $ordem_producao]);
     }
 
+  
     /**
      * Display the specified resource.
      * @param \App\Models\OrdemProducao $ordem_producao

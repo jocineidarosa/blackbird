@@ -54,8 +54,38 @@ Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\En
 //saida de produtos
 Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController');
 
-//ordem-producao
-Route::middleware('auth')->resource('/ordem-producao', 'App\Http\Controllers\OrdemProducaoController');
+/* //ordem-producao
+Route::middleware('auth')->resource('/ordem-producao', 'App\Http\Controllers\OrdemProducaoController'); */
+
+//grupo Ordem de Produção
+Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
+
+    Route::get('index','App\Http\Controllers\OrdemProducaoController@index'
+    )->name('ordem-producao.index');
+
+    Route::get('create','App\Http\Controllers\OrdemProducaoController@create'
+    )->name('ordem-producao.create');
+
+    Route::post('store','App\Http\Controllers\OrdemProducaoController@store'
+    )->name('ordem-producao.store');
+
+    Route::get('show/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@show'
+    )->name('ordem-producao.show');
+
+    Route::get('{ordem_producao}/edit','App\Http\Controllers\OrdemProducaoController@edit'
+    )->name('ordem-producao.edit');
+
+    Route::post('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
+    )->name('ordem-producao.update');
+
+    Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'
+    )->name('ordem-producao.destroy');
+
+});
+
+
+
+
 
 //grupo produto-fornecedor
 Route::middleware('auth')->prefix('/produto-fornecedor')->group(function() {

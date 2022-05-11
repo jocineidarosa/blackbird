@@ -34,7 +34,7 @@
                                 <td>{{ $ordem_producao->equipamento->nome }}</td>
                                 <td>{{ $ordem_producao->produto->nome }}</td>
                                 <td>{{ $ordem_producao->quantidade_producao }}</td>
-                                <td>{{ Carbon\Carbon::parse($ordem_producao->data_inicio)->format('d/m/Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($ordem_producao->data)->format('d/m/Y') }}</td>
                                 <td>{{ $ordem_producao->horimetro_final }}</td>
                                 <td><a class="btn btn-sm-template btn-primary" href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}">Visualizar</a></td>
                                 <td><a class="btn btn-sm-template btn-primary" href="{{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }}">Editar</a></td>
