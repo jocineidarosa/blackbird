@@ -22,8 +22,7 @@ class RecursosProducaoSeeder extends Seeder
            'produto_id'=>'2',//diesel
            'quantidade'=>'0',
            'horimetro_final'=>'7317.98',
-           'data_inicio'=>'2021-08-01',
-           'data_fim'=>'2021-08-01',
+           'data'=>'2021-08-01',
            'hora_inicio'=>'00:00',
            'hora_fim'=>'00:00'
         ]);
@@ -35,8 +34,7 @@ class RecursosProducaoSeeder extends Seeder
             'produto_id'=>'2',
             'quantidade'=>'240',
             'horimetro_final'=>'7325.12',
-            'data_inicio'=>'2021-08-18',
-            'data_fim'=>'2021-08-18',
+            'data'=>'2021-08-18',
             'hora_inicio'=>'07:12',
             'hora_fim'=>'15:45'
          ]);
@@ -47,8 +45,7 @@ class RecursosProducaoSeeder extends Seeder
             'produto_id'=>'2',
             'quantidade'=>'202',
             'horimetro_final'=>'7331.12',
-            'data_inicio'=>'2021-08-20',
-            'data_fim'=>'2021-08-20',
+            'data'=>'2021-08-20',
             'hora_inicio'=>'07:23',
             'hora_fim'=>'16:14'
          ]);
@@ -60,8 +57,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'1495',
-            'data_inicio'=>'2021-08-18',
-            'data_fim'=>'2021-08-18',
+            'data'=>'2021-08-18',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
@@ -71,8 +67,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'13619',
-            'data_inicio'=>'2021-08-19',
-            'data_fim'=>'2021-08-19',
+            'data'=>'2021-08-19',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
@@ -82,8 +77,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'8',//cap1
             'produto_id'=>'1',//cap
             'quantidade'=>'11220',
-            'data_inicio'=>'2021-08-20',
-            'data_fim'=>'2021-08-20',
+            'data'=>'2021-08-20',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
@@ -94,8 +88,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'236',
-            'data_inicio'=>'2021-08-18',
-            'data_fim'=>'2021-08-18',
+            'data'=>'2021-08-18',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
@@ -105,8 +98,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'1968',
-            'data_inicio'=>'2021-08-20',
-            'data_fim'=>'2021-08-20',
+            'data'=>'2021-08-20',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);
@@ -116,8 +108,7 @@ class RecursosProducaoSeeder extends Seeder
             'equipamento_id'=>'10',//xisto
             'produto_id'=>'3',//cap
             'quantidade'=>'1406',
-            'data_inicio'=>'2021-08-20',
-            'data_fim'=>'2021-08-20',
+            'data'=>'2021-08-20',
             'hora_inicio'=>'00:00',
             'hora_fim'=>'00:00'
          ]);

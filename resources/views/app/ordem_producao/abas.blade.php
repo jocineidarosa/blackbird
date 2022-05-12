@@ -21,11 +21,11 @@
                             data-bs-toggle="tab" role="tab" aria-controls="dados_principais">Dados Principais</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="#recursos" class="nav-link mr-1" id="recursos_tab" data-bs-toggle="tab"
+                        <a href="#recursos" class="nav-link mr-1 disabled" id="recursos_tab" data-bs-toggle="tab"
                             role="tab" aria-controls="recursos">Recursos</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="#paradas_equip" class="nav-link mr-1" id="paradas_equip_tab"
+                        <a href="#paradas_equip" class="nav-link mr-1 disabled" id="paradas_equip_tab"
                             data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">Paradas de Equipamentos</a>
                     </li>
                 </ul>
@@ -73,14 +73,12 @@
                             <div class="row mb-1">
                                 <label for="quantidade_producao"
                                     class="col-md-4 col-form-label text-md-end text-right">Quantidade_producao</label>
-
                                 <div class="col-md-6">
                                     <input name="quantidade_producao" id="quantidade_producao" type="text"
                                         class="form-control-template " quantidade_producao="quantidade_producao"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                        value="{{ $produto->quantidade_producao ?? old('quantidade_producao') }}"
-                                        required placeholder="Somente Números">
-                                    {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
+                                        value="{{$ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"required>
+                                        {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
                                 </div>
                             </div>
 
@@ -88,34 +86,17 @@
                                 <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção
                                     por Hora</label>
                                 <div class="col-md-6">
-                                    <input name="producao_hora" id="producao_hora" type="text" class="form-control-disabled"
-                                        disabled>
+                                    <input name="producao_hora" id="producao_hora" type="text" 
+                                    class="form-control-disabled" readonly value="{{old('producao_hora')}}">
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data
-                                    Inicial</label>
-
+                                <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
                                 <div class="col-md-6">
-                                    <input name="data_inicio" id="data_inicio" type="date" class="form-control-template "
-                                        data_inicio="data_inicio"
-                                        value="{{ \Carbon\Carbon::now() ?? old('data_inicio') }}">
-                                    {{ $errors->has('data_inicio') ? $errors->first('data_inicio') : '' }}
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-1">
-                                <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data
-                                    Final</label>
-
-                                <div class="col-md-6">
-                                    <input name="data_fim" id="data_fim" type="date" class="form-control-template"
-                                        data_fim="data_fim" value="{{ $produto->data_fim ?? old('data_fim') }}"
-                                        autofocus>
-                                    {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
-
+                                    <input name="data" id="data" type="date" class="form-control-template"
+                                        value="{{old('data') }}">
+                                    {{ $errors->has('data') ? $errors->first('data') : '' }}
                                 </div>
                             </div>
 
@@ -183,15 +164,15 @@
                                 <label for="observacao"
                                     class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
                                 <div class="col-md-6">
-                                    <select name="produto_id" id="" class="form-control-template" required>
+                                    <select name="status_id" id="" class="form-control-template" required>
                                         <option value=""> --Selecione a Situação-</option>
                                         @foreach ($statuss as $status)
                                             <option value="{{ $status->id }}"
-                                                {{ ($ordem_producao->produto_id ?? old('produto_id')) == $status->id ? 'selected' : '' }}>
+                                                {{ ($ordem_producao->status_id ?? old('status_id')) == $status->id ? 'selected' : '' }}>
                                                 {{ $status->nome }}</option>
                                         @endforeach
                                     </select>
-                                    {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
+                                    {{ $errors->has('status_id') ? $errors->first('status_id') : '' }}
 
                                 </div>
 
