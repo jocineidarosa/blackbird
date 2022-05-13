@@ -21,12 +21,17 @@
                             data-bs-toggle="tab" role="tab" aria-controls="dados_principais">Dados Principais</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="#recursos" class="nav-link mr-1 disabled" id="recursos_tab" data-bs-toggle="tab"
+                        <a href="#recursos" class="nav-link mr-1 {{isset($ordem_producao) ? '' :'disabled'}}" id="recursos_tab" data-bs-toggle="tab"
                             role="tab" aria-controls="recursos">Recursos</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="#paradas_equip" class="nav-link mr-1 disabled" id="paradas_equip_tab"
+                        <a href="#paradas_equip" class="nav-link mr-1 {{isset($ordem_producao) ? '' :'disabled'}}" id="paradas_equip_tab"
                             data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">Paradas de Equipamentos</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a href="#produto_obra" class="nav-link mr-1 {{isset($ordem_producao) ? '' :'disabled'}}" id="produto_obra_tab"
+                            data-bs-toggle="tab" role="tab" aria-controls="produto_obra">Saída de Produto para Obra</a>
                     </li>
                 </ul>
                 {{-- --------------------------------------------------------------------- --}}
@@ -34,14 +39,14 @@
                 <div class="tab-content mt-3" id="myTabContent">
                     <div class="tab-pane fade show active" id="dados_principais" role="tabpanel"
                         aria-labelledby="dados_principais_tab">
-                        <form action="{{ route('ordem-producao.store') }}" method="POST">
+                        <form action="{{route('ordem-producao.store') }}" method="POST">
                             @csrf
                             <div class="row mb-1">
                                 <label for="equipamento_id"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
                                     <select name="equipamento_id" id="equipamento_id" class="form-control-template" required
-                                        autofocus>
+                                        autofocus {{isset($ordem_producao) ? 'disabled' : ''}}>
                                         <option value=""> --Selecione o Equipamento--</option>
                                         @foreach ($equipamentos as $equipamento)
                                             <option value="{{ $equipamento->id }}"
@@ -58,7 +63,8 @@
                                 <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
 
                                 <div class="col-md-6">
-                                    <select name="produto_id" id="" class="form-control-template" required>
+                                    <select name="produto_id" id="" class="form-control-template" required
+                                    {{isset($ordem_producao) ? 'disabled' : ''}}>
                                         <option value=""> --Selecione o Produto-</option>
                                         @foreach ($produtos as $produto)
                                             <option value="{{ $produto->id }}"
@@ -77,51 +83,46 @@
                                     <input name="quantidade_producao" id="quantidade_producao" type="text"
                                         class="form-control-template " quantidade_producao="quantidade_producao"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                        value="{{$ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"required>
+                                        value="{{$ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"required
+                                        {{isset($ordem_producao) ? 'disabled' : ''}}>
                                         {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção
-                                    por Hora</label>
+                                <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção por Hora</label>
                                 <div class="col-md-6">
                                     <input name="producao_hora" id="producao_hora" type="text" 
                                     class="form-control-disabled" readonly value="{{old('producao_hora')}}">
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
                                 <div class="col-md-6">
                                     <input name="data" id="data" type="date" class="form-control-template"
-                                        value="{{old('data') }}">
+                                        value="{{$ordem_producao->data ?? old('data') }}"
+                                        {{isset($ordem_producao) ? '' : 'disabled'}}>
                                     {{ $errors->has('data') ? $errors->first('data') : '' }}
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
-                                    Inicial</label>
-
+                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
                                 <div class="col-md-6">
                                     <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
-                                        hora_inicio="hora_inicio"
-                                        value="{{ $produto->hora_inicio ?? old('hora_inicio') }}" autofocus>
+                                    hora_inicio="hora_inicio" {{isset($ordem_producao) ? 'disabled' : ''}}
+                                        value="{{$ordem_producao->hora_inicio ?? old('hora_inicio') }}">
                                     {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
-
                                 </div>
                             </div>
 
                             <div class="row mb-1">
-                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
-                                    Final</label>
+                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
                                 <div class="col-md-6">
                                     <input name="hora_fim" id="hora_fim" type="time" class="form-control-template"
-                                        hora_fim="hora_fim" value="{{ $produto->hora_fim ?? old('hora_fim') }}"
-                                        autofocus>
+                                        hora_fim="hora_fim" value="{{$ordem_producao->hora_fim ?? old('hora_fim')}}"
+                                        {{isset($ordem_producao) ? 'disabled' : ''}}>
                                     {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
-
                                 </div>
                             </div>
 
@@ -144,7 +145,8 @@
 
                                 <div class="col-md-6">
                                     <input name="horimetro_final" id="horimetro_final" class="form-control-template"
-                                        value="{{ $produto->horimetro_final ?? old('horimetro_final') }}"
+                                        value="{{ $ordem_producao->horimetro_final ?? old('horimetro_final')}}"
+                                        {{isset($ordem_producao) ? 'disabled' : ''}}
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     {{ $errors->has('horimetro_final') ? $errors->first('horimetro_final') : '' }}
                                 </div>
@@ -164,11 +166,12 @@
                                 <label for="observacao"
                                     class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
                                 <div class="col-md-6">
-                                    <select name="status_id" id="" class="form-control-template" required>
+                                    <select name="status_id" id="" class="form-control-template" required
+                                    {{isset($ordem_producao) ? 'disabled' : ''}}>
                                         <option value=""> --Selecione a Situação-</option>
                                         @foreach ($statuss as $status)
                                             <option value="{{ $status->id }}"
-                                                {{ ($ordem_producao->status_id ?? old('status_id')) == $status->id ? 'selected' : '' }}>
+                                                {{($ordem_producao->status_id ?? old('status_id')) == $status->id ? 'selected' : '' }}>
                                                 {{ $status->nome }}</option>
                                         @endforeach
                                     </select>
@@ -178,17 +181,14 @@
 
                             </div>
 
-
-
-
-
                             <div class="row mb-1">
-                                <label for="observacao"
-                                    class="col-md-4 col-form-label text-md-end text-right">Observações</label>
+                                <label for="observacao" class="col-md-4 col-form-label text-md-end text-right">Observações</label>
                                 <div class="col-md-6">
-                                    <textarea class="form-control" name="observacao"></textarea>
+                                    <textarea class="form-control" name="observacao"
+                                    {{isset($ordem_producao) ? 'disabled' : ''}}>
+                                    {{$ordem_producao->observacao ?? old('observacao')}}
+                                </textarea> 
                                 </div>
-
                             </div>
 
                             <div class="row mb-0">
@@ -203,9 +203,9 @@
                     {{-- Recursos de Produção --------------------------------------------------------- --}}
 
                     <div class="tab-pane fade mt-3" id="recursos" role="tabpanel" aria-labelledby="recursos-tab">
-                        <form action="#}}" method="post">
+                        <form action="
+                        {{isset($ordem_producao) ? route('ordem-producao.store-recursos',['ordem_producao'=>$ordem_producao->id]) :''}}" method="POST">
                             @csrf
-
                             <div class="row mb-1">
                                 <label for="equipamento_id"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
@@ -365,7 +365,6 @@
                             <div class="row mb-1">
                                 <label for="descricao"
                                     class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
-
                                 <div class="col-md-6">
                                     <input name="descricao" id="descricao" type="text" class="form-control"
                                         descricao="descricao">
@@ -379,6 +378,23 @@
                             </div>
                         </form>
 
+                    
+                    
+                    </div>
+
+
+                    <div class="tab-pane fade" id="produto_obra" role="tabpanel"
+                        aria-labelledby="produto_obra_tab">
+                        <form action="{{ route('ordem-producao.store') }}" method="POST">
+                            @csrf
+                            <div class="row mb-1">
+                                <label for="produto"
+                                    class="col-md-4 col-form-label text-md-end text-right">Produto</label>
+                                <div class="col-md-6">
+                                    <input name="produto" id="produto" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 

@@ -69,6 +69,9 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::post('store','App\Http\Controllers\OrdemProducaoController@store'
     )->name('ordem-producao.store');
 
+    Route::post('store-recursos','App\Http\Controllers\OrdemProducaoController@storeRecursos'
+    )->name('ordem-producao.store-recursos');
+
     Route::get('show/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@show'
     )->name('ordem-producao.show');
 
