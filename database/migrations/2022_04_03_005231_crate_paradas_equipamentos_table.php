@@ -17,7 +17,6 @@ class CrateParadasEquipamentosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('ordem_producao_id');
             $table->foreign('ordem_producao_id')->references('id')->on('ordens_producoes');
-            $table->date('data');
             $table->time('hora_inicio');
             $table->time('hora_fim');
             $table->string('descricao');

@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/icofont.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/template.css')}}">
-    <link rel="stylesheet" href="{{ URL::asset('css/menuleft.css')}}">
-    <script src="{{ asset('js/left.js') }}" defer></script>
     <link rel="stylesheet" href="{{asset('css/menu-left.css')}}">
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script> --}}

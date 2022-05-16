@@ -69,8 +69,11 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::post('store','App\Http\Controllers\OrdemProducaoController@store'
     )->name('ordem-producao.store');
 
-    Route::post('store-recursos','App\Http\Controllers\OrdemProducaoController@storeRecursos'
+    Route::post('store-recursos/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@storeRecursos'
     )->name('ordem-producao.store-recursos');
+
+    Route::post('store-parada/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@storeParadas'
+    )->name('ordem-producao.store-parada');
 
     Route::get('show/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@show'
     )->name('ordem-producao.show');
@@ -85,9 +88,6 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     )->name('ordem-producao.destroy');
 
 });
-
-
-
 
 
 //grupo produto-fornecedor

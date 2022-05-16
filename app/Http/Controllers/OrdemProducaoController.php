@@ -38,19 +38,16 @@ class OrdemProducaoController extends Controller
     public function create()
     {
         $produtos = Produto::all();
-        $ordem_producao=200;
         $equipamentos = Equipamento::all();
-        $statuss= Status::all();
-        $recursos_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao)->get();
-        $paradas=ParadaEquipamento::where('ordem_producao_id', $ordem_producao)->get();
-        return view('app.ordem_producao.abas',
-        [
-            'produtos' => $produtos, 
-            'equipamentos' => $equipamentos,
-            'statuss'=>$statuss,
-            'recursos_producao'=>$recursos_producao,
-            'paradas'=>$paradas
-        ]);
+        $statuss = Status::all();
+        return view(
+            'app.ordem_producao.abas',
+            [
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'statuss' => $statuss
+            ]
+        );
 
         /* $produtos = Produto::all();
         $equipamentos = Equipamento::all();
@@ -73,83 +70,66 @@ class OrdemProducaoController extends Controller
     {
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
-        $statuss= Status::all();
-        $exists_ordem = OrdemProducao::where('data' ,$request['data'])
-        ->where('equipamento_id', $request['equipamento_id'] )->first();
+        $statuss = Status::all();
+        $exists_ordem = OrdemProducao::where('data', $request['data'])
+            ->where('equipamento_id', $request['equipamento_id'])->first();
         if (isset($exists_ordem)) {
-            $ordem_producao = OrdemProducao::find($request->session()->get('ordem_producao'));
-            return view('app.ordem_producao.abas', 
+            return view(
+                'app.ordem_producao.abas',
+                [
+                    'produtos' => $produtos,
+                    'equipamentos' => $equipamentos,
+                    'statuss' => $statuss
+                ]
+            );
+        }
+        $ordem_producao = OrdemProducao::create($request->all());
+        return view(
+            'app.ordem_producao.abas',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
-                'statuss'=>$statuss
-            ]);
-        }
-        $ordem_producao = OrdemProducao::create($request->all());
-        $request->session()->put('ordem_producao', $ordem_producao->id); //cria uam session com o id da ordem de produção
-        return view('app.ordem_producao.abas',
-        [
-            'produtos' => $produtos, 
-            'equipamentos' => $equipamentos, 
-            'ordem_producao' => $ordem_producao,
-            'statuss'=>$statuss
-        ]);
-        
-        /* ---------------------------------------- */
-        /* $produtos = Produto::all();
-        $equipamentos = Equipamento::all();
-        $statuss= Status::all();
-        $exists_ordem = OrdemProducao::where('data' ,$request['data'])
-        ->where('equipamento_id', $request['equipamento_id'] )->first();
-        if (isset($exists_ordem)) {
-            $ordem_producao = OrdemProducao::find($request->session()->get('ordem_producao'));
-            return redirect(route('ordem-producao.create'));
-        }
-        $ordem_producao = OrdemProducao::create($request->all());
-        $request->session()->put('ordem_producao', $ordem_producao->id); //cria uam session com o id da ordem de produção
-        return view('app.ordem_producao.create', ['produtos' => $produtos, 'equipamentos' => $equipamentos, 'ordem_producao' => $ordem_producao]); */
+                'statuss' => $statuss
+            ]
+        );
     }
 
-    public function storeRecursos(Request $request, OrdemProducao $ordem_producao){
+    public function storeRecursos(Request $request, OrdemProducao $ordem_producao)
+    {
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
-        $statuss= Status::all();
+        $statuss = Status::all();
         $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+
         //$ordem_producao= OrdemProducao::find($ordem_producao);
-        $recurso_producao = new RecursosProducao();
-        $recurso_producao->ordem_producao_id = $ordem_producao->id;
-        $recurso_producao->equipamento_id = $request->input('equipamento_id');
-        $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->where('equipamento_id', $recurso_producao->equipamento_id)->get()->first();
+        $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)
+            ->where('equipamento_id', $request['equipamento_id'])
+            ->where('produto_id', $request['produto_id'])->first();
 
         if (isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
             $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
-            return view('app.ordem_producao.create', [
+            return view('app.ordem_producao.abas', [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
-                'statuss'=>$statuss
+                'statuss' => $statuss
             ]);
             //se já existe o recurso na ordem-> faz a consulta novamente e sai do função,não executa o codigo abaixo
 
         }
         //salva recursos de produção no banco de dados
-        $recurso_producao->produto_id = $request->input('produto_id');
-        $recurso_producao->quantidade = $request->input('quantidade');
-        $recurso_producao->horimetro_final = $request->input('horimetro_final');
-        $recurso_producao->data = $request->input('data');
-        $recurso_producao->hora_inicio = $request->input('hora_inicio');
-        $recurso_producao->hora_fim = $request->input('hora_fim');
-        $recurso_producao->save();
+        $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
+        $recurso_producao = RecursosProducao::create($request->all());
 
         $saida_produto = new SaidaProduto();
         $saida_produto->produto_id = $request->input('produto_id');
-        $saida_produto->recursos_producao_id = $recurso_producao->id ;
+        $saida_produto->recursos_producao_id = $recurso_producao->id;
         $saida_produto->quantidade = $request->input('quantidade');
         $saida_produto->motivo = '1';
-        $saida_produto->data = $request->input('data_inicio');
+        $saida_produto->data = $request['data'];
         $saida_produto->save();
 
         $produto = Produto::find($request->input('produto_id'));
@@ -157,7 +137,6 @@ class OrdemProducaoController extends Controller
         $produto->save();
 
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
-
         return view(
             'app.ordem_producao.abas',
             [
@@ -165,13 +144,62 @@ class OrdemProducaoController extends Controller
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
-                'paradas_equipamento' => $paradas_equipamento
+                'paradas_equipamento' => $paradas_equipamento,
+                'statuss' => $statuss
             ]
         );
-        
     }
 
-  
+    public function storeParadas(Request $request, OrdemProducao $ordem_producao)
+    {
+        $produtos = Produto::all();
+        $equipamentos = Equipamento::all();
+        $statuss = Status::all();
+        $recursos_producao = RecursosProducao::all();
+        
+            if(($request['hora_inicio'] >= $ordem_producao->hora_inicio) and ($request['hora_fim'] <= $ordem_producao->hora_fim)){   
+
+            $exists_parada = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)
+                ->whereBetWeen('hora_inicio', [$request['hora_inicio'], $request['hora_fim']])
+                ->orwhere('ordem_producao_id', $ordem_producao->id)
+                ->WhereBetween('hora_fim', [$request['hora_inicio'], $request['hora_fim']])
+                ->orwhere('ordem_producao_id', $ordem_producao->id)
+                ->Where('hora_inicio', '<', $request['hora_inicio'])
+                ->where('hora_fim', '>', $request['hora_fim'])->first();
+
+            if (!isset($exists_parada)) {
+                $request['ordem_producao_id'] = $ordem_producao->id;
+                ParadaEquipamento::create($request->all());
+                $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+                return view(
+                    'app.ordem_producao.abas',
+                    [
+                        'produtos' => $produtos,
+                        'equipamentos' => $equipamentos,
+                        'ordem_producao' => $ordem_producao,
+                        'recursos_producao' => $recursos_producao,
+                        'paradas_equipamento' => $paradas_equipamento,
+                        'statuss' => $statuss
+                    ]
+                );
+            }
+        }
+
+        $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        return view(
+            'app.ordem_producao.abas',
+            [
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'ordem_producao' => $ordem_producao,
+                'recursos_producao' => $recursos_producao,
+                'paradas_equipamento' => $paradas_equipamento,
+                'statuss' => $statuss
+            ]
+        );
+    }
+
+
     /**
      * Display the specified resource.
      * @param \App\Models\OrdemProducao $ordem_producao
@@ -184,12 +212,12 @@ class OrdemProducaoController extends Controller
         $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
             ->where('equipamento_id', $ordem_producao->equipamento_id)
             ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
-  
-        if($op_horimetro_inicial->horimetro_inicial == null){
-            $op_horimetro_inicial= $ordem_producao->horimetro_final;
+
+        if ($op_horimetro_inicial->horimetro_inicial == null) {
+            $op_horimetro_inicial = $ordem_producao->horimetro_final;
             $total_horimetro = 0.0;
-        }else{
-            $op_horimetro_inicial=$op_horimetro_inicial->horimetro_inicial;
+        } else {
+            $op_horimetro_inicial = $op_horimetro_inicial->horimetro_inicial;
             $total_horimetro =  $ordem_producao->horimetro_final - $op_horimetro_inicial;
         }
 
@@ -201,12 +229,12 @@ class OrdemProducaoController extends Controller
         $total_horas_equipamento = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
 
         /* $total_minutos = $hora_fim->diffInMinutes($hora_inicio); */
-        if($total_horimetro >0){
+        if ($total_horimetro > 0) {
             $producao_por_hora = round($ordem_producao->quantidade_producao / $total_horimetro);
-        }else{
-            $producao_por_hora='';  
+        } else {
+            $producao_por_hora = '';
         }
-        
+
 
         /**
          * manipulação da collection de recursos de produtos
@@ -228,7 +256,7 @@ class OrdemProducaoController extends Controller
             $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
             $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
             $recurso->total_hora = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
-            
+
             if (($recurso->horimetro_final != null) and ($recurso->horimetro_final != 0)) { //VERIFICA SE O EQUIPAMENTO TEM HORÍMETRO
                 $horimetro_inicial = DB::table('recursos_producao')->selectRaw(' max(horimetro_final) as horimetro_inicial')
                     ->where('equipamento_id', $recurso->equipamento_id)
@@ -239,18 +267,18 @@ class OrdemProducaoController extends Controller
             } else { //CASO O EQUIPMENTO NÃO TENHA HORÍMETRO
                 $recurso->horimetro_inicial = '';
                 $recurso->total_horimetro = '';
-                if($total_horimetro >0 ){
+                if ($total_horimetro > 0) {
                     $recurso->consumo_hora = round($recurso->quantidade / $total_horimetro, 2);
-                }else{
-                    $recurso->consumo_hora=0.0;
+                } else {
+                    $recurso->consumo_hora = 0.0;
                 }
             }
-            $recurso->consumo_quant= $recurso->quantidade / $ordem_producao->quantidade_producao *1000;
+            $recurso->consumo_quant = $recurso->quantidade / $ordem_producao->quantidade_producao * 1000;
 
             $estoque = Produto::select('estoque_atual')
-            ->where('id', $recurso->produto_id)->first();
-            $recurso->estoque_atual= $estoque->estoque_atual;
-            $recurso->estoque_anterior= $recurso->estoque_atual + $recurso->quantidade;
+                ->where('id', $recurso->produto_id)->first();
+            $recurso->estoque_atual = $estoque->estoque_atual;
+            $recurso->estoque_anterior = $recurso->estoque_atual + $recurso->quantidade;
         }
 
         $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
