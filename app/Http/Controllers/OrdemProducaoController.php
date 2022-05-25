@@ -73,6 +73,7 @@ class OrdemProducaoController extends Controller
         $statuss = Status::all();
         $exists_ordem = OrdemProducao::where('data', $request['data'])
             ->where('equipamento_id', $request['equipamento_id'])->first();
+
         if (isset($exists_ordem)) {
             return view(
                 'app.ordem_producao.abas',
@@ -155,7 +156,7 @@ class OrdemProducaoController extends Controller
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
-        $recursos_producao = RecursosProducao::all();
+        $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
         
             if(($request['hora_inicio'] >= $ordem_producao->hora_inicio) and ($request['hora_fim'] <= $ordem_producao->hora_fim)){   
 

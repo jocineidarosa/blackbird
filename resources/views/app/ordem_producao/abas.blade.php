@@ -396,6 +396,34 @@
                             </div>
                         </form>
 
+                        <div class="card">
+                            <div class="card-header-template">
+                                <div>LISTA DE PARADAS</div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table-template table-striped table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="th-title">Hora Inicil</th>
+                                            <th scope="col" class="th-title">Hora final</th>
+                                            <th scope="col" class="th-title">Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @isset($paradas_equipamento)
+                                            @foreach ($paradas_equipamento as $parada_equipamento)
+                                                <tr>
+                                                    <td>{{ $parada_equipamento->hora_inicio }}</td>
+                                                    <td>{{ $parada_equipamento->hora_fim }}</td>
+                                                    <td>{{ $parada_equipamento->descricao }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endisset
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
 
 
                     </div>
@@ -405,12 +433,49 @@
                     <div class="tab-pane fade" id="produto_obra" role="tabpanel" aria-labelledby="produto_obra_tab">
                         <form action="{{ route('ordem-producao.store') }}" method="POST">
                             @csrf
+
                             <div class="row mb-1">
-                                <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
+                                <label for="obra_id"
+                                    class="col-md-4 col-form-label text-md-end text-right">Obra</label>
                                 <div class="col-md-6">
-                                    <input name="produto" id="produto" type="text" class="form-control">
+                                    <select name="obra_id" id="obra_id" class="form-control-template" required autofocus>
+                                        <option value=""> --Selecione o Equipamento--</option>
+                                        @foreach ($equipamentos as $equipamento)
+                                            <option value="{{ $equipamento->id}}"
+                                                {{ ($ordem_producao->obra_id ?? old('obra_id')) == $equipamento->id ? 'selected' : '' }}>
+                                                {{ $equipamento->nome ?? old('obra_id') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{ $errors->has('obra_id') ? $errors->first('obra_id') : '' }}
                                 </div>
                             </div>
+
+                            <div class="row mb-1">
+                                <label for="produto_id"
+                                    class="col-md-4 col-form-label text-md-end text-right">Produto</label>
+                                <div class="col-md-6">
+                                    <select name="produto_id" id="produto_id" class="form-control-template" required autofocus>
+                                        <option value=""> --Selecione o Equipamento--</option>
+                                        @foreach ($equipamentos as $equipamento)
+                                            <option value="{{ $equipamento->id}}"
+                                                {{ ($ordem_producao->produto_id ?? old('produto_id')) == $equipamento->id ? 'selected' : '' }}>
+                                                {{ $equipamento->nome ?? old('produto_id') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label for="quantidade"
+                                    class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
+                                <div class="col-md-6">
+                                    <input name="quantidade" id="quantidade" type="text" class="form-control">
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>
