@@ -11,6 +11,8 @@ use App\Models\RecursosProducao;
 use App\Models\Status;
 use App\Models\SaidaProduto;
 use Carbon\Carbon;
+use App\Models\Obra;
+use App\Models\ProdutoObra;
 use Illuminate\Support\Facades\DB;
 
 
@@ -40,24 +42,16 @@ class OrdemProducaoController extends Controller
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
+        $obras = Obra::all();
         return view(
             'app.ordem_producao.abas',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
-                'statuss' => $statuss
+                'statuss' => $statuss,
+                'obras' => $obras
             ]
         );
-
-        /* $produtos = Produto::all();
-        $equipamentos = Equipamento::all();
-        $statuss= Status::all();
-        return view('app.ordem_producao.create', 
-        [
-            'produtos' => $produtos, 
-            'equipamentos' => $equipamentos,
-            'statuss'=>$statuss
-        ]); */
     }
 
     /**
@@ -68,30 +62,44 @@ class OrdemProducaoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $regras = [
+            'equipamento_id' => 'required',
+            'produto_id' => 'required',
+            'quantidade_producao' => 'required',
+            'data' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fim' => 'required',
+            'horimetro_final' => 'required',
+            'status_id' => 'required'
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido'
+        ];
+
+        $request->validate($regras, $feedback);
+
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
+        $obras = Obra::all();
         $exists_ordem = OrdemProducao::where('data', $request['data'])
             ->where('equipamento_id', $request['equipamento_id'])->first();
 
-        if (isset($exists_ordem)) {
-            return view(
-                'app.ordem_producao.abas',
-                [
-                    'produtos' => $produtos,
-                    'equipamentos' => $equipamentos,
-                    'statuss' => $statuss
-                ]
-            );
+        if (!isset($exists_ordem)) {
+            $ordem_producao = OrdemProducao::create($request->all());
+        } else {
+            $ordem_producao = $exists_ordem;
         }
-        $ordem_producao = OrdemProducao::create($request->all());
         return view(
             'app.ordem_producao.abas',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
-                'statuss' => $statuss
+                'statuss' => $statuss,
+                'obras' => $obras
             ]
         );
     }
@@ -101,6 +109,7 @@ class OrdemProducaoController extends Controller
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
+        $obras=Obra::all();
         $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
 
         //$ordem_producao= OrdemProducao::find($ordem_producao);
@@ -108,34 +117,25 @@ class OrdemProducaoController extends Controller
             ->where('equipamento_id', $request['equipamento_id'])
             ->where('produto_id', $request['produto_id'])->first();
 
-        if (isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
-            $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
-            return view('app.ordem_producao.abas', [
-                'produtos' => $produtos,
-                'equipamentos' => $equipamentos,
-                'ordem_producao' => $ordem_producao,
-                'recursos_producao' => $recursos_producao,
-                'paradas_equipamento' => $paradas_equipamento,
-                'statuss' => $statuss
-            ]);
-            //se já existe o recurso na ordem-> faz a consulta novamente e sai do função,não executa o codigo abaixo
+        if (!isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
+            //salva recursos de produção no banco de dados
+            $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
+            $request['equipamento_id']= $request['equipamento_id'];
+            unset($request['equipamento_recursos']);
+            $recurso_producao = RecursosProducao::create($request->all());
 
+            $saida_produto = new SaidaProduto();
+            $saida_produto->produto_id = $request->input('produto_id');
+            $saida_produto->recursos_producao_id = $recurso_producao->id;
+            $saida_produto->quantidade = $request->input('quantidade');
+            $saida_produto->motivo = '1';
+            $saida_produto->data = $request['data'];
+            $saida_produto->save();
+
+            $produto = Produto::find($request->input('produto_id'));
+            $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
+            $produto->save();
         }
-        //salva recursos de produção no banco de dados
-        $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
-        $recurso_producao = RecursosProducao::create($request->all());
-
-        $saida_produto = new SaidaProduto();
-        $saida_produto->produto_id = $request->input('produto_id');
-        $saida_produto->recursos_producao_id = $recurso_producao->id;
-        $saida_produto->quantidade = $request->input('quantidade');
-        $saida_produto->motivo = '1';
-        $saida_produto->data = $request['data'];
-        $saida_produto->save();
-
-        $produto = Produto::find($request->input('produto_id'));
-        $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
-        $produto->save();
 
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
         return view(
@@ -146,7 +146,8 @@ class OrdemProducaoController extends Controller
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
-                'statuss' => $statuss
+                'statuss' => $statuss,
+                'obras'=>$obras
             ]
         );
     }
@@ -157,8 +158,8 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
-        
-            if(($request['hora_inicio'] >= $ordem_producao->hora_inicio) and ($request['hora_fim'] <= $ordem_producao->hora_fim)){   
+
+        if (($request['hora_inicio'] >= $ordem_producao->hora_inicio) and ($request['hora_fim'] <= $ordem_producao->hora_fim)) {
 
             $exists_parada = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)
                 ->whereBetWeen('hora_inicio', [$request['hora_inicio'], $request['hora_fim']])
@@ -171,18 +172,6 @@ class OrdemProducaoController extends Controller
             if (!isset($exists_parada)) {
                 $request['ordem_producao_id'] = $ordem_producao->id;
                 ParadaEquipamento::create($request->all());
-                $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
-                return view(
-                    'app.ordem_producao.abas',
-                    [
-                        'produtos' => $produtos,
-                        'equipamentos' => $equipamentos,
-                        'ordem_producao' => $ordem_producao,
-                        'recursos_producao' => $recursos_producao,
-                        'paradas_equipamento' => $paradas_equipamento,
-                        'statuss' => $statuss
-                    ]
-                );
             }
         }
 
@@ -196,6 +185,38 @@ class OrdemProducaoController extends Controller
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
                 'statuss' => $statuss
+            ]
+        );
+    }
+
+    public function storeProdutoObra(Request $request, OrdemProducao $ordem_producao)
+    {
+        $produtos = Produto::all();
+        $equipamentos = Equipamento::all();
+        $statuss = Status::all();
+        $obras = Obra::all();
+        $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
+        $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        $request['ordem_producao_id'] = $ordem_producao->id;
+        $exists_produto_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)
+            ->where('produto_id', $request['produto_id'])
+            ->where('obra_id', $request['obra_id'])->first();
+        if (!isset($exists_produto_obra)) {
+            ProdutoObra::create($request->all());
+        }
+
+        $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
+        return view(
+            'app.ordem_producao.abas',
+            [
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'recursos_producao' => $recursos_producao,
+                'ordem_producao' => $ordem_producao,
+                'paradas_equipamento' => $paradas_equipamento,
+                'statuss' => $statuss,
+                'obras' => $obras,
+                'produtos_obra' => $produtos_obra
             ]
         );
     }

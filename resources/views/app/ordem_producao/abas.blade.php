@@ -26,7 +26,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <a href="#paradas_equip" class="nav-link mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
-                            id="paradas_equip_tab" data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">Paradas de
+                            id="paradas_equip_tab" data-bs-toggle="tab" role="tab" aria-controls="paradas_equip"> 
+                            Paradas de
                             Equipamentos</a>
                     </li>
 
@@ -34,7 +35,7 @@
                         <a href="#produto_obra" class="nav-link mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
                             id="produto_obra_tab" data-bs-toggle="tab" role="tab" aria-controls="produto_obra">Saída de
                             Produto para Obra</a>
-                    </li>
+                    </li>   
                 </ul>
                 {{-- --------------------------------------------------------------------- --}}
                 {{-- Dados Principais --}}
@@ -47,13 +48,13 @@
                                 <label for="equipamento_id"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
-                                    <select name="equipamento_id" id="equipamento_id" class="form-control-template" required
-                                        autofocus {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                    <select name="equipamento_id" id="equipamento_id" class="form-control-template"
+                                        autofocus required {{ isset($ordem_producao) ? 'disabled' : '' }}>
                                         <option value=""> --Selecione o Equipamento--</option>
                                         @foreach ($equipamentos as $equipamento)
                                             <option value="{{ $equipamento->id }}"
                                                 {{ ($ordem_producao->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
-                                                {{ $equipamento->nome ?? old('equipamento_id') }}
+                                                {{ $equipamento->nome ?? old('equipamento_id')}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -212,17 +213,17 @@
                             method="POST">
                             @csrf
                             <div class="row mb-1">
-                                <label for="equipamento_id"
+                                <label for="equipamento_recursos"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
-                                    <select name="equipamento_id" id="equipamento_id" class="form-control" autofocus>
+                                    <select name="equipamento_recursos" id="equipamento_recursos" class="form-control" autofocus>
                                         <option value=""> --Selecione o Equipamento--</option>
                                         @foreach ($equipamentos as $equipamento)
                                             <option value="{{ $equipamento->id }}">
                                                 {{ $equipamento->nome }}</option>
                                         @endforeach
                                     </select>
-                                    {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
+                                    {{ $errors->has('equipamento_recursos') ? $errors->first('equipamento_recursos') : '' }}
                                 </div>
                             </div>
 
@@ -256,10 +257,10 @@
                             </div>
 
                             <div class="row mb-1">
-                                <label for="horimetro_inicial"
+                                <label for="horimetro_inicial_recursos"
                                     class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
                                 <div class="col-md-6">
-                                    <input name="horimetro_inicial" id="horimetro_inicial" type="text"
+                                    <input name="horimetro_inicial_recursos" id="horimetro_inicial_recursos" type="text"
                                         class="form-control-disabled" disabled>
                                 </div>
                             </div>
@@ -431,7 +432,7 @@
                     {{-- --------------------------------------------------------------------------------------------------- --}}
                     {{-- Saida Materiais --}}
                     <div class="tab-pane fade" id="produto_obra" role="tabpanel" aria-labelledby="produto_obra_tab">
-                        <form action="{{ route('ordem-producao.store') }}" method="POST">
+                        <form action="{{isset($ordem_producao) ? route('ordem-producao.store-produto-obra',['ordem_producao'=>$ordem_producao]) : '#'}}" method="POST">
                             @csrf
 
                             <div class="row mb-1">
@@ -440,10 +441,10 @@
                                 <div class="col-md-6">
                                     <select name="obra_id" id="obra_id" class="form-control-template" required autofocus>
                                         <option value=""> --Selecione o Equipamento--</option>
-                                        @foreach ($equipamentos as $equipamento)
-                                            <option value="{{ $equipamento->id}}"
-                                                {{ ($ordem_producao->obra_id ?? old('obra_id')) == $equipamento->id ? 'selected' : '' }}>
-                                                {{ $equipamento->nome ?? old('obra_id') }}
+                                        @foreach ($obras as $obra)
+                                            <option value="{{ $obra->id}}"
+                                                {{ ($ordem_producao->obra_id ?? old('obra_id')) == $obra->id ? 'selected' : '' }}>
+                                                {{ $obra->nome ?? old('obra_id') }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -457,10 +458,10 @@
                                 <div class="col-md-6">
                                     <select name="produto_id" id="produto_id" class="form-control-template" required autofocus>
                                         <option value=""> --Selecione o Equipamento--</option>
-                                        @foreach ($equipamentos as $equipamento)
-                                            <option value="{{ $equipamento->id}}"
-                                                {{ ($ordem_producao->produto_id ?? old('produto_id')) == $equipamento->id ? 'selected' : '' }}>
-                                                {{ $equipamento->nome ?? old('produto_id') }}
+                                        @foreach ($produtos as $produto)
+                                            <option value="{{ $produto->id}}"
+                                                {{ ($ordem_producao->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>
+                                                {{ $produto->nome ?? old('produto_id') }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -476,7 +477,43 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Cadastrar </button>
+                                </div>
+                            </div>
+
                         </form>
+
+                        <div class="card">
+                            <div class="card-header-template">
+                                <div>SAIDA DE MATERIAL ´PARA OBRA</div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table-template table-striped table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="th-title">PRODUTO</th>
+                                            <th scope="col" class="th-title">QUANTIDADE</th>
+                                            <th scope="col" class="th-title">CARGAS</th>
+                                            <th scope="col" class="th-title">OBRA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @isset($produtos_obra)
+                                            @foreach ($produtos_obra as $produto_obra)
+                                                <tr>
+                                                    <td>{{ $produto_obra->produto->nome }}</td>
+                                                    <td>{{ $produto_obra->quantidade}}</td>
+                                                    <td>{{ $produto_obra->cargas}}</td>
+                                                    <td>{{ $produto_obra->obra->nome}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endisset
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -502,6 +539,24 @@
                     dataType: "json",
                     success: function(response) {
                         $("#horimetro_inicial").val(response);
+                    }
+                })
+
+            });
+
+            $('#equipamento_recursos').change(function() {
+                var equipamento_id = $("#equipamento_recursos option:selected").val();
+                $("#horimetro_inicial_recursos").val('');
+                $.ajax({
+                    url: "{{ route('utils.get-horimetro-inicial') }}",
+                    type: "get",
+                    data: {
+                        'equipamento_id': equipamento_id,
+                        'table': 'recursos_producao'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        $("#horimetro_inicial_recursos").val(response);
                     }
                 })
 
