@@ -120,7 +120,7 @@ class OrdemProducaoController extends Controller
         if (!isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
             //salva recursos de produção no banco de dados
             $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
-            $request['equipamento_id']= $request['equipamento_id'];
+            $request['equipamento_id']= $request['equipamento_recursos'];
             unset($request['equipamento_recursos']);
             $recurso_producao = RecursosProducao::create($request->all());
 
@@ -157,9 +157,12 @@ class OrdemProducaoController extends Controller
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
+        $obras=Obra::all();
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
 
-        if (($request['hora_inicio'] >= $ordem_producao->hora_inicio) and ($request['hora_fim'] <= $ordem_producao->hora_fim)) {
+        if (($request['hora_inicio'] >= $ordem_producao->hora_inicio) 
+        and ($request['hora_fim'] <= $ordem_producao->hora_fim)
+        and($request['hora_inicio'] < $request['hora_fim'] )) {
 
             $exists_parada = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)
                 ->whereBetWeen('hora_inicio', [$request['hora_inicio'], $request['hora_fim']])
@@ -184,7 +187,8 @@ class OrdemProducaoController extends Controller
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
-                'statuss' => $statuss
+                'statuss' => $statuss,
+                'obras'=>$obras
             ]
         );
     }
