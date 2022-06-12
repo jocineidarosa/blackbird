@@ -261,14 +261,6 @@ class OrdemProducaoController extends Controller
             $producao_por_hora = '';
         }
 
-
-        /**
-         * manipulação da collection de recursos de produtos
-         */
-
-        /* 'sec_to_time(TIMESTAMPDIFF(SECOND,rp.hora_inicio, rp.hora_fim)) 
-            as total_hora */
-
         $recursos_producao = DB::table('recursos_producao as rp')
             ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
             ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
@@ -310,16 +302,19 @@ class OrdemProducaoController extends Controller
         $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
         /* dd($paradas); */
 
+        $produtos_obra= ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
+
         return view(
             'app.ordem_producao.show',
             [
                 'ordem_producao' => $ordem_producao,
                 'op_horimetro_inicial' => $op_horimetro_inicial,
                 'paradas' => $paradas,
+                'produtos_obra'=>$produtos_obra,
                 'recursos_producao' => $recursos_producao,
                 'total_horimetro' => $total_horimetro,
                 'total_horas_equipamento' => $total_horas_equipamento,
-                'producao_por_hora' => $producao_por_hora
+                'producao_por_hora' => $producao_por_hora,
             ]
         );
     }

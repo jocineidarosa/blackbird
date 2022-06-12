@@ -121,9 +121,9 @@
                     </tr>
 
                     <tr>
-                        <td colspan="16" class="th-title-main text-center">REGISTRO DE PARADAS DE EQUIPAMENTOS</td>
+                        <td colspan="16" class="th-title-main">REGISTRO DE PARADAS DE EQUIPAMENTOS</td>
                     </tr>
-
+                    
                     @if (isset($paradas) && $paradas->count() > 0)
                         <tr>
                             <td class="text-center th-title pr-2" colspan="2">Hora Inicial</td>
@@ -144,6 +144,31 @@
                             <td colspan="16" class="text-center"> Não houve paradas de equipamentos</td>
                         </tr>
                     @endif
+
+                    <tr>
+                        <td colspan="16"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="16" class="th-title-main">Saída de Materiais para Obra</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4" class="th-title">Produto</th>
+                        <td colspan="2" class="th-title">Qtde</th>
+                        <td colspan="2" class="th-title">Qtde Cargas</th>
+                        <td colspan="4" class="th-title">Obra</th>
+                        <td colspan="4" class="th-title">Transportadora</th>
+                    </tr>
+                    @foreach ($produtos_obra as  $produto_obra)
+                        <tr>
+                            <td colspan="4">{{$produto_obra->produto->nome}}</td>
+                            <td colspan="2">{{$produto_obra->quantidade}}</td>
+                            <td colspan="4">{{$produto_obra->produto->nome}}</td>
+                            <td colspan="4">{{$produto_obra->produto->nome}}</td>
+                        </tr>
+                        
+                    @endforeach
+
                 </table>
             </div>
         </div>
