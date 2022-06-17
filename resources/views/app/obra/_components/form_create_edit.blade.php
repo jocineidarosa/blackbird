@@ -1,9 +1,9 @@
             @if (isset($marca->id))
-                <form action="{{ route('marca.update', ['marca' => $marca->id]) }}" method="POST">
+                <form action="{{ route('obra.update', ['obra' => $obra->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                 @else
-                    <form action="{{ route('marca.store') }}" method="POST">
+                    <form action="{{ route('obra.store') }}" method="POST">
                         @csrf
             @endif
 
@@ -12,7 +12,7 @@
 
                     <div class="col-md-6">
                         <input id="nome" type="text" class="form-control-template" name="nome"
-                            value="{{$marca->nome ?? old('nome') }}" required autocomplete="nome" autofocus>
+                            value="{{$obra->nome ?? old('nome') }}" required autocomplete="nome" autofocus>
                             {{ $errors->has('nome') ? $errors->first('nome') : '' }}
                     </div>
                 </div>
@@ -23,7 +23,7 @@
 
                     <div class="col-md-6">
                         <input id="descricao" name="descricao" type="text" class="form-control-template" descricao="descricao"
-                            value="{{$marca->descricao?? old('descricao') }}" required autocomplete="descricao">
+                            value="{{$obra->descricao?? old('descricao') }}" required autocomplete="descricao">
                             {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}                            
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            {{ isset($marca) ? 'Atualizar' : 'Cadastrar' }}
+                            {{ isset($obra) ? 'Atualizar' : 'Cadastrar' }}
                         </button>
                     </div>
                 </div>

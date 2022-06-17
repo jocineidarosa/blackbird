@@ -24,14 +24,15 @@
             <li>
                 <div class="dropdownlink">
                     <div>
-                        <i class="icofont-cube mr-2"></i>Logistica
+                        <i class="icofont-server mr-2"></i>Cadastro Geral
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu"><a href="{{route('empresa.index')}}">Empresas</a></li>
-                    <li class="item-menu"><a href="{{route('fornecedor.index')}}">Fornecedores</a></li>
-                    <li class="item-menu"><a href="{{route('cliente.index')}}">Clientes</a></li>
+                    <li class="item-menu "><a href="{{route('empresa.index')}}">Empresas</a></li>
+                    <li class="item-menu "><a href="{{route('fornecedor.index')}}">Fornecedores</a></li>
+                    <li class="item-menu "><a href="{{route('cliente.index')}}">Clientes</a></li>
+                    <li class="item-menu "><a href="{{route('obra.index')}}">Obras</a></li>
                 </ul>
             </li>
 

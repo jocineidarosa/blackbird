@@ -1,20 +1,18 @@
 @extends('app.layouts.app')
 
-@section('titulo', 'Marcas')
-
 @section('content')
     <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>
-                    CADASTRAR NA MARCA
+                    CADASTRAR OBRA
                 </div>
                 <div>
-                    <a class="btn btn-sm btn-primary" href="{{ route('marca.index') }}">LISTAGEM</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('obra.index') }}">LISTAGEM</a>
                 </div>
             </div>
             <div class="card-body">
-                @component('app.marca._components.form_create_edit')
+                @component('app.obra._components.form_create_edit')
                 @endcomponent
             </div>
         </div>

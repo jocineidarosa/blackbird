@@ -54,8 +54,9 @@ Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\En
 //saida de produtos
 Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController');
 
-/* //ordem-producao
-Route::middleware('auth')->resource('/ordem-producao', 'App\Http\Controllers\OrdemProducaoController'); */
+//obras
+Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
+
 
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
