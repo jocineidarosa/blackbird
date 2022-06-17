@@ -15,13 +15,11 @@
             <table class="table-template table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Empresa</th>
-                        <th scope="col">Endereço</th>
-                        <th scope="col">Visualizar</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Excluir</th>
+                        <th scope="col" class="th-title">Id</th>
+                        <th scope="col" class="th-title">Nome</th>
+                        <th scope="col" class="th-title">Empresa</th>
+                        <th scope="col" class="th-title">Endereço</th>
+                        <th scope="col" class="th-title">Operações</th>
                     </tr>
                 </thead>
 
@@ -32,16 +30,23 @@
                             <td>{{ $obra->nome}}</td>
                             <td>{{ $obra->empresa->nome_fantasia}}</td>
                             <td>{{ $obra->endereco}}</td>
-                            <td><a class="btn btn-sm-template btn-primary" href="{{ route('marca.show', ['marca' => $obra->id]) }}">Visualizar</a></td>
-                            <td><a class="btn btn-sm-template btn-primary" href="{{ route('marca.edit', ['marca' => $obra->id]) }}">Editar</a></td>
                             <td>
-                                <form id="form_{{ $obra->id }}" method="post"
-                                    action="{{ route('marca.destroy', ['marca' => $obra->id]) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a class="btn btn-sm-template btn-danger" href="#"
-                                        onclick="document.getElementById('form_{{ $obra->id }}').submit()">Excluir</a>
-                                </form>
+                                <div class="div-op">
+                                    <a class="btn btn-sm-template btn-primary mx-1"
+                                        href="{{ route('obra.show', ['obra' => $obra->id]) }}"><i
+                                            class="icofont-eye-alt"></i></a>
+                                    <a class="btn btn-sm-template btn-success mx-1"
+                                        href="{{ route('obra.edit', ['obra' => $obra->id]) }}"><i
+                                            class="icofont-pen-alt-1"></i></a>
+                                    <form id="form_{{ $obra->id }}" method="post"
+                                        action="{{ route('obra.destroy', ['obra' => $obra->id]) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                            onclick="document.getElementById('form_{{ $obra->id }}').submit()"><i
+                                                class="icofont-close-squared-alt"></i></a>
+                                    </form>
+                                </div>
                             </td>
                             
                         </tr>

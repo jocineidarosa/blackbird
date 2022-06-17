@@ -38,7 +38,8 @@ class ObraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Obra::create($request->all());
+        return redirect()->route('obra.index');
     }
 
     /**
@@ -81,8 +82,9 @@ class ObraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Obra $obra)
     {
-        //
+        $obra->delete();
+        redirect()->route('obra.index');
     }
 }

@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @component('app.obra._components.form_create_edit')
+                @component('app.obra._components.form_create_edit',['empresas'=>$empresas])
                 @endcomponent
             </div>
         </div>
