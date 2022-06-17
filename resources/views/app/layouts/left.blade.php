@@ -6,7 +6,7 @@
             <li>
                 <div class="dropdownlink">
                     <div>
-                        <i class="icofont-cube mr-2"></i>Suprimentos
+                        <i class="icofont-layout mr-2"></i>Suprimentos
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
@@ -51,7 +51,7 @@
             <li>
                 <div class="dropdownlink">
                     <div>
-                        <i class="icofont-fork-lift mr-2"></i>Equipamentos
+                        <i class="icofont-vehicle-crane mr-2"></i>Equipamentos
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
@@ -64,7 +64,7 @@
             <li>
                 <div class="dropdownlink">
                     <div>
-                        <i class="icofont-fork-lift mr-2"></i>Manutenção
+                        <i class="icofont-repair mr-2" ></i>Manutenção
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>

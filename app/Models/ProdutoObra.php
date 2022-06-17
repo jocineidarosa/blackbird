@@ -18,4 +18,8 @@ class ProdutoObra extends Model
     public function obra(){
         return $this->belongsTo(Obra::class);
     }
+
+    public function transportadora(){
+        return $this->belongsTo(Transportadora::class);
+    }
 }
