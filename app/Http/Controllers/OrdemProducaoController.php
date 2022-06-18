@@ -346,9 +346,10 @@ class OrdemProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OrdemProducao $ordem_producao)
     {
-        //
+        $ordem_producao->delete();
+        return redirect()->route('ordem-producao.index'); 
     }
 
     public function getHorimetroInicial(Request $request)

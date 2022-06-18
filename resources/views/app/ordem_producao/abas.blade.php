@@ -10,7 +10,7 @@
                     Cadastro de Ordem de Serviço
                 </div>
                 <div>
-                    <a class="btn btn-primary btn-sm" href="{{ route('marca.create') }}">NOVO</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('ordem-producao.index') }}">LISTAGEM</a>
                 </div>
             </div>
             <div class="card-body">
