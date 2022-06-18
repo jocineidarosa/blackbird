@@ -93,7 +93,7 @@ class OrdemProducaoController extends Controller
             $ordem_producao = $exists_ordem;
         }
         return view(
-            'app.ordem_producao.abas',
+            'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
@@ -139,7 +139,7 @@ class OrdemProducaoController extends Controller
 
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
         return view(
-            'app.ordem_producao.abas',
+            'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
@@ -180,7 +180,7 @@ class OrdemProducaoController extends Controller
 
         $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
         return view(
-            'app.ordem_producao.abas',
+            'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
@@ -211,7 +211,7 @@ class OrdemProducaoController extends Controller
 
         $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
         return view(
-            'app.ordem_producao.abas',
+            'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
