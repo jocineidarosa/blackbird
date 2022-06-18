@@ -44,7 +44,7 @@ class OrdemProducaoController extends Controller
         $statuss = Status::all();
         $obras = Obra::all();
         return view(
-            'app.ordem_producao.abas',
+            'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
@@ -324,8 +324,29 @@ class OrdemProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(OrdemProducao $ordem_producao)
     {
+        $produtos = Produto::all();
+        $equipamentos = Equipamento::all();
+        $statuss = Status::all();
+        $obras = Obra::all();
+        $recurso_producao= RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
+        $paradas_equipamento= ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
+        return view(
+            'app.ordem_producao.create_edit',
+            [
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'statuss' => $statuss,
+                'obras' => $obras,
+                'ordem_producao'=>$ordem_producao,
+                'recursos_producao'=>$recurso_producao,
+                'paradas_equipamento'=>$paradas_equipamento,
+                '$produtos_obra'=>$produtos_obra
+
+            ]
+        );
     }
 
     /**
@@ -335,9 +356,10 @@ class OrdemProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OrdemProducao $ordem_producao)
     {
-        //
+        $ordem_producao->update($request->all());
+        return redirect()->route('ordem-producao.index');
     }
 
     /**

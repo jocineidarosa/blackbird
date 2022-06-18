@@ -42,14 +42,20 @@
                 <div class="tab-content mt-3" id="myTabContent">
                     <div class="tab-pane fade show active" id="dados_principais" role="tabpanel"
                         aria-labelledby="dados_principais_tab">
-                        <form action="{{ route('ordem-producao.store') }}" method="POST">
+                        @if (!isset($ordem_producao))
+                            <form action="{{route('ordem-producao.store')}}" method="POST">
                             @csrf
+                        @else
+                            <form action="{{route('ordem-producao.update',['ordem_producao'=>$ordem_producao->id])}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                        @endif
                             <div class="row mb-1">
                                 <label for="equipamento_id"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
                                     <select name="equipamento_id" id="equipamento_id" class="form-control-template"
-                                        autofocus required {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        autofocus required >
                                         <option value=""> --Selecione o Equipamento--</option>
                                         @foreach ($equipamentos as $equipamento)
                                             <option value="{{ $equipamento->id }}"
@@ -67,7 +73,7 @@
 
                                 <div class="col-md-6">
                                     <select name="produto_id" id="" class="form-control-template" required
-                                        {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        >
                                         <option value=""> --Selecione o Produto-</option>
                                         @foreach ($produtos as $produto)
                                             <option value="{{ $produto->id }}"
@@ -87,7 +93,7 @@
                                         class="form-control-template " quantidade_producao="quantidade_producao"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                         value="{{ $ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"
-                                        required {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        required >
                                     {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
                                 </div>
                             </div>
@@ -105,7 +111,7 @@
                                 <div class="col-md-6">
                                     <input name="data" id="data" type="date" class="form-control-template"
                                         value="{{ $ordem_producao->data ?? old('data') }}"
-                                        {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        >
                                     {{ $errors->has('data') ? $errors->first('data') : '' }}
                                 </div>
                             </div>
@@ -115,7 +121,7 @@
                                     Inicial</label>
                                 <div class="col-md-6">
                                     <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
-                                        hora_inicio="hora_inicio" {{ isset($ordem_producao) ? 'disabled' : '' }}
+                                        hora_inicio="hora_inicio" 
                                         value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
                                     {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
                                 </div>
@@ -127,7 +133,7 @@
                                 <div class="col-md-6">
                                     <input name="hora_fim" id="hora_fim" type="time" class="form-control-template"
                                         hora_fim="hora_fim" value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}"
-                                        {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        >
                                     {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
                                 </div>
                             </div>
@@ -152,7 +158,7 @@
                                 <div class="col-md-6">
                                     <input name="horimetro_final" id="horimetro_final" class="form-control-template"
                                         value="{{ $ordem_producao->horimetro_final ?? old('horimetro_final') }}"
-                                        {{ isset($ordem_producao) ? 'disabled' : '' }}
+                                        
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     {{ $errors->has('horimetro_final') ? $errors->first('horimetro_final') : '' }}
                                 </div>
@@ -173,7 +179,7 @@
                                     class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
                                 <div class="col-md-6">
                                     <select name="status_id" id="" class="form-control-template" required
-                                        {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                        >
                                         <option value=""> --Selecione a Situação-</option>
                                         @foreach ($statuss as $status)
                                             <option value="{{ $status->id }}"
@@ -191,15 +197,16 @@
                                 <label for="observacao"
                                     class="col-md-4 col-form-label text-md-end text-right">Observações</label>
                                 <div class="col-md-6">
-                                    <textarea class="form-control" name="observacao" {{ isset($ordem_producao) ? 'disabled' : '' }}>
+                                    <textarea class="form-control text-left" name="observacao" >
                                     {{ $ordem_producao->observacao ?? old('observacao') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary"
-                                    {{isset($ordem_producao) ? 'disabled' : ''}}>Cadastrar</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        {{isset($ordem_producao) ? 'Atualizar' : 'Cadastrar'}}
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -440,7 +447,7 @@
                                     class="col-md-4 col-form-label text-md-end text-right">Obra</label>
                                 <div class="col-md-6">
                                     <select name="obra_id" id="obra_id" class="form-control-template" required autofocus>
-                                        <option value=""> --Selecione o Equipamento--</option>
+                                        <option value=""> --Selecione a Obra--</option>
                                         @foreach ($obras as $obra)
                                             <option value="{{ $obra->id}}"
                                                 {{ ($ordem_producao->obra_id ?? old('obra_id')) == $obra->id ? 'selected' : '' }}>
@@ -457,7 +464,7 @@
                                     class="col-md-4 col-form-label text-md-end text-right">Produto</label>
                                 <div class="col-md-6">
                                     <select name="produto_id" id="produto_id" class="form-control-template" required autofocus>
-                                        <option value=""> --Selecione o Equipamento--</option>
+                                        <option value=""> --Selecione o Produto--</option>
                                         @foreach ($produtos as $produto)
                                             <option value="{{ $produto->id}}"
                                                 {{ ($ordem_producao->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>
@@ -487,7 +494,7 @@
 
                         <div class="card">
                             <div class="card-header-template">
-                                <div>SAIDA DE MATERIAL ´PARA OBRA</div>
+                                <div>SAIDA DE MATERIAL PARA OBRA</div>
                             </div>
                             <div class="card-body">
                                 <table class="table-template table-striped table-hover table-bordered">

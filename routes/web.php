@@ -85,7 +85,7 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::get('{ordem_producao}/edit','App\Http\Controllers\OrdemProducaoController@edit'
     )->name('ordem-producao.edit');
 
-    Route::post('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
+    Route::put('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
     )->name('ordem-producao.update');
 
     Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'

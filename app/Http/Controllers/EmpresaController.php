@@ -43,7 +43,7 @@ class EmpresaController extends Controller
    public function store(Request $request)
    {
        Empresa::create($request->all());
-       return redirect()->route('fornecedor.index');
+       return redirect()->route('empresa.index');
    }
 
    /**

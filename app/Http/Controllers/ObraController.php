@@ -59,9 +59,9 @@ class ObraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Obra $obra)
     {
-        //
+        return view('app.obra._components.form_create_edit', ['obra'=>$obra]);
     }
 
     /**
