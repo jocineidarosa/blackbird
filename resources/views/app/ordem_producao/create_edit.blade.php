@@ -488,10 +488,10 @@
                             </div>
 
                             <div class="row mb-1">
-                                <label for="quantidade"
-                                    class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
+                                <label for="qtde_cargas"
+                                    class="col-md-4 col-form-label text-md-end text-right">Qtde Cargas</label>
                                 <div class="col-md-6">
-                                    <input name="quantidade" id="quantidade" type="text" class="form-control">
+                                    <input name="qtde_cargas" id="qtde_cargas" type="text" class="form-control">
                                 </div>
                             </div>
 
