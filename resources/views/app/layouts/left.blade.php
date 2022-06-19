@@ -18,6 +18,7 @@
                     <li class="item-menu"><a href="{{route('entrada-produto.index')}}">Entrada de Produtos</a></li>
                     <li class="item-menu"><a href="{{route('saida-produto.index')}}">Saída de Produtos</a></li>
                     <li class="item-menu"><a href="{{route('produto-fornecedor.create')}}">Produto por Fornecedor</a></li>
+              
                 </ul>
             </li>
 
@@ -33,6 +34,7 @@
                     <li class="item-menu "><a href="{{route('fornecedor.index')}}">Fornecedores</a></li>
                     <li class="item-menu "><a href="{{route('cliente.index')}}">Clientes</a></li>
                     <li class="item-menu "><a href="{{route('obra.index')}}">Obras</a></li>
+                    <li class="item-menu"><a href="{{route('transportadora.index')}}">Transportadora</a></li>
                 </ul>
             </li>
 

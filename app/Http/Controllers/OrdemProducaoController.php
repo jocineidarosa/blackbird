@@ -13,8 +13,9 @@ use App\Models\SaidaProduto;
 use Carbon\Carbon;
 use App\Models\Obra;
 use App\Models\ProdutoObra;
+use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
-
+use PhpParser\Node\Expr\Empty_;
 
 use function PHPUnit\Framework\isNull;
 
@@ -43,13 +44,15 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras = Obra::all();
+        $transportadoras=Transportadora::all();
         return view(
             'app.ordem_producao.create_edit',
             [
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'statuss' => $statuss,
-                'obras' => $obras
+                'obras' => $obras,
+                'transportadoras'=>$transportadoras
             ]
         );
     }
@@ -84,6 +87,7 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras = Obra::all();
+        $transportadoras=Transportadora::all();
         $exists_ordem = OrdemProducao::where('data', $request['data'])
             ->where('equipamento_id', $request['equipamento_id'])->first();
 
@@ -99,7 +103,8 @@ class OrdemProducaoController extends Controller
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
                 'statuss' => $statuss,
-                'obras' => $obras
+                'obras' => $obras,
+                'transportadoras'=>$transportadoras
             ]
         );
     }
@@ -110,7 +115,9 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras=Obra::all();
+        $transportadoras=Transportadora::all();
         $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
         //$ordem_producao= OrdemProducao::find($ordem_producao);
         $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)
@@ -146,8 +153,10 @@ class OrdemProducaoController extends Controller
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
+                'produtos_obra'=>$produtos_obra,
                 'statuss' => $statuss,
-                'obras'=>$obras
+                'obras'=>$obras,
+                'transportadoras'=>$transportadoras
             ]
         );
     }
@@ -158,7 +167,9 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras=Obra::all();
+        $transportadoras=Transportadora::all();
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
+        $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
         if (($request['hora_inicio'] >= $ordem_producao->hora_inicio) 
         and ($request['hora_fim'] <= $ordem_producao->hora_fim)
@@ -187,8 +198,10 @@ class OrdemProducaoController extends Controller
                 'ordem_producao' => $ordem_producao,
                 'recursos_producao' => $recursos_producao,
                 'paradas_equipamento' => $paradas_equipamento,
+                'produtos_obra'=>$produtos_obra,
                 'statuss' => $statuss,
-                'obras'=>$obras
+                'obras'=>$obras,
+                'transportadoras'=>$transportadoras
             ]
         );
     }
@@ -199,13 +212,15 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras = Obra::all();
+        $transportadoras=Transportadora::all();
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
         $paradas_equipamento = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
         $request['ordem_producao_id'] = $ordem_producao->id;
         $exists_produto_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)
             ->where('produto_id', $request['produto_id'])
             ->where('obra_id', $request['obra_id'])->first();
-        if (!isset($exists_produto_obra)) {
+
+        if (empty($exists_produto_obra)) {
             ProdutoObra::create($request->all());
         }
 
@@ -220,7 +235,8 @@ class OrdemProducaoController extends Controller
                 'paradas_equipamento' => $paradas_equipamento,
                 'statuss' => $statuss,
                 'obras' => $obras,
-                'produtos_obra' => $produtos_obra
+                'produtos_obra' => $produtos_obra,
+                'transportadoras'=>$transportadoras
             ]
         );
     }
@@ -330,6 +346,7 @@ class OrdemProducaoController extends Controller
         $equipamentos = Equipamento::all();
         $statuss = Status::all();
         $obras = Obra::all();
+        $transportadoras=Transportadora::all();
         $recurso_producao= RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
         $paradas_equipamento= ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
         $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
@@ -340,10 +357,11 @@ class OrdemProducaoController extends Controller
                 'equipamentos' => $equipamentos,
                 'statuss' => $statuss,
                 'obras' => $obras,
+                'transportadoras'=>$transportadoras,
                 'ordem_producao'=>$ordem_producao,
                 'recursos_producao'=>$recurso_producao,
                 'paradas_equipamento'=>$paradas_equipamento,
-                '$produtos_obra'=>$produtos_obra
+                'produtos_obra'=>$produtos_obra
 
             ]
         );
@@ -372,6 +390,11 @@ class OrdemProducaoController extends Controller
     {
         $ordem_producao->delete();
         return redirect()->route('ordem-producao.index'); 
+    }
+
+    public function destroyProdutoObra(ProdutoObra $produto_obra, OrdemProducao $ordem_producao){
+        $produto_obra->delete();
+        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
     }
 
     public function getHorimetroInicial(Request $request)

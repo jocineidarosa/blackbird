@@ -26,7 +26,7 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <a href="#paradas_equip" class="nav-link mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
-                            id="paradas_equip_tab" data-bs-toggle="tab" role="tab" aria-controls="paradas_equip"> 
+                            id="paradas_equip_tab" data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">
                             Paradas de
                             Equipamentos</a>
                     </li>
@@ -35,7 +35,7 @@
                         <a href="#produto_obra" class="nav-link mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
                             id="produto_obra_tab" data-bs-toggle="tab" role="tab" aria-controls="produto_obra">Saída de
                             Produto para Obra</a>
-                    </li>   
+                    </li>
                 </ul>
                 {{-- --------------------------------------------------------------------- --}}
                 {{-- Dados Principais --}}
@@ -43,172 +43,168 @@
                     <div class="tab-pane fade show active" id="dados_principais" role="tabpanel"
                         aria-labelledby="dados_principais_tab">
                         @if (!isset($ordem_producao))
-                            <form action="{{route('ordem-producao.store')}}" method="POST">
-                            @csrf
-                        @else
-                            <form action="{{route('ordem-producao.update',['ordem_producao'=>$ordem_producao->id])}}" method="POST">
-                            @csrf
-                            @method('PUT')
+                            <form action="{{ route('ordem-producao.store') }}" method="POST">
+                                @csrf
+                            @else
+                                <form
+                                    action="{{ route('ordem-producao.update', ['ordem_producao' => $ordem_producao->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PUT')
                         @endif
-                            <div class="row mb-1">
-                                <label for="equipamento_id"
-                                    class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
-                                <div class="col-md-6">
-                                    <select name="equipamento_id" id="equipamento_id" class="form-control-template"
-                                        autofocus required >
-                                        <option value=""> --Selecione o Equipamento--</option>
-                                        @foreach ($equipamentos as $equipamento)
-                                            <option value="{{ $equipamento->id }}"
-                                                {{ ($ordem_producao->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
-                                                {{ $equipamento->nome ?? old('equipamento_id')}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
-                                </div>
+                        <div class="row mb-1">
+                            <label for="equipamento_id"
+                                class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
+                            <div class="col-md-6">
+                                <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus
+                                    required>
+                                    <option value=""> --Selecione o Equipamento--</option>
+                                    @foreach ($equipamentos as $equipamento)
+                                        <option value="{{ $equipamento->id }}"
+                                            {{ ($ordem_producao->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
+                                            {{ $equipamento->nome ?? old('equipamento_id') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
+                        <div class="row mb-1">
+                            <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
 
-                                <div class="col-md-6">
-                                    <select name="produto_id" id="" class="form-control-template" required
-                                        >
-                                        <option value=""> --Selecione o Produto-</option>
-                                        @foreach ($produtos as $produto)
-                                            <option value="{{ $produto->id }}"
-                                                {{ ($ordem_producao->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>
-                                                {{ $produto->nome ?? old('equipamento_id') }}</option>
-                                        @endforeach
-                                    </select>
-                                    {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
-                                </div>
+                            <div class="col-md-6">
+                                <select name="produto_id" id="" class="form-control-template" required>
+                                    <option value=""> --Selecione o Produto-</option>
+                                    @foreach ($produtos as $produto)
+                                        <option value="{{ $produto->id }}"
+                                            {{ ($ordem_producao->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>
+                                            {{ $produto->nome ?? old('equipamento_id') }}</option>
+                                    @endforeach
+                                </select>
+                                {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="quantidade_producao"
-                                    class="col-md-4 col-form-label text-md-end text-right">Quantidade_producao</label>
-                                <div class="col-md-6">
-                                    <input name="quantidade_producao" id="quantidade_producao" type="text"
-                                        class="form-control-template " quantidade_producao="quantidade_producao"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                        value="{{ $ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"
-                                        required >
-                                    {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
-                                </div>
+                        <div class="row mb-1">
+                            <label for="quantidade_producao"
+                                class="col-md-4 col-form-label text-md-end text-right">Quantidade_producao</label>
+                            <div class="col-md-6">
+                                <input name="quantidade_producao" id="quantidade_producao" type="text"
+                                    class="form-control-template " quantidade_producao="quantidade_producao"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                    value="{{ $ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"
+                                    required>
+                                {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção
-                                    por Hora</label>
-                                <div class="col-md-6">
-                                    <input name="producao_hora" id="producao_hora" type="text" class="form-control-disabled"
-                                        readonly value="{{ old('producao_hora') }}">
-                                </div>
+                        <div class="row mb-1">
+                            <label for="producao_hora" class="col-md-4 col-form-label text-md-end text-right">Produção
+                                por Hora</label>
+                            <div class="col-md-6">
+                                <input name="producao_hora" id="producao_hora" type="text" class="form-control-disabled"
+                                    readonly value="{{ old('producao_hora') }}">
                             </div>
-                            <div class="row mb-1">
-                                <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
-                                <div class="col-md-6">
-                                    <input name="data" id="data" type="date" class="form-control-template"
-                                        value="{{ $ordem_producao->data ?? old('data') }}"
-                                        >
-                                    {{ $errors->has('data') ? $errors->first('data') : '' }}
-                                </div>
+                        </div>
+                        <div class="row mb-1">
+                            <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
+                            <div class="col-md-6">
+                                <input name="data" id="data" type="date" class="form-control-template"
+                                    value="{{ $ordem_producao->data ?? old('data') }}">
+                                {{ $errors->has('data') ? $errors->first('data') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
-                                    Inicial</label>
-                                <div class="col-md-6">
-                                    <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
-                                        hora_inicio="hora_inicio" 
-                                        value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
-                                    {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
-                                </div>
+                        <div class="row mb-1">
+                            <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                Inicial</label>
+                            <div class="col-md-6">
+                                <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
+                                    hora_inicio="hora_inicio"
+                                    value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
+                                {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
-                                    Final</label>
-                                <div class="col-md-6">
-                                    <input name="hora_fim" id="hora_fim" type="time" class="form-control-template"
-                                        hora_fim="hora_fim" value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}"
-                                        >
-                                    {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
-                                </div>
+                        <div class="row mb-1">
+                            <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
+                                Final</label>
+                            <div class="col-md-6">
+                                <input name="hora_fim" id="hora_fim" type="time" class="form-control-template"
+                                    hora_fim="hora_fim" value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}">
+                                {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="horimetro_inicial"
-                                    class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
-                                <div class="col-md-6">
-                                    <input name="horimetro_inicial" id="horimetro_inicial" readonly
-                                        class="form-control-disabled"
-                                        value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}">
-                                    {{ $errors->has('horimetro_inicial') ? $errors->first('horimetro_inicial') : '' }}
+                        <div class="row mb-1">
+                            <label for="horimetro_inicial"
+                                class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
+                            <div class="col-md-6">
+                                <input name="horimetro_inicial" id="horimetro_inicial" readonly
+                                    class="form-control-disabled"
+                                    value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}">
+                                {{ $errors->has('horimetro_inicial') ? $errors->first('horimetro_inicial') : '' }}
 
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="horimetro_final"
-                                    class="col-md-4 col-form-label text-md-end text-right">Horímetro
-                                    Final</label>
+                        <div class="row mb-1">
+                            <label for="horimetro_final" class="col-md-4 col-form-label text-md-end text-right">Horímetro
+                                Final</label>
 
-                                <div class="col-md-6">
-                                    <input name="horimetro_final" id="horimetro_final" class="form-control-template"
-                                        value="{{ $ordem_producao->horimetro_final ?? old('horimetro_final') }}"
-                                        
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                                    {{ $errors->has('horimetro_final') ? $errors->first('horimetro_final') : '' }}
-                                </div>
+                            <div class="col-md-6">
+                                <input name="horimetro_final" id="horimetro_final" class="form-control-template"
+                                    value="{{ $ordem_producao->horimetro_final ?? old('horimetro_final') }}"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                {{ $errors->has('horimetro_final') ? $errors->first('horimetro_final') : '' }}
                             </div>
+                        </div>
 
-                            <div class="row mb-1">
-                                <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Total
-                                    Horimetro</label>
-                                <div class="col-md-6">
-                                    <input name="total_horimetro" id="total_horimetro" type="text"
-                                        class="form-control-disabled" disabled>
-                                </div>
+                        <div class="row mb-1">
+                            <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Total
+                                Horimetro</label>
+                            <div class="col-md-6">
+                                <input name="total_horimetro" id="total_horimetro" type="text"
+                                    class="form-control-disabled" disabled>
                             </div>
+                        </div>
 
 
-                            <div class="row mb-1">
-                                <label for="observacao"
-                                    class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
-                                <div class="col-md-6">
-                                    <select name="status_id" id="" class="form-control-template" required
-                                        >
-                                        <option value=""> --Selecione a Situação-</option>
-                                        @foreach ($statuss as $status)
-                                            <option value="{{ $status->id }}"
-                                                {{ ($ordem_producao->status_id ?? old('status_id')) == $status->id ? 'selected' : '' }}>
-                                                {{ $status->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    {{ $errors->has('status_id') ? $errors->first('status_id') : '' }}
-
-                                </div>
+                        <div class="row mb-1">
+                            <label for="observacao"
+                                class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
+                            <div class="col-md-6">
+                                <select name="status_id" id="" class="form-control-template" required>
+                                    <option value=""> --Selecione a Situação-</option>
+                                    @foreach ($statuss as $status)
+                                        <option value="{{ $status->id }}"
+                                            {{ ($ordem_producao->status_id ?? old('status_id')) == $status->id ? 'selected' : '' }}>
+                                            {{ $status->nome }}</option>
+                                    @endforeach
+                                </select>
+                                {{ $errors->has('status_id') ? $errors->first('status_id') : '' }}
 
                             </div>
 
-                            <div class="row mb-1">
-                                <label for="observacao"
-                                    class="col-md-4 col-form-label text-md-end text-right">Observações</label>
-                                <div class="col-md-6">
-                                    <textarea class="form-control text-left" name="observacao" >
+                        </div>
+
+                        <div class="row mb-1">
+                            <label for="observacao"
+                                class="col-md-4 col-form-label text-md-end text-right">Observações</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control text-left" name="observacao">
                                     {{ $ordem_producao->observacao ?? old('observacao') }}</textarea>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{isset($ordem_producao) ? 'Atualizar' : 'Cadastrar'}}
-                                    </button>
-                                </div>
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ isset($ordem_producao) ? 'Atualizar' : 'Cadastrar' }}
+                                </button>
                             </div>
+                        </div>
                         </form>
                     </div>
 
@@ -216,14 +212,16 @@
                     {{-- Recursos de Produção --------------------------------------------------------- --}}
 
                     <div class="tab-pane fade mt-3" id="recursos" role="tabpanel" aria-labelledby="recursos-tab">
-                        <form action="{{isset($ordem_producao) ? route('ordem-producao.store-recursos', ['ordem_producao' => $ordem_producao->id]) : '#'}}"
+                        <form
+                            action="{{ isset($ordem_producao) ? route('ordem-producao.store-recursos', ['ordem_producao' => $ordem_producao->id]) : '#' }}"
                             method="POST">
                             @csrf
                             <div class="row mb-1">
                                 <label for="equipamento_recursos"
                                     class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                                 <div class="col-md-6">
-                                    <select name="equipamento_recursos" id="equipamento_recursos" class="form-control" autofocus>
+                                    <select name="equipamento_recursos" id="equipamento_recursos" class="form-control"
+                                        autofocus>
                                         <option value=""> --Selecione o Equipamento--</option>
                                         @foreach ($equipamentos as $equipamento)
                                             <option value="{{ $equipamento->id }}">
@@ -267,8 +265,8 @@
                                 <label for="horimetro_inicial_recursos"
                                     class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
                                 <div class="col-md-6">
-                                    <input name="horimetro_inicial_recursos" id="horimetro_inicial_recursos" type="text"
-                                        class="form-control-disabled" disabled>
+                                    <input name="horimetro_inicial_recursos" id="horimetro_inicial_recursos"
+                                        type="text" class="form-control-disabled" disabled>
                                 </div>
                             </div>
 
@@ -368,7 +366,9 @@
                     {{-- ---------------------------------------------------------------------------------- --}}
                     {{-- Paradas de Equipamento --}}
                     <div class="tab-pane fade" id="paradas_equip" role="tabpanel" aria-labelledby="paradas_equip_tab">
-                        <form action="{{isset($ordem_producao) ? route('ordem-producao.store-parada',['ordem_producao'=>$ordem_producao]) : '#'}}" method="POST">
+                        <form
+                            action="{{ isset($ordem_producao) ? route('ordem-producao.store-parada', ['ordem_producao' => $ordem_producao]) : '#' }}"
+                            method="POST">
                             @csrf
                             <div class="row mb-1">
                                 <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora
@@ -439,17 +439,19 @@
                     {{-- --------------------------------------------------------------------------------------------------- --}}
                     {{-- Saida Materiais --}}
                     <div class="tab-pane fade" id="produto_obra" role="tabpanel" aria-labelledby="produto_obra_tab">
-                        <form action="{{isset($ordem_producao) ? route('ordem-producao.store-produto-obra',['ordem_producao'=>$ordem_producao]) : '#'}}" method="POST">
+                        <form
+                            action="{{ isset($ordem_producao) ? route('ordem-producao.store-produto-obra', ['ordem_producao' => $ordem_producao]) : '#' }}"
+                            method="POST">
                             @csrf
 
                             <div class="row mb-1">
-                                <label for="obra_id"
-                                    class="col-md-4 col-form-label text-md-end text-right">Obra</label>
+                                <label for="obra_id" class="col-md-4 col-form-label text-md-end text-right">Obra</label>
                                 <div class="col-md-6">
-                                    <select name="obra_id" id="obra_id" class="form-control-template" required autofocus>
+                                    <select name="obra_id" id="obra_id" class="form-control-template" required
+                                        autofocus>
                                         <option value=""> --Selecione a Obra--</option>
                                         @foreach ($obras as $obra)
-                                            <option value="{{ $obra->id}}"
+                                            <option value="{{ $obra->id }}"
                                                 {{ ($ordem_producao->obra_id ?? old('obra_id')) == $obra->id ? 'selected' : '' }}>
                                                 {{ $obra->nome ?? old('obra_id') }}
                                             </option>
@@ -463,10 +465,11 @@
                                 <label for="produto_id"
                                     class="col-md-4 col-form-label text-md-end text-right">Produto</label>
                                 <div class="col-md-6">
-                                    <select name="produto_id" id="produto_id" class="form-control-template" required autofocus>
+                                    <select name="produto_id" id="produto_id" class="form-control-template" required
+                                        autofocus>
                                         <option value=""> --Selecione o Produto--</option>
                                         @foreach ($produtos as $produto)
-                                            <option value="{{ $produto->id}}"
+                                            <option value="{{ $produto->id }}"
                                                 {{ ($ordem_producao->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>
                                                 {{ $produto->nome ?? old('produto_id') }}
                                             </option>
@@ -481,6 +484,32 @@
                                     class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
                                 <div class="col-md-6">
                                     <input name="quantidade" id="quantidade" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label for="quantidade"
+                                    class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
+                                <div class="col-md-6">
+                                    <input name="quantidade" id="quantidade" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label for="transportadora_id"
+                                    class="col-md-4 col-form-label text-md-end text-right">Transportadora</label>
+                                <div class="col-md-6">
+                                    <select name="transportadora_id" id="transportadora_id" class="form-control-template"
+                                        required autofocus>
+                                        <option value=""> --Selecione o Produto--</option>
+                                        @foreach ($transportadoras as $transportadora)
+                                            <option value="{{ $transportadora->id }}"
+                                                {{ ($ordem_producao->transportadora_id ?? old('transportadora_id')) == $transportadora->id ? 'selected' : '' }}>
+                                                {{ $transportadora->nome ?? old('transportadora_id') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{ $errors->has('transportadora_id') ? $errors->first('transportadora_id') : '' }}
                                 </div>
                             </div>
 
@@ -500,20 +529,43 @@
                                 <table class="table-template table-striped table-hover table-bordered">
                                     <thead>
                                         <tr>
+                                            <th scope="col" class="th-title">OBRA</th>
                                             <th scope="col" class="th-title">PRODUTO</th>
                                             <th scope="col" class="th-title">QUANTIDADE</th>
-                                            <th scope="col" class="th-title">CARGAS</th>
-                                            <th scope="col" class="th-title">OBRA</th>
+                                            <th scope="col" class="th-title">QTDE CARGAS</th>
+                                            <th scope="col" class="th-title">TRANSPORTADORA</th>
+                                            <th scope="col" class="th-title">OPERAÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @isset($produtos_obra)
                                             @foreach ($produtos_obra as $produto_obra)
                                                 <tr>
+                                                    <td>{{ $produto_obra->obra->nome }}</td>
                                                     <td>{{ $produto_obra->produto->nome }}</td>
-                                                    <td>{{ $produto_obra->quantidade}}</td>
-                                                    <td>{{ $produto_obra->cargas}}</td>
-                                                    <td>{{ $produto_obra->obra->nome}}</td>
+                                                    <td>{{ $produto_obra->quantidade }}</td>
+                                                    <td>{{ $produto_obra->qtde_cargas }}</td>
+                                                    <td>{{ $produto_obra->transportadora->nome ?? '' }}</td>
+                                                    <td>
+                                                        <div class="div-op">
+                                                            <a class="btn btn-sm-template btn-primary mx-1"
+                                                                href="#"><i
+                                                                    class="icofont-eye-alt"></i></a>
+                                                            <a class="btn btn-sm-template btn-success mx-1"
+                                                                href="#"><i
+                                                                    class="icofont-pen-alt-1"></i></a>
+                                                            <form id="form_{{ $produto_obra->id }}" method="post"
+                                                                action="{{route('ordem-producao.destroy_produto_obra',[
+                                                                'produto_obra'=>$produto_obra->id,
+                                                                'ordem_producao'=>$ordem_producao->id])}}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                                                    onclick="document.getElementById('form_{{$produto_obra->id}}').submit()"><i
+                                                                        class="icofont-close-squared-alt"></i></a>
+                                                            </form>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endisset

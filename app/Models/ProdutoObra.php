@@ -9,7 +9,14 @@ class ProdutoObra extends Model
 {
     use HasFactory;
     protected $table = 'produtos_obra';
-    protected $fillable = ['obra_id', 'produto_id', 'ordem_producao_id', 'quantidade'];
+    protected $fillable = [
+        'obra_id', 
+        'produto_id', 
+        'ordem_producao_id', 
+        'quantidade', 
+        'qtde_cargas', 
+        'transportadora_id'
+    ];
 
     public function produto(){
         return $this->belongsTo(Produto::class);

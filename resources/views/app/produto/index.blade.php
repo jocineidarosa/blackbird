@@ -24,7 +24,7 @@
                             <th scope="col" class="th-title">Un.</th>
                             <th scope="col" class="th-title">Categoria</th>
                             <th scope="col" class="th-title">Estoque</th>
-                            <th scope="col" class="th-title">OPeraçoes</th>
+                            <th scope="col" class="th-title">Operaçoes</th>
 
                         </tr>
                     </thead>

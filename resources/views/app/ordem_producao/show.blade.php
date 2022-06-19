@@ -165,7 +165,7 @@
                             <td colspan="2">{{$produto_obra->quantidade}}</td>
                             <td colspan="2">{{$produto_obra->qtde_cargas}}</td>
                             <td colspan="4">{{$produto_obra->obra->nome}}</td>
-                            <td colspan="4">{{$produto_obra->transportadora->nome}}</td>
+                            <td colspan="4">{{$produto_obra->transportadora->nome ?? ''}}</td>
                         </tr>
                         
                     @endforeach

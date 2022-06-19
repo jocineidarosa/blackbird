@@ -1,17 +1,7 @@
 <?php
 
+use App\Http\Controllers\TransportadoraController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('auth.login');
@@ -57,6 +47,8 @@ Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\Said
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
 
+Route::middleware('auth')->resource('/transportadora', TransportadoraController::class);
+
 
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
@@ -90,6 +82,10 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
 
     Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'
     )->name('ordem-producao.destroy');
+
+    Route::delete('destroy_produto_obra/{produto_obra}/{ordem_producao}',
+    'App\Http\Controllers\OrdemProducaoController@destroyProdutoObra'
+    )->name('ordem-producao.destroy_produto_obra');
 
 });
 
