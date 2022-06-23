@@ -61,7 +61,12 @@ class ObraController extends Controller
      */
     public function edit(Obra $obra)
     {
-        return view('app.obra._components.form_create_edit', ['obra'=>$obra]);
+        $empresas= Empresa::all();
+        return view('app.obra.edit', 
+        [
+            'obra'=>$obra,
+            'empresas'=>$empresas
+        ]);
     }
 
     /**
@@ -71,9 +76,10 @@ class ObraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Obra $obra)
     {
-        //
+        $obra->update($request->all());
+        return redirect()->route('obra.index');
     }
 
     /**
