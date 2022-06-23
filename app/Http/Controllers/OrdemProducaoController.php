@@ -388,6 +388,17 @@ class OrdemProducaoController extends Controller
      */
     public function destroy(OrdemProducao $ordem_producao)
     {
+        $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
+
+        foreach( $recurso_producao as $recurso){
+            $saida_produto=SaidaProduto::where('recursos_producao_id', $recurso->id)->first();
+            if(!empty($saida_produto)){
+                $saida_produto->delete();
+            }
+        }
+        $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->delete();
+        $produto_obra=ProdutoObra::where('ordem_producao_id',$ordem_producao->id)->delete();
+        $paradas_equipamento=ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->delete();
         $ordem_producao->delete();
         return redirect()->route('ordem-producao.index'); 
     }

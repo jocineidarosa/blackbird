@@ -34,7 +34,8 @@
                                 <th scope="row">{{ $saida_produto->id }}</td>
                                 <td>{{ $saida_produto->produto->nome }}</td>
                                 <td>{{ $saida_produto->quantidade }}</td>
-                                <td>{{ $saida_produto->data }}</td>
+                                <td>{{Carbon\Carbon::parse($saida_produto->data )->format('d/m/Y')
+                                }}</td>
                                 <td><a class="btn btn-sm-template btn-primary" href="#">Visualizar</a>
                                 </td>
                                 <td><a class="btn btn-sm-template btn-primary" href="#">Editar</a>
