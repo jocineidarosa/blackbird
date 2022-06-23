@@ -87,6 +87,10 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     'App\Http\Controllers\OrdemProducaoController@destroyProdutoObra'
     )->name('ordem-producao.destroy_produto_obra');
 
+    Route::delete('destroy-recurso-producao/{recurso_producao}/{ordem_producao}',
+    'App\Http\Controllers\OrdemProducaoController@destroyRecursoProducao'
+    )->name('ordem-producao.destroy-recurso-producao');
+
 });
 
 

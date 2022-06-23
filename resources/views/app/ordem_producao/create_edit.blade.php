@@ -341,6 +341,7 @@
                                             <th scope="col" class="th-title">Produto</th>
                                             <th scope="col" class="th-title">Quant</th>
                                             <th scope="col" class="th-title">Horm. Final</th>
+                                            <th scope="col" class="th-title">Operações</th>
                                         </tr>
                                     </thead>
 
@@ -353,6 +354,26 @@
                                                     <td>{{ $recurso_producao->produto->nome }}</td>
                                                     <td>{{ $recurso_producao->quantidade }}</td>
                                                     <td>{{ $recurso_producao->horimetro_final ?? '' }}</td>
+                                                    <td>
+                                                        <div class="div-op">
+                                                            <a class="btn btn-sm-template btn-primary mx-1"
+                                                                href="#"><i
+                                                                    class="icofont-eye-alt"></i></a>
+                                                            <a class="btn btn-sm-template btn-success mx-1"
+                                                                href="#"><i
+                                                                    class="icofont-pen-alt-1"></i></a>
+                                                            <form id="form_{{ $recurso_producao->id }}" method="post"
+                                                                action="{{route('ordem-producao.destroy-recurso-producao',[
+                                                                'recurso_producao'=>$recurso_producao->id,
+                                                                'ordem_producao'=>$ordem_producao->id])}}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                                                    onclick="document.getElementById('form_{{$recurso_producao->id}}').submit()"><i
+                                                                        class="icofont-close-squared-alt"></i></a>
+                                                            </form>
+                                                        </div>
+                                                    </td>
                                             @endforeach
                                         @endisset
                                     </tbody>

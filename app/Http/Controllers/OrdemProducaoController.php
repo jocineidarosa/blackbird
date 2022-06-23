@@ -408,6 +408,16 @@ class OrdemProducaoController extends Controller
         return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
     }
 
+    public function destroyRecursoProducao(RecursosProducao $recurso_producao, OrdemProducao $ordem_producao){
+        $saida_produto= SaidaProduto::where('recursos_producao_id', $recurso_producao->id);
+        if(!empty($saida_produto->get())){
+            $saida_produto->delete();
+        }
+        $saida_produto=SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->delete();
+        $recurso_producao->delete();
+        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
+    }
+
     public function getHorimetroInicial(Request $request)
     {
         $equipamento_id = $request->get('equipamento_id');
