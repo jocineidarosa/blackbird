@@ -390,10 +390,15 @@ class OrdemProducaoController extends Controller
     {
         $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
 
-        foreach( $recurso_producao as $recurso){
+        foreach($recurso_producao as $recurso){
             $saida_produto=SaidaProduto::where('recursos_producao_id', $recurso->id)->first();
             if(!empty($saida_produto)){
                 $saida_produto->delete();
+
+
+            $produto = Produto::find($saida_produto->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
+            $produto->save();
             }
         }
         $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->delete();
