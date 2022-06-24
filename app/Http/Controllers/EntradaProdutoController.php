@@ -95,6 +95,10 @@ class EntradaProdutoController extends Controller
     public function destroy(EntradaProduto $entrada_produto)
     {
         $entrada_produto->delete();
+       
+       $produto=Produto::findOrFail($entrada_produto->produto_id);
+       $produto->estoque_atual= $produto->estoque_atual -$entrada_produto->quantidade;
+       $produto->save();
        return redirect()->route('entrada-produto.index');
     }
 }
