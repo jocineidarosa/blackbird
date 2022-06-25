@@ -11,14 +11,15 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu"><a href="{{route('produto.index')}}">Produtos</a></li>
-                    <li class="item-menu"><a href="{{route('marca.index')}}">Marcas</a></li>
-                    <li class="item-menu"><a href="{{route('category.index')}}">Categorias</a></li>
-                    <li class="item-menu"><a href="{{route('unidade-medida.index')}}">Unidade de Medida</a></li>
-                    <li class="item-menu"><a href="{{route('entrada-produto.index')}}">Entrada de Produtos</a></li>
-                    <li class="item-menu"><a href="{{route('saida-produto.index')}}">Saída de Produtos</a></li>
-                    <li class="item-menu"><a href="{{route('produto-fornecedor.create')}}">Produto por Fornecedor</a></li>
-              
+                    <li class="item-menu"><a href="{{ route('produto.index') }}">Produtos</a></li>
+                    <li class="item-menu"><a href="{{ route('marca.index') }}">Marcas</a></li>
+                    <li class="item-menu"><a href="{{ route('category.index') }}">Categorias</a></li>
+                    <li class="item-menu"><a href="{{ route('unidade-medida.index') }}">Unidade de Medida</a></li>
+                    <li class="item-menu"><a href="{{ route('entrada-produto.index') }}">Entrada de Produtos</a></li>
+                    <li class="item-menu"><a href="{{ route('saida-produto.index') }}">Saída de Produtos</a></li>
+                    <li class="item-menu"><a href="{{ route('produto-fornecedor.create') }}">Produto por Fornecedor</a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -30,11 +31,11 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu "><a href="{{route('empresa.index')}}">Empresas</a></li>
-                    <li class="item-menu "><a href="{{route('fornecedor.index')}}">Fornecedores</a></li>
-                    <li class="item-menu "><a href="{{route('cliente.index')}}">Clientes</a></li>
-                    <li class="item-menu "><a href="{{route('obra.index')}}">Obras</a></li>
-                    <li class="item-menu"><a href="{{route('transportadora.index')}}">Transportadora</a></li>
+                    <li class="item-menu "><a href="{{ route('empresa.index') }}">Empresas</a></li>
+                    <li class="item-menu "><a href="{{ route('fornecedor.index') }}">Fornecedores</a></li>
+                    <li class="item-menu "><a href="{{ route('cliente.index') }}">Clientes</a></li>
+                    <li class="item-menu "><a href="{{ route('obra.index') }}">Obras</a></li>
+                    <li class="item-menu"><a href="{{ route('transportadora.index') }}">Transportadora</a></li>
                 </ul>
             </li>
 
@@ -46,8 +47,9 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu"><a href="{{route('ordem-producao.index')}}">Ordem de Produção</a></li>
-                    <li class="item-menu"><a href="{{route('recursos-producao.index')}}">Operação de equipamentos</a></li>
+                    <li class="item-menu"><a href="{{ route('ordem-producao.index') }}">Ordem de Produção</a></li>
+                    <li class="item-menu"><a href="{{ route('recursos-producao.index') }}">Operação de equipamentos</a>
+                    </li>
                 </ul>
             </li>
 
@@ -59,7 +61,7 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu"><a href="{{route('equipamento.index')}}">Cadastro de Equipamentos</a></li>
+                    <li class="item-menu"><a href="{{ route('equipamento.index') }}">Cadastro de Equipamentos</a></li>
                     <li class="item-menu"><a href="#">paradas de equipamentos</a></li>
                 </ul>
             </li>
@@ -67,7 +69,7 @@
             <li>
                 <div class="dropdownlink">
                     <div>
-                        <i class="icofont-repair mr-2" ></i>Manutenção
+                        <i class="icofont-repair mr-2"></i>Manutenção
                     </div>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
@@ -77,22 +79,23 @@
                 </ul>
             </li>
 
-            <li>
-                <div class="dropdownlink">
-                    <div>
-                        <i class="icofont-gear mr-2"></i>Configuraçoes
+            @can('admin')
+                <li>
+                    <div class="dropdownlink">
+                        <div>
+                            <i class="icofont-gear mr-2"></i>Configuraçoes
+                        </div>
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </div>
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </div>
-                <ul class="submenuItems">
-                    ('admin')<li class="item-menu"><a href="{{route('register')}}">Cadastro de Usuários</a></li>
-                </ul>
-            </li>
+                    <ul class="submenuItems">
+                        <li class="item-menu"><a href="{{ route('register') }}">Cadastro de Usuários</a></li>
+                    </ul>
+                </li>
+            @endcan
 
-     
         </ul>
 
-       
+
     </nav>
 
 </aside>
