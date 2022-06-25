@@ -26,9 +26,7 @@
                             <th scope="col" class="th-title">Estado</th>
                             <th scope="col" class="th-title">Telefone</th>
                             <th scope="col" class="th-title">site</th>
-                            <th scope="col" class="th-title">Visualizar</th>
-                            <th scope="col" class="th-title">Excluir</th>
-                            <th scope="col" class="th-title">Editar</th>
+                            <th scope="col" class="th-title">Operações</th>
                         </tr>
                     </thead>
 
@@ -44,18 +42,22 @@
                                 <td>{{ $empresa->telefone }}</td>
                                 <td>{{ $empresa->site }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm"href="{{ route('fornecedor.show', ['fornecedor' => $empresa->id]) }}">Visualizar</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-primary btn-sm"href="{{ route('fornecedor.edit', ['fornecedor' => $empresa->id]) }}">Editar</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm"href="#" onclick="document.getElementById('form_{{ $empresa->id }}').submit()">Excluir</a>
-                                    <form id="form_{{ $empresa->id }}" method="post"
-                                        action="{{ route('fornecedor.destroy', ['fornecedor' => $empresa->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                    </form>
+                                    <div class="div-op">
+                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                            href="{{ route('empresa.show', ['empresa' => $empresa->id]) }}"><i
+                                                class="icofont-eye-alt"></i></a>
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
+                                            href="{{ route('empresa.edit', ['empresa' => $empresa->id]) }}"><i
+                                                class="icofont-pen-alt-1"></i></a>
+                                        <form id="form_{{ $empresa->id }}" method="post"
+                                            action="{{ route('empresa.destroy', ['empresa' => $empresa->id]) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
+                                                onclick="document.getElementById('form_{{ $empresa->id }}').submit()"><i
+                                                    class="icofont-close-squared-alt"></i></a>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

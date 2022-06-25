@@ -23,9 +23,7 @@
                             <th scope="col" class="th-title">Produto</th>
                             <th scope="col" class="th-title">Quantidade</th>
                             <th scope="col" class="th-title">Data</th>
-                            <th class="th-title"></th>
-                            <th class="th-title"></th>
-                            <th class="th-title"></th>
+                            <th class="th-title">Operações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,18 +34,23 @@
                                 <td>{{ $saida_produto->quantidade }}</td>
                                 <td>{{Carbon\Carbon::parse($saida_produto->data )->format('d/m/Y')
                                 }}</td>
-                                <td><a class="btn btn-sm-template btn-primary" href="#">Visualizar</a>
-                                </td>
-                                <td><a class="btn btn-sm-template btn-primary" href="#">Editar</a>
-                                </td>
                                 <td>
-                                    <form id="form_{{ $saida_produto->id }}" method="post" 
-                                        action="{{route('saida-produto.destroy', ['saida_produto'=>$saida_produto->id])}}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a class="btn btn-sm-template {{$saida_produto->motivo == '1' ? 'btn-primary' : 'btn-danger'}}" href="#"
-                                            onclick="document.getElementById('form_{{$saida_produto->id }}').submit()">Excluir</a>
-                                    </form>
+                                    <div class="div-op">
+                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                            href="{{ route('saida-produto.show', ['saida_produto' => $saida_produto->id]) }}"><i
+                                                class="icofont-eye-alt"></i></a>
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
+                                            href="{{ route('saida-produto.edit', ['saida_produto' => $saida_produto->id]) }}"><i
+                                                class="icofont-pen-alt-1"></i></a>
+                                        <form id="form_{{ $saida_produto->id }}" method="post"
+                                            action="{{ route('saida-produto.destroy', ['saida_produto' => $saida_produto->id]) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
+                                                onclick="document.getElementById('form_{{ $saida_produto->id }}').submit()"><i
+                                                    class="icofont-close-squared-alt"></i></a>
+                                        </form>
+                                    </div>
                                 </td>
 
                             </tr>

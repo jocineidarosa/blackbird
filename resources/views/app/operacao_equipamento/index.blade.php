@@ -30,9 +30,7 @@
                             <th scope="col" class="th-title">Data</th>
                             <th scope="col" class="th-title">Hor.Ini.</th>
                             <th scope="col" class="th-title">Hor.Fim</th>
-                            <th scope="col" class="th-title">Visualizar</th>
-                            <th scope="col" class="th-title">Editar</th>
-                            <th scope="col" class="th-title">Excluir</th>
+                            <th scope="col" class="th-title">Operações</th>
                         </tr>
                     </thead>
 
@@ -47,16 +45,23 @@
                                 <td>{{$operacao->data_inicio}}</td>
                                 <td>{{$operacao->hora_inicio}}</td>
                                 <td>{{$operacao->hora_fim}}</td>
-                                <td><a class="btn btn-sm-template btn-primary" href="{{ route('recursos-producao.show', ['operacao' => $operacao->id]) }}">Visualizar</a></td>
-                                <td><a class="btn btn-sm-template btn-primary" href="{{ route('recursos-producao.edit', ['operacao' => $operacao->id]) }}">Editar</a></td>
                                 <td>
-                                    <form id="form_{{ $operacao->id }}" method="post"
-                                        action="{{ route('recursos-producao.destroy', ['operacao' => $operacao->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a class="btn btn-sm-template btn-danger" href="#"
-                                            onclick="document.getElementById('form_{{ $operacao->id }}').submit()">Excluir</a>
-                                    </form>
+                                    <div class="div-op">
+                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                            href="{{ route('recursos-producao.show', ['operacao' => $operacao->id]) }}"><i
+                                                class="icofont-eye-alt"></i></a>
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
+                                            href="{{ route('recursos-producao.edit', ['operacao' => $operacao->id]) }}"><i
+                                                class="icofont-pen-alt-1"></i></a>
+                                        <form id="form_{{ $operacao->id }}" method="post"
+                                            action="{{ route('recursos-producao.destroy', ['operacao' => $operacao->id]) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
+                                                onclick="document.getElementById('form_{{ $operacao->id }}').submit()"><i
+                                                    class="icofont-close-squared-alt"></i></a>
+                                        </form>
+                                    </div>
                                 </td>
                                 
                             </tr>

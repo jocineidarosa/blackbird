@@ -35,14 +35,14 @@
                                         <a class="btn btn-sm-template btn-primary mx-1"
                                             href="{{ route('entrada-produto.show', ['entrada_produto' => $entrada_produto->id]) }}"><i
                                                 class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1"
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
                                             href="{{ route('entrada-produto.edit', ['entrada_produto' => $entrada_produto->id]) }}"><i
                                                 class="icofont-pen-alt-1"></i></a>
                                         <form id="form_{{ $entrada_produto->id }}" method="post"
                                             action="{{ route('entrada-produto.destroy', ['entrada_produto' => $entrada_produto->id]) }}">
                                             @method('DELETE')
                                             @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
                                                 onclick="document.getElementById('form_{{ $entrada_produto->id }}').submit()"><i
                                                     class="icofont-close-squared-alt"></i></a>
                                         </form>

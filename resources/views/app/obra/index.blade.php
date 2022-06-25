@@ -35,14 +35,14 @@
                                     <a class="btn btn-sm-template btn-primary mx-1"
                                         href="{{ route('obra.show', ['obra' => $obra->id]) }}"><i
                                             class="icofont-eye-alt"></i></a>
-                                    <a class="btn btn-sm-template btn-success mx-1"
+                                    <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
                                         href="{{ route('obra.edit', ['obra' => $obra->id]) }}"><i
                                             class="icofont-pen-alt-1"></i></a>
                                     <form id="form_{{ $obra->id }}" method="post"
                                         action="{{ route('obra.destroy', ['obra' => $obra->id]) }}">
                                         @method('DELETE')
                                         @csrf
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                        <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
                                             onclick="document.getElementById('form_{{ $obra->id }}').submit()"><i
                                                 class="icofont-close-squared-alt"></i></a>
                                     </form>

@@ -44,14 +44,14 @@
                                         <a class="btn btn-sm-template btn-primary mx-1"
                                             href="{{ route('produto.show', ['produto' => $produto->id]) }}"><i
                                                 class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1"
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
                                             href="{{ route('produto.edit', ['produto' => $produto->id]) }}"><i
                                                 class="icofont-pen-alt-1"></i></a>
                                         <form id="form_{{ $produto->id }}" method="post"
                                             action="{{ route('produto.destroy', ['produto' => $produto->id]) }}">
                                             @method('DELETE')
                                             @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
                                                 onclick="document.getElementById('form_{{ $produto->id }}').submit()"><i
                                                     class="icofont-close-squared-alt"></i></a>
                                         </form>

@@ -33,14 +33,14 @@
                                     <a class="btn btn-sm-template btn-primary mx-1"
                                         href="{{ route('transportadora.show', ['transportadora' => $transportadora->id]) }}"><i
                                             class="icofont-eye-alt"></i></a>
-                                    <a class="btn btn-sm-template btn-success mx-1"
+                                    <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
                                         href="{{ route('transportadora.edit', ['transportadora' => $transportadora->id]) }}"><i
                                             class="icofont-pen-alt-1"></i></a>
                                     <form id="form_{{ $transportadora->id }}" method="post"
                                         action="{{ route('transportadora.destroy', ['transportadora' => $transportadora->id]) }}">
                                         @method('DELETE')
                                         @csrf
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#"
+                                        <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
                                             onclick="document.getElementById('form_{{ $transportadora->id }}').submit()"><i
                                                 class="icofont-close-squared-alt"></i></a>
                                     </form>
