@@ -85,7 +85,7 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    @can('admin')<li class="item-menu"><a href="{{route('register')}}">Cadastro de Usuários</a></li>@endcan
+                    ('admin')<li class="item-menu"><a href="{{route('register')}}">Cadastro de Usuários</a></li>
                 </ul>
             </li>
 
