@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header-template">
                 <div>
-                    Cadastro de Ordem de Serviço
+                    Cadastro de Ordem de Ordem de Produção
                 </div>
                 <div>
                     <a class="btn btn-primary btn-sm" href="{{ route('ordem-producao.index') }}">LISTAGEM</a>

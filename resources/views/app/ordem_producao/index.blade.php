@@ -15,13 +15,13 @@
                 <table class="table-template table-striped table-hover table-bordered mt-1">
                     <thead>
                         <tr>
-                            <th scope="col" class="th-title-main">Id</th>
-                            <th scope="col" class="th-title-main">equipamento</th>
-                            <th scope="col" class="th-title-main">Produto</th>
-                            <th scope="col" class="th-title-main">Quantidade de Produção</th>
-                            <th scope="col" class="th-title-main">Data</th>
-                            <th scope="col" class="th-title-main">Horímetro Final</th>
-                            <th scope="col" class="th-title-main">Operações</th>
+                            <th scope="col" class="th-title">Id</th>
+                            <th scope="col" class="th-title">equipamento</th>
+                            <th scope="col" class="th-title">Produto</th>
+                            <th scope="col" class="th-title">Quantidade de Produção</th>
+                            <th scope="col" class="th-title">Data</th>
+                            <th scope="col" class="th-title">Horímetro Final</th>
+                            <th scope="col" class="th-title">Operações</th>
                         </tr>
                     </thead>
 

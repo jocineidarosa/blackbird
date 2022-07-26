@@ -17,10 +17,10 @@
             <table class="table-template table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Operações</th>
+                        <th scope="col" class="th-title">Id</th>
+                        <th scope="col" class="th-title">Nome</th>
+                        <th scope="col" class="th-title">Descrição</th>
+                        <th scope="col" class="th-title">Operações</th>
                     </tr>
                 </thead>
 

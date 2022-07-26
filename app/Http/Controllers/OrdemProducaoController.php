@@ -15,6 +15,7 @@ use App\Models\Obra;
 use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Exists;
 use PhpParser\Node\Expr\Empty_;
 
 use function PHPUnit\Framework\isNull;
@@ -121,9 +122,8 @@ class OrdemProducaoController extends Controller
 
         //$ordem_producao= OrdemProducao::find($ordem_producao);
         $exists_recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)
-            ->where('equipamento_id', $request['equipamento_id'])
+            ->where('equipamento_id', $request['equipamento_recursos'])
             ->where('produto_id', $request['produto_id'])->first();
-
         if (!isset($exists_recurso_producao)) { //verifica re o recurso já existe na ordem se já, não deixa cadastrar.
             //salva recursos de produção no banco de dados
             $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
@@ -414,11 +414,15 @@ class OrdemProducaoController extends Controller
     }
 
     public function destroyRecursoProducao(RecursosProducao $recurso_producao, OrdemProducao $ordem_producao){
-        $saida_produto= SaidaProduto::where('recursos_producao_id', $recurso_producao->id);
-        if(!empty($saida_produto->get())){
-            $saida_produto->delete();
-        }
-        $saida_produto=SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->delete();
+        $saida_produto=SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->first();
+            if(!empty($saida_produto)){
+                $saida_produto->delete();
+
+
+            $produto = Produto::find($saida_produto->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
+            $produto->save();
+            }
         $recurso_producao->delete();
         return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
     }

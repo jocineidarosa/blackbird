@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TransportadoraController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,6 +49,8 @@ Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\Said
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
 
 Route::middleware('auth')->resource('/transportadora', TransportadoraController::class);
+
+Route::middleware('auth')->resource('/user', UserController::class);
 
 
 //grupo Ordem de Produção

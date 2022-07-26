@@ -88,7 +88,7 @@
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </div>
                     <ul class="submenuItems">
-                        <li class="item-menu"><a href="{{ route('register') }}">Cadastro de Usuários</a></li>
+                        <li class="item-menu"><a href="{{ route('user.index') }}"> Listagem de Usuários</a></li>
                     </ul>
                 </li>
             @endcan
