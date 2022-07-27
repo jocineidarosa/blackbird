@@ -4,17 +4,16 @@
 
 <main class="content">
     <div class="card">
-        <div class="card-header pb-2">
-            <p class="mb-0">Cadastro de Produtos</p>
-
-        </div>
-        <div class="card-footer justify-content-left">
-            <a href="{{route('produto.index')}}" class="btn">
-                LISTAGEM DE PRODUTOS
-            </a>
+        <div class="card-header-template">
+            <div>CADASTRO DE UNIDADE DE MEDIDA</div>
+            <div>
+                <a href="{{ route('unidade-medida.index') }}" class="btn btn-sm btn-primary">
+                    LISTAGEM
+                </a>
+            </div>
         </div>
         <div class="card-body">
-            @component('app.produto._components.form_create_edit', ['marcas'=>$marcas, 'unidades'=>$unidades, 'categorias'=>$categorias])       
+            @component('app.unidade_medida._components.form_create_edit')       
             @endcomponent
         </div>
     </div>

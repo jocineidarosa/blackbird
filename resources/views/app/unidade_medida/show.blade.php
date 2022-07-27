@@ -7,43 +7,31 @@
 
 <main class="content">
     <div class="card">
-        <div class="card-header">
-            <p>Visualizar Produto</p>
+        <div class="card-header-template">
+            <div>Visualizar Unidade de Medida</div>
+            <div>
+                <a href="{{ route('unidade-medida.index') }}" class="btn btn-sm btn-primary">
+                    LISTAGEM
+                </a>
+            </div>
         </div>
-        <div class="card-footer justify-content-left">
-            <a href="{{route('produto.index')}}" class="btn">
-                LISTAGEM DE PRODUTOS
-            </a>
-            <a href="{{route('produto.create')}}" class="btn">
-                NOVO PRODUTO
-            </a>
-        </div>
+
+        
         <div class="card-body">
-            <table class="table table-hover">
+            <table class="table-template table-hover">
             <tr>
                 <td class="text-right pr-5">ID</td>
-                <td>{{$produto->id}}</td>
+                <td>{{$unidade_medida->id}}</td>
             </tr>
             <tr>
                 <td class="text-right pr-5">Nome</td>
-                <td>{{$produto->nome}}</td>
+                <td>{{$unidade_medida->nome}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5">DESCRIÇÂO</td>
-                <td>{{$produto->descricao}}</td>
+                <td class="text-right pr-5">Descrição</td>
+                <td>{{$unidade_medida->descricao}}</td>
             </tr>
-            <tr>
-                <td class="text-right pr-5"> MARCA</td>
-                <td>{{$produto->marca->nome}}</td>
-            </tr>
-            <tr>
-                <td class="text-right pr-5">ESTOQUE MÍNIMO</td>
-                <td>{{$produto->estoque_minimo}}</td>
-            </tr>
-            <tr>
-                <td class="text-right pr-5">ESTOQUE MÁXIMO</td>
-                <td>{{$produto->estoque_maximo}}</td>
-            </tr>
+          
         </table>
         </div>
     </div>
