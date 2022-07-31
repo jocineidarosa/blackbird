@@ -30,7 +30,7 @@ class OrdemProducaoController extends Controller
     public function index()
     {
         $produtos = Produto::all();
-        $ordens_producoes = OrdemProducao::all();
+        $ordens_producoes = OrdemProducao::orderBy('data')->get();
         return view('app.ordem_producao.index', ['produtos' => $produtos, 'ordens_producoes' => $ordens_producoes]);
     }
 
