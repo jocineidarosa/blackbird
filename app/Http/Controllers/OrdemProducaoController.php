@@ -27,11 +27,15 @@ class OrdemProducaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $produtos = Produto::all();
-        $ordens_producoes = OrdemProducao::orderBy('data')->get();
-        return view('app.ordem_producao.index', ['produtos' => $produtos, 'ordens_producoes' => $ordens_producoes]);
+        $ordens_producoes = OrdemProducao::orderBy('data')->paginate(10);
+        return view('app.ordem_producao.index', [
+            'produtos' => $produtos,
+            'ordens_producoes' => $ordens_producoes,
+            'request'=>$request
+         ]);
     }
 
     /**
