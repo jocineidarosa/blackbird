@@ -14,7 +14,7 @@ class EquipamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $equipamentos = Equipamento::orderBy('nome')->paginate(15);
+        $equipamentos = Equipamento::orderBy('nome')->paginate(12);
         return view('app.equipamento.index', 
         [
             'equipamentos' => $equipamentos,

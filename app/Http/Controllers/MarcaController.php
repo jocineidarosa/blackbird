@@ -15,7 +15,7 @@ class MarcaController extends Controller
      */
     public function index(Request $request)
     {
-        $marcas = Marca::orderBy('nome')->paginate(15);
+        $marcas = Marca::orderBy('nome')->paginate(12);
         return view('app.marca.index',[
             'marcas'=> $marcas,
             'request'=>$request->all()

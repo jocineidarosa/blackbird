@@ -16,7 +16,7 @@ class EntradaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $entradas_produtos= EntradaProduto::orderBy('data')->paginate(15);
+        $entradas_produtos= EntradaProduto::orderBy('data')->paginate(12);
         return view('app.entrada_produto.index', [
             'entradas_produtos'=>$entradas_produtos,
             'request'=>$request->all()

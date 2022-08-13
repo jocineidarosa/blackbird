@@ -9,7 +9,7 @@ class UnidadeMedidaController extends Controller
 {
     
 public function index(Request $request){
-    $unidades_medidas= UnidadeMedida::orderBy('nome')->paginate(15);
+    $unidades_medidas= UnidadeMedida::orderBy('nome')->paginate(12);
     return view('app.unidade_medida.index', 
     [
         'unidades_medidas'=>$unidades_medidas,

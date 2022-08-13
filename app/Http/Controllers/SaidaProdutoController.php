@@ -16,7 +16,7 @@ class SaidaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $saidas_produtos = SaidaProduto::orderBy('data')->paginate(15);
+        $saidas_produtos = SaidaProduto::orderBy('data')->paginate(12);
         return view('app.saida_produto.index', [
             'saidas_produtos' => $saidas_produtos,
             'request'=>$request->all()

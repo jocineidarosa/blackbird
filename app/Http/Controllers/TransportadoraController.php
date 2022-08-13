@@ -14,7 +14,7 @@ class TransportadoraController extends Controller
      */
     public function index(Request $request)
     {
-        $transportadoras= Transportadora::orderBy('nome')->paginate(15);
+        $transportadoras= Transportadora::orderBy('nome')->paginate(12);
         return view('app.transportadora.index', 
         [
             'transportadoras'=>$transportadoras,

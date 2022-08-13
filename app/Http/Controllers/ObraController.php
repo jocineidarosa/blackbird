@@ -15,7 +15,7 @@ class ObraController extends Controller
      */
     public function index(Request $request)
     {
-        $obras= Obra::orderBy('nome')->paginate(15);
+        $obras= Obra::orderBy('nome')->paginate(12);
         return view('app.obra.index', 
         [
             'obras'=>$obras,

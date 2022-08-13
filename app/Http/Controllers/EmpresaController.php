@@ -16,7 +16,7 @@ class EmpresaController extends Controller
     */
    public function index(Request $request)
    {
-       $empresas=Empresa::orderBy('nome_fantasia')->paginate(15);
+       $empresas=Empresa::orderBy('nome_fantasia')->paginate(12);
 
        return view('app.empresa.index', ['empresas'=>$empresas, 'request'=>$request->all()]);
    }
