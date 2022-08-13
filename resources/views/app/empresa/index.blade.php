@@ -63,6 +63,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    {{$empresas->appends($request)->links()}}
+                </div>
             </div>
 
         </div>

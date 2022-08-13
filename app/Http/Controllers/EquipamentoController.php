@@ -12,10 +12,14 @@ class EquipamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $equipamentos = Equipamento::all();
-        return view('app.equipamento.index', ['equipamentos' => $equipamentos]);
+        $equipamentos = Equipamento::orderBy('nome')->paginate(15);
+        return view('app.equipamento.index', 
+        [
+            'equipamentos' => $equipamentos,
+            'request'=>$request->all()
+        ]);
     }
 
     /**

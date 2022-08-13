@@ -7,9 +7,13 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
-    public function index(){
-        $categorias = Categoria::all(); 
-        return view('app.categoria.index', ['categorias'=>$categorias]);
+    public function index(Request $request){
+        $categorias = Categoria::orderBy('nome')->paginate(15); 
+        return view('app.categoria.index', 
+        [
+            'categorias'=>$categorias,
+            'request'=>$request->all()
+        ]);
     }
 
     public function create(){

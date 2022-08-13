@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class UnidadeMedidaController extends Controller
 {
     
-public function index(){
-    $unidades_medidas= UnidadeMedida::all();
-    return view('app.unidade_medida.index', ['unidades_medidas'=>$unidades_medidas]);
+public function index(Request $request){
+    $unidades_medidas= UnidadeMedida::orderBy('nome')->paginate(15);
+    return view('app.unidade_medida.index', 
+    [
+        'unidades_medidas'=>$unidades_medidas,
+        'request'=>$request->all()
+]);
 }
 
 public function create(){

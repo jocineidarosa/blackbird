@@ -13,10 +13,14 @@ class ObraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $obras= Obra::all();
-        return view('app.obra.index', ['obras'=>$obras]);
+        $obras= Obra::orderBy('nome')->paginate(15);
+        return view('app.obra.index', 
+        [
+            'obras'=>$obras,
+            'request'=>$request->all()
+        ]);
     }
 
     /**

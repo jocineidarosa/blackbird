@@ -30,11 +30,11 @@ class OrdemProducaoController extends Controller
     public function index(Request $request)
     {
         $produtos = Produto::all();
-        $ordens_producoes = OrdemProducao::orderBy('data')->paginate(10);
+        $ordens_producoes = OrdemProducao::orderBy('data')->paginate(15);
         return view('app.ordem_producao.index', [
             'produtos' => $produtos,
             'ordens_producoes' => $ordens_producoes,
-            'request'=>$request
+            'request'=>$request->all()
          ]);
     }
 

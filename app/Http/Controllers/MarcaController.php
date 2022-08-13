@@ -13,10 +13,13 @@ class MarcaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $marcas = Marca::all();
-        return view('app.marca.index',['marcas'=> $marcas]);
+        $marcas = Marca::orderBy('nome')->paginate(15);
+        return view('app.marca.index',[
+            'marcas'=> $marcas,
+            'request'=>$request->all()
+        ]);
     }
 
     /**

@@ -14,11 +14,11 @@ class EmpresaController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-   public function index()
+   public function index(Request $request)
    {
-       $empresas=Empresa::all();
+       $empresas=Empresa::orderBy('nome_fantasia')->paginate(15);
 
-       return view('app.empresa.index', ['empresas'=>$empresas]);
+       return view('app.empresa.index', ['empresas'=>$empresas, 'request'=>$request->all()]);
    }
 
    /**

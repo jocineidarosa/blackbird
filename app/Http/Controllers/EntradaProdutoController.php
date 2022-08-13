@@ -14,11 +14,12 @@ class EntradaProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $entradas_produtos= EntradaProduto::all();
+        $entradas_produtos= EntradaProduto::orderBy('data')->paginate(15);
         return view('app.entrada_produto.index', [
-            'entradas_produtos'=>$entradas_produtos
+            'entradas_produtos'=>$entradas_produtos,
+            'request'=>$request->all()
         ]);
     }
 

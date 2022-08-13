@@ -14,10 +14,13 @@ class SaidaProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $saidas_produtos = SaidaProduto::all();
-        return view('app.saida_produto.index', ['saidas_produtos' => $saidas_produtos]);
+        $saidas_produtos = SaidaProduto::orderBy('data')->paginate(15);
+        return view('app.saida_produto.index', [
+            'saidas_produtos' => $saidas_produtos,
+            'request'=>$request->all()
+        ]);
     }
 
     /**

@@ -12,10 +12,14 @@ class TransportadoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transportadoras= Transportadora::all();
-        return view('app.transportadora.index', ['transportadoras'=>$transportadoras]);
+        $transportadoras= Transportadora::orderBy('nome')->paginate(15);
+        return view('app.transportadora.index', 
+        [
+            'transportadoras'=>$transportadoras,
+            'request'=>$request->all()
+        ]);
     }
 
     /**

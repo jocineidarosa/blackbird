@@ -55,6 +55,9 @@
 
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    {{$entradas_produtos->appends($request)->links()}}
+                </div>
 
 
             </div>

@@ -53,6 +53,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{$marcas->appends($request)->links()}}
+            </div>
 
         </div>
 
