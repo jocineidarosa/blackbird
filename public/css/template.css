@@ -184,7 +184,7 @@ aside.sidebar .info .main {
 
 
 aside.sidebar .menu li.nav-item:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #0000001a;
 
 }
 
@@ -219,12 +219,12 @@ footer.footer {
     grid-area: footer;
     display: flex;
     background-color: #1976d2;
-    background-color: #7c7c7c;
-    color: #fff;
+    background-color: #6698ca;
+    color: rgb(44, 44, 44);
     align-items: center;
     justify-content: flex-end;
     padding-right: 20px;
-    font-size: 1.2rem;
+    font-size: 15px;
 }
 
 .record {
@@ -237,11 +237,20 @@ footer.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: #472be2;
-    padding: 5px;
+    color: #37373b;
+    padding: 5px 15px;
     margin-bottom: 0;
-    background-color: #95e2b3;
-    border-bottom: 1px solid rgba(0, 0, 0, .125)
+    background-color: #9fc1cc;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    font-size: 18px;
+}
+
+.card-header-template > div i{
+    font-size: 22px;
+}
+
+.card-header-template > div > a > i{
+    font-size: 18px;
 }
 
 .card-body-template {
@@ -321,4 +330,16 @@ table td{
     display: flex;
     flex-direction: row;
     width: 80px;
+}
+
+.btn-filter {
+    color: #fff;
+    background-color: #c77e1f;
+    border-color: #c77e1f;
+}
+
+.btn-filter:hover {
+    color: #fff;
+    background-color: #f59210;
+    border-color: #f59210;
 }
