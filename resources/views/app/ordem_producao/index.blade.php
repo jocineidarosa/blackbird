@@ -8,14 +8,15 @@
                     <i class="icofont-list mr-2"></i>LISTAGEM DE ORDEM DE PRODUÇÃO
                 </div>
                 <div>
-                    <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}" >
+                    <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}">
                         <i class="icofont-plus-circle mr-1"></i>NOVO
                     </a>
-                    <a class="btn btn-filter btn-sm" href="{{ route('ordem-producao.create') }}">
+                    <a class="btn btn-filter btn-sm" href="{{ route('ordem-producao.edit-filter') }}">
                         <i class="icofont-filter mr-1"></i></i>FILTRAR
                     </a>
                 </div>
             </div>
+
             <div class="card-body">
                 <table class="table-template table-striped table-hover table-bordered mt-1">
                     <thead>
@@ -34,7 +35,7 @@
                         @foreach ($ordens_producoes as $ordem_producao)
                             <tr>
                                 <th scope="row">{{ $ordem_producao->id }}</td>
-                                    <td>{{ Carbon\Carbon::parse($ordem_producao->data)->format('d/m/Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($ordem_producao->data)->format('d/m/Y') }}</td>
                                 <td>{{ $ordem_producao->equipamento->nome }}</td>
                                 <td>{{ $ordem_producao->produto->nome }}</td>
                                 <td>{{ $ordem_producao->quantidade_producao }}</td>
@@ -45,13 +46,14 @@
                                             href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}"><i
                                                 class="icofont-eye-alt"></i></a>
                                         <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                            href="@can('admin'){{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }}@endcan">
+                                            href="@can('admin') {{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }} @endcan">
                                             <i class="icofont-pen-alt-1"></i></a>
                                         <form id="form_{{ $ordem_producao->id }}" method="post"
-                                            action="@can('admin'){{ route('ordem-producao.destroy', ['ordem_producao' => $ordem_producao->id]) }}@endcan">
+                                            action="@can('admin') {{ route('ordem-producao.destroy', ['ordem_producao' => $ordem_producao->id]) }} @endcan">
                                             @method('DELETE')
                                             @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
+                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan"
+                                                href="#"
                                                 onclick="document.getElementById('form_{{ $ordem_producao->id }}').submit()">
                                                 <i class="icofont-close-squared-alt"></i></a>
                                         </form>
@@ -62,8 +64,8 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    {{$ordens_producoes->appends($request)->links()}} 
-                 </div>
+                    {{ $ordens_producoes->appends($request)->links() }}
+                </div>
             </div>
         </div>
     </main>

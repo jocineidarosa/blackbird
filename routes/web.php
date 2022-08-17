@@ -59,6 +59,12 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::get('index','App\Http\Controllers\OrdemProducaoController@index'
     )->name('ordem-producao.index');
 
+    Route::get('edit-filter','App\Http\Controllers\OrdemProducaoController@editFilter'
+    )->name('ordem-producao.edit-filter');
+
+    Route::get('filter','App\Http\Controllers\OrdemProducaoController@filter'
+    )->name('ordem-producao.filter');
+
     Route::get('create','App\Http\Controllers\OrdemProducaoController@create'
     )->name('ordem-producao.create');
 

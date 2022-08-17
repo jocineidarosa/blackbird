@@ -343,3 +343,14 @@ table td{
     background-color: #f59210;
     border-color: #f59210;
 }
+.card-header-filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #37373b;
+    padding: 5px 15px;
+    margin-bottom: 0;
+    background-color: #ffff;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    font-size: 18px;
+}

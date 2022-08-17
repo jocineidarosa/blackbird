@@ -38,6 +38,35 @@ class OrdemProducaoController extends Controller
          ]);
     }
 
+    public function editFilter(){
+        $produtos= Produto::all();
+        $equipamentos=Equipamento::all();
+        return view('app.ordem_producao.filter', compact('produtos', 'equipamentos'));
+
+    }
+
+    public function filter(Request $request){
+        $ordens_producoes= OrdemProducao::orderBy('data');
+        if($request->data_inicial){
+            $ordens_producoes->whereBetween('data', 
+            [$request->data_inicial, $request->data_final]);
+        }
+        if($request->equipamento_id){
+            $ordens_producoes->where('equipamento_id', $request->equipamento_id);
+        }
+        if($request->produto_id){
+            $ordens_producoes->where('produto_id', $request->produto_id);
+        }
+
+        $ordens_producoes=$ordens_producoes->paginate(13);
+
+        return view('app.ordem_producao.index', 
+        [
+            'ordens_producoes'=>$ordens_producoes,
+            'request'=>$request->all()
+         ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -320,7 +349,6 @@ class OrdemProducaoController extends Controller
         }
 
         $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
-        /* dd($paradas); */
 
         $produtos_obra= ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
