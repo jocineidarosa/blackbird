@@ -46,6 +46,18 @@ class OrdemProducaoController extends Controller
     }
 
     public function filter(Request $request){
+
+        $regras = [
+            'data_final' =>'required_with:data_inicial',
+            'data_inicial' =>'required_with:data_final'
+        ];
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'required_with'=>'O campo :attribute deve ser preenchido'
+        ];
+
+        $request->validate($regras, $feedback);
+
         $ordens_producoes= OrdemProducao::orderBy('data');
         if($request->data_inicial){
             $ordens_producoes->whereBetween('data', 

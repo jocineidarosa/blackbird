@@ -21,6 +21,7 @@
                             Inicial</label>
                         <div class="col-md-6">
                             <input id="data" type="date" class="form-control-template" name="data_inicial">
+                            {{ $errors->has('data_inicial') ? $errors->first('data_inicial') : '' }}
                         </div>
                     </div>
 
@@ -28,6 +29,7 @@
                         <label for="data_final" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
                         <div class="col-md-6">
                             <input id="data" type="date" class="form-control-template" name="data_final">
+                            {{ $errors->has('data_final') ? $errors->first('data_final') : '' }}
                         </div>
                     </div>
 
