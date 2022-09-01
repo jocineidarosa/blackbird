@@ -354,3 +354,21 @@ table td{
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     font-size: 18px;
 }
+
+.painel-estoque-dashboard{
+    display: flex;
+    flex-direction: row;
+    border: solid 1px #cfd4d6;
+    border-radius: 3px;
+    background: #0928961a;
+    padding: 10px;
+    margin: 10px auto;
+}
+
+.field-dash{
+    background:#1a308b1a;
+    width: 30%;
+    margin: auto 5px;
+    padding:10px;
+    color: #1879e0;
+}

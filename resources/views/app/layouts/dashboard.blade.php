@@ -1,26 +1,28 @@
 @extends('app.layouts.app')
 @section('titulo', 'Dashboard')
 <main class="content">
-
     <div class="card">
-        <div class="card-header">
-            <p class="mb-0">Bresis Sistema de Gerenciamento de Usinas de asfalto</p>
-
+        <div class="card-header-template">
+            <div>
+                <i class="icofont-cubes mr-2"></i>
+                Estoque de Produtos
+            </div>
+            <div>
+            </div>
         </div>
         <div class="card-body">
-            <div class="d-flex m-2 justify-content-around">
-                <span class="record">Bresola Terraplanagem e Construção Rodoviária de alta qualidade</span>
+
+            @foreach ($estoque_produtos as $estoque)
+            <div class="painel-estoque-dashboard">
+                <div class="field-dash">
+                    {{$estoque->nome}}
+                </div>
+                <div class="field-dash">
+                    {{$estoque->estoque_atual}}
+                </div>
             </div>
-
-
+            @endforeach
         </div>
-        <div class="card-footer d-flex justify-content-center">
-            <a href="???" class="btn btn-success btn-lg">
-                <i class="icofont-check mr-1"></i>
-                Campos Novos/SC
-            </a>
-        </div>
-
     </div>
 
 
