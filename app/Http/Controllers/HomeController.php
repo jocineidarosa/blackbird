@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $estoque_produtos=Produto::whereIn('id',[1,2,3])->get();
+        $estoque_produtos=Produto::whereIn('id',[1,2,3,9])->get();
         return view('app.layouts.dashboard',['estoque_produtos'=>$estoque_produtos]);
         //return ('chegameos aqui');
     }
