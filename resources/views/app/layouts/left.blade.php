@@ -1,7 +1,7 @@
 <!--Classe principal do menu left-->
 <aside class="sidebar">
     <nav class="menu mt-3">
-
+        
         <ul class="accordion-menu">
             <li>
                 <div class="dropdownlink">
