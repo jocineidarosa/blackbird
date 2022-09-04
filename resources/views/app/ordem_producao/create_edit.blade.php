@@ -121,7 +121,6 @@
                                 Inicial</label>
                             <div class="col-md-6">
                                 <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
-                                    hora_inicio="hora_inicio"
                                     value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
                                 {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
                             </div>
