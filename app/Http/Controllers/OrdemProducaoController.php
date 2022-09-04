@@ -430,8 +430,10 @@ class OrdemProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrdemProducao $ordem_producao)
+    public function destroy(Request $request, $ordem_producao)
     {
+        $ordem_producao_id=$request->ordem_producao_id;
+        $ordem_producao=OrdemProducao::find($ordem_producao_id);
         $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
 
         foreach($recurso_producao as $recurso){

@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EmpresaSeeder::class);
         $this->call(PessoaSeeder::class);
         $this->call(ProdutoFornecedorSeeder::class);
-/*         $this->call(OrdemProducaoSeeder::class);
-        $this->call(RecursosProducaoSeeder::class); */
+        $this->call(OrdemProducaoSeeder::class);
+        $this->call(RecursosProducaoSeeder::class);
 
     }
 }

@@ -44,29 +44,67 @@
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"
                                             href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}"><i
-                                                class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                            href="@can('admin') {{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }} @endcan">
-                                            <i class="icofont-pen-alt-1"></i></a>
-                                        <form id="form_{{ $ordem_producao->id }}" method="post"
-                                            action="@can('admin') {{ route('ordem-producao.destroy', ['ordem_producao' => $ordem_producao->id]) }} @endcan">
-                                            @method('DELETE')
-                                            @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan"
-                                                href="#"
-                                                onclick="document.getElementById('form_{{ $ordem_producao->id }}').submit()">
-                                                <i class="icofont-close-squared-alt"></i></a>
-                                        </form>
+                                                class="icofont-eye-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan "href="#"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}">
+                                            <i class="icofont-pen-alt-1"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}"
+                                        @can('user') disabled @endcan>
+                                        <i class="icofont-close-squared-alt"></i></a>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                        {{-- -------------------------------- modal message -------------------------------- --}}
+                <!-- Modal -->
+                {{-- foi colocado valor '1' no envio do atributo da rota só pra cumprir com a regra mas o valor a ser verificado
+                é  o valor do input hidden--}}
+                <form id="form_delete" name="form_delete" method="post" 
+                action="{{ route('ordem-producao.destroy', ['ordem_producao' =>'1'])}}">
+                    @method('DELETE')
+                    @csrf
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center">Confirma a exclusão do registro?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="ordem_producao_id" id="ordem_producao_id">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {{-- -------------------------------- modal message -------------------------------- --}}
                 <div class="d-flex justify-content-center">
                     {{ $ordens_producoes->appends($request)->links() }}
                 </div>
             </div>
         </div>
+
     </main>
+    <script type="text/javascript">
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            debugger;
+            var button = $(event.relatedTarget);
+            var recipientId = button.data('id');
+            console.log(recipientId);
+            var modal = $(this);
+            modal.find('#ordem_producao_id').val(recipientId);
+        })
+    </script>
 @endsection
