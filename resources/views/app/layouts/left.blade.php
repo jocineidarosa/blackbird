@@ -62,7 +62,7 @@
                 </div>
                 <ul class="submenuItems">
                     <li class="item-menu"><a href="{{ route('equipamento.index') }}">Cadastro de Equipamentos</a></li>
-                    <li class="item-menu"><a href="#">paradas de equipamentos</a></li>
+                    <li class="item-menu"><a href="{{route('parada-equipamento.index')}}">paradas de equipamentos</a></li>
                 </ul>
             </li>
 
@@ -74,8 +74,6 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </div>
                 <ul class="submenuItems">
-                    <li class="item-menu"><a href="#">Manutenções Agendadas</a></li>
-                    <li class="item-menu"><a href="#">paradas de equipamentos</a></li>
                 </ul>
             </li>
 

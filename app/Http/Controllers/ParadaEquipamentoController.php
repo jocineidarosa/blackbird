@@ -18,7 +18,8 @@ class ParadaEquipamentoController extends Controller
      */
     public function index()
     {
-        //
+        $paradas=ParadaEquipamento::all();
+        return view('app.parada_equipamento.index', compact('paradas'));
     }
 
     /**
@@ -105,8 +106,11 @@ class ParadaEquipamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $id=$request->data_id;
+        $parada_equipamento= ParadaEquipamento::find($id);
+        $parada_equipamento->delete();
+        return redirect()->route('parada-equipamento.index');
     }
 }

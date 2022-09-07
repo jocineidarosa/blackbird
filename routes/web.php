@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\TransportadoraController;
+use App\Http\Controllers\ParadaEquipamentoController;
 use App\Http\Controllers\UserController;
+use App\Models\ParadaEquipamento;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -37,7 +40,7 @@ Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoCon
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
 
 //equipamento
-Route::middleware('auth')->resource('/equipamento', 'App\Http\Controllers\EquipamentoController');
+Route::middleware('auth')->resource('/equipamento', ParadaEquipamentoController::class);
 
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\EntradaProdutoController');
@@ -51,7 +54,12 @@ Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraControlle
 Route::middleware('auth')->resource('/transportadora', TransportadoraController::class);
 
 Route::middleware('auth')->resource('/user', UserController::class);
+//parada-equipamento
+Route::middleware('auth')->resource('/parada-equipamento', 'App\Http\Controllers\ParadaEquipamentoController');
 
+//busca o horimetro inicial via ajax
+Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controllers\UtilsController@getHorimetroInicial'
+)->name('utils.get-horimetro-inicial');
 
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
@@ -102,7 +110,6 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
 
 });
 
-
 //grupo produto-fornecedor
 Route::middleware('auth')->prefix('/produto-fornecedor')->group(function() {
 
@@ -118,13 +125,6 @@ Route::middleware('auth')->prefix('/produto-fornecedor')->group(function() {
     Route::delete('delete/{produtoFornecedor}/{fornecedor}','App\Http\Controllers\ProdutoFornecedorController@destroy'
     )->name('produto-fornecedor.destroy');
 });
-
-Route::middleware('auth')->post('parada-equipamento/store/{ordem_producao}','App\Http\Controllers\ParadaEquipamentoController@store'
-)->name('parada-equipamento.store');
-
-//busca o horimetro inicial via ajax
-Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controllers\UtilsController@getHorimetroInicial'
-)->name('utils.get-horimetro-inicial');
 
 //grupo recursos_producao
 Route::middleware('auth')->prefix('/recursos-producao')->group(function() {

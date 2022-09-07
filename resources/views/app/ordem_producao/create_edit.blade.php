@@ -199,7 +199,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="btCadPrincipal">
                                     {{ isset($ordem_producao) ? 'Atualizar' : 'Cadastrar' }}
                                 </button>
                             </div>
@@ -671,7 +671,13 @@
             var mes = String(data_atual.getMonth() + 1).padStart(2, '0');
             var ano = data_atual.getFullYear();
             data_atual = ano + '-' + mes + '-' + dia;
-            document.getElementById("data").value = data_atual;
+            debugger;
+            var submit=document.getElementById("btCadPrincipal").innerHTML
+            submit=submit.trim();   
+            if(submit=='Cadastrar'){
+               document.getElementById("data").value = data_atual; 
+            }
+            
         }
     </script>
 

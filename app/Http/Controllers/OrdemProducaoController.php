@@ -15,10 +15,7 @@ use App\Models\Obra;
 use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rules\Exists;
-use PhpParser\Node\Expr\Empty_;
 
-use function PHPUnit\Framework\isNull;
 
 class OrdemProducaoController extends Controller
 {
@@ -432,7 +429,7 @@ class OrdemProducaoController extends Controller
      */
     public function destroy(Request $request, $ordem_producao)
     {
-        $ordem_producao_id=$request->ordem_producao_id;
+        $ordem_producao_id=$request->data_id;
         $ordem_producao=OrdemProducao::find($ordem_producao_id);
         $recurso_producao=RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
 
