@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EntradaProduto;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\OrdemProducao;
@@ -292,10 +293,10 @@ class OrdemProducaoController extends Controller
      */
 
     public function show(OrdemProducao $ordem_producao)
-    {
+    { 
         $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
             ->where('equipamento_id', $ordem_producao->equipamento_id)
-            ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
+            ->where('horimetro_final', '<=', $ordem_producao->horimetro_final)->first();
 
         if ($op_horimetro_inicial->horimetro_inicial == null) {
             $op_horimetro_inicial = $ordem_producao->horimetro_final;
@@ -318,7 +319,7 @@ class OrdemProducaoController extends Controller
         } else {
             $producao_por_hora = '';
         }
-
+        
         $recursos_producao = DB::table('recursos_producao as rp')
             ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
             ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
@@ -350,10 +351,21 @@ class OrdemProducaoController extends Controller
                 }
             }
             $recurso->consumo_quant = $recurso->quantidade / $ordem_producao->quantidade_producao * 1000;
+            
 
             $estoque = Produto::select('estoque_atual')
                 ->where('id', $recurso->produto_id)->first();
             $recurso->estoque_atual = $estoque->estoque_atual;
+            /* soma quantidade total de entrada de produto até a data da ordem de produção 
+            depois a saida de produto da mesma forma subtrai a saida da entrada*/
+            $total_entrada_produto= EntradaProduto::where('data', '<=', $ordem_producao->data)
+            ->where('produto_id', $recurso->produto_id)->get('quantidade'); 
+            $total_entrada_produto=$total_entrada_produto->sum('quantidade');
+            $total_saida_produto= SaidaProduto::where('data', '<=', $ordem_producao->data)
+            ->where('produto_id', $recurso->produto_id)->get('quantidade'); 
+            $total_saida_produto=$total_saida_produto->sum('quantidade');
+
+            $recurso->estoque_final=$total_entrada_produto -$total_saida_produto;
             $recurso->estoque_anterior = $recurso->estoque_atual + $recurso->quantidade;
         }
 

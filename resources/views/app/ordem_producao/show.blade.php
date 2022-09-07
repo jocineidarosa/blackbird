@@ -97,6 +97,7 @@
                         <td class="th-title">Consm/ton</td>
                         <td class="th-title">Estoque Atual</td>
                     </tr>
+                
                     @foreach ($recursos_producao as $recurso)
                         <tr>
                             <td colspan="3">{{ $recurso->equipamento    }}</td>
@@ -110,7 +111,7 @@
                             <td>{{$recurso->total_hora}}</td>
                             <td>{{number_format($recurso->consumo_hora, 2)}} /hora</td>
                             <td>{{number_format($recurso->consumo_quant, 2)}}/ton</td>
-                            <td>{{$recurso->estoque_atual}}</td>
+                            <td>{{$recurso->estoque_final}}</td>
                         </tr>
 
                     @endforeach
