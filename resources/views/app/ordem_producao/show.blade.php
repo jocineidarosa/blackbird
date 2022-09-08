@@ -95,7 +95,7 @@
                         <td class="th-title">Temp.OP</td>
                         <td class="th-title">Consm/hora</td>
                         <td class="th-title">Consm/ton</td>
-                        <td class="th-title">Estoque Atual</td>
+                        <td class="th-title">Estoque Final</td>
                     </tr>
                 
                     @foreach ($recursos_producao as $recurso)
