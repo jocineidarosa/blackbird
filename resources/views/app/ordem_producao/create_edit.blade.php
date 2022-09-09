@@ -104,7 +104,7 @@
                                 por Hora</label>
                             <div class="col-md-6">
                                 <input name="producao_hora" id="producao_hora" type="text" class="form-control-disabled"
-                                    readonly value="{{ old('producao_hora') }}">
+                                    disabled value="{{ old('producao_hora') }}">
                             </div>
                         </div>
                         <div class="row mb-1">
@@ -140,7 +140,7 @@
                             <label for="horimetro_inicial"
                                 class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
                             <div class="col-md-6">
-                                <input name="horimetro_inicial" id="horimetro_inicial" readonly
+                                <input name="horimetro_inicial" id="horimetro_inicial" disabled
                                     class="form-control-disabled"
                                     value="{{ $produto->horimetro_inicial ?? old('horimetro_inicial') }}">
                                 {{ $errors->has('horimetro_inicial') ? $errors->first('horimetro_inicial') : '' }}
@@ -248,10 +248,18 @@
                             </div>
 
                             <div class="row mb-1">
-                                <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.
-                                    Material
-                                    Utilizado</label>
+                                <label for="medida_final" class="col-md-4 col-form-label text-md-end text-right">Medida
+                                    Final</label>
+                                <div class="col-md-6">
+                                    <input name="estoue_final" id="medida_final" type="number" class="form-control "
+                                        value="{{ $produto->estue_final ?? old('medida_final') }}" required>
+                                    {{ $errors->has('estoue_final') ? $errors->first('estoq ue_final') : '' }}
+                                </div>
+                            </div>
 
+                            <div class="row mb-1">
+                                <label for="quantidade"
+                                    class="col-md-4 col-form-label text-md-end text-right">Qtde.Material Utilizado</label>
                                 <div class="col-md-6">
                                     <input name="quantidade" id="quantidade" type="number" class="form-control "
                                         quantidade="quantidade" value="{{ $produto->quantidade ?? old('quantidade') }}"
@@ -355,20 +363,19 @@
                                                     <td>{{ $recurso_producao->horimetro_final ?? '' }}</td>
                                                     <td>
                                                         <div class="div-op">
-                                                            <a class="btn btn-sm-template btn-primary mx-1"
-                                                                href="#"><i
+                                                            <a class="btn btn-sm-template btn-primary mx-1" href="#"><i
                                                                     class="icofont-eye-alt"></i></a>
-                                                            <a class="btn btn-sm-template btn-success mx-1"
-                                                                href="#"><i
+                                                            <a class="btn btn-sm-template btn-success mx-1" href="#"><i
                                                                     class="icofont-pen-alt-1"></i></a>
                                                             <form id="form_{{ $recurso_producao->id }}" method="post"
-                                                                action="{{route('ordem-producao.destroy-recurso-producao',[
-                                                                'recurso_producao'=>$recurso_producao->id,
-                                                                'ordem_producao'=>$ordem_producao->id])}}">
+                                                                action="{{ route('ordem-producao.destroy-recurso-producao', [
+                                                                    'recurso_producao' => $recurso_producao->id,
+                                                                    'ordem_producao' => $ordem_producao->id,
+                                                                ]) }}">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <a class="btn btn-sm-template btn-danger mx-1" href="#"
-                                                                    onclick="document.getElementById('form_{{$recurso_producao->id}}').submit()"><i
+                                                                    onclick="document.getElementById('form_{{ $recurso_producao->id }}').submit()"><i
                                                                         class="icofont-close-squared-alt"></i></a>
                                                             </form>
                                                         </div>
@@ -508,8 +515,8 @@
                             </div>
 
                             <div class="row mb-1">
-                                <label for="qtde_cargas"
-                                    class="col-md-4 col-form-label text-md-end text-right">Qtde Cargas</label>
+                                <label for="qtde_cargas" class="col-md-4 col-form-label text-md-end text-right">Qtde
+                                    Cargas</label>
                                 <div class="col-md-6">
                                     <input name="qtde_cargas" id="qtde_cargas" type="text" class="form-control">
                                 </div>
@@ -568,20 +575,19 @@
                                                     <td>{{ $produto_obra->transportadora->nome ?? '' }}</td>
                                                     <td>
                                                         <div class="div-op">
-                                                            <a class="btn btn-sm-template btn-primary mx-1"
-                                                                href="#"><i
+                                                            <a class="btn btn-sm-template btn-primary mx-1" href="#"><i
                                                                     class="icofont-eye-alt"></i></a>
-                                                            <a class="btn btn-sm-template btn-success mx-1"
-                                                                href="#"><i
+                                                            <a class="btn btn-sm-template btn-success mx-1" href="#"><i
                                                                     class="icofont-pen-alt-1"></i></a>
                                                             <form id="form_{{ $produto_obra->id }}" method="post"
-                                                                action="{{route('ordem-producao.destroy_produto_obra',[
-                                                                'produto_obra'=>$produto_obra->id,
-                                                                'ordem_producao'=>$ordem_producao->id])}}">
+                                                                action="{{ route('ordem-producao.destroy_produto_obra', [
+                                                                    'produto_obra' => $produto_obra->id,
+                                                                    'ordem_producao' => $ordem_producao->id,
+                                                                ]) }}">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <a class="btn btn-sm-template btn-danger mx-1" href="#"
-                                                                    onclick="document.getElementById('form_{{$produto_obra->id}}').submit()"><i
+                                                                    onclick="document.getElementById('form_{{ $produto_obra->id }}').submit()"><i
                                                                         class="icofont-close-squared-alt"></i></a>
                                                             </form>
                                                         </div>
@@ -604,6 +610,8 @@
 
     <script>
         $(function() {
+
+
             $('#equipamento_id').change(function() {
                 var equipamento_id = $("#equipamento_id option:selected").val();
                 $("#horimetro_inicial").val('');
@@ -637,30 +645,24 @@
                         $("#horimetro_inicial_recursos").val(response);
                     }
                 })
-
             });
-
+            
             $('#horimetro_final').change(function() {
-                var horimetro_inicial = $('#horimetro_inicial').val();
-                var horimetro_final = $('#horimetro_final').val();
-                var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
-                var quant_producao = $('#quantidade_producao').val();
+                var horimetro_inicial= $('#horimetro_inicial').val();
+                var horimetro_final= $('#horimetro_final').val();
+                var total_horimetro=(horimetro_final-horimetro_inicial).toFixed(2);
                 $('#total_horimetro').val(total_horimetro);
-                var producao_hora = (quant_producao / total_horimetro).toFixed(0);
-                $('#producao_hora').val(producao_hora);
-
             });
 
-            $('#quantidade_producao').change(function() {
-                var horimetro_inicial = $('#horimetro_inicial').val();
-                var horimetro_final = $('#horimetro_final').val();
-                var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
+            $('#quantidade_producao, #horimetro_final').change(function() {
+                var total_horimetro = $('#total_horimetro').val();
                 var quant_producao = $('#quantidade_producao').val();
-                $('#total_horimetro').val(total_horimetro);
-                var producao_hora = (quant_producao / total_horimetro).toFixed(0);
-                $('#producao_hora').val(producao_hora);
-
+                if (quant_producao > 0 && total_horimetro > 0) {
+                    var producao_hora = (quant_producao / total_horimetro).toFixed(0);
+                    $('#producao_hora').val(producao_hora);
+                }
             });
+
         });
 
         // executa quando a pagina é carregada
@@ -671,13 +673,12 @@
             var mes = String(data_atual.getMonth() + 1).padStart(2, '0');
             var ano = data_atual.getFullYear();
             data_atual = ano + '-' + mes + '-' + dia;
-            debugger;
-            var submit=document.getElementById("btCadPrincipal").innerHTML
-            submit=submit.trim();   
-            if(submit=='Cadastrar'){
-               document.getElementById("data").value = data_atual; 
+            var submit = document.getElementById("btCadPrincipal").innerHTML
+            submit = submit.trim();
+            if (submit == 'Cadastrar') { //se estiver cadastrando traz a data atual, senão traz a data do registro.
+                document.getElementById("data").value = data_atual;
             }
-            
+
         }
     </script>
 
