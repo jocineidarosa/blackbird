@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('auth.login');
+    if (Auth::check()){
+        return redirect()->route('app.home');
+    }else{
+        return view('auth.login');
+    }
 });
 
 Auth::routes();
