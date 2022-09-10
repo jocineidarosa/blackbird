@@ -27,7 +27,7 @@ class UtilsController extends Controller
         ->where('medida', $medida_final)->first();
 
         //echo json_encode($estoque_final->quantidade);
-        return response()->json(['nome'=>'jocinei', 'idade'=>'40', 'profissão'=>'software engineer']);
+        return response()->json(['estoque_final'=>$estoque_final->quantidade]);
     }
 
 }

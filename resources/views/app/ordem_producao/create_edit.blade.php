@@ -619,7 +619,7 @@
 
     <script>
         $(function() {
-
+            //Ajax: busca o estoque final de produto pela medida em cm.
             $('#medida_final').change(function() {
                 debugger;
                 var equipamento_id = $("#equipamento_recursos option:selected").val();
@@ -634,9 +634,13 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        $("#estoque_final").val(response);
+                        var estoque_final=JSON.stringify(response.estoque_final);
+                        $("#estoque_final").val(estoque_final);
                     }
-                })
+                });
+                
+                var quantidade_consumo =estoque_final
+                $('#quantidade').val();
 
             });
 
