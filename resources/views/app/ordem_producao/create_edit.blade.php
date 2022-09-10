@@ -639,9 +639,6 @@
                     }
                 });
                 
-                var quantidade_consumo =estoque_final
-                $('#quantidade').val();
-
             });
 
 
