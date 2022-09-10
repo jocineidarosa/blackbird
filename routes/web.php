@@ -65,6 +65,10 @@ Route::middleware('auth')->resource('/parada-equipamento', 'App\Http\Controllers
 Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controllers\UtilsController@getHorimetroInicial'
 )->name('utils.get-horimetro-inicial');
 
+//busca o estoque final via ajax
+Route::middleware('auth')->get('utils/get-estoque-final','App\Http\Controllers\UtilsController@getEstoqueFinal'
+)->name('utils.get-estoque-final');
+
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
 

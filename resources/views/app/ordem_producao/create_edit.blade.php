@@ -251,9 +251,18 @@
                                 <label for="medida_final" class="col-md-4 col-form-label text-md-end text-right">Medida
                                     Final</label>
                                 <div class="col-md-6">
-                                    <input name="estoue_final" id="medida_final" type="number" class="form-control "
-                                        value="{{ $produto->estue_final ?? old('medida_final') }}" required>
-                                    {{ $errors->has('estoue_final') ? $errors->first('estoq ue_final') : '' }}
+                                    <input name="medida_final" id="medida_final" type="number" class="form-control "
+                                        value="{{ $recurso->medida_final ?? old('medida_final') }}">
+                                    {{ $errors->has('medida_final') ? $errors->first('medida_final') : '' }}
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label for="estoque_final" class="col-md-4 col-form-label text-md-end text-right">Estoque Final</label>
+                                <div class="col-md-6">
+                                    <input name="estoque_final" id="estoque_final" type="text" class="form-control-disabled "
+                                        value="{{ $produto->estoque_final ?? old('estoque_final') }}" disabled>
+                                    {{ $errors->has('estoque_final') ? $errors->first('estoque_final') : '' }}
                                 </div>
                             </div>
 
@@ -261,7 +270,7 @@
                                 <label for="quantidade"
                                     class="col-md-4 col-form-label text-md-end text-right">Qtde.Material Utilizado</label>
                                 <div class="col-md-6">
-                                    <input name="quantidade" id="quantidade" type="number" class="form-control "
+                                    <input name="quantidade" id="quantidade" type="number" class="form-control"
                                         quantidade="quantidade" value="{{ $produto->quantidade ?? old('quantidade') }}"
                                         required>
                                     {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
@@ -610,6 +619,26 @@
 
     <script>
         $(function() {
+
+            $('#medida_final').change(function() {
+                debugger;
+                var equipamento_id = $("#equipamento_recursos option:selected").val();
+                var medida_final= $('#medida_final').val();
+                $.ajax({
+                    url: "{{ route('utils.get-estoque-final') }}",
+                    type: "get",
+                    data: {
+                        'equipamento_id': equipamento_id,
+                        'medida_final': medida_final,
+                        'table': 'medidas_tanques'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        $("#estoque_final").val(response);
+                    }
+                })
+
+            });
 
 
             $('#equipamento_id').change(function() {
