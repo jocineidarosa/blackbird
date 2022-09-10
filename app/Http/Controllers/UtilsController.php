@@ -30,4 +30,14 @@ class UtilsController extends Controller
         return response()->json(['estoque_final'=>$estoque_final->quantidade]);
     }
 
+    public function getEstoqueAtual(Request $request){
+        $table=$request->get('table');
+        $produto_id = $request->get('produto_id');
+        $estoque_atual= DB::table($table)->selectRaw('estoque_atual')
+        ->where('id', $produto_id)->first();
+
+        //echo json_encode($estoque_final->quantidade);
+        return response()->json(['estoque_atual'=>$estoque_atual->estoque_atual]);
+    }
+
 }

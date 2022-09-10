@@ -69,6 +69,10 @@ Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controlle
 Route::middleware('auth')->get('utils/get-estoque-final','App\Http\Controllers\UtilsController@getEstoqueFinal'
 )->name('utils.get-estoque-final');
 
+//busca o estoque atual
+Route::middleware('auth')->get('utils/get-estoque-atual','App\Http\Controllers\UtilsController@getEstoqueAtual'
+)->name('utils.get-estoque-atual');
+
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
 

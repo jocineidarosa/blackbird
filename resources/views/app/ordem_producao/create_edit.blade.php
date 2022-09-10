@@ -16,7 +16,7 @@
             <div class="card-body">
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation"">
                         <a href="#dados_principais" class="nav-link active mr-1" id="dados_principais_tab"
                             data-bs-toggle="tab" role="tab" aria-controls="dados_principais">Dados Principais</a>
                     </li>
@@ -74,7 +74,7 @@
                             <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
 
                             <div class="col-md-6">
-                                <select name="produto_id" id="" class="form-control-template" required>
+                                <select name="produto_id" id="produto_id_principal" class="form-control-template" required>
                                     <option value=""> --Selecione o Produto-</option>
                                     @foreach ($produtos as $produto)
                                         <option value="{{ $produto->id }}"
@@ -236,7 +236,7 @@
                                     Utilizado</label>
 
                                 <div class="col-md-6">
-                                    <select name="produto_id" id="" class="form-control" required>
+                                    <select name="produto_id" id="produto_id" class="form-control" required>
                                         <option value=""> --Selecione o Material-</option>
                                         @foreach ($produtos as $produto)
                                             <option value="{{ $produto->id }}">
@@ -244,6 +244,16 @@
                                         @endforeach
                                     </select>
                                     {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label for="estoque_atual" class="col-md-4 col-form-label text-md-end text-right">Estoque
+                                    Atual</label>
+                                <div class="col-md-6">
+                                    <input name="estoque_atual" id="estoque_atual" type="text"
+                                        class="form-control-disabled " disabled>
+                                    {{ $errors->has('estoque_atual') ? $errors->first('estoque_atual') : '' }}
                                 </div>
                             </div>
 
@@ -257,10 +267,13 @@
                                 </div>
                             </div>
 
+
                             <div class="row mb-1">
-                                <label for="estoque_final" class="col-md-4 col-form-label text-md-end text-right">Estoque Final</label>
+                                <label for="estoque_final" class="col-md-4 col-form-label text-md-end text-right">Estoque
+                                    Final</label>
                                 <div class="col-md-6">
-                                    <input name="estoque_final" id="estoque_final" type="text" class="form-control-disabled "
+                                    <input name="estoque_final" id="estoque_final" type="text"
+                                        class="form-control-disabled "
                                         value="{{ $produto->estoque_final ?? old('estoque_final') }}" disabled>
                                     {{ $errors->has('estoque_final') ? $errors->first('estoque_final') : '' }}
                                 </div>
@@ -274,7 +287,11 @@
                                         quantidade="quantidade" value="{{ $produto->quantidade ?? old('quantidade') }}"
                                         required>
                                     {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
+                                    
                                 </div>
+                                <button class="btn btn-secondary" id="bt_calcula_consumo" type="button">
+                                    <i class="icofont-ui-calculator"></i>
+                                </button>
                             </div>
 
                             <div class="row mb-1">
@@ -480,6 +497,16 @@
                             method="POST">
                             @csrf
 
+
+                            <div class="row mb-1">
+                                <label for="quant_producao"
+                                    class="col-md-4 col-form-label text-md-end text-right">Produção do dia</label>
+                                <div class="col-md-6">
+                                    <input name="quant_producao" id="quant_producao" type="text" class="form-control-disabled" 
+                                    value="{{$ordem_producao ? $ordem_producao->quantidade_producao : ''}}" disabled>
+                                </div>
+                            </div>
+
                             <div class="row mb-1">
                                 <label for="obra_id" class="col-md-4 col-form-label text-md-end text-right">Obra</label>
                                 <div class="col-md-6">
@@ -621,9 +648,9 @@
         $(function() {
             //Ajax: busca o estoque final de produto pela medida em cm.
             $('#medida_final').change(function() {
-                debugger;
                 var equipamento_id = $("#equipamento_recursos option:selected").val();
-                var medida_final= $('#medida_final').val();
+                var medida_final = $('#medida_final').val();
+                var ajax_ok = false;
                 $.ajax({
                     url: "{{ route('utils.get-estoque-final') }}",
                     type: "get",
@@ -634,12 +661,42 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        var estoque_final=JSON.stringify(response.estoque_final);
+                        var estoque_final = JSON.stringify(response.estoque_final);
                         $("#estoque_final").val(estoque_final);
+                        ajax_ok = true
                     }
                 });
                 
             });
+
+            $('#bt_calcula_consumo').click(function(){
+                var estoque_atual = $('#estoque_atual').val();
+                    var estoque_final = $('#estoque_final').val();
+                    if (estoque_atual > 0 && estoque_final > 0) {
+                        var quantidade_utilizada = estoque_atual - estoque_final;
+                        $('#quantidade').val(quantidade_utilizada);
+                    }
+            })
+
+
+            $('#produto_id').change(function() {
+                var produto_id = $('#produto_id option:selected').val();
+                var table = 'produtos';
+                $.ajax({
+                    url: "{{ route('utils.get-estoque-atual') }}",
+                    type: "get",
+                    data: {
+                        "produto_id": produto_id,
+                        "table": table
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        var estoque_atual = JSON.stringify(response.estoque_atual);
+                        $("#estoque_atual").val(estoque_atual);
+                    }
+                })
+
+            })
 
 
             $('#equipamento_id').change(function() {
@@ -676,11 +733,11 @@
                     }
                 })
             });
-            
+
             $('#horimetro_final').change(function() {
-                var horimetro_inicial= $('#horimetro_inicial').val();
-                var horimetro_final= $('#horimetro_final').val();
-                var total_horimetro=(horimetro_final-horimetro_inicial).toFixed(2);
+                var horimetro_inicial = $('#horimetro_inicial').val();
+                var horimetro_final = $('#horimetro_final').val();
+                var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
                 $('#total_horimetro').val(total_horimetro);
             });
 
