@@ -52,6 +52,15 @@ Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\En
 //saida de produtos
 Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController');
 
+//Carregamento de Cargas de caminhão
+Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\CarregamentoController');
+
+//Tipos de Veículos
+Route::middleware('auth')->resource('/tipo-veiculo', 'App\Http\Controllers\TipoVeiculoController');
+
+//Veículos
+Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');
+
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
 

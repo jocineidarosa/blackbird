@@ -36,6 +36,7 @@
                     <li class="item-menu "><a href="{{ route('cliente.index') }}">Clientes</a></li>
                     <li class="item-menu "><a href="{{ route('obra.index') }}">Obras</a></li>
                     <li class="item-menu"><a href="{{ route('transportadora.index') }}">Transportadora</a></li>
+                    <li class="item-menu"><a href="{{ route('tipo-veiculo.index') }}">tipos de Veículos</a></li>
                 </ul>
             </li>
 
@@ -49,6 +50,7 @@
                 <ul class="submenuItems">
                     <li class="item-menu"><a href="{{ route('ordem-producao.index') }}">Ordem de Produção</a></li>
                     <li class="item-menu"><a href="{{ route('recursos-producao.index') }}">Operação de equipamentos</a>
+                    <li class="item-menu"><a href="{{ route('carregamento.index') }}">Carregamento</a>
                     </li>
                 </ul>
             </li>

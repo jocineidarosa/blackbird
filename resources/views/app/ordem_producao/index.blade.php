@@ -44,16 +44,16 @@
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"
                                             href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}"><i
-                                                class="icofont-eye-alt"></i>
+                                            class="icofont-eye-alt"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan 
-                                        "href="{{route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id])}}">
+                                        <a class="btn btn-sm-template btn-success mx-1 @can('admin') disabled @endcan" 
+                                        href="{{route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id])}}">
                                             <i class="icofont-pen-alt-1"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}"
-                                        @can('user') disabled @endcan>
-                                        <i class="icofont-close-squared-alt"></i></a>
+                                        <a class="btn btn-sm-template btn-danger mx-1 @can('admin') disabled @endcan" 
+                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}">
+                                            <i class="icofont-close-squared-alt"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

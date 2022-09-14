@@ -19,7 +19,6 @@
                         <tr>
                             <th scope="col" class="th-title">Id</th>
                             <th scope="col" class="th-title">Nome</th>
-                            <th scope="col" class="th-title">Descrição</th>
                             <th scope="col" class="th-title">Marca</th>
                             <th scope="col" class="th-title">Un.</th>
                             <th scope="col" class="th-title">Categoria</th>
@@ -34,7 +33,6 @@
                             <tr>
                                 <th scope="row">{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
-                                <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->marca->nome }}</td>
                                 <td>{{ $produto->unidade_medida->nome }}</td>
                                 <td>{{ $produto->categoria->nome }}</td>
