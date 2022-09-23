@@ -1,7 +1,6 @@
 @extends('app.layouts.app')
 
 @section('content')
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div> LISTAGEM DE ENTRADA DE PRODUTOS</div>
@@ -65,6 +64,4 @@
 
         </div>
 
-
-    </main>
 @endsection

@@ -1,7 +1,6 @@
 @extends('app.layouts.app')
 
 @section('content')
-    <main class="content">
         <div class="card">
             <div class="card-header pb-2">
                 <p class="mb-0">Produtos Fronecidos por cada fornecedor</p>
@@ -110,5 +109,4 @@
 
         </div>
 
-    </main>
 @endsection

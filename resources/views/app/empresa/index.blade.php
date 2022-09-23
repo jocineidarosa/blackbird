@@ -3,7 +3,6 @@
 
 @section('content')
 
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>LISTAGEM DE EMPRESAS</div>
@@ -69,8 +68,5 @@
             </div>
 
         </div>
-
-
-    </main>
 
 @endsection

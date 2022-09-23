@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>Editar Fornecedor</div>
@@ -25,8 +24,5 @@
             </div>
 
         </div>
-
-
-    </main>
 
 @endsection

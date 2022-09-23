@@ -8,7 +8,6 @@
 
 @section('content')
 
-<main class="content">
     <div class="card">
         <div class="card-header">
             <p>Editar Produto</p>
@@ -28,8 +27,6 @@
                 @endcomponent  
         </div>
     </div>
-
-</main>
 
 @endsection
 

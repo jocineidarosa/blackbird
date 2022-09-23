@@ -4,8 +4,6 @@
 @section('titulo', 'Produtos')
 
 @section('content')
-
-<main class="content">
     <div class="card">
         <div class="card-header-template">
             <div>Visualizar Unidade de Medida</div>
@@ -36,7 +34,6 @@
         </div>
     </div>
 
-</main>
 
 @endsection
 

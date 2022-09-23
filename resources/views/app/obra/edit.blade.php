@@ -3,7 +3,6 @@
 
 @section('content')
 
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>Editar Obra</div>
@@ -29,7 +28,5 @@
 
         </div>
 
-
-    </main>
 
 @endsection

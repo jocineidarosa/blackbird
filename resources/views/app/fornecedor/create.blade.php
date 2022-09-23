@@ -4,7 +4,6 @@
 
 @section('content')
 
-<main class="content">
     <div class="card">
         <div class="card-header-template">
             <div>Cadastrar Novo Fornecedor</div>

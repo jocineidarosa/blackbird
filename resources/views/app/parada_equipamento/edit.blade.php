@@ -1,10 +1,8 @@
 @extends('app.layouts.app')
 
-@section('titulo', 'Marcas')
 
 @section('content')
 
-<main class="content">
     <div class="card">
         <div class="card-header">
             <p>Editar Marca</p>
@@ -26,7 +24,5 @@
 
     </div>
 
-
-</main>
 
 @endsection

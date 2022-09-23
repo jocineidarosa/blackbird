@@ -1,7 +1,6 @@
 @extends('app.layouts.app')
 
 @section('content')
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>CADASTRO DE CARREGAMENTO DE VEÍCULOS</div>
@@ -18,5 +17,4 @@
             </div>
         </div>
 
-    </main>
 @endsection

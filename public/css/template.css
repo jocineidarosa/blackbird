@@ -1,31 +1,4 @@
-body {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 50px 1fr 40px;
-    grid-template-areas:
-        "header header"
-        "sidebar content"
-        "footer footer";
-    height: 100vh;
-    margin: 0;
-    background-color: #ddd;
-
-}
-
-body.hide-sidebar {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "header"
-        "content"
-        "footer";
-    height: 100vh;
-    margin: 0;
-    background-color: #ddd;
-}
-
-
 header.header {
-
     /*position: relative;*/
     position:sticky;
     top: 0;
@@ -186,12 +159,6 @@ aside.sidebar .info .main {
 aside.sidebar .menu li.nav-item:hover {
     background-color: #0000001a;
 
-}
-
-main.content {
-    grid-area: content;
-    background-color: #fff;
-    padding: 10px;
 }
 
 main.content .content-title {
@@ -372,3 +339,19 @@ table td{
     padding:10px;
     color: #1879e0;
 }
+
+@media screen and (max-width: 640px) {
+    body{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "content"
+            "footer";
+        height: 100vh;
+        margin: 0;
+        background-color: #ddd;
+    }
+    
+}
+

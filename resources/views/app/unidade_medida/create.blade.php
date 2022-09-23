@@ -2,7 +2,6 @@
 
 @section('content')
 
-<main class="content">
     <div class="card">
         <div class="card-header-template">
             <div>CADASTRO DE UNIDADE DE MEDIDA</div>
@@ -18,7 +17,6 @@
         </div>
     </div>
 
-</main>
 
 @endsection
 

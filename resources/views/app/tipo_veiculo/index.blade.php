@@ -2,7 +2,6 @@
 @section('titulo', 'Produtos')
 
 @section('content')
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>LISTAGEM DE TIPOS DE VEÍCULOS</div>
@@ -65,6 +64,4 @@
 
         </div>
 
-
-    </main>
 @endsection

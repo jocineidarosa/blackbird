@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <main class="content">
         <div class="card">
             <div class="card-header-template">
                 <div>Visualizar Produto</div>
@@ -47,6 +46,5 @@
             </div>
         </div>
 
-    </main>
 
 @endsection

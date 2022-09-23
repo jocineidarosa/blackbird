@@ -1,7 +1,6 @@
 @extends('app.layouts.app')
 
 @section('content')
-<main class="content">
     <div class="card">
         <div class="card-header-template">
             <div>
@@ -59,7 +58,5 @@
 
     </div>
 
-
-</main>
 
 @endsection

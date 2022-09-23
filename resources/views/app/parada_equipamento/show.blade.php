@@ -3,8 +3,6 @@
 @section('titulo', 'Marca')
 
 @section('content')
-
-<main class="content">
     <div class="card">
         <div class="card-header">
             <p>Visualizar Marca</p>
@@ -38,7 +36,6 @@
         </div>
     </div>
 
-</main>
 
 @endsection
 

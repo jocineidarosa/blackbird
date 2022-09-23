@@ -2,7 +2,6 @@
 
 @section('content')
 
-<main class="content">
     <div class="card">
         <div class="card-header-template pb-2">
             <div>CADASTRO DE CATEGORIAS</div>
@@ -18,7 +17,6 @@
         </div>
     </div>
 
-</main>
 
 @endsection
 
