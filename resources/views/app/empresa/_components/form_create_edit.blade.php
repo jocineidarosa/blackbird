@@ -12,7 +12,7 @@
 
     <div class="col-md-6">
         <input id="razao_social" type="text" class="form-control" name="razao_social"
-            value="{{$empresa->razao_social ?? old('razao_social') }}" required autofocus>
+            value="{{$empresa->razao_social ?? old('razao_social') }}" autofocus>
             {{ $errors->has('razao_social') ? $errors->first('razao_social') : '' }}
     </div>
 </div>
@@ -22,7 +22,7 @@
     <label for="nome_fantasia" class="col-md-4 col-form-label text-md-end text-right">Nome Fantasia</label>
     <div class="col-md-6">
         <input id="nome_fantasia" name="nome_fantasia" type="text" class="form-control" nome_fantasia="nome_fantasia"
-            value="{{$empresa->nome_fantasia?? old('nome_fantasia') }}" required>
+            value="{{$empresa->nome_fantasia?? old('nome_fantasia') }}">
             {{ $errors->has('nome_fantasia') ? $errors->first('nome_fantasia') : '' }}                            
     </div>
 </div>
@@ -32,7 +32,7 @@
 
     <div class="col-md-6">
         <input id="cnpj" name="cnpj" type="text" class="form-control" cnpj="cnpj"
-            value="{{$empresa->cnpj?? old('cnpj') }}" required>
+            value="{{$empresa->cnpj?? old('cnpj') }}">
             {{ $errors->has('cnpj') ? $errors->first('cnpj') : '' }}                            
     </div>
 </div>
@@ -41,7 +41,7 @@
     <label for="insc_estadual" class="col-md-4 col-form-label text-md-end text-right">Inscrição Estadual</label>
     <div class="col-md-6">
         <input id="insc_estadual" name="insc_estadual" type="text" class="form-control" insc_estadual="insc_estadual"
-            value="{{$empresa->insc_estadual?? old('insc_estadual') }}" required>
+            value="{{$empresa->insc_estadual?? old('insc_estadual') }}">
             {{ $errors->has('insc_estadual') ? $errors->first('insc_estadual') : '' }}                            
     </div>
 </div>
@@ -50,7 +50,7 @@
     <label for="endereco" class="col-md-4 col-form-label text-md-end text-right">Endereço</label>
     <div class="col-md-6">
         <input id="endereco" name="endereco" type="text" class="form-control" endereco="endereco"
-            value="{{$empresa->endereco?? old('endereco') }}" required >
+            value="{{$empresa->endereco?? old('endereco') }}" >
             {{ $errors->has('endereco') ? $errors->first('endereco') : '' }}                            
     </div>
 </div>
@@ -61,7 +61,7 @@
 
     <div class="col-md-6">
         <input id="bairro" name="bairro" type="text" class="form-control" bairro="bairro"
-            value="{{$empresa->bairro?? old('bairro') }}" required>
+            value="{{$empresa->bairro?? old('bairro') }}">
             {{ $errors->has('bairro') ? $errors->first('bairro') : '' }}                            
     </div>
 </div>
@@ -87,7 +87,7 @@
 
     <div class="col-md-6">
         <input id="telefone" name="telefone" type="text" class="form-control" telefone="telefone"
-            value="{{$empresa->telefone?? old('telefone') }}" required>
+            value="{{$empresa->telefone?? old('telefone') }}">
             {{ $errors->has('telefone') ? $errors->first('telefone') : '' }}                            
     </div>
 </div>
@@ -97,7 +97,7 @@
 
     <div class="col-md-6">
         <input id="contato" name="contato" type="text" class="form-control" contato="contato"
-            value="{{$empresa->contato?? old('contato') }}" required >
+            value="{{$empresa->contato?? old('contato') }}" >
             {{ $errors->has('contato') ? $errors->first('contato') : '' }}                            
     </div>
 </div>
@@ -107,7 +107,7 @@
 
     <div class="col-md-6">
         <input id="email" name="email" type="text" class="form-control" email="email"
-            value="{{$empresa->email?? old('email') }}" required>
+            value="{{$empresa->email?? old('email') }}">
             {{ $errors->has('email') ? $errors->first('email') : '' }}                            
     </div>
 </div>
@@ -116,7 +116,7 @@
     <label for="site" class="col-md-4 col-form-label text-md-end text-right">Site</label>
     <div class="col-md-6">
         <input id="site" name="site" type="text" class="form-control" site="site"
-            value="{{$empresa->site?? old('site') }}" required >
+            value="{{$empresa->site?? old('site') }}" >
             {{ $errors->has('site') ? $errors->first('site') : '' }}                            
     </div>
 </div>
