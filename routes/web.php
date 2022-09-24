@@ -3,7 +3,6 @@
 use App\Http\Controllers\TransportadoraController;
 use App\Http\Controllers\ParadaEquipamentoController;
 use App\Http\Controllers\UserController;
-use App\Models\ParadaEquipamento;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,7 +69,11 @@ Route::middleware('auth')->resource('/user', UserController::class);
 //parada-equipamento
 Route::middleware('auth')->resource('/parada-equipamento', 'App\Http\Controllers\ParadaEquipamentoController');
 
+/* ajax-------------------------------------------------- */
+
 //busca o horimetro inicial via ajax
+
+
 Route::middleware('auth')->get('utils/get-horimetro-inicial','App\Http\Controllers\UtilsController@getHorimetroInicial'
 )->name('utils.get-horimetro-inicial');
 
@@ -81,6 +84,12 @@ Route::middleware('auth')->get('utils/get-estoque-final','App\Http\Controllers\U
 //busca o estoque atual
 Route::middleware('auth')->get('utils/get-estoque-atual','App\Http\Controllers\UtilsController@getEstoqueAtual'
 )->name('utils.get-estoque-atual');
+
+//busca cidades
+Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
+)->name('utils.get-cidade');
+
+/* ajax-------------------------------------------------- */
 
 //grupo Ordem de Produção
 Route::middleware('auth')->prefix('/ordem-producao')->group(function() {

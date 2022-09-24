@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Cidade;
 use App\Models\OrdemProducao;
 use App\Models\RecursosProducao;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +40,13 @@ class UtilsController extends Controller
 
         //echo json_encode($estoque_final->quantidade);
         return response()->json(['estoque_atual'=>$estoque_atual->estoque_atual]);
+    }
+
+    public function getCidade(Request $request){
+        $uf = $request->get('uf');
+        $cidades= Cidade::where('uf_id',$uf)->get();
+        return json_encode($cidades);
+        //return response()->json(['cidades'=>$cidades]);
     }
 
 }

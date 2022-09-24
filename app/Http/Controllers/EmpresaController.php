@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
 use App\Models\Cidade;
-
+use App\Models\Uf;
 
 class EmpresaController extends Controller
 {
@@ -28,10 +28,8 @@ class EmpresaController extends Controller
     */
    public function create()
    {
-       $empresas=Empresa::all();
-       $cicades=Cidade::all();
-       return view('app.empresa.create', ['empresas'=>$empresas, 'cidades'=>$cicades]);
-   
+        $ufs=Uf::orderBy('nome','asc')->get();
+       return view('app.empresa.create',['ufs'=>$ufs]);
    }
 
    /**
@@ -63,9 +61,9 @@ class EmpresaController extends Controller
     * @param  \App\Fornecedor $fornecedor
     * @return \Illuminate\Http\Response
     */
-   public function edit(Empresa $fornecedor)
-   {
-       return view('app.empresa.edit', ['fornecedor'=>$fornecedor]);
+   public function edit(Empresa $empresa)
+   {   $ufs= Uf::all();
+       return view('app.empresa.edit', ['empresa'=>$empresa, 'ufs'=>$ufs]);
    }
 
    /**
