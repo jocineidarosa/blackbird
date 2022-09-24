@@ -153,6 +153,7 @@
 </form>
 
 <script>
+    /* Script Jquery */
     $(function() {
 
         $('#uf').change(function() {
@@ -171,6 +172,7 @@
                             i]['nome'] + '</option>';
                     }
                     $('#cidade_id').html(options);
+                    $('#cidade_id').focus();
                 }
 
             });

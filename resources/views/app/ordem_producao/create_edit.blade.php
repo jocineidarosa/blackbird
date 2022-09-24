@@ -79,7 +79,7 @@
                 });
 
             });
-
+            /* calcula o consumo após ter o estoque final */
             $('#bt_calcula_consumo').click(function() {
                 var estoque_atual = $('#estoque_atual').val();
                 var estoque_final = $('#estoque_final').val();
@@ -89,7 +89,7 @@
                 }
             })
 
-
+            /* Busca o estoque atual do produto */
             $('#produto_id').change(function() {
                 var produto_id = $('#produto_id option:selected').val();
                 var table = 'produtos';
@@ -109,7 +109,7 @@
 
             })
 
-
+            /* Busca o horímetro inicial do equipamento principal*/
             $('#equipamento_id').change(function() {
                 var equipamento_id = $("#equipamento_id option:selected").val();
                 $("#horimetro_inicial").val('');
@@ -127,7 +127,7 @@
                 })
 
             });
-
+            /* Busca o horímetro inicial do equipamento em recursos de produção */
             $('#equipamento_recursos').change(function() {
                 var equipamento_id = $("#equipamento_recursos option:selected").val();
                 $("#horimetro_inicial_recursos").val('');
@@ -145,6 +145,8 @@
                 })
             });
 
+
+            /* Calcula o total de horas apartir do horímetro */
             $('#horimetro_final').change(function() {
                 var horimetro_inicial = $('#horimetro_inicial').val();
                 var horimetro_final = $('#horimetro_final').val();
@@ -152,6 +154,7 @@
                 $('#total_horimetro').val(total_horimetro);
             });
 
+            /* Calcula a produção por hora */
             $('#quantidade_producao, #horimetro_final').change(function() {
                 var total_horimetro = $('#total_horimetro').val();
                 var quant_producao = $('#quantidade_producao').val();
@@ -164,7 +167,7 @@
         });
 
         // executa quando a pagina é carregada
-
+        /* Busca a data atual */
         window.onload = function() {
             let data_atual = new Date();
             var dia = String(data_atual.getDate()).padStart(2, '0');
