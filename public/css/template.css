@@ -340,18 +340,8 @@ table td{
     color: #1879e0;
 }
 
-@media screen and (max-width: 640px) {
-    body{
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "content"
-            "footer";
-        height: 100vh;
-        margin: 0;
-        background-color: #ddd;
-    }
-    
-}
-
+.sidebar-brand-icon{
+    font-size: 2rem;
+    color: #d4d7e0;
+    margin-right: 1rem;
+  }

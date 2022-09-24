@@ -18,6 +18,7 @@
 <body>
     @include('app.layouts.topbar')
     @include('app.layouts.sidebar')
+    @include('app.layouts.components.logout_modal')
 
     <main class="mt-5 pt-3">
         <div class="container-fluid">
