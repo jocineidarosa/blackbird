@@ -1,11 +1,8 @@
 @extends('app.layouts.app')
-@section('titulo', 'Dashboard')
-<main class="content">
- 
+@section('content')
     <div class="card">
-        <div class="card-header">
-            <p class="mb-0">Cadastro de Usuários</p>
-
+        <div class="card-header-template">
+            Cadastro de Usuários
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('register') }}">
@@ -61,10 +58,23 @@
                     </div>
                 </div>
 
+                <div class="row mb-1">
+                    <label for="nivel" class="col-md-4 col-form-label text-md-end text-right">Nível</label>
+                    <div class="col-md-6">
+                        <select name="nivel" id="nivel" class="form-control-template" required>
+                            <option value=""> --Selecione o nivel-</option>
+                            @foreach ($nivels as $nivel)
+                                <option value="{{ $nivel->name }}">
+                                    {{ $nivel->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Cadastrar Novo Usuário') }}
+                            Cadastrar
                         </button>
                     </div>
                 </div>
@@ -75,5 +85,4 @@
 
     </div>
 
-
-</main>
+@endsection
