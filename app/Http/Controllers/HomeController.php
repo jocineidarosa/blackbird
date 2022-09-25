@@ -14,7 +14,7 @@ class HomeController extends Controller
      * @return void
      */
 
-     //essa function controla a autenticação da view 'home'
+    //essa function controla a autenticação da view 'home'
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,8 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $estoque_produtos=Produto::whereIn('id',[1,2,3,13])->get();
-        return view('app.layouts.dashboard',['estoque_produtos'=>$estoque_produtos]);
+        $estoque_produtos = Produto::whereIn('id', [1, 2, 13])->get();
+        foreach ($estoque_produtos as $estoque) {
+            $estoque->percent_estoque = $estoque->estoque_atual / $estoque->estoque_maximo * 100;
+            $estoque->percent_estoque= round($estoque->percent_estoque,0);
+        }
+        return view('app.layouts.dashboard', ['estoque_produtos' => $estoque_produtos]);
         //return ('chegameos aqui');
     }
 }

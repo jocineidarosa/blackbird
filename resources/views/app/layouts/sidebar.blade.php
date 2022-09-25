@@ -4,12 +4,12 @@
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
-                        <a href="{{ route('app.home') }}" class="nav-link px-1 active">
+                        <a href="{{ route('app.home') }}" class="nav-link p-3">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="my-2">
+                    <li >
                         <hr class="dropdown-divider bg-light" />
                     </li>
 

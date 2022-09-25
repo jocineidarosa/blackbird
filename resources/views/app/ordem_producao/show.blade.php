@@ -39,11 +39,11 @@
                         <td class="text-right pr-2 th-title" colspan="2">Início</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->hora_inicio }}</td>
                         <td class="text-right pr-2 th-title" style="width: 6rem;" colspan="2">Início</td>
-                        <td class="pl-2" style="width: 6rem;" colspan="2">{{number_format($op_horimetro_inicial,2)}}</td>
+                        <td class="pl-2" style="width: 6rem;" colspan="2">{{str_replace(',','.',number_format($op_horimetro_inicial,2))}}</td>
                         <td class="text-right th-title pr-2" style="width: 10rem;" colspan="2">PRODUTO</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->produto->nome }}</td>
                         <td class="text-right th-title pr-2" colspan="2">QUANTIDADE</td>
-                        <td class="pl-2" colspan="2">{{ number_format($ordem_producao->quantidade_producao, 0) }}
+                        <td class="pl-2" colspan="2">{{ str_replace(',','.',number_format($ordem_producao->quantidade_producao, 0))}}
                             {{ $ordem_producao->produto->unidade_medida->nome }}</td>
                     </tr>
 
@@ -51,7 +51,7 @@
                         <td class="text-right th-title pr-2" colspan="2">Término</td>
                         <td class="pl-2" colspan="2">{{ $ordem_producao->hora_fim }}</td>
                         <td class="text-right th-title pr-2" colspan="2">Término</td>
-                        <td class="pl-2" colspan="2">{{ number_format($ordem_producao->horimetro_final, 2) }}</td>
+                        <td class="pl-2" colspan="2">{{ str_replace(',','.',number_format($ordem_producao->horimetro_final, 2)) }}</td>
                         <td class="text-right th-title pr-2" colspan="2">PRODUÇÃO POR HORA</td>
                         <td class="pl-2" colspan="2">{{$producao_por_hora}}
                             {{ $ordem_producao->produto->unidade_medida->nome }} - POR HORA </td>
