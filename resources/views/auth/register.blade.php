@@ -2,7 +2,9 @@
 @section('content')
     <div class="card">
         <div class="card-header-template">
-            Cadastro de Usuários
+            <div>Cadastro de Usuários</div>
+            <div><a href="{{route('user.index')}}" class="btn btn-primary">LISTAGEM</a></div>
+            
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('register') }}">

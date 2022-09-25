@@ -4,7 +4,7 @@
 @section('content')
         <div class="card">
             <div class="card-header-template">
-                <div>LISTAGEM DE PRODUTOS</div>
+                <div>LISTAGEM DE USUÁRIOS</div>
                 <div>
                     <a href="{{ route('register') }}" class="btn btn-sm btn-primary">
                         NOVO
