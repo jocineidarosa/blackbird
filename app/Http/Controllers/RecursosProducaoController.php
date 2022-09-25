@@ -17,10 +17,10 @@ class RecursosProducaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $operacoes = RecursosProducao::all();
-        return view('app.operacao_equipamento.index', ['operacoes' => $operacoes]);
+        $operacoes = RecursosProducao::orderBy('data', 'desc')->paginate(12);
+        return view('app.operacao_equipamento.index', ['operacoes' => $operacoes, 'request'=>$request->all()]);
     }
 
     /**

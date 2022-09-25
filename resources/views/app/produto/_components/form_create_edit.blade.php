@@ -116,6 +116,19 @@
             </div>
 
             <div class="row mb-1">
+                <label for="lastro" class="col-md-4 col-form-label text-md-end text-right">Lastro</label>
+
+                <div class="col-md-6">
+                    <input name="lastro" id="lastro" type="text"
+                        class="form-control-template "
+                        lastro="lastro"
+                        value="{{ $produto->lastro ?? old('lastro') }}">
+                    {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
+
+                </div>
+            </div>
+
+            <div class="row mb-1">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">
                         {{ isset($produto) ? 'Atualizar' : 'Cadastrar' }}

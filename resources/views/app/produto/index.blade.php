@@ -19,7 +19,6 @@
                             <th scope="col" class="th-title">Id</th>
                             <th scope="col" class="th-title">Nome</th>
                             <th scope="col" class="th-title">Marca</th>
-                            <th scope="col" class="th-title">Un.</th>
                             <th scope="col" class="th-title">Categoria</th>
                             <th scope="col" class="th-title">Estoque</th>
                             <th scope="col" class="th-title">Operaçoes</th>
@@ -33,9 +32,8 @@
                                 <th scope="row">{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->marca->nome }}</td>
-                                <td>{{ $produto->unidade_medida->nome }}</td>
                                 <td>{{ $produto->categoria->nome }}</td>
-                                <td>{{ $produto->estoque_atual }}</td>
+                                <td>{{ str_replace(',','.',number_format($produto->estoque_atual,0)) }}</td>
                                 <td>
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"

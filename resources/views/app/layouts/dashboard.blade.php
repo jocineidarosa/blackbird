@@ -19,9 +19,13 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <div class="h5 font-weight-bold text-primary text-uppercase mb-1">
                                     {{ $estoque->nome }}</div>
-                                <div class="h5 mb-3 font-weight-bold text-gray-800">{{str_replace(',','.',number_format($estoque->estoque_atual, 0))}}
+                                <div class="h5 mb-2 font-weight-bold  text-success">
+                                    ESTOQUE: {{str_replace(',','.',number_format($estoque->estoque_atual, 0))}}
+                                </div>
+                                <div class="h5 mb-3 ">
+                                    MÁX: {{$estoque->estoque_maximo}}
                                 </div>
 
                                 <div class="col">
@@ -29,7 +33,8 @@
                                         {{ $estoque->percent_estoque }}%</div>
                                     <div class="progress progress-sm mr-2">
 
-                                        <div class="progress-bar {{ $estoque->percent_estoque > 30 ? 'bg-primary' : 'bg-danger' }} {{ $estoque->percent_estoque > 60 ? 'bg-success' : '' }}"
+                                        <div class="progress-bar {{ $estoque->percent_estoque > 30 ? 'bg-primary' : 'bg-danger' }} 
+                                            {{ $estoque->percent_estoque > 60 ? 'bg-success' : '' }}"
                                             role="progressbar" style="width: {{ $estoque->percent_estoque }}%"
                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>

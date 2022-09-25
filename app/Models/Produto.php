@@ -12,7 +12,8 @@ class Produto extends Model
         'nome', 'descricao', 'marca_id',
          'unidade_medida_id', 'categoria_id',
           'estoque_minimo', 'estoque_ideal', 
-          'estoque_maximo', 'estoque_atual'
+          'estoque_maximo', 'estoque_atual',
+          'lastro'
         ];
 
     public function marca(){

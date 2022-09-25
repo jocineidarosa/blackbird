@@ -7,7 +7,7 @@
                     LISTAGEM DE PARADAS DE EQUIPAMENTOS
                 </div>
                 <div>
-                    <a class="btn btn-info btn-sm mr-2" href="{{ route('parada-equipamento.create') }}">NOVO</a>
+                    <a class="btn btn-primary btn-sm mr-2" href="{{ route('parada-equipamento.create') }}">NOVO</a>
                 </div>
             </div>
             <div class="card-body">
@@ -40,9 +40,8 @@
                                             href="{{route('parada-equipamento.edit', ['parada_equipamento'=>$parada->id])}}"><i
                                             class="icofont-pen-alt-1"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal"{{-- EXCLUIR --}}
-                                            data-bs-target="#deleteModal" data-id="{{$parada->id }}"
-                                            @can('user') disabled @endcan>
+                                        <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#" data-bs-toggle="modal"{{-- EXCLUIR --}}
+                                            data-bs-target="#deleteModal" data-id="{{$parada->id }}">
                                             <i class="icofont-close-squared-alt"></i>
                                         </a>
 
