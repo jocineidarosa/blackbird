@@ -87,11 +87,9 @@ class EmpresaController extends Controller
      * @param  \App\Models\Fornecedor  $fornecedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Empresa $empresa)
+    public function destroy(Request $request)
     {
-        dd($request->data_id);
         $empresa = Empresa::find($request->data_id);
-        dd($empresa);
         $empresa->delete();
         return redirect()->route('empresa.index');
     }

@@ -13,7 +13,7 @@ class SaidaProduto extends Model
 
     protected $fillable=
     [
-        'produto_id', 'recursos_producao_id', 'quantidade','motivo', 'data' 
+        'produto_id', 'recursos_producao_id', 'quantidade','motivo', 'data', 'observacao' 
     ];
 
     public function produto(){

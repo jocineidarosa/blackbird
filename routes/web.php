@@ -21,6 +21,7 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('app.home
 
 //Categoria
 Route::middleware('auth')->resource('/category', 'App\Http\Controllers\CategoriaController');
+Route::middleware('auth')->delete('category/destroy', 'App\Http\Controllers\CategoriaController@destroy')->name('category.destroy');
 
 //Unidade de Medida
 Route::middleware('auth')->resource('/unidade-medida', 'App\Http\Controllers\UnidadeMedidaController');
@@ -34,7 +35,8 @@ Route::middleware('auth')->resource('/fornecedor', 'App\Http\Controllers\Fornece
 
 //empresas
 Route::middleware('auth')->resource('/empresa', 'App\Http\Controllers\EmpresaController');
-
+Route::middleware('auth')->delete('empresa/destroy','App\Http\Controllers\EmpresaController@destroy')->name('empresa.destroy');
+/* feito rota delete separada por causa do modal delete */
 
 //produto
 Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoController');
@@ -127,7 +129,10 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::put('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
     )->name('ordem-producao.update');
 
-    Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'
+    /* Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'
+    )->name('ordem-producao.destroy'); */
+    
+    Route::delete('destroy','App\Http\Controllers\OrdemProducaoController@destroy'
     )->name('ordem-producao.destroy');
 
     Route::delete('destroy_produto_obra/{produto_obra}/{ordem_producao}',

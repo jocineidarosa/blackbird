@@ -18,12 +18,10 @@
             </div>
 
             <div class="row mb-3">
-                <label for="nome" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
-
+                <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
                 <div class="col-md-6">
-                    <textarea id="descricao" class="form-control" name="descricao"
-                        value="{{ $produto->descricao ?? old('descricao') }}" required>
-                    </textarea>
+                    <input id="descricao" type="text" class="form-control" name="descricao"
+                        value="{{ $produto->descricao ?? old('descricao') }}" required autofocus>
                     {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
                 </div>
             </div>

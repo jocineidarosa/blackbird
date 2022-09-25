@@ -1,7 +1,5 @@
 @extends('app.layouts.app')
 
-@section('titulo', 'Marcas')
-
 @section('content')
         <div class="card">
             <div class="card-header-template mb-1">

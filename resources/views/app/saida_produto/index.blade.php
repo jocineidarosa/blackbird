@@ -3,9 +3,6 @@
 @section('content')
         <div class="card">
             <div class="card-header-template">
-                {{$message ??''}}
-            </div>
-            <div class="card-header-template">
                 <div> LISTAGEM DE SAÍDA DE PRODUTOS</div>
                 <div>
                     <a href="{{ route('saida-produto.create') }}" class="btn btn-sm btn-primary">

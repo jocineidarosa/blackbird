@@ -56,6 +56,14 @@
                 </div>
             </div>
 
+            <div class="row mb-1">
+                <label for="observacao"class="col-md-4 col-form-label text-md-end text-right">Observações</label>
+                <div class="col-md-6">
+                    <textarea class="form-control-template p-2" name="observacao" ></textarea>
+                </div>
+            </div>
+
+
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">

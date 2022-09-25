@@ -57,15 +57,18 @@
                                 </div>
                             </td>
                         </tr>
+                        @php
+                            $data_id= $empresa
+                        @endphp
                     @endforeach
                 </tbody>
             </table>
 
             @component('app.shared.modal_delete')
-                {{ route('empresa.destroy', ['empresa' => '1']) }}{{-- na rota é enviado o valor do parametro com '1' apaenas para cumprir a o que pede a rota --}}
+                {{ route('empresa.destroy')}}
             @endcomponent
             <div class="d-flex justify-content-center">
-                {{ $empresas->appends($request)->links() }}
+                {{ $empresas->appends($request)->links()}}
             </div>
         </div>
 

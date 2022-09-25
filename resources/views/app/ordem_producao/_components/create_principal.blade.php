@@ -148,11 +148,9 @@
         </div>
 
         <div class="row mb-1">
-            <label for="observacao"
-                class="col-md-4 col-form-label text-md-end text-right">Observações</label>
+            <label for="observacao"class="col-md-4 col-form-label text-md-end text-right">Observações</label>
             <div class="col-md-6">
-                <textarea class="form-control text-left" name="observacao">
-                    {{ $ordem_producao->observacao ?? old('observacao') }}</textarea>
+                <textarea class="form-control-template" name="observacao">{{$ordem_producao->observacao ?? old('observacao')}}</textarea>
             </div>
         </div>
 

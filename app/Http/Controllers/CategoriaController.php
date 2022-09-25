@@ -38,8 +38,8 @@ class CategoriaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Categoria $category){
-
+    public function destroy(Request $request){
+        $category=Categoria::find($request->data_id);
         $category->delete();
         return redirect(route('category.index'));
     }
