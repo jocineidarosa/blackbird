@@ -17,7 +17,6 @@ use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
 
-
 class OrdemProducaoController extends Controller
 {
     /**
