@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Permission;
 
 class RegisterController extends Controller
 {
@@ -69,5 +70,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ])->givePermissionTo($data['nivel']);
+    }
+
+    public function showRegistrationForm()
+    {
+        $nivels=Permission::all();
+        return view('auth.register',['nivels'=>$nivels]);
     }
 }
