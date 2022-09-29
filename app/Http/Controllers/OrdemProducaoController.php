@@ -296,7 +296,9 @@ class OrdemProducaoController extends Controller
     { 
         $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
             ->where('equipamento_id', $ordem_producao->equipamento_id)
-            ->where('horimetro_final', '<=', $ordem_producao->horimetro_final)->first();
+            ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
+
+           /*  dd($op_horimetro_inicial->horimetro_inicial . '-' . $ordem_producao->horimetro_final  ); */
 
         if ($op_horimetro_inicial->horimetro_inicial == null) {
             $op_horimetro_inicial = $ordem_producao->horimetro_final;
