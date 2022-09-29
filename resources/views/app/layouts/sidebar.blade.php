@@ -124,6 +124,13 @@
                                         <span>Tipo de Veículos</span>
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a href="{{ route('veiculo.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Veículos</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

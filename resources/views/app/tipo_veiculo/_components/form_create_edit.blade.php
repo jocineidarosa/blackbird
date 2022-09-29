@@ -4,8 +4,8 @@
                     @method('PUT')
                 @else
                     <form action="{{ route('tipo-veiculo.store') }}" method="POST">
-                        @csrf
-            @endif
+                    @csrf
+                @endif
             
             <div class="row mb-1">
                 <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>

@@ -8,18 +8,18 @@
             @endif
 
             <div class="row mb-1">
-                <label for="placa_id" class="col-md-4 col-form-label text-md-end text-right">Placa</label>
+                <label for="veiculo_id" class="col-md-4 col-form-label text-md-end text-right">Placa</label>
 
                 <div class="col-md-6">
-                    <select name="placa_id" id="" class="form-control-template">
+                    <select name="veiculo_id" id="" class="form-control-template">
                         <option value=""> --Selecione a placa--</option>
                         @foreach ($placas as $placa)
                             <option value="{{ $placa->id }}"
-                                {{ ($carregamento->placa_id ?? old('placa_id')) == $placa->id ? 'selected' : '' }}>
-                                {{ $placa->nome }}</option>
+                                {{ ($carregamento->veiculo_id ?? old('veiculo_id')) == $placa->id ? 'selected' : '' }}>
+                                {{ $placa->placa}}</option>
                         @endforeach
                     </select>
-                    {{ $errors->has('placa_id') ? $errors->first('placa_id') : '' }}
+                    {{ $errors->has('veiculo_id') ? $errors->first('veiculo_id') : '' }}
                 </div>
             </div>
 

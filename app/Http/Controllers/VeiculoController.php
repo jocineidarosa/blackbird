@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TipoVeiculo;
 use Illuminate\Http\Request;
+use App\Models\Funcionario;
+use App\Models\Veiculo;
 
 class VeiculoController extends Controller
 {
@@ -11,9 +14,10 @@ class VeiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $veiculos= Veiculo::all();
+        return view('app.veiculo.index',['veiculos'=>$veiculos, 'request'=>$request]);
     }
 
     /**
@@ -23,8 +27,10 @@ class VeiculoController extends Controller
      */
     public function create()
     {
+        $tipos_veiculos= TipoVeiculo::all();
+        $funcionarios= Funcionario::all();
         
-        return view('app.veiculo.create');
+        return view('app.veiculo.create', ['tipos_veiculos'=>$tipos_veiculos, 'funcionarios'=>$funcionarios]);
     }
 
     /**

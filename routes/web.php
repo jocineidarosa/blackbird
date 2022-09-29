@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TransportadoraController;
 use App\Http\Controllers\ParadaEquipamentoController;
+use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,7 @@ Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoCon
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
 
 //equipamento
-Route::middleware('auth')->resource('/equipamento', ParadaEquipamentoController::class);
+Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
 
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\EntradaProdutoController');
@@ -58,6 +59,7 @@ Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\Carre
 
 //Tipos de Veículos
 Route::middleware('auth')->resource('/tipo-veiculo', 'App\Http\Controllers\TipoVeiculoController');
+Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\TipoVeiculoController@destroy')->name('tipo-veiculo.destroy');
 
 //Veículos
 Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');

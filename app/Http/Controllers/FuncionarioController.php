@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoVeiculo;
-use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Http\Request;
 
-class TipoVeiculoController extends Controller
+class FuncionarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $tipo_veiculos = TipoVeiculo::orderBy('id','desc')->paginate(12);
-        return view('app.tipo_veiculo.index', ['tipo_veiculos'=>$tipo_veiculos, 'request'=>$request->all()]);
+        //
     }
 
     /**
@@ -26,7 +23,7 @@ class TipoVeiculoController extends Controller
      */
     public function create()
     {
-        return view('app.tipo_veiculo.create');
+        //
     }
 
     /**
@@ -37,8 +34,7 @@ class TipoVeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        TipoVeiculo::create($request->all());
-        return redirect()->route('tipo-veiculo.index');
+        //
     }
 
     /**
@@ -81,10 +77,8 @@ class TipoVeiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $tipo_veiculo= TipoVeiculo::find($request->data_id);
-        $tipo_veiculo->delete();
-        return redirect()->route('tipo-veiculo.index');
+        //
     }
 }
