@@ -68,7 +68,7 @@
                 <label for="data_nascimento" class="col-md-4 col-form-label text-md-end text-right">Data de
                     Nascimento</label>
                 <div class="col-md-6">
-                    <input id="data_nascimento" name="data_nascimento" type="text" class="form-control-template"
+                    <input id="data_nascimento" name="data_nascimento" type="date" class="form-control-template"
                         data_nascimento="data_nascimento"
                         value="{{ $pessoa->data_nascimento ?? old('data_nascimento') }}" required
                         autocomplete="data_nascimento">
