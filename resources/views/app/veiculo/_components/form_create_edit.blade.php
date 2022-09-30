@@ -17,17 +17,17 @@
             </div>
 
             <div class="row mb-1">
-                <label for="tipo_veiculo" class="col-md-4 col-form-label text-md-end text-right">Tipo</label>
+                <label for="tipo_veiculo_id" class="col-md-4 col-form-label text-md-end text-right">Tipo</label>
                 <div class="col-md-6">
-                    <select name="tipo_veiculo" id="" class="form-control-template">
+                    <select name="tipo_veiculo_id" id="" class="form-control-template">
                         <option value=""> --Selecione a placa--</option>
-                        @foreach ($tipos_veiculos as $tipo_veiculo)
-                            <option value="{{ $tipo_veiculo->id }}"
-                                {{ ($tipo_veiculo->tipo_veiculo ?? old('tipo_veiculo')) == $tipo_veiculo->id ? 'selected' : '' }}>
-                                {{ $tipo_veiculo->descricao }}</option>
+                        @foreach ($tipos_veiculos as $tipo_veiculo_id)
+                            <option value="{{ $tipo_veiculo_id->id }}"
+                                {{ ($tipo_veiculo_id->tipo_veiculo_id ?? old('tipo_veiculo_id')) == $tipo_veiculo_id->id ? 'selected' : '' }}>
+                                {{ $tipo_veiculo_id->descricao }}</option>
                         @endforeach
                     </select>
-                    {{ $errors->has('tipo_veiculo') ? $errors->first('tipo_veiculo') : '' }}
+                    {{ $errors->has('tipo_veiculo_id') ? $errors->first('tipo_veiculo_id') : '' }}
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                         @foreach ($funcionarios as $funcionario)
                             <option value="{{ $funcionario->id }}"
                                 {{ ($funcionario->funcionario_id ?? old('funcionario_id')) == $funcionario->id ? 'selected' : '' }}>
-                                {{ $funcionario->nome }}</option>
+                                {{ $funcionario->pessoa->nome.' '.$funcionario->pessoa->sobrenome}}</option>
                         @endforeach
                     </select>
                     {{ $errors->has('funcionario_id') ? $errors->first('funcionario_id') : '' }}

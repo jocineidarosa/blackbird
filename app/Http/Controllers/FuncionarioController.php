@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Funcionario;
+use App\Models\Pessoa;
 use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
@@ -11,9 +13,10 @@ class FuncionarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $funcionarios=Funcionario::orderBy('data_admissao','desc')->paginate(12);
+        return view('app.funcionario.index', ['funcionarios'=>$funcionarios]);
     }
 
     /**
@@ -23,7 +26,8 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        //
+        $pessoas= Pessoa::all();
+        return view('app.funcionario.create', ['pessoas'=>$pessoas]);
     }
 
     /**
@@ -34,7 +38,8 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Funcionario::create($request->all());
+        return redirect()->route('funcionario.index');
     }
 
     /**

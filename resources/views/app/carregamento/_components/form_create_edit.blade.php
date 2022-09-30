@@ -26,7 +26,7 @@
             <div class="row mb-1">
                 <label for="hora_saida" class="col-md-4 col-form-label text-md-end text-right">Hora de Saída</label>
                 <div class="col-md-6">
-                    <input id="hora_saida" name="hora_saida" type="text" class="form-control-template" hora_saida="hora_saida"
+                    <input id="hora_saida" name="hora_saida" type="time" class="form-control-template" hora_saida="hora_saida"
                         value="{{ $carregamento->hora_saida ?? old('hora_saida') }}" required autocomplete="hora_saida">
                     {{ $errors->has('hora_saida') ? $errors->first('hora_saida') : '' }}
                 </div>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="row mb-1">
-                <label for="observacao" class="col-md-4 col-form-label text-md-end text-right">Estoque Ideal</label>
+                <label for="observacao" class="col-md-4 col-form-label text-md-end text-right">Observação</label>
 
                 <div class="col-md-6">
                     <input name="observacao" id="observacao" type="text"
@@ -65,6 +65,8 @@
                     {{ $errors->has('observacao') ? $errors->first('observacao') : '' }}
                 </div>
             </div>
+
+            
 
             <div class="row mb-1">
                 <div class="col-md-6 offset-md-4">

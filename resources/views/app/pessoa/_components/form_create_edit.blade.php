@@ -1,65 +1,159 @@
             @if (isset($veiculo->id))
-                <form action="{{ route('veiculo.update', ['veiculo' => $veiculo->id]) }}" method="POST">
+                <form action="{{ route('pessoa.update', ['pessoa' => $pessoa->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                 @else
-                    <form action="{{ route('veiculo.store') }}" method="POST">
+                    <form action="{{ route('pessoa.store') }}" method="POST">
                         @csrf
             @endif
+
+            <div class="row mb-1">
+                <label for="nome" class="col-md-4 col-form-label text-md-end text-right">Nome</label>
+                <div class="col-md-6">
+                    <input id="nome" name="nome" type="text" class="form-control-template" nome="nome"
+                        value="{{ $pessoa->nome ?? old('nome') }}" required autocomplete="nome">
+                    {{ $errors->has('nome') ? $errors->first('nome') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="sobrenome" class="col-md-4 col-form-label text-md-end text-right">Sobrenome</label>
+                <div class="col-md-6">
+                    <input id="sobrenome" name="sobrenome" type="text" class="form-control-template"
+                        sobrenome="sobrenome" value="{{ $pessoa->sobrenome ?? old('sobrenome') }}" required
+                        autocomplete="sobrenome">
+                    {{ $errors->has('sobrenome') ? $errors->first('sobrenome') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="contato" class="col-md-4 col-form-label text-md-end text-right">contato</label>
+                <div class="col-md-6">
+                    <input id="contato" name="contato" type="text" class="form-control-template" contato="contato"
+                        value="{{ $pessoa->contato ?? old('contato') }}" required autocomplete="contato">
+                    {{ $errors->has('contato') ? $errors->first('contato') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="cpf" class="col-md-4 col-form-label text-md-end text-right">CPF</label>
+                <div class="col-md-6">
+                    <input id="cpf" name="cpf" type="text" class="form-control-template" cpf="cpf"
+                        value="{{ $pessoa->cpf ?? old('cpf') }}" required autocomplete="cpf">
+                    {{ $errors->has('cpf') ? $errors->first('cpf') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="rg" class="col-md-4 col-form-label text-md-end text-right">RG</label>
+                <div class="col-md-6">
+                    <input id="rg" name="rg" type="text" class="form-control-template" rg="rg"
+                        value="{{ $pessoa->rg ?? old('rg') }}" required autocomplete="rg">
+                    {{ $errors->has('rg') ? $errors->first('rg') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="titulo_eleitor" class="col-md-4 col-form-label text-md-end text-right">Título de
+                    Eleitor</label>
+                <div class="col-md-6">
+                    <input id="titulo_eleitor" name="titulo_eleitor" type="text" class="form-control-template"
+                        titulo_eleitor="titulo_eleitor" value="{{ $pessoa->titulo_eleitor ?? old('titulo_eleitor') }}"
+                        required autocomplete="titulo_eleitor">
+                    {{ $errors->has('titulo_eleitor') ? $errors->first('titulo_eleitor') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="data_nascimento" class="col-md-4 col-form-label text-md-end text-right">Data de
+                    Nascimento</label>
+                <div class="col-md-6">
+                    <input id="data_nascimento" name="data_nascimento" type="text" class="form-control-template"
+                        data_nascimento="data_nascimento"
+                        value="{{ $pessoa->data_nascimento ?? old('data_nascimento') }}" required
+                        autocomplete="data_nascimento">
+                    {{ $errors->has('data_nascimento') ? $errors->first('data_nascimento') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="endereco" class="col-md-4 col-form-label text-md-end text-right">Endereço</label>
+                <div class="col-md-6">
+                    <input id="endereco" name="endereco" type="text" class="form-control-template"
+                        endereco="endereco" value="{{ $pessoa->endereco ?? old('endereco') }}" required
+                        autocomplete="endereco">
+                    {{ $errors->has('endereco') ? $errors->first('endereco') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="uf" class="col-md-4 col-form-label text-md-end text-right">Estado</label>
+                <div class="col-md-6">
+                    <select name="uf" id="uf" class="form-control-template">
+                        <option value=""> --Selecione o Estado--</option>
+                        @if (isset($ufs))
+                            @foreach ($ufs as $uf)
+                                <option value="{{ $uf->id }}"
+                                    {{ ($uf->nome ?? old('uf')) == $uf->id ? 'selected' : '' }}>
+                                    {{ $uf->nome }} - {{ $uf->sigla }}</option>
+                            @endforeach
+                        @endif
             
-            <div class="row mb-1">
-                <label for="placa" class="col-md-4 col-form-label text-md-end text-right">Placa Veículo</label>
-                <div class="col-md-6">
-                    <input id="placa" name="placa" type="text" class="form-control-template" placa="placa"
-                        value="{{ $veiculo->placa ?? old('placa') }}" required autocomplete="placa">
-                    {{ $errors->has('placa') ? $errors->first('placa') : '' }}
+                    </select>
+                    {{ $errors->has('uf') ? $errors->first('uf') : '' }}
                 </div>
             </div>
 
             <div class="row mb-1">
-                <label for="tipo_veiculo" class="col-md-4 col-form-label text-md-end text-right">Tipo</label>
+                <label for="cidade_id" class="col-md-4 col-form-label text-md-end text-right">Cidade</label>
                 <div class="col-md-6">
-                    <select name="tipo_veiculo" id="" class="form-control-template">
-                        <option value=""> --Selecione a placa--</option>
-                        @foreach ($tipos_veiculos as $tipo_veiculo)
-                            <option value="{{ $tipo_veiculo->id }}"
-                                {{ ($tipo_veiculo->tipo_veiculo ?? old('tipo_veiculo')) == $tipo_veiculo->id ? 'selected' : '' }}>
-                                {{ $tipo_veiculo->descricao }}</option>
-                        @endforeach
+                    <select name="cidade_id" id="cidade_id" class="form-control-template">
+                        @if (isset($cidades))
+                            @foreach ($cidades as $cidade)
+                                <option value="{{ $cidade->id }}"
+                                    {{ ($produto->cidade_id ?? old('cidade_id')) == $cidade->id ? 'selected' : '' }}>
+                                    {{ $cidade->nome }} - {{ $cidade->uf->nome }} - {{ $cidade->uf->sigla }}</option>
+                            @endforeach
+                        @endif
+            
                     </select>
-                    {{ $errors->has('tipo_veiculo') ? $errors->first('tipo_veiculo') : '' }}
-                </div>
-            </div>
-
-            <div class="row mb-1">
-                <label for="funcionario_id" class="col-md-4 col-form-label text-md-end text-right">Motorista</label>
-                <div class="col-md-6">
-                    <select name="funcionario_id" id="" class="form-control-template">
-                        <option value=""> --Selecione a Motorista--</option>
-                        @foreach ($funcionarios as $funcionario)
-                            <option value="{{ $funcionario->id }}"
-                                {{ ($funcionario->funcionario_id ?? old('funcionario_id')) == $funcionario->id ? 'selected' : '' }}>
-                                {{ $funcionario->nome }}</option>
-                        @endforeach
-                    </select>
-                    {{ $errors->has('funcionario_id') ? $errors->first('funcionario_id') : '' }}
-                </div>
-            </div>  
-
-            <div class="row mb-1">
-                <label for="observacao" class="col-md-4 col-form-label text-md-end text-right">Observacao</label>
-                <div class="col-md-6">
-                    <input id="observacao" name="observacao" type="text" class="form-control-template" observacao="observacao"
-                        value="{{ $veiculo->observacao ?? old('observacao') }}" required autocomplete="observacao">
-                    {{ $errors->has('observacao') ? $errors->first('observacao') : '' }}
+                    {{ $errors->has('cidade_id') ? $errors->first('cidade_id') : '' }}
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">
-                        {{ isset($veiculo) ? 'Atualizar' : 'Cadastrar' }}
+                        {{ isset($pessoa) ? 'Atualizar' : 'Cadastrar' }}
                     </button>
                 </div>
             </div>
             </form>
+            <script>
+                /* Script Jquery */
+                /* Busca as cidades correspondente ao estado selecionado */
+                $(function() {
+                    $('#uf').change(function() {
+                        var uf = $("#uf option:selected").val();
+                        $.ajax({
+                            url: "{{ route('utils.get-cidade') }}",
+                            type: "get",
+                            data: {
+                                'uf': uf,
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                var options = '<option value="">---Selecione a Cidade---</option>';
+                                for (var i = 0; i < response.length; i++) {
+                                    options += '<option value="' + response[i]['id'] + '">' + response[
+                                        i]['nome'] + '</option>';
+                                }
+                                $('#cidade_id').html(options);
+                                $('#cidade_id').focus();
+                            }
+
+                        });
+
+                    })
+                })
+            </script>

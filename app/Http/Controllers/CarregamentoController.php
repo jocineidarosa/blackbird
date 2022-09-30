@@ -42,7 +42,8 @@ class CarregamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Carregamento::create($request->all());
+        return redirect()->route('carregamento.index');
     }
 
     /**

@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoVeiculo;
+use App\Models\Pessoa;
+use App\Models\Uf;
 use Illuminate\Http\Request;
-use App\Models\Funcionario;
-use App\Models\Veiculo;
 
-class VeiculoController extends Controller
+class PessoaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $veiculos= Veiculo::all();
-        return view('app.veiculo.index',['veiculos'=>$veiculos, 'request'=>$request]);
+        $pessoas= Pessoa::all();
+        return view('app.pessoa.index', ['pessoas'=>$pessoas]);
     }
 
     /**
@@ -27,9 +26,8 @@ class VeiculoController extends Controller
      */
     public function create()
     {
-        $tipos_veiculos= TipoVeiculo::all();
-        $funcionarios= Funcionario::all();
-        return view('app.veiculo.create', ['tipos_veiculos'=>$tipos_veiculos, 'funcionarios'=>$funcionarios]);
+        $ufs=Uf::all();
+        return view('app.pessoa.create', ['ufs'=>$ufs]);
     }
 
     /**
@@ -40,8 +38,8 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        Veiculo::create($request->all());
-        return redirect()->route('veiculo.index');
+        Pessoa::create($request->all());
+        return redirect()->route('pessoa.index');
     }
 
     /**
@@ -84,8 +82,10 @@ class VeiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $pessoa= Pessoa::find($request->data_id);
+        $pessoa->delete();
+        return redirect()->route('pessoa.index');
     }
 }

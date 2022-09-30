@@ -154,8 +154,8 @@
 
 <script>
     /* Script Jquery */
+    /* Busca as cidades correspondente ao estado selecionado */
     $(function() {
-
         $('#uf').change(function() {
             var uf = $("#uf option:selected").val();
             $.ajax({

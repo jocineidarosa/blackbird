@@ -29,8 +29,8 @@
                             <tr>
                                 <th scope="row">{{ $carregamento->id }}</td>
                                 <td>{{ $carregamento->veiculo->placa }}</td>
-                                <td>{{ $carregamento->hara_saida }}</td>
-                                <td>{{ $carregamento->marca->observacao }}</td>
+                                <td>{{ $carregamento->hora_saida }}</td>
+                                <td>{{ $carregamento->observacao }}</td>
                                 <td>
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"

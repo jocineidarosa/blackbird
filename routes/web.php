@@ -45,6 +45,14 @@ Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoCon
 //clientes
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
 
+//pessoas
+Route::middleware('auth')->resource('/pessoa', 'App\Http\Controllers\PessoaController');
+Route::middleware('auth')->delete('pessoa/destroy', 'App\Http\Controllers\PessoaController@destroy')->name('pessoa.destroy');
+
+//funcionários
+Route::middleware('auth')->resource('/funcionario', 'App\Http\Controllers\FuncionarioController');
+Route::middleware('auth')->delete('funcionario/destroy', 'App\Http\Controllers\FuncionarioController@destroy')->name('funcionario.destroy');
+
 //equipamento
 Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
 

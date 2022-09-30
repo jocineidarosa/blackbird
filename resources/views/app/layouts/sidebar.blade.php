@@ -85,6 +85,20 @@
                         <div class="collapse" id="cadastroGeral">
                             <ul class="navbar-nav ps-3">
                                 <li>
+                                    <a href="{{ route('pessoa.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Pessoas</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('funcionario.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Funcionario</span>
+                                    </a>
+                                </li>
+
+                                <li>
                                     <a href="{{ route('empresa.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
                                         <span>Empresa</span>

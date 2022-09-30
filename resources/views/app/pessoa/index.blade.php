@@ -4,9 +4,9 @@
 @section('content')
         <div class="card">
             <div class="card-header-template">
-                <div>LISTAGEM DE VEÍCULOS</div>
+                <div>LISTAGEM DE PESSOAS</div>
                 <div>
-                    <a href="{{ route('veiculo.create') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('pessoa.create') }}" class="btn btn-sm btn-primary">
                         NOVO
                     </a>
                 </div>
@@ -17,33 +17,34 @@
                     <thead>
                         <tr>
                             <th scope="col" class="th-title">Id</th>
-                            <th scope="col" class="th-title">Placa</th>
-                            <th scope="col" class="th-title">Tipo Veículo</th>
-                            <th scope="col" class="th-title">Funcionario</th>
-                            <th scope="col" class="th-title">Descrição</th>
+                            <th scope="col" class="th-title">nome</th>
+                            <th scope="col" class="th-title">CPF</th>
+                            <th scope="col" class="th-title">Telefone</th>
+                            <th scope="col" class="th-title">Data Nasc.</th>
+                            <th scope="col" class="th-title">Operações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($veiculos as $veiculo)
+                        @foreach ($pessoas as $pessoa)
                             <tr>
-                                <th scope="row">{{ $veiculo->id }}</td>
-                                <td>{{ $veiculo->placa }}</td>
-                                <td>{{ $veiculo->tipo_veiculo->descricao}}</td>
-                                <td>{{ $veiculo->funcionario->nome }}</td>
-                                <td>{{ $veiculo->observacao }}</td>
+                                <th scope="row">{{ $pessoa->id }}</td>
+                                <td>{{ $pessoa->nome . ' '. $pessoa->sobrenome }}</td>
+                                <td>{{ $pessoa->cpf}}</td>
+                                <td>{{ $pessoa->telefone}}</td>
+                                <td>{{ $pessoa->data_nascimento}}</td>
                                 <td>
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"
-                                            href="{{ route('carregamento.show', ['carregamento' => $veiculo->id]) }}"><i
+                                            href="{{ route('pessoa.show', ['pessoa' => $pessoa->id]) }}"><i
                                                 class="icofont-eye-alt"></i>
                                         </a>
                                         <a
                                             class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan 
-                                            "href="{{ route('carregamento.edit', ['carregamento' => $veiculo->id]) }}">
+                                            "href="{{ route('pessoa.edit', ['pessoa' => $pessoa->id]) }}">
                                             <i class="icofont-pen-alt-1"></i>
                                         </a>
                                         <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal" data-id="{{ $veiculo->id }}"
+                                            data-bs-target="#deleteModal" data-id="{{ $pessoa->id }}"
                                             @can('user') disabled @endcan>
                                             <i class="icofont-close-squared-alt"></i>
                                         </a>
@@ -55,10 +56,10 @@
                     </tbody>
                 </table>
                 @component('app.shared.modal_delete')
-                    {{ route('ordem-producao.destroy', ['ordem_producao' => '1']) }}
+                    {{ route('pessoa.destroy') }}
                 @endcomponent
                 <div class="d-flex justify-content-center">
-                   {{--  {{ $veiculos->appends($request)->links() }} --}}
+                   {{--  {{ $pessoas->appends($request)->links() }} --}}
                 </div>
 
             </div>
