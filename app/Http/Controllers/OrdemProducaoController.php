@@ -298,8 +298,6 @@ class OrdemProducaoController extends Controller
             ->where('equipamento_id', $ordem_producao->equipamento_id)
             ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
 
-           /*  dd($op_horimetro_inicial->horimetro_inicial . '-' . $ordem_producao->horimetro_final  ); */
-
         if ($op_horimetro_inicial->horimetro_inicial == null) {
             $op_horimetro_inicial = $ordem_producao->horimetro_final;
             $total_horimetro = 0.0;
@@ -326,7 +324,8 @@ class OrdemProducaoController extends Controller
             ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
             ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
             ->selectRaw('rp.*, eq.nome as equipamento, p.nome as produto')
-            ->where('ordem_producao_id', $ordem_producao->id)->get();
+            ->where('rp.ordem_producao_id', $ordem_producao->id)
+            ->where('rp.quantidade' ,'>', 1 )->get();
 
         //adiciona horimetro_inicial, total_horimetro na collection
         foreach ($recursos_producao as $recurso) {
@@ -372,6 +371,14 @@ class OrdemProducaoController extends Controller
         }
 
         $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        foreach($paradas as $parada){
+            /* aqui vai o codigo de paradas de equipamentos */
+            $hora_inicio = Carbon::createFromDate($parada->hora_inicio); //formata hora do carbon
+            $hora_fim = Carbon::createFromDate($parada->hora_fim); //formata hora do carbon
+            $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
+            $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
+            $parada->total_hora = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
+        }
 
         $produtos_obra= ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
