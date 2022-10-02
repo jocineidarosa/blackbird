@@ -24,7 +24,7 @@
                             <th scope="col" class="th-title">Data</th>
                             <th scope="col" class="th-title">equipamento</th>
                             <th scope="col" class="th-title">Produto</th>
-                            <th scope="col" class="th-title">Quantidade de Produção</th>
+                            <th scope="col" class="th-title">Produção</th>
                             <th scope="col" class="th-title">Horímetro Final</th>
                             <th scope="col" class="th-title">Operações</th>
                         </tr>
@@ -37,7 +37,7 @@
                                 <td>{{ Carbon\Carbon::parse($ordem_producao->data)->format('d/m/Y') }}</td>
                                 <td>{{ $ordem_producao->equipamento->nome }}</td>
                                 <td>{{ $ordem_producao->produto->nome }}</td>
-                                <td>{{ $ordem_producao->quantidade_producao }}</td>
+                                <td>{{ str_replace(',','.',number_format($ordem_producao->quantidade_producao,0)) }}</td>
                                 <td>{{ $ordem_producao->horimetro_final }}</td>
                                 <td>
                                     <div class="div-op">

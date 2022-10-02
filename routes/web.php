@@ -6,6 +6,7 @@ use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Contracts\Role;
 
 Route::get('/', function () {
     if (Auth::check()){
@@ -64,7 +65,7 @@ Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\Said
 
 //Carregamento de Cargas de caminhão
 Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\CarregamentoController');
-
+Route::middleware('auth')->delete('carregamento/destroy', 'App\Http\Controllers\Carregamento@destroy')->name('carregamento.destroy');
 //Tipos de Veículos
 Route::middleware('auth')->resource('/tipo-veiculo', 'App\Http\Controllers\TipoVeiculoController');
 Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\TipoVeiculoController@destroy')->name('tipo-veiculo.destroy');

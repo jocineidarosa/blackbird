@@ -86,8 +86,10 @@ class CarregamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $carregamento= Carregamento::find($request->data_id);
+        $carregamento->delete();
+        return redirect()->route('carregamento.index');
     }
 }

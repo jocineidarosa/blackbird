@@ -19,7 +19,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos=Produto::paginate(12);
+        $produtos=Produto::orderBy('nome', 'asc')->paginate(12);
         return view('app.produto.index', ['produtos'=>$produtos, 'request'=>$request->all()] );
     }
 

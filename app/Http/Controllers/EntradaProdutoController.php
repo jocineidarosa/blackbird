@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EntradaProduto;
 use App\Models\Produto;
-use App\Models\Fornecedor;
+use App\Models\Empresa;
 
 class EntradaProdutoController extends Controller
 {
@@ -30,11 +30,11 @@ class EntradaProdutoController extends Controller
      */
     public function create()
     {
-        $fornecedores= Fornecedor::all();
+        $empresas= Empresa::all();
         $produtos= Produto::all();
         return view('app.entrada_produto.create', [
             'produtos'=>$produtos,
-            'fornecedores'=>$fornecedores
+            'empresas'=>$empresas
         
         ]);
     }
