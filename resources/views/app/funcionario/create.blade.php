@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                @component('app.funcionario._components.form_create_edit', ['pessoas'=>$pessoas])
+                @component('app.funcionario._components.form_create_edit', ['ufs'=>$ufs])
                 @endcomponent
             </div>
         </div>

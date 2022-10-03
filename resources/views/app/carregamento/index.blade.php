@@ -19,6 +19,8 @@
                             <th scope="col" class="th-title">Id</th>
                             <th scope="col" class="th-title">Placa</th>
                             <th scope="col" class="th-title">Hora Saída</th>
+                            <th scope="col" class="th-title">Traços</th>
+                            <th scope="col" class="th-title">Peso</th>
                             <th scope="col" class="th-title">Observação</th>
                             <th scope="col" class="th-title">Operaçoes</th>
                         </tr>
@@ -30,6 +32,8 @@
                                 <th scope="row">{{ $carregamento->id }}</td>
                                 <td>{{ $carregamento->veiculo->placa }}</td>
                                 <td>{{ $carregamento->hora_saida }}</td>
+                                <td>{{ $carregamento->tracos }}</td>
+                                <td>{{ $carregamento->peso }}</td>
                                 <td>{{ $carregamento->observacao }}</td>
                                 <td>
                                     <div class="div-op">

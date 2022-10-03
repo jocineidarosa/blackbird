@@ -84,8 +84,10 @@ class VeiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $veiculo= Veiculo::find($request->data_id);
+        $veiculo->delete();
+        return redirect()->route('veiculo.index');
     }
 }

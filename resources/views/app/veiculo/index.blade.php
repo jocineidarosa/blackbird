@@ -55,7 +55,7 @@
                     </tbody>
                 </table>
                 @component('app.shared.modal_delete')
-                    {{ route('ordem-producao.destroy', ['ordem_producao' => '1']) }}
+                    {{ route('veiculo.destroy') }}
                 @endcomponent
                 <div class="d-flex justify-content-center">
                    {{--  {{ $veiculos->appends($request)->links() }} --}}

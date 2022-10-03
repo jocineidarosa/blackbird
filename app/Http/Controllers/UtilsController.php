@@ -44,7 +44,7 @@ class UtilsController extends Controller
 
     public function getCidade(Request $request){
         $uf = $request->get('uf');
-        $cidades= Cidade::where('uf_id',$uf)->get();
+        $cidades= Cidade::orderBy('nome', 'asc')->where('uf_id',$uf)->get();
         return json_encode($cidades);
         //return response()->json(['cidades'=>$cidades]);
     }

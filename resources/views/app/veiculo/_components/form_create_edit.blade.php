@@ -39,7 +39,7 @@
                         @foreach ($funcionarios as $funcionario)
                             <option value="{{ $funcionario->id }}"
                                 {{ ($funcionario->funcionario_id ?? old('funcionario_id')) == $funcionario->id ? 'selected' : '' }}>
-                                {{ $funcionario->pessoa->nome.' '.$funcionario->pessoa->sobrenome}}</option>
+                                {{ $funcionario->nome_completo}}</option>
                         @endforeach
                     </select>
                     {{ $errors->has('funcionario_id') ? $errors->first('funcionario_id') : '' }}

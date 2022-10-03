@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
 use App\Models\Pessoa;
+use App\Models\Uf;
 use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
@@ -26,8 +27,8 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        $pessoas= Pessoa::all();
-        return view('app.funcionario.create', ['pessoas'=>$pessoas]);
+        $ufs= Uf::all()->sortBy('nome');
+        return view('app.funcionario.create', ['ufs'=>$ufs]);
     }
 
     /**
@@ -82,8 +83,10 @@ class FuncionarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $funcionario= Funcionario::find($request->data_id);
+        $funcionario->delete();
+        return redirect()->route('funcionario.index');
     }
 }

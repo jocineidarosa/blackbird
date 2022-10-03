@@ -72,6 +72,7 @@ Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\TipoVeiculoC
 
 //Veículos
 Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');
+Route::middleware('auth')->delete('veiculo/destroy', 'App\Http\Controllers\VeiculoController@destroy')->name('veiculo.destroy');
 
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');

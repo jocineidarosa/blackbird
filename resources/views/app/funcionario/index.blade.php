@@ -18,10 +18,9 @@
                         <tr>
                             <th scope="col" class="th-title">Id</th>
                             <th scope="col" class="th-title">Nome</th>
-                            <th scope="col" class="th-title">Registro</th>
-                            <th scope="col" class="th-title">Admissão</th>
-                            <th scope="col" class="th-title">Demissão</th>
-                            <th scope="col" class="th-title">Salário</th>
+                            <th scope="col" class="th-title">CPF</th>
+                            <th scope="col" class="th-title">Telefone</th>
+                            <th scope="col" class="th-title">Salario</th>
                             <th scope="col" class="th-title">Operações</th>
                         </tr>
                     </thead>
@@ -29,10 +28,9 @@
                         @foreach ($funcionarios as $funcionario)
                             <tr>
                                 <th scope="row">{{ $funcionario->id }}</td>
-                                <td>{{ $funcionario->pessoa->nome .' '. $funcionario->pessoa->sobrenome }}</td>
-                                <td>{{ $funcionario->num_registro}}</td>
-                                <td>{{ $funcionario->data_admissao }}</td>
-                                <td>{{ $funcionario->data_demissao }}</td>
+                                <td>{{ $funcionario->nome_completo}}</td>
+                                <td>{{ $funcionario->cpf}}</td>
+                                <td>{{ $funcionario->telefone }}</td>
                                 <td>{{ $funcionario->salario }}</td>
                                 <td>
                                     <div class="div-op">
@@ -58,7 +56,7 @@
                     </tbody>
                 </table>
                 @component('app.shared.modal_delete')
-                    {{ route('funcionario.destroy', ['ordem_producao' => '1']) }}
+                    {{ route('funcionario.destroy') }}
                 @endcomponent
                 <div class="d-flex justify-content-center">
                    {{--  {{ $veiculos->appends($request)->links() }} --}}
