@@ -6,7 +6,7 @@
                 ESTOQUES PRINCIPAIS
             </div>
             <div>
-                <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}"></i>PRODUTOS
+                <a class="btn btn-primary btn-sm mr-2" href="{{ route('produto.index') }}"></i>PRODUTOS
                 </a>
             </div>
         </div>

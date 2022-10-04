@@ -23,17 +23,17 @@
             </div>
 
             <div class="row mb-1">
-                <label for="empresa_id" class="col-md-4 col-form-label text-md-end text-right">Fornecedor</label>
+                <label for="fornecedor_id" class="col-md-4 col-form-label text-md-end text-right">Fornecedor</label>
                 <div class="col-md-6">
-                    <select name="empresa_id" id="" class="form-control">
+                    <select name="fornecedor_id" id="" class="form-control">
                         <option value=""> --Selecione o fornecedor--</option>
-                        @foreach ($empresas as $empresa)
-                            <option value="{{ $empresa->id }}"
-                                {{ ($empresa->empresa_id ?? old('empresa_id')) == $empresa->id ? 'selected' : '' }}>
-                                {{ $empresa->nome_fantasia }}</option>
+                        @foreach ($fornecedores as $fornecedor)
+                            <option value="{{ $fornecedor->id }}"
+                                {{ ($fornecedor->fornecedor_id ?? old('fornecedor_id')) == $fornecedor->id ? 'selected' : '' }}>
+                                {{ $fornecedor->nome_fantasia}}</option>
                         @endforeach
                     </select>
-                    {{ $errors->has('empresa_id') ? $errors->first('empresa_id') : '' }}
+                    {{ $errors->has('fornecedor_id') ? $errors->first('fornecedor_id') : '' }}
                 </div>
             </div>
 

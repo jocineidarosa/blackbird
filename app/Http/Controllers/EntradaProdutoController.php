@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EntradaProduto;
 use App\Models\Produto;
 use App\Models\Empresa;
+use App\Models\Fornecedor;
 
 class EntradaProdutoController extends Controller
 {
@@ -16,7 +17,7 @@ class EntradaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $entradas_produtos= EntradaProduto::orderBy('data')->paginate(12);
+        $entradas_produtos= EntradaProduto::orderBy('data', 'desc')->paginate(12);
         return view('app.entrada_produto.index', [
             'entradas_produtos'=>$entradas_produtos,
             'request'=>$request->all()
@@ -30,11 +31,11 @@ class EntradaProdutoController extends Controller
      */
     public function create()
     {
-        $empresas= Empresa::all();
+        $fornecedores= Fornecedor::all();
         $produtos= Produto::all();
         return view('app.entrada_produto.create', [
             'produtos'=>$produtos,
-            'empresas'=>$empresas
+            'fornecedores'=>$fornecedores
         
         ]);
     }

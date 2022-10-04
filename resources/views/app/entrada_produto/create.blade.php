@@ -14,7 +14,7 @@
             <div class="card-body">
                 @component('app.entrada_produto._components.form_create_edit', [
                     'produtos' => $produtos,
-                    'empresas'=>$empresas
+                    'fornecedores'=>$fornecedores
                     ])
                 @endcomponent
             </div>
