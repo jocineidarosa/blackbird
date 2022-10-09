@@ -22,15 +22,23 @@ class ProdutoObraController extends Controller
         ->join('produtos as p', 'p.id', '=', 'po.produto_id')
         ->join('obras as o', 'o.id', '=', 'po.obra_id')
         ->selectRaw('po.*, op.data, p.nome as produto, o.nome as obra')->paginate(12);
-        return view('app.saida_produto_obra.index', ['produtos_obra'=>$produtos_obra, 'request'=>$request->all()]);
+
+
+        $total=DB::table('produtos_obra as po')
+        ->join('ordens_producoes as op', 'op.id', '=', 'po.ordem_producao_id')
+        ->join('produtos as p', 'p.id', '=', 'po.produto_id')
+        ->join('obras as o', 'o.id', '=', 'po.obra_id')
+        ->selectRaw('po.*')->get()->sum('quantidade');
+
+        return view('app.saida_produto_obra.index', 
+        ['produtos_obra'=>$produtos_obra, 'request'=>$request->all(), 'total'=>$total]);
     }
 
-    
     public function editFilter(){
         $obras= Obra::all();
         $produtos= Produto::all();
         return view('app.saida_produto_obra.filter', compact('obras', 'produtos'));
-    }
+    }   
 
 
     public function filter(Request $request){
