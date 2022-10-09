@@ -57,6 +57,12 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr class="th-title">
+                            <td colspan="3"></td>
+                            <td>Total</td>
+                            <td>{{str_replace(',','.',number_format($total_producao, 0))}}</td>
+                            <td colspan="2"></td>
+                        </tr>
                     </tbody>
                 </table>
                 @component('app.shared.modal_delete')

@@ -28,11 +28,12 @@ class OrdemProducaoController extends Controller
     {
         $produtos = Produto::all();
         $ordens_producoes = OrdemProducao::where('quantidade_producao', '>', 0)->orderBy('data', 'desc')->paginate(12);
-
+        $total_producao= OrdemProducao::where('quantidade_producao', '>', 0)->get()->sum('quantidade_producao');
         return view('app.ordem_producao.index', [
             'produtos' => $produtos,
             'ordens_producoes' => $ordens_producoes,
-            'request'=>$request->all()
+            'request'=>$request->all(),
+            'total_producao'=>$total_producao
          ]);
     }
 
@@ -58,8 +59,7 @@ class OrdemProducaoController extends Controller
 
         $ordens_producoes= OrdemProducao::orderBy('data');
         if($request->data_inicial){
-            $ordens_producoes->whereBetween('data', 
-            [$request->data_inicial, $request->data_final]);
+            $ordens_producoes->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
         if($request->equipamento_id){
             $ordens_producoes->where('equipamento_id', $request->equipamento_id);
@@ -69,11 +69,12 @@ class OrdemProducaoController extends Controller
         }
 
         $ordens_producoes=$ordens_producoes->paginate(13);
-
+        $total_producao=$ordens_producoes->sum('quantidade_producao');
         return view('app.ordem_producao.index', 
         [
             'ordens_producoes'=>$ordens_producoes,
-            'request'=>$request->all()
+            'request'=>$request->all(),
+            'total_producao'=>$total_producao
          ]);
     }
 

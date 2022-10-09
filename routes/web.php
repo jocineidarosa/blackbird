@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\TransportadoraController;
-use App\Http\Controllers\ParadaEquipamentoController;
 use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Contracts\Role;
 
 Route::get('/', function () {
     if (Auth::check()){
@@ -65,10 +63,11 @@ Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\Said
 
 //Carregamento de Cargas de caminhão
 Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\CarregamentoController');
-Route::middleware('auth')->delete('carregamento/destroy', 'App\Http\Controllers\Carregamento@destroy')->name('carregamento.destroy');
+Route::middleware('auth')->delete('carregamento/destroy', 'App\Http\Controllers\CarregamentoController@destroy')->name('carregamento.destroy');
+
 //Tipos de Veículos
 Route::middleware('auth')->resource('/tipo-veiculo', 'App\Http\Controllers\TipoVeiculoController');
-Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\TipoVeiculoController@destroy')->name('tipo-veiculo.destroy');
+Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\Controllers\TipoVeiculoController@destroy')->name('tipo-veiculo.destroy');
 
 //Veículos
 Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');
@@ -77,9 +76,24 @@ Route::middleware('auth')->delete('veiculo/destroy', 'App\Http\Controllers\Veicu
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
 
+//Saída de material para obra
+Route::middleware('auth')->prefix('/saida-produto-obra')->group(function() {
+    Route::get('index','App\Http\Controllers\ProdutoObraController@index'
+    )->name('saida-produto-obra.index');
+
+    Route::get('edit-filter','App\Http\Controllers\ProdutoObraController@editFilter'
+    )->name('saida-produto-obra.edit-filter');
+
+    Route::get('filter','App\Http\Controllers\ProdutoObraController@filter'
+    )->name('saida-produto-obra.filter');
+
+});
+//transportadora
 Route::middleware('auth')->resource('/transportadora', TransportadoraController::class);
 
+//usuário
 Route::middleware('auth')->resource('/user', UserController::class);
+
 //parada-equipamento
 Route::middleware('auth')->resource('/parada-equipamento', 'App\Http\Controllers\ParadaEquipamentoController');
 

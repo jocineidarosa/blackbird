@@ -29,4 +29,7 @@ class ProdutoObra extends Model
     public function transportadora(){
         return $this->belongsTo(Transportadora::class);
     }
+    public function ordem_producao(){
+        return $this->belongsTo(OrdemProducao::class);
+    }
 }

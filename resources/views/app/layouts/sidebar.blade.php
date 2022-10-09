@@ -181,6 +181,12 @@
                                         <span>Carregamento de Cargas</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('saida-produto-obra.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Saída de Produto x Obra</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
