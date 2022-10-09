@@ -54,7 +54,7 @@
                         <tr class="th-title">
                             <td colspan="3"></td>
                             <td>Total</td>
-                            <td>{{$total}}</td>
+                            <td>{{number_format($total, 0)}}</td>
                             <td></td>
                         </tr>
                     </tbody>
