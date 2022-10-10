@@ -40,6 +40,7 @@ Route::middleware('auth')->delete('empresa/destroy','App\Http\Controllers\Empres
 
 //produto
 Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoController');
+Route::middleware('auth')->delete('produto/destroy', 'App\Http\Controllers\ProdutoController@destroy')->name('produto.destroy');
 
 //clientes
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
