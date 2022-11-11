@@ -7,20 +7,22 @@
              </button>
              <i class="icofont-circuit mr-2 sidebar-brand-icon"></i>
              <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">
-                 STRATUS<sup>ERP</sup></a>
+                 STRATUS<sup>ERP</sup>
+            </a>
              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
                  aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
              </button>
              <div class="collapse navbar-collapse" id="topNavBar">
-                 <form class="d-flex ms-auto my-3 my-lg-0">
+                <div class="d-flex ms-auto my-3 my-lg-0"></div>
+                 {{-- <form class="d-flex ms-auto my-3 my-lg-0">
                      <div class="input-group">
                          <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
                          <button class="btn btn-primary" type="submit">
                              <i class="bi bi-search"></i>
                          </button>
                      </div>
-                 </form>
+                 </form> --}}
 
 
                  <ul class="navbar-nav">

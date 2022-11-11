@@ -6,18 +6,22 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     if (Auth::check()){
         return redirect()->route('app.home');
     }else{
         return view('auth.login');
     }
-});
+}); */
+
+Route::get('/',function (){
+    return view('site.home');
+})->name('site.home');
 
 Auth::routes();
 
 //home -> neste caso o controle de autenticação está no controller -> function __construct()
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('app.home');
+Route::middleware('auth')->get('/home', 'App\Http\Controllers\HomeController@index')->name('app.home');
 
 //Categoria
 Route::middleware('auth')->resource('/category', 'App\Http\Controllers\CategoriaController');
