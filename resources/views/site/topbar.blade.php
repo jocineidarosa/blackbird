@@ -9,7 +9,7 @@
                  <a class="navbar-brand me-auto ms-lg-0 ms-3" href="{{ route('site.home') }}">
                      <img src="{{ asset('img/site/logo.png') }}" style="max-width:165px" alt="Bresola Terraplanagem" />
                  </a>
-                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarCollapse">
+                 <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                      <ul class="navbar-nav">
                          <li class="nav-item mx-2">
                              <a class="nav-link" href="{{route('site.home')}}">Início</a>
