@@ -11,25 +11,35 @@
                  </a>
                  <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                      <ul class="navbar-nav">
-                         <li class="nav-item mx-2">
-                             <a class="nav-link" href="{{route('site.home')}}">Início</a>
+                         <li class="nav-item mx-1">
+                             <a class="nav-link" href="{{ route('site.home') }}">Início</a>
                          </li>
 
+                         <li class="nav-item mx-1">
+                             <a class="nav-link" href="#">Serviços</a>
+                         </li>
+
+                         <li class="nav-item mx-1">
+                            <a class="nav-link" href="#">Equipamentos</a>
+                        </li>
+
+                        <li class="nav-item mx-1">
+                            <a class="nav-link" href="#">Galeria</a>
+                        </li>
+
+                        <li class="nav-item mx-1">
+                            <a class="nav-link" href="#">Fale Conosco</a>
+                        </li>
+                         <li class="nav-item mx-1">
+                             <a class="nav-link" href="#">Trabalhe Conosco</a>
+                         </li>
+                         <li class="nav-item mx-1">
+                             <a class="nav-link" target="_blank"
+                                 href="https://webmail.bresola.com.br/?_task=logout&_token=i0ZcFlJzn1O4wdBYEWwmC5oEq40hEDOx">Webmail</a>
+                         </li>
                          <li class="nav-item mx-2">
-                            <a class="nav-link" href="#">Empresa</a>
-                        </li>
-                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#">Contato</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#">Trabalhe Conosco</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" target="_blank" href="https://webmail.bresola.com.br/?_task=logout&_token=i0ZcFlJzn1O4wdBYEWwmC5oEq40hEDOx">Webmail</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="{{route('app.home')}}">Área restrita</a>
-                        </li>
+                             <a class="nav-link" href="{{ route('app.home') }}">Área restrita</a>
+                         </li>
                      </ul>
                  </div>
              </div>
