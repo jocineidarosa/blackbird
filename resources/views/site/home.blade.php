@@ -70,25 +70,25 @@
     {{-- fim carousel bootstrap --}}
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
+            <div class="swiper-slide " data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/1.jpeg') }}"  class="w-100"/>
             </div>
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/2.jpeg') }}" class="w-100"/>
             </div>
-            <div class="swiper-slide">
-                <img src="{{ asset('img/slide-home/3.jpeg') }}"class="w-100" />
+            <div class="swiper-slide" data-swiper-autoplay="4000">
+                <img src="{{ asset('img/slide-home/3.jpeg') }}"class="w-100"/>
             </div>
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/4.jpeg') }}" class="w-100"/>
             </div>
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/5.jpeg') }}" class="w-100" />
             </div>
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/6.jpeg') }}" class="w-100"/>
             </div>
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-swiper-autoplay="4000">
                 <img src="{{ asset('img/slide-home/7.jpeg') }}" class="w-100"/>
             </div>
         </div>
