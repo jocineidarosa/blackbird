@@ -16,6 +16,7 @@ use App\Models\Obra;
 use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Type\Integer;
 
 class OrdemProducaoController extends Controller
 {
@@ -200,7 +201,8 @@ class OrdemProducaoController extends Controller
                 'produtos_obra'=>$produtos_obra,
                 'statuss' => $statuss,
                 'obras'=>$obras,
-                'transportadoras'=>$transportadoras
+                'transportadoras'=>$transportadoras,
+                'tab_active'=>'recursos'
             ]
         );
     }
@@ -216,8 +218,8 @@ class OrdemProducaoController extends Controller
         $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
         if (($request['hora_inicio'] >= $ordem_producao->hora_inicio) 
-        and ($request['hora_fim'] <= $ordem_producao->hora_fim)
-        and($request['hora_inicio'] < $request['hora_fim'] )) {
+            and ($request['hora_fim'] <= $ordem_producao->hora_fim)
+            and($request['hora_inicio'] < $request['hora_fim'] )) {
 
             $exists_parada = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)
                 ->whereBetWeen('hora_inicio', [$request['hora_inicio'], $request['hora_fim']])
@@ -245,7 +247,8 @@ class OrdemProducaoController extends Controller
                 'produtos_obra'=>$produtos_obra,
                 'statuss' => $statuss,
                 'obras'=>$obras,
-                'transportadoras'=>$transportadoras
+                'transportadoras'=>$transportadoras,
+                'tab_active'=>'stop'
             ]
         );
     }
@@ -280,7 +283,8 @@ class OrdemProducaoController extends Controller
                 'statuss' => $statuss,
                 'obras' => $obras,
                 'produtos_obra' => $produtos_obra,
-                'transportadoras'=>$transportadoras
+                'transportadoras'=>$transportadoras,
+                'tab_active'=>'product'
             ]
         );
     }
@@ -403,7 +407,7 @@ class OrdemProducaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrdemProducao $ordem_producao)
+    public function edit(OrdemProducao $ordem_producao, $tab_active='')
     {
         $produtos = Produto::all();
         $equipamentos = Equipamento::all();
@@ -424,7 +428,8 @@ class OrdemProducaoController extends Controller
                 'ordem_producao'=>$ordem_producao,
                 'recursos_producao'=>$recurso_producao,
                 'paradas_equipamento'=>$paradas_equipamento,
-                'produtos_obra'=>$produtos_obra
+                'produtos_obra'=>$produtos_obra,
+                'tab_active'=>$tab_active
 
             ]
         );
@@ -474,7 +479,7 @@ class OrdemProducaoController extends Controller
 
     public function destroyProdutoObra(ProdutoObra $produto_obra, OrdemProducao $ordem_producao){
         $produto_obra->delete();
-        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
+        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id, 'tab_active'=>'product']);
     }
 
     public function destroyRecursoProducao(RecursosProducao $recurso_producao, OrdemProducao $ordem_producao){
@@ -482,13 +487,18 @@ class OrdemProducaoController extends Controller
             if(!empty($saida_produto)){
                 $saida_produto->delete();
 
-
             $produto = Produto::find($saida_produto->produto_id);
             $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
             $produto->save();
             }
         $recurso_producao->delete();
-        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id]);
+        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id , 'tab_active'=>'recursos']);
+    }
+
+    public function destroyParadaEquipamento(ParadaEquipamento $parada_equipamento,OrdemProducao $ordem_producao){
+
+        $parada_equipamento->delete();
+        return redirect()->route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id , 'tab_active'=>'stop']);
     }
 
     public function getHorimetroInicial(Request $request)

@@ -1,5 +1,5 @@
 <div class="tab-content mt-3" id="myTabContent">
-    <div class="tab-pane fade show active" id="dados_principais" role="tabpanel"
+    <div class="tab-pane fade {{$tab_active == ''? 'show active' : ''}}" id="dados_principais" role="tabpanel"
         aria-labelledby="dados_principais_tab">
         @if (!isset($ordem_producao))
             <form action="{{ route('ordem-producao.store') }}" method="POST">

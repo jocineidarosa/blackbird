@@ -154,7 +154,7 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::get('show/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@show'
     )->name('ordem-producao.show');
 
-    Route::get('{ordem_producao}/edit','App\Http\Controllers\OrdemProducaoController@edit'
+    Route::get('{ordem_producao}/edit/{tab_active?}','App\Http\Controllers\OrdemProducaoController@edit'
     )->name('ordem-producao.edit');
 
     Route::put('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
@@ -166,13 +166,17 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::delete('destroy','App\Http\Controllers\OrdemProducaoController@destroy'
     )->name('ordem-producao.destroy');
 
-    Route::delete('destroy_produto_obra/{produto_obra}/{ordem_producao}',
+    Route::delete('destroy-produto-obra/{produto_obra}/{ordem_producao}',
     'App\Http\Controllers\OrdemProducaoController@destroyProdutoObra'
-    )->name('ordem-producao.destroy_produto_obra');
+    )->name('ordem-producao.destroy-produto-obra');
 
     Route::delete('destroy-recurso-producao/{recurso_producao}/{ordem_producao}',
     'App\Http\Controllers\OrdemProducaoController@destroyRecursoProducao'
     )->name('ordem-producao.destroy-recurso-producao');
+
+    Route::delete('destroy-parada-equipamento/{parada_equipamento}/{ordem_producao}',
+    'App\Http\Controllers\OrdemProducaoController@destroyParadaEquipamento'
+    )->name('ordem-producao.destroy-parada-equipamento');
 
 });
 

@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="produto_obra" role="tabpanel" aria-labelledby="produto_obra_tab">
+<div class="tab-pane fade {{$tab_active == 'product'? 'show active' : ''}}" id="produto_obra" role="tabpanel" aria-labelledby="produto_obra_tab">
     <form
         action="{{ isset($ordem_producao) ? route('ordem-producao.store-produto-obra', ['ordem_producao' => $ordem_producao]) : '#' }}"
         method="POST">
@@ -111,21 +111,25 @@
                                 <td>{{ $produto_obra->qtde_cargas }}</td>
                                 <td>{{ $produto_obra->transportadora->nome ?? '' }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1" href="#"><i
-                                                class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1" href="#"><i
-                                                class="icofont-pen-alt-1"></i></a>
+                                    <div class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary" href="#"><i
+                                                class="icofont-eye-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-success"
+                                            href="#">
+                                            <i class="icofont-ui-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-danger" href="#"
+                                            onclick="document.getElementById('form_{{ $produto_obra->id }}').submit()">
+                                            <i class="icofont-ui-delete"></i>
+                                        </a>
                                         <form id="form_{{ $produto_obra->id }}" method="post"
-                                            action="{{ route('ordem-producao.destroy_produto_obra', [
+                                            action="{{ route('ordem-producao.destroy-produto-obra', [
                                                 'produto_obra' => $produto_obra->id,
                                                 'ordem_producao' => $ordem_producao->id,
                                             ]) }}">
                                             @method('DELETE')
                                             @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1" href="#"
-                                                onclick="document.getElementById('form_{{ $produto_obra->id }}').submit()"><i
-                                                    class="icofont-close-squared-alt"></i></a>
                                         </form>
                                     </div>
                                 </td>
