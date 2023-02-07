@@ -29,7 +29,7 @@
                         @foreach ($produtos_obra as $saida_produto)
                             <tr>
                                 <th scope="row">{{ $saida_produto->id }}</td>
-                                <td>{{$saida_produto->data}}</td>
+                                <td>{{Carbon\Carbon::parse($saida_produto->data)->format('d/m/Y') }}</td>
                                 <td>{{ $saida_produto->produto }}</td>
                                 <td>{{ $saida_produto->obra }}</td>
                                 <td>{{ str_replace(',','.',number_format($saida_produto->quantidade,0)) }}</td>
