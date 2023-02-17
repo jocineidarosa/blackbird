@@ -94,8 +94,9 @@ class EntradaProdutoController extends Controller
      * @param  \App\Models\EntradaProduto $equipamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EntradaProduto $entrada_produto)
+    public function destroy(Request $request)
     {
+        $entrada_produto=EntradaProduto::find($request->data_id);
         $entrada_produto->delete();
        
        $produto=Produto::findOrFail($entrada_produto->produto_id);
@@ -103,4 +104,5 @@ class EntradaProdutoController extends Controller
        $produto->save();
        return redirect()->route('entrada-produto.index');
     }
+
 }

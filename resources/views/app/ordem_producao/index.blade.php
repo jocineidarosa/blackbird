@@ -40,21 +40,22 @@
                                 <td>{{ str_replace(',','.',number_format($ordem_producao->quantidade_producao,0)) }}</td>
                                 <td>{{ $ordem_producao->horimetro_final }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                    <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary"
                                             href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}"><i
                                             class="icofont-eye-alt"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan" 
-                                        href="{{route('ordem-producao.edit',['ordem_producao'=>$ordem_producao->id])}}">
-                                            <i class="icofont-pen-alt-1"></i>
+                                        <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
+                                            href="{{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }}">
+                                            <i class="icofont-ui-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" 
-                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}">
-                                            <i class="icofont-close-squared-alt"></i>
-                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan" 
+                                            href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}">
+                                            <i class="icofont-ui-delete"></i>
+                                            </a>
                                     </div>
                                 </td>
+
                             </tr>
                         @endforeach
                         <tr class="th-title">

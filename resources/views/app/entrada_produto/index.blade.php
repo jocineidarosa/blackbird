@@ -1,35 +1,35 @@
 @extends('app.layouts.app')
 
 @section('content')
-        <div class="card">
-            <div class="card-header-template">
-                <div> LISTAGEM DE ENTRADA DE PRODUTOS</div>
-                <div>
-                    <a href="{{ route('entrada-produto.create') }}" class="btn btn-sm btn-primary">
-                        NOVO
-                    </a>
-                </div>
-
+    <div class="card">
+        <div class="card-header-template">
+            <div> LISTAGEM DE ENTRADA DE PRODUTOS</div>
+            <div>
+                <a href="{{ route('entrada-produto.create') }}" class="btn btn-sm btn-primary">
+                    NOVO
+                </a>
             </div>
-            <div class="card-body">
-                <table class="table-template table-striped table-hover table-bordered">
-                    <thead>
+
+        </div>
+        <div class="card-body">
+            <table class="table-template table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th-title">Id</th>
+                        <th scope="col" class="th-title">Data</th>
+                        <th scope="col" class="th-title">Produto</th>
+                        <th scope="col" class="th-title">Quantidade</th>
+                        <th class="th-title">Operações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($entradas_produtos as $entrada_produto)
                         <tr>
-                            <th scope="col" class="th-title">Id</th>
-                            <th scope="col" class="th-title">Data</th>
-                            <th scope="col" class="th-title">Produto</th>
-                            <th scope="col" class="th-title">Quantidade</th>
-                            <th class="th-title">Operações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($entradas_produtos as $entrada_produto)
-                            <tr>
-                                <th scope="row">{{ $entrada_produto->id }}</td>
-                                <td>{{ Carbon\Carbon::parse($entrada_produto->data)->format('d/m/Y') }}</td>
-                                <td>{{ $entrada_produto->produto->nome }}</td>
-                                <td>{{ $entrada_produto->quantidade }}</td>
-                                <td>
+                            <th scope="row">{{ $entrada_produto->id }}</td>
+                            <td>{{ Carbon\Carbon::parse($entrada_produto->data)->format('d/m/Y') }}</td>
+                            <td>{{ $entrada_produto->produto->nome }}</td>
+                            <td>{{ $entrada_produto->quantidade }}</td>
+                            {{-- <td>
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"
                                             href="{{ route('entrada-produto.show', ['entrada_produto' => $entrada_produto->id]) }}"><i
@@ -46,22 +46,42 @@
                                                     class="icofont-close-squared-alt"></i></a>
                                         </form>
                                     </div>
-                                </td>
+                                </td> --}}
 
-                            </tr>
-                        @endforeach
+                            <td>
+                                <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                    <a class="btn btn-sm-template btn-outline-primary"
+                                        href="{{ route('entrada-produto.show', ['entrada_produto' => $entrada_produto->id]) }}"><i
+                                            class="icofont-eye-alt"></i>
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
+                                        href="{{ route('entrada-produto.edit', ['entrada_produto' => $entrada_produto->id]) }}">
+                                        <i class="icofont-ui-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan"
+                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        data-id="{{ $entrada_produto->id }}">
+                                        <i class="icofont-ui-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    @endforeach
 
 
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-                    {{$entradas_produtos->appends($request)->links()}}
-                </div>
-
-
+                </tbody>
+            </table>
+            @component('app.shared.modal_delete')
+                {{ route('entrada-produto.destroy') }}
+            @endcomponent
+            <div class="d-flex justify-content-center">
+                {{ $entradas_produtos->appends($request)->links() }}
             </div>
 
 
         </div>
 
+
+    </div>
 @endsection
