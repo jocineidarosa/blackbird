@@ -7,7 +7,7 @@
                     <i class="icofont-list mr-2"></i>LISTAGEM DE ORDEM DE PRODUÇÃO
                 </div>
                 <div>
-                    <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}">
+                    <a class="btn btn-primary btn-sm mr-2 @can('user') disabled @endcan" href="{{ route('ordem-producao.create') }}">
                         <i class="icofont-plus-circle mr-1"></i>NOVO
                     </a>
                     <a class="btn btn-filter btn-sm" href="{{ route('ordem-producao.edit-filter') }}">
