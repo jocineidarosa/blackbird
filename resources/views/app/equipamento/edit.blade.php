@@ -12,7 +12,10 @@
         </div>
     </div>
         <div class="card-body">
-            @component('app.equipamento._components.form_create_edit', ['marcas'=>$marcas, 'equipamento'=>$equipamento, 'equipamentos'=>$equipamentos])       
+            @component('app.equipamento._components.form_create_edit', [
+                'marcas'=>$marcas, 
+                'equipamento'=>$equipamento, 
+                'equipamentos'=>$equipamentos])       
             @endcomponent
         </div>
     </div>

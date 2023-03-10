@@ -1,4 +1,3 @@
-
 @extends('app.layouts.app')
 
 @section('titulo', 'Produtos')
@@ -6,42 +5,43 @@
 @section('content')
 
     <div class="card">
-        <div class="card-header">
-            <p>Visualizar Produto</p>
-        </div>
-        <div class="card-footer justify-content-left">
-            <a href="{{route('produto.index')}}" class="btn">
-                LISTAGEM DE PRODUTOS
-            </a>
-            <a href="{{route('produto.create')}}" class="btn">
-                NOVO PRODUTO
-            </a>
+        <div class="card-header-template">
+            <div>VISUALIZAR ENTRADA DE PRODUTO</div>
+            <div>
+                <a href="{{route('entrada-produto.index')}}" class="btn btn-sm btn-primary">
+                    LISTAGEM
+                </a>
+    
+                <a href="{{route('entrada-produto.create')}}" class="btn btn-sm btn-primary">
+                    NOVO
+                </a>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
             <tr>
                 <td class="text-right pr-5">ID</td>
-                <td>{{$produto->id}}</td>
+                <td>{{$entrada_produto->id}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5">Nome</td>
-                <td>{{$produto->nome}}</td>
+                <td class="text-right pr-5">PRODUTO</td>
+                <td>{{$entrada_produto->produto_id}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5">DESCRIÇÂO</td>
-                <td>{{$produto->descricao}}</td>
+                <td class="text-right pr-5">FORNECEDOR</td>
+                <td>{{$entrada_produto->fornecedor_id}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5"> MARCA</td>
-                <td>{{$produto->marca->nome}}</td>
+                <td class="text-right pr-5"> QUANTIDADE</td>
+                <td>{{$entrada_produto->quantidade}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5">ESTOQUE MÍNIMO</td>
-                <td>{{$produto->estoque_minimo}}</td>
+                <td class="text-right pr-5">NOTA FISCAL</td>
+                <td>{{$entrada_produto->nota_fiscal}}</td>
             </tr>
             <tr>
-                <td class="text-right pr-5">ESTOQUE MÁXIMO</td>
-                <td>{{$produto->estoque_maximo}}</td>
+                <td class="text-right pr-5">DATA</td>
+                <td>{{$entrada_produto->data}}</td>
             </tr>
         </table>
         </div>

@@ -61,8 +61,6 @@ Route::middleware('auth')->delete('funcionario/destroy', 'App\Http\Controllers\F
 Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
 
 //entrada de produtos
-/* Route::middleware('auth')->resource('/entrada-produto', 'App\Http\Controllers\EntradaProdutoController'); */
-
 Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
 
     Route::get('index','App\Http\Controllers\EntradaProdutoController@index'
@@ -74,13 +72,13 @@ Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
     Route::post('store','App\Http\Controllers\EntradaProdutoController@store'
     )->name('entrada-produto.store');
 
-    Route::get('show','App\Http\Controllers\EntradaProdutoController@show'
+    Route::get('show/{entrada_produto}','App\Http\Controllers\EntradaProdutoController@show'
     )->name('entrada-produto.show');
 
-    Route::get('edit','App\Http\Controllers\EntradaProdutoController@edit'
+    Route::get('{entrada_produto}/edit','App\Http\Controllers\EntradaProdutoController@edit'
     )->name('entrada-produto.edit');
 
-    Route::get('update','App\Http\Controllers\EntradaProdutoController@update'
+    Route::put('update/{entrada_produto}','App\Http\Controllers\EntradaProdutoController@update'
     )->name('entrada-produto.update');
 
     Route::delete('destroy','App\Http\Controllers\EntradaProdutoController@destroy'

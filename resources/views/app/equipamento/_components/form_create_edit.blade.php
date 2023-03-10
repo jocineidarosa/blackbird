@@ -34,7 +34,9 @@
         <select name="marca_id" id="" class="form-control-template">
             <option value=""> --Selecione a marca--</option>
             @foreach ($marcas as $marca)
-                <option value="{{$marca->id}}"  {{ ($equipamento->marca_id ?? old('marca_id')) == $marca->id ? 'selected' : '' }}>{{$marca->nome}}</option>
+                <option value="{{$marca->id}}"
+                    {{ ($equipamento->marca_id ?? old('marca_id')) == $marca->id ? 'selected' : '' }}>{{$marca->nome}}
+                </option>
             @endforeach
         </select>
         {{ $errors->has('marca_id') ? $errors->first('marca_id') : '' }} 
