@@ -87,8 +87,34 @@ Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
 
 });
 
-//saida de produtos
-Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController');
+/* //saida de produtos
+Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController'); */
+//entrada de produtos
+Route::middleware('auth')->prefix('/saida-produto')->group(function() {
+
+    Route::get('index','App\Http\Controllers\SaidaProdutoController@index'
+    )->name('saida-produto.index');
+
+    Route::get('create','App\Http\Controllers\SaidaProdutoController@create'
+    )->name('saida-produto.create');
+
+    Route::post('store','App\Http\Controllers\SaidaProdutoController@store'
+    )->name('saida-produto.store');
+
+    Route::get('show/{saida_produto}','App\Http\Controllers\SaidaProdutoController@show'
+    )->name('saida-produto.show');
+
+    Route::get('{saida_produto}/edit','App\Http\Controllers\SaidaProdutoController@edit'
+    )->name('saida-produto.edit');
+
+    Route::put('update/{saida_produto}','App\Http\Controllers\SaidaProdutoController@update'
+    )->name('saida-produto.update');
+
+    Route::delete('destroy','App\Http\Controllers\SaidaProdutoController@destroy'
+    )->name('saida-produto.destroy');
+
+
+});
 
 //Carregamento de Cargas de caminhão
 Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\CarregamentoController');

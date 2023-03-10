@@ -16,7 +16,7 @@ class SaidaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $saidas_produtos = SaidaProduto::orderBy('data')->paginate(12);
+        $saidas_produtos = SaidaProduto::orderBy('data','desc')->paginate(12);
         return view('app.saida_produto.index', [
             'saidas_produtos' => $saidas_produtos,
             'request'=>$request->all()
@@ -97,15 +97,17 @@ class SaidaProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SaidaProduto $saida_produto)
+    public function destroy(Request $request)
     {
-        if ($saida_produto->motivo == 1) {
-            $message = 'Não pode ser ecluido';
+        if ($request->motivo == 1) {
+            $message = 'Não pode ser ecluido, porque o reistro foi feito apartir da ordem de produção';
         } else {
-            $produto = Produto::find($saida_produto->produto_id); //busca o registro do produto com o id da entrada do produto
-            $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade; // soma estoque antigo com a entrada de produto
+            $produto = Produto::find($request->produto_id); //busca o registro do produto com o id da entrada do produto
+            $produto->estoque_atual = $produto->estoque_atual + $request->quantidade; // soma estoque antigo com a entrada de produto
             $produto->save();
             $message='';
+
+            $saida_produto=Produto::find($request->data_id);
             $saida_produto->delete();
         }
         $saidas_produtos = SaidaProduto::all();

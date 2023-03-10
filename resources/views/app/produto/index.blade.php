@@ -38,16 +38,17 @@
                                 <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
                                     <a class="btn btn-sm-template btn-outline-primary"
                                         href="{{ route('produto.show', ['produto' => $produto->id]) }}"><i
-                                        class="icofont-eye-alt"></i>
+                                            class="icofont-eye-alt"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
                                         href="{{ route('produto.edit', ['produto' => $produto->id]) }}">
                                         <i class="icofont-ui-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan" 
-                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $produto->id }}">
+                                    <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan"
+                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        data-id="{{ $produto->id }}">
                                         <i class="icofont-ui-delete"></i>
-                                        </a>
+                                    </a>
                                 </div>
                             </td>
 
@@ -56,8 +57,8 @@
                 </tbody>
             </table>
             @component('app.shared.modal_delete')
-            {{route('produto.destroy')}}
-        @endcomponent
+                {{ route('produto.destroy') }}
+            @endcomponent
             <div class="d-flex justify-content-center">
                 {{ $produtos->appends($request)->links() }}
             </div>

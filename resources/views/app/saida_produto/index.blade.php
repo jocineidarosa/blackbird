@@ -30,31 +30,28 @@
                                 <td>{{ $saida_produto->produto->nome }}</td>
                                 <td>{{ $saida_produto->quantidade }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                    <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary"
                                             href="{{ route('saida-produto.show', ['saida_produto' => $saida_produto->id]) }}"><i
-                                                class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                            href="{{ route('saida-produto.edit', ['saida_produto' => $saida_produto->id]) }}"><i
-                                                class="icofont-pen-alt-1"></i></a>
-                                        <form id="form_{{ $saida_produto->id }}" method="post"
-                                            action="{{ route('saida-produto.destroy', ['saida_produto' => $saida_produto->id]) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
-                                                onclick="document.getElementById('form_{{ $saida_produto->id }}').submit()"><i
-                                                    class="icofont-close-squared-alt"></i></a>
-                                        </form>
+                                            class="icofont-eye-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
+                                            href="{{ route('saida-produto.edit', ['saida_produto' => $saida_produto->id]) }}">
+                                            <i class="icofont-ui-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan" 
+                                            href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $saida_produto->id }}">
+                                            <i class="icofont-ui-delete"></i>
+                                            </a>
                                     </div>
                                 </td>
-
                             </tr>
-
-                        @endforeach
-
-                        
+                        @endforeach    
                     </tbody>
                 </table>
+                @component('app.shared.modal_delete')
+                {{ route('saida-produto.destroy') }}
+            @endcomponent
                 <div class="d-flex justify-content-center">
                     {{$saidas_produtos->appends($request)->links()}}
                 </div>
