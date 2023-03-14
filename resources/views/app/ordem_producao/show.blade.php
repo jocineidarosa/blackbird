@@ -87,8 +87,8 @@
                         <td colspan="3" class="th-title">Equipamento</td>
                         <td class="th-title" colspan="3">Produto</td>
                         <td class="th-title">CONSUMO</td>
-                        <td class="th-title">HM. icicial</td>
-                        <td class="th-title">Hm. final</td>
+                        <td class="th-title">HM.inicial</td>
+                        <td class="th-title">Hm.final</td>
                         <td class="th-title">Tot.Hm</td>
                         <td class="th-title">Hora Inicial</td>
                         <td class="th-title">Hora Final</td>
