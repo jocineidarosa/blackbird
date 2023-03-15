@@ -44,6 +44,10 @@
                                         href="{{ route('produto.edit', ['produto' => $produto->id]) }}">
                                         <i class="icofont-ui-edit"></i>
                                     </a>
+                                    <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
+                                        href="{{ route('entrada-produto.create', ['produto' => $produto->id])}}">
+                                        <i class="icofont-plus-square"></i>
+                                    </a>
                                     <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan"
                                         href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                         data-id="{{ $produto->id }}">
