@@ -16,7 +16,7 @@
                     [
                         'marcas'=>$marcas,
                         'unidades'=>$unidades,
-                        'categorias'=>$categorias
+                        'categorias'=>$categorias,
                     ])
                 @endcomponent
             </div>

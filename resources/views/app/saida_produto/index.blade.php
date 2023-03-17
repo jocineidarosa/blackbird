@@ -19,6 +19,7 @@
                             <th scope="col" class="th-title">Data</th>
                             <th scope="col" class="th-title">Produto</th>
                             <th scope="col" class="th-title">Quantidade</th>
+                            <th scope="col" class="th-title">Motivo</th>
                             <th class="th-title">Operações</th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                 <td>{{Carbon\Carbon::parse($saida_produto->data )->format('d/m/Y')}}</td>
                                 <td>{{ $saida_produto->produto->nome }}</td>
                                 <td>{{ $saida_produto->quantidade }}</td>
+                                <td>{{ $saida_produto->motivo_saida->motivo}}</td>
                                 <td>
                                     <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
                                         <a class="btn btn-sm-template btn-outline-primary"

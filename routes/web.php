@@ -66,7 +66,7 @@ Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
     Route::get('index','App\Http\Controllers\EntradaProdutoController@index'
     )->name('entrada-produto.index');
 
-    Route::get('create/{produto?}','App\Http\Controllers\EntradaProdutoController@create'
+    Route::get('create/{produto_selected?}','App\Http\Controllers\EntradaProdutoController@create'
     )->name('entrada-produto.create');
 
     Route::post('store','App\Http\Controllers\EntradaProdutoController@store'

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EntradaProduto;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\SaidaProduto;
@@ -16,10 +17,10 @@ class SaidaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $saidas_produtos = SaidaProduto::orderBy('data','desc')->paginate(12);
+        $saidas_produtos = SaidaProduto::orderBy('data', 'desc')->paginate(12);
         return view('app.saida_produto.index', [
             'saidas_produtos' => $saidas_produtos,
-            'request'=>$request->all()
+            'request' => $request->all()
         ]);
     }
 
@@ -63,9 +64,9 @@ class SaidaProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SaidaProduto $saida_produto)
     {
-        //
+        return view('app.saida_produto.show', ['saida_produto'=>$saida_produto]);
     }
 
     /**
@@ -74,9 +75,15 @@ class SaidaProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SaidaProduto $saida_produto)
     {
-        //
+        $produtos = Produto::all();
+        $tipos_saida= MotivoSaidaProduto::all();
+        return view('app.saida_produto.edit', [
+            'saida_produto' => $saida_produto, 
+            'produtos' => $produtos,
+            'tipos_saida'=>$tipos_saida
+        ]);
     }
 
     /**
@@ -86,9 +93,14 @@ class SaidaProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, SaidaProduto $saida_produto)
     {
-        //
+        $diferenca_atualizada=$request->quantidade - $saida_produto->quantidade;
+        $produto = Produto::find($saida_produto->produto_id);
+        $produto->estoque_atual= $produto->estoque_atual - $diferenca_atualizada;
+        $produto->save();
+        $saida_produto->update($request->all());
+        return redirect()->route('saida-produto.index');
     }
 
     /**
@@ -99,18 +111,12 @@ class SaidaProdutoController extends Controller
      */
     public function destroy(Request $request)
     {
-        if ($request->motivo == 1) {
-            $message = 'Não pode ser ecluido, porque o reistro foi feito apartir da ordem de produção';
-        } else {
-            $produto = Produto::find($request->produto_id); //busca o registro do produto com o id da entrada do produto
-            $produto->estoque_atual = $produto->estoque_atual + $request->quantidade; // soma estoque antigo com a entrada de produto
-            $produto->save();
-            $message='';
-
-            $saida_produto=Produto::find($request->data_id);
-            $saida_produto->delete();
-        }
+        $saida_produto = SaidaProduto::find($request->data_id);
+        $produto = Produto::find($saida_produto->produto_id); //busca o registro do produto com o id da entrada do produto
+        $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade; // soma estoque antigo com a entrada de produto
+        $produto->save();
+        $saida_produto->delete();
         $saidas_produtos = SaidaProduto::all();
-        return view('app.saida_produto.index', ['saidas_produtos' => $saidas_produtos, 'message' => $message]);
+        return redirect()->route('saida-produto.index');
     }
 }

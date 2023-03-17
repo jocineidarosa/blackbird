@@ -14,7 +14,7 @@
                         <option value=""> --Selecione o Produto--</option>
                         @foreach ($produtos as $produto)
                             <option value="{{ $produto->id }}"
-                                {{ ($entrada_produto->produto_id ?? old('produto_id')) == $produto->id ? 'selected' : '' }}>{{ $produto->nome }}
+                                {{($produto_selected ?? $entrada_produto->produto_id ?? old('produto_id'))== $produto->id ? 'selected' : ''}}>{{ $produto->nome }}
                             </option>
                         @endforeach
                     </select>

@@ -19,4 +19,8 @@ class SaidaProduto extends Model
     public function produto(){
         return $this->belongsTo('App\Models\Produto', 'produto_id', 'id');
     }
+
+    public function motivo_saida(){
+        return $this->belongsTo('App\Models\MotivoSaidaProduto', 'motivo', 'id');
+    }
 }

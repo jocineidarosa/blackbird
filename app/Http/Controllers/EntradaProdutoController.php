@@ -7,6 +7,7 @@ use App\Models\EntradaProduto;
 use App\Models\Produto;
 use App\Models\Empresa;
 use App\Models\Fornecedor;
+use Doctrine\DBAL\Types\IntegerType;
 
 class EntradaProdutoController extends Controller
 {
@@ -29,14 +30,14 @@ class EntradaProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $produto_selected=0)
     {
         $fornecedores = Fornecedor::all();
         $produtos = Produto::all();
         return view('app.entrada_produto.create', [
             'produtos' => $produtos,
-            'fornecedores' => $fornecedores
-
+            'fornecedores' => $fornecedores,
+            'produto_selected'=>$produto_selected
         ]);
     }
 

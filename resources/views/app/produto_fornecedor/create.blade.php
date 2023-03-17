@@ -2,14 +2,8 @@
 
 @section('content')
         <div class="card">
-            <div class="card-header pb-2">
-                <p class="mb-0">Produtos Fronecidos por cada fornecedor</p>
-
-            </div>
-            <div class="card-header justify-content-left py-0">
-                <a href="{{ route('produto.index') }}" class="btn">
-                    Listagem
-                </a>
+            <div class="card-header-template">
+                <div>PRODUTOS FORNECIDOS POR CADA FORNECEDOR</div>
             </div>
 
             <div class="card-header justify-content-left pt-4">
