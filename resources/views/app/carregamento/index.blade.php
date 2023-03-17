@@ -18,6 +18,7 @@
                         <tr>
                             <th scope="col" class="th-title">Id</th>
                             <th scope="col" class="th-title">Placa</th>
+                            <th scope="col" class="th-title">Data</th>
                             <th scope="col" class="th-title">Hora Saída</th>
                             <th scope="col" class="th-title">Traços</th>
                             <th scope="col" class="th-title">Peso</th>
@@ -31,25 +32,25 @@
                             <tr>
                                 <th scope="row">{{ $carregamento->id }}</td>
                                 <td>{{ $carregamento->veiculo->placa }}</td>
+                                <td>{{ Carbon\Carbon::parse($carregamento->data)->format('d/m/Y') }}</td>
                                 <td>{{ $carregamento->hora_saida }}</td>
                                 <td>{{ $carregamento->tracos }}</td>
                                 <td>{{ $carregamento->peso }}</td>
                                 <td>{{ $carregamento->observacao }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1"
+                                    <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary"
                                             href="{{ route('carregamento.show', ['carregamento' => $carregamento->id]) }}"><i
                                                 class="icofont-eye-alt"></i>
                                         </a>
-                                        <a
-                                            class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan 
-                                            "href="{{ route('carregamento.edit', ['carregamento' => $carregamento->id]) }}">
-                                            <i class="icofont-pen-alt-1"></i>
+                                        <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
+                                            href="{{ route('carregamento.edit', ['carregamento' => $carregamento->id]) }}">
+                                            <i class="icofont-ui-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal" data-id="{{ $carregamento->id }}"
-                                            @can('user') disabled @endcan>
-                                            <i class="icofont-close-squared-alt"></i>
+                                        <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan"
+                                            href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="{{ $carregamento->id }}">
+                                            <i class="icofont-ui-delete"></i>
                                         </a>
                                     </div>
                                 </td>

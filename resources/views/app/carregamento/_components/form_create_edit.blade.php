@@ -24,6 +24,16 @@
             </div>
 
             <div class="row mb-1">
+                <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
+                <div class="col-md-6">
+                    <input id="data" name="data" type="date" class="form-control-template"
+                        value="{{ $carregamento->data ?? old('data') }}" required>
+                    {{ $errors->has('data') ? $errors->first('data') : '' }}
+                </div>
+            </div>
+
+
+            <div class="row mb-1">
                 <label for="hora_saida" class="col-md-4 col-form-label text-md-end text-right">Hora de Saída</label>
                 <div class="col-md-6">
                     <input id="hora_saida" name="hora_saida" type="time" class="form-control-template" hora_saida="hora_saida"

@@ -15,7 +15,7 @@ class CarregamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $carregamentos = Carregamento::OrderBy('id', 'desc')->paginate(12);
+        $carregamentos = Carregamento::OrderBy('data', 'desc')->paginate(12);
 
         return view('app.carregamento.index', [
             'carregamentos'=>$carregamentos,

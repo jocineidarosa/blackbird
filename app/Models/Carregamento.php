@@ -9,7 +9,7 @@ use App\Models\Veiculo;
 class Carregamento extends Model
 {
     use HasFactory;
-    protected $fillable=['veiculo_id', 'hora_saida', 'tracos', 'peso', 'observacao'];
+    protected $fillable=['veiculo_id','data', 'hora_saida', 'tracos', 'peso', 'observacao'];
 
     public function rules(){
         return [

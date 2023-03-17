@@ -82,19 +82,19 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{ route('marca.index') }}" class="nav-link px-2">
+                                    <a href="{{ route('marca.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
                                         <span>Marcas</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('category.index') }}" class="nav-link px-2">
+                                    <a href="{{ route('category.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
                                         <span>Categorias</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('unidade-medida.index') }}" class="nav-link px-2">
+                                    <a href="{{ route('unidade-medida.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
                                         <span>Unidades de Medida</span>
                                     </a>
