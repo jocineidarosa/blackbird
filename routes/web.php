@@ -45,6 +45,30 @@ Route::middleware('auth')->delete('empresa/destroy','App\Http\Controllers\Empres
 //produto
 Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoController');
 Route::middleware('auth')->delete('produto/destroy', 'App\Http\Controllers\ProdutoController@destroy')->name('produto.destroy');
+Route::middleware('auth')->prefix('/produto')->group(function() {
+    Route::get('index','App\Http\Controllers\ProdutoController@index'
+    )->name('produto.index');
+
+    Route::get('create/{produto_selected?}','App\Http\Controllers\ProdutoController@create'
+    )->name('produto.create');
+
+    Route::post('store','App\Http\Controllers\ProdutoController@store'
+    )->name('produto.store');
+
+    Route::get('show/{entrada_produto}','App\Http\Controllers\ProdutoController@show'
+    )->name('produto.show');
+
+    Route::get('{entrada_produto}/edit','App\Http\Controllers\ProdutoController@edit'
+    )->name('produto.edit');
+
+    Route::put('update/{entrada_produto}','App\Http\Controllers\ProdutoController@update'
+    )->name('produto.update');
+
+    Route::delete('destroy','App\Http\Controllers\ProdutoController@destroy'
+    )->name('produto.destroy');
+
+
+});
 
 //clientes
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
@@ -87,9 +111,7 @@ Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
 
 });
 
-/* //saida de produtos
-Route::middleware('auth')->resource('/saida-produto', 'App\Http\Controllers\SaidaProdutoController'); */
-//entrada de produtos
+//saida de produto
 Route::middleware('auth')->prefix('/saida-produto')->group(function() {
 
     Route::get('index','App\Http\Controllers\SaidaProdutoController@index'
@@ -127,6 +149,7 @@ Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\Controllers\
 //Veículos
 Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');
 Route::middleware('auth')->delete('veiculo/destroy', 'App\Http\Controllers\VeiculoController@destroy')->name('veiculo.destroy');
+Route::middleware('auth')->delete('veiculo/teste', 'App\Http\Controllers\VeiculoController@teste')->name('veiculo.teste');
 
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
@@ -143,6 +166,8 @@ Route::middleware('auth')->prefix('/saida-produto-obra')->group(function() {
     )->name('saida-produto-obra.filter');
 
 });
+
+
 //transportadora
 Route::middleware('auth')->resource('/transportadora', TransportadoraController::class);
 

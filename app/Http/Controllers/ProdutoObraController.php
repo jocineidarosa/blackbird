@@ -21,7 +21,7 @@ class ProdutoObraController extends Controller
         ->join('ordens_producoes as op', 'op.id', '=', 'po.ordem_producao_id')
         ->join('produtos as p', 'p.id', '=', 'po.produto_id')
         ->join('obras as o', 'o.id', '=', 'po.obra_id')
-        ->selectRaw('po.*, op.data, p.nome as produto, o.nome as obra')->paginate(12);
+        ->selectRaw('po.*, op.data, p.nome as produto, o.nome as obra')->orderBy('data', 'desc')->paginate(12);
 
 
         $total=DB::table('produtos_obra as po')

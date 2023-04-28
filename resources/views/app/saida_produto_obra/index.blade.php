@@ -4,7 +4,7 @@
 @section('content')
         <div class="card">
             <div class="card-header-template">
-                <div>SAÍDA DE PRODUTO PRODUTO X OBRA</div>
+                <div>SAÍDA DE PRODUTO X OBRA</div>
                 <div>
                     <a class="btn btn-filter btn-sm" href="{{ route('saida-produto-obra.edit-filter') }}">
                         <i class="icofont-filter mr-1"></i></i>FILTRAR
@@ -28,7 +28,7 @@
                     <tbody>
                         @foreach ($produtos_obra as $saida_produto)
                             <tr>
-                                <th scope="row">{{ $saida_produto->id }}</td>
+                                <th scope="row">{{ $saida_produto->ordem_producao_id }}</td>
                                 <td>{{Carbon\Carbon::parse($saida_produto->data)->format('d/m/Y') }}</td>
                                 <td>{{ $saida_produto->produto }}</td>
                                 <td>{{ $saida_produto->obra }}</td>
@@ -36,16 +36,13 @@
                                 <td>
                                     <div class="div-op">
                                         <a class="btn btn-sm-template btn-primary mx-1"
-                                            href="{{ route('produto.show', ['produto' => $saida_produto->id]) }}"><i
+                                            href="{{ route('ordem-producao.show', ['ordem_producao' => $saida_produto->ordem_producao_id]) }}"><i
                                                 class="icofont-eye-alt"></i>
                                         </a>
                                         <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                            href="{{ route('produto.edit', ['produto' => $saida_produto->id]) }}"><i
+                                            href="{{ route('ordem-producao.edit', ['ordem_producao' => $saida_produto->ordem_producao_id]) }}"><i
                                                 class="icofont-pen-alt-1"></i>
                                         </a>
-                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"><i
-                                                    class="icofont-close-squared-alt"></i>
-                                            </a>
                                     </div>
                                 </td>
 

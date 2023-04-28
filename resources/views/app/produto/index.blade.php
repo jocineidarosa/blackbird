@@ -2,9 +2,78 @@
 @section('titulo', 'Produtos')
 
 @section('content')
+    <!---estilização do input box buscar produtos---->
+    <style>
+        #formSearchingProducts {
+            background-color: white;
+            width: 900px;
+            height: 44px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        input {
+            all: unset;
+            font: 16px system-ui;
+            color: blue;
+            height: 100%;
+            width: 100%;
+            padding: 6px 10px;
+        }
+
+        ::placeholder {
+            color: blueviolet;
+            opacity: 0.9;
+        }
+
+
+        button {
+            all: unset;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+        }
+
+        #tblProdutos {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            background-color: rgb(211, 211, 211);
+        }
+
+        thead {
+            background-color: rgb(169, 169, 169);
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 3px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        tr:hover {
+            background-color: rgb(169, 169, 169);
+        }
+    </style>
+    <!-------------------------------------------------------------------------->
     <div class="card">
         <div class="card-header-template">
             <div>LISTAGEM DE PRODUTOS</div>
+            <form id="formSearchingProducts" action="" method="POST">
+                @csrf
+                <!--input box filtro buscar produto--------->
+                <input type="text" id="query" name="produto" placeholder="Buscar produto..." aria-label="Search through site content">
+                <button type="submit">
+                    <i class="icofont-search"></i>
+                </button>
+            </form>
             <div>
                 <a href="{{ route('produto.create') }}" class="btn btn-sm btn-primary">
                     NOVO
