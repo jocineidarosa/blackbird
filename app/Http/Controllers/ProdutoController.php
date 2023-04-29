@@ -19,7 +19,12 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos=Produto::orderBy('nome', 'asc')->paginate(12);
+        if($request->produto){
+            $produtos=Produto::where('nome', 'like','%'. $request->produto . '%')->paginate(12);
+        }else{
+           $produtos=Produto::orderBy('nome', 'asc')->paginate(12); 
+        }
+        
         return view('app.produto.index', ['produtos'=>$produtos, 'request'=>$request->all()] );
     }
 

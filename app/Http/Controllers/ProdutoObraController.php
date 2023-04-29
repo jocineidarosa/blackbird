@@ -38,7 +38,7 @@ class ProdutoObraController extends Controller
         $obras= Obra::all();
         $produtos= Produto::all();
         return view('app.saida_produto_obra.filter', compact('obras', 'produtos'));
-    }   
+    }  
 
 
     public function filter(Request $request){

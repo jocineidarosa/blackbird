@@ -7,7 +7,7 @@
         #formSearchingProducts {
             background-color: white;
             width: 900px;
-            height: 44px;
+            height: 30px;
             border-radius: 5px;
             display: flex;
             flex-direction: row;
@@ -16,7 +16,7 @@
 
         input {
             all: unset;
-            font: 16px system-ui;
+            font: 16px;
             color: blue;
             height: 100%;
             width: 100%;
@@ -36,12 +36,6 @@
             height: 44px;
         }
 
-        #tblProdutos {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            background-color: rgb(211, 211, 211);
-        }
 
         thead {
             background-color: rgb(169, 169, 169);
@@ -66,8 +60,7 @@
     <div class="card">
         <div class="card-header-template">
             <div>LISTAGEM DE PRODUTOS</div>
-            <form id="formSearchingProducts" action="" method="POST">
-                @csrf
+            <form id="formSearchingProducts" action="{{route('produto.index')}}" method="get">
                 <!--input box filtro buscar produto--------->
                 <input type="text" id="query" name="produto" placeholder="Buscar produto..." aria-label="Search through site content">
                 <button type="submit">
@@ -76,7 +69,7 @@
             </form>
             <div>
                 <a href="{{ route('produto.create') }}" class="btn btn-sm btn-primary">
-                    NOVO
+                    <i class="icofont-plus-circle mr-1"> NOVO
                 </a>
             </div>
 

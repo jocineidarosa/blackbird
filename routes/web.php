@@ -45,30 +45,7 @@ Route::middleware('auth')->delete('empresa/destroy','App\Http\Controllers\Empres
 //produto
 Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoController');
 Route::middleware('auth')->delete('produto/destroy', 'App\Http\Controllers\ProdutoController@destroy')->name('produto.destroy');
-Route::middleware('auth')->prefix('/produto')->group(function() {
-    Route::get('index','App\Http\Controllers\ProdutoController@index'
-    )->name('produto.index');
 
-    Route::get('create/{produto_selected?}','App\Http\Controllers\ProdutoController@create'
-    )->name('produto.create');
-
-    Route::post('store','App\Http\Controllers\ProdutoController@store'
-    )->name('produto.store');
-
-    Route::get('show/{entrada_produto}','App\Http\Controllers\ProdutoController@show'
-    )->name('produto.show');
-
-    Route::get('{entrada_produto}/edit','App\Http\Controllers\ProdutoController@edit'
-    )->name('produto.edit');
-
-    Route::put('update/{entrada_produto}','App\Http\Controllers\ProdutoController@update'
-    )->name('produto.update');
-
-    Route::delete('destroy','App\Http\Controllers\ProdutoController@destroy'
-    )->name('produto.destroy');
-
-
-});
 
 //clientes
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
@@ -85,33 +62,13 @@ Route::middleware('auth')->delete('funcionario/destroy', 'App\Http\Controllers\F
 Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
 
 //entrada de produtos
-Route::middleware('auth')->prefix('/entrada-produto')->group(function() {
-
-    Route::get('index','App\Http\Controllers\EntradaProdutoController@index'
-    )->name('entrada-produto.index');
-
-    Route::get('create/{produto_selected?}','App\Http\Controllers\EntradaProdutoController@create'
-    )->name('entrada-produto.create');
-
-    Route::post('store','App\Http\Controllers\EntradaProdutoController@store'
-    )->name('entrada-produto.store');
-
-    Route::get('show/{entrada_produto}','App\Http\Controllers\EntradaProdutoController@show'
-    )->name('entrada-produto.show');
-
-    Route::get('{entrada_produto}/edit','App\Http\Controllers\EntradaProdutoController@edit'
-    )->name('entrada-produto.edit');
-
-    Route::put('update/{entrada_produto}','App\Http\Controllers\EntradaProdutoController@update'
-    )->name('entrada-produto.update');
-
-    Route::delete('destroy','App\Http\Controllers\EntradaProdutoController@destroy'
-    )->name('entrada-produto.destroy');
-
-
-});
+Route::middleware('auth')->resource('/entrada-produto','App\Http\Controllers\EntradaProdutoController');
+Route::middleware('auth')->delete('entrada-produto/destroy', 'App\Http\Controllers\EntradaProdutoController@destroy')->name('entrada-produto.destroy');
 
 //saida de produto
+Route::middleware('auth')->resource('/saida-produto','App\Http\Controllers\SaidaProdutoController');
+Route::middleware('auth')->delete('saida-produto/destroy','App\Http\Controllers\SaidaProdutoController@destroy')->name('saida-produto.destroy');
+/*
 Route::middleware('auth')->prefix('/saida-produto')->group(function() {
 
     Route::get('index','App\Http\Controllers\SaidaProdutoController@index'
@@ -136,7 +93,7 @@ Route::middleware('auth')->prefix('/saida-produto')->group(function() {
     )->name('saida-produto.destroy');
 
 
-});
+});*/
 
 //Carregamento de Cargas de caminhão
 Route::middleware('auth')->resource('/carregamento', 'App\Http\Controllers\CarregamentoController');
@@ -149,10 +106,10 @@ Route::middleware('auth')->delete('tipo-veiculo/destroy', 'App\Http\Controllers\
 //Veículos
 Route::middleware('auth')->resource('/veiculo', 'App\Http\Controllers\VeiculoController');
 Route::middleware('auth')->delete('veiculo/destroy', 'App\Http\Controllers\VeiculoController@destroy')->name('veiculo.destroy');
-Route::middleware('auth')->delete('veiculo/teste', 'App\Http\Controllers\VeiculoController@teste')->name('veiculo.teste');
 
 //obras
 Route::middleware('auth')->resource('/obra', 'App\Http\Controllers\ObraController');
+Route::middleware('auth')->delete('obra/destroy', 'App\Http\Controllers\ObraController@destroy')->name('obra.destroy');
 
 //Saída de material para obra
 Route::middleware('auth')->prefix('/saida-produto-obra')->group(function() {
@@ -164,7 +121,6 @@ Route::middleware('auth')->prefix('/saida-produto-obra')->group(function() {
 
     Route::get('filter','App\Http\Controllers\ProdutoObraController@filter'
     )->name('saida-produto-obra.filter');
-
 });
 
 
