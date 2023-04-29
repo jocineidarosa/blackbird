@@ -64,6 +64,7 @@ Route::middleware('auth')->resource('/equipamento', EquipamentoController::class
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto','App\Http\Controllers\EntradaProdutoController');
 Route::middleware('auth')->delete('entrada-produto/destroy', 'App\Http\Controllers\EntradaProdutoController@destroy')->name('entrada-produto.destroy');
+Route::middleware('auth')->get('entrada-produto/create/{produto_selected?}}', 'App\Http\Controllers\EntradaProdutoController@create')->name('entrada-produto.create');
 
 //saida de produto
 Route::middleware('auth')->resource('/saida-produto','App\Http\Controllers\SaidaProdutoController');
@@ -190,9 +191,6 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
 
     Route::put('update/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@update'
     )->name('ordem-producao.update');
-
-    /* Route::delete('destroy/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@destroy'
-    )->name('ordem-producao.destroy'); */
     
     Route::delete('destroy','App\Http\Controllers\OrdemProducaoController@destroy'
     )->name('ordem-producao.destroy');
@@ -208,6 +206,9 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::delete('destroy-parada-equipamento/{parada_equipamento}/{ordem_producao}',
     'App\Http\Controllers\OrdemProducaoController@destroyParadaEquipamento'
     )->name('ordem-producao.destroy-parada-equipamento');
+
+    Route::get('edit-filter-resumo','App\Http\Controllers\OrdemProducaoController@editFilterResumo'
+    )->name('ordem-producao.edit-filter-resumo');
 
 });
 

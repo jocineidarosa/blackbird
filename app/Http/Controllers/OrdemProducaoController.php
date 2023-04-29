@@ -79,6 +79,11 @@ class OrdemProducaoController extends Controller
          ]);
     }
 
+    public function editFilterResumo(Request $request){
+        $obras=Obra::all();
+        return view('app.ordem_producao.filer_resumo',['obras'=>$obras]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

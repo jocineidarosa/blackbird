@@ -6,7 +6,7 @@
     <style>
         #formSearchingProducts {
             background-color: white;
-            width: 900px;
+            width: 50%;
             height: 30px;
             border-radius: 5px;
             display: flex;
@@ -17,14 +17,14 @@
         input {
             all: unset;
             font: 16px;
-            color: blue;
+            color: rgb(52, 52, 53);
             height: 100%;
             width: 100%;
             padding: 6px 10px;
         }
 
         ::placeholder {
-            color: blueviolet;
+            color: rgb(132, 134, 141);
             opacity: 0.9;
         }
 
@@ -59,7 +59,7 @@
     <!-------------------------------------------------------------------------->
     <div class="card">
         <div class="card-header-template">
-            <div>LISTAGEM DE PRODUTOS</div>
+            <div><i class="icofont-list mr-2"></i>LISTAGEM DE PRODUTOS</div>
             <form id="formSearchingProducts" action="{{route('produto.index')}}" method="get">
                 <!--input box filtro buscar produto--------->
                 <input type="text" id="query" name="produto" placeholder="Buscar produto..." aria-label="Search through site content">

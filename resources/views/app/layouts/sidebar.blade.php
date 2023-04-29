@@ -12,7 +12,7 @@
                     <li >
                         <hr class="dropdown-divider bg-light" />
                     </li>
-
+{{-- SUPRIMENTOS --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#suprimentos">
                             <span class="me-3"><i class="bi bi-cart-plus"></i></span>
@@ -54,7 +54,7 @@
                             </ul>
                         </div>
                     </li>
-
+{{-- CADASTRO GERAL --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#cadastroGeral">
                             <span class="me-3"><i class="icofont-hard-disk"></i></span>
@@ -151,7 +151,7 @@
                         </div>
                     </li>
 
-
+{{-- PRODUÇÃO --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#producao">
                             <span class="me-3"><i class="icofont-industries-5"></i></span>
@@ -164,6 +164,14 @@
                         </a>
                         <div class="collapse" id="producao">
                             <ul class="navbar-nav ps-3">
+
+                                <li>
+                                    <a href="{{ route('ordem-producao.edit-filter-resumo') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Resumo de produção</span>
+                                    </a>
+                                </li>
+
                                 <li>
                                     <a href="{{ route('ordem-producao.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
@@ -192,6 +200,7 @@
                             </ul>
                         </div>
                     </li>
+{{-- EQUIPAMENTOS --}}
 
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#equipamentos">
@@ -229,7 +238,7 @@
                     </li>
 
                     @can('admin')
-                        
+{{-- CONFIGURAÇÕES --}}   
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#configuracoes">
                             <span class="me-3"><i class="icofont-settings"></i></span>
