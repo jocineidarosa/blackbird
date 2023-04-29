@@ -69,7 +69,10 @@
             </form>
             <div>
                 <a href="{{ route('produto.create') }}" class="btn btn-sm btn-primary">
-                    <i class="icofont-plus-circle mr-1"> NOVO
+                    <i class="icofont-plus-circle mr-1"></i>NOVO
+                </a>
+                <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
+                    <i class="icofont-page"></i>TODOS
                 </a>
             </div>
 
