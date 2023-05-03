@@ -210,6 +210,9 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::get('edit-filter-resumo','App\Http\Controllers\OrdemProducaoController@editFilterResumo'
     )->name('ordem-producao.edit-filter-resumo');
 
+    Route::get('filter-resumo','App\Http\Controllers\OrdemProducaoController@filterResumo'
+    )->name('ordem-producao.filter-resumo');
+
 });
 
 //grupo produto-fornecedor

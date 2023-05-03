@@ -14,13 +14,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('ordem-producao.filter') }}" method="get">
-
-
+                <form action="{{ route('ordem-producao.filter-resumo') }}" method="get">
                     <div class="row mb-1">
-                        <label for="equipamento" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
+                        <label for="obra_id" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
                         <div class="col-md-6">
-                            <select name="produto_id" id="" class="form-control-template">
+                            <select name="obra_id" id="" class="form-control-template">
                                 <option value=""> --Selecione a obra--</option>
                                 @foreach ($obras as $obra)
                                     <option value="{{ $obra->id }}">{{ $obra->nome }}</option>

@@ -79,9 +79,15 @@ class OrdemProducaoController extends Controller
          ]);
     }
 
-    public function editFilterResumo(Request $request){
+    public function editFilterResumo(){
         $obras=Obra::all();
         return view('app.ordem_producao.filer_resumo',['obras'=>$obras]);
+    }
+
+    public function filterResumo(Request $request){
+        $obra=$request->obra_id;
+        dd($obra);
+
     }
 
     /**
