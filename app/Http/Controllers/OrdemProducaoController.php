@@ -86,7 +86,18 @@ class OrdemProducaoController extends Controller
 
     public function filterResumo(Request $request){
         $obra=$request->obra_id;
-        dd($obra);
+
+        $produtos_obra= DB::table('obras as o')
+        ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
+        ->join('ordens_producoes as op', 'po.ordem_producao_id', '=', 'op.id')
+        ->join('recursos_producao as rp', 'op.id', '=', 'rp.ordem_producao_id')
+        ->selectRaw('rp.quantidade, rp.produto_id')->where('o.id',$obra)->get()->sum('quantidade');
+        //$produtos_obra=$produtos_obra->sum('quantidade');
+
+
+        dd($produtos_obra);
+
+
 
     }
 
