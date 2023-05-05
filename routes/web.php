@@ -64,7 +64,7 @@ Route::middleware('auth')->resource('/equipamento', EquipamentoController::class
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto','App\Http\Controllers\EntradaProdutoController');
 Route::middleware('auth')->delete('entrada-produto/destroy', 'App\Http\Controllers\EntradaProdutoController@destroy')->name('entrada-produto.destroy');
-Route::middleware('auth')->get('entrada-produto/create/{produto_selected?}}', 'App\Http\Controllers\EntradaProdutoController@create')->name('entrada-produto.create');
+Route::middleware('auth')->get('entrada-produto/create/{produto_selected?}', 'App\Http\Controllers\EntradaProdutoController@create')->name('entrada-produto.create');
 
 //saida de produto
 Route::middleware('auth')->resource('/saida-produto','App\Http\Controllers\SaidaProdutoController');

@@ -86,18 +86,39 @@ class OrdemProducaoController extends Controller
 
     public function filterResumo(Request $request){
         $obra=$request->obra_id;
+        $nome_obra= Obra::find($obra);
+        $nome_obra=$nome_obra->nome;    
+        $obras=Obra::all();
 
-        $produtos_obra= DB::table('obras as o')
+        $resumo_producao= DB::table('obras as o')
         ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
         ->join('ordens_producoes as op', 'po.ordem_producao_id', '=', 'op.id')
         ->join('recursos_producao as rp', 'op.id', '=', 'rp.ordem_producao_id')
-        ->selectRaw('rp.quantidade, rp.produto_id')->where('o.id',$obra)->get()->sum('quantidade');
-        //$produtos_obra=$produtos_obra->sum('quantidade');
+        ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
+        ->select(DB::raw('sum(rp.quantidade) as total, p.nome as nome'))
+        ->where('o.id',$obra)
+        ->where('rp.quantidade', '>', 10)//gambiarra pra não aparecer energia elétrica
+        ->groupBy('nome')->get();
 
+        foreach ($resumo_producao as $resumo) {
+            $preco_produto= DB::table('entradas_produtos as ep')
+            ->join('produtos as p', 'p.id', '=', 'ep.produto_id')
+            ->selectRaw('max(ep.id) cod')
+            ->where('p.nome',$resumo->nome)->first();
+            $preco_produto=EntradaProduto::find($preco_produto->cod);
+            $valor_total=$resumo->total * $preco_produto->preco;
+            $resumo->preco=$preco_produto->preco;
+            $resumo->v_total=$valor_total;
+        }
 
-        dd($produtos_obra);
+        //dd($resumo_producao);
 
-
+        return view('app.ordem_producao.filer_resumo', 
+        [
+            'resumo_producao'=> $resumo_producao,
+            'nome_obra'=>$nome_obra,
+            'obras'=>$obras
+        ]);
 
     }
 

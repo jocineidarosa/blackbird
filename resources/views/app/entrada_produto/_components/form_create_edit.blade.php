@@ -47,6 +47,15 @@
             </div>
 
             <div class="row mb-1">
+                <label for="preco" class="col-md-4 col-form-label text-md-end text-right">Preço</label>
+                <div class="col-md-6">
+                    <input name="preco" id="preco" type="text" class="form-control "
+                        value="{{ $entrada_produto->preco ?? old('preco') }}">
+                    {{ $errors->has('preco') ? $errors->first('preco') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
                 <label for="nota_fiscal" class="col-md-4 col-form-label text-md-end text-right">Nota Fiscal</label>
                 <div class="col-md-6">
                     <input name="nota_fiscal" id="nota_fiscal" type="text" class="form-control "
