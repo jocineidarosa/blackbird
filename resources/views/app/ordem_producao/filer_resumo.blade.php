@@ -61,7 +61,7 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td class="text-center" colspan="2">Valor Total da Obra</td>
+                        <td class="text-center" colspan="2">GASTO TOTAL DA OBRA</td>
                         <td class="text-center">R$ {{ str_replace(',','.',number_format($v_total_obra, 2)) }}</td>
                     </tr>
                 </table>
