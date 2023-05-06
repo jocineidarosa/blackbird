@@ -90,6 +90,10 @@ class OrdemProducaoController extends Controller
         $nome_obra=$nome_obra->nome;    
         $obras=Obra::all();
 
+        $total_producao=DB::table('produtos_obra')->selectRaw('sum(quantidade) as total_producao')
+        ->where('obra_id',$obra)->first();
+        $total_producao=$total_producao->total_producao;
+
         $resumo_producao= DB::table('obras as o')
         ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
         ->join('ordens_producoes as op', 'po.ordem_producao_id', '=', 'op.id')
@@ -99,8 +103,9 @@ class OrdemProducaoController extends Controller
         ->where('o.id',$obra)
         ->where('rp.quantidade', '>', 10)//gambiarra pra não aparecer energia elétrica
         ->groupBy('nome')->get();
-
+        $v_total_obra=0;
         foreach ($resumo_producao as $resumo) {
+            //busca o preço do produto no banco de dados.
             $preco_produto= DB::table('entradas_produtos as ep')
             ->join('produtos as p', 'p.id', '=', 'ep.produto_id')
             ->selectRaw('max(ep.id) cod')
@@ -109,15 +114,17 @@ class OrdemProducaoController extends Controller
             $valor_total=$resumo->total * $preco_produto->preco;
             $resumo->preco=$preco_produto->preco;
             $resumo->v_total=$valor_total;
+            $v_total_obra=$v_total_obra+$valor_total;
         }
 
-        //dd($resumo_producao);
 
         return view('app.ordem_producao.filer_resumo', 
         [
             'resumo_producao'=> $resumo_producao,
             'nome_obra'=>$nome_obra,
-            'obras'=>$obras
+            'obras'=>$obras,
+            'total_producao'=>$total_producao,
+            'v_total_obra'=>$v_total_obra
         ]);
 
     }

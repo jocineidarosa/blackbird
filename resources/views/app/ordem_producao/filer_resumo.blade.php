@@ -41,8 +41,12 @@
             @if (isset($resumo_producao))
                 <table class="table-template table-hover">
                     <tr>
-                        <td>Resumo de Produção</td>
-                        <td colspan="2">{{ $nome_obra }}</td>
+                        <td class="th-title-main text-center">Resumo de Produção</td>
+                        <td colspan="2" class="th-title-main text-center">{{ $nome_obra }}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-title text-center">Produção Total</td>
+                        <td colspan="2" class="th-title text-center">{{ str_replace(',','.',number_format($total_producao,0)) }}</td>
                     </tr>
                     <tr>
                         <td class="text-center th-title pr-2">Produto</td>
@@ -56,6 +60,10 @@
                             <td class="text-center">R$ {{ str_replace(',','.',number_format($resumo->v_total, 2)) }}</td>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td class="text-center" colspan="2">Valor Total da Obra</td>
+                        <td class="text-center">R$ {{ str_replace(',','.',number_format($v_total_obra, 2)) }}</td>
+                    </tr>
                 </table>
             @endif
 
