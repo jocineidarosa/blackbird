@@ -114,7 +114,9 @@ class OrdemProducaoController extends Controller
             $valor_total=$resumo->total * $preco_produto->preco;
             $resumo->preco=$preco_produto->preco;
             $resumo->v_total=$valor_total;
+            $resumo->teor=$resumo->total / $total_producao * 1000;
             $v_total_obra=$v_total_obra+$valor_total;
+
         }
 
 
