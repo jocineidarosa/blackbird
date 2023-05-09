@@ -111,10 +111,10 @@ class OrdemProducaoController extends Controller
             ->selectRaw('max(ep.id) cod')
             ->where('p.nome',$resumo->nome)->first();
             $preco_produto=EntradaProduto::find($preco_produto->cod);
-            $valor_total=$resumo->total * $preco_produto->preco;
-            $resumo->preco=$preco_produto->preco;
-            $resumo->v_total=$valor_total;
-            $resumo->teor=$resumo->total / $total_producao * 1000;
+            $valor_total=$resumo->total * $preco_produto->preco;//calcula o valor total e grava na variavel $valor_total
+            $resumo->preco=$preco_produto->preco; //adiciona o campo preco
+            $resumo->v_total=$valor_total;//adiciona o campo v_total
+            $resumo->teor=$resumo->total / $total_producao * 1000;//calcula teor do consumo
             $v_total_obra=$v_total_obra+$valor_total;
 
         }
