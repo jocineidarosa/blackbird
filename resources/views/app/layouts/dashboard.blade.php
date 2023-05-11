@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header-template">
             <div>
-                ESTOQUES PRINCIPAIS de produtos
+                ESTOQUES PRINCIPAIS
             </div>
             <div>
                 <a class="btn btn-primary btn-sm mr-2" href="{{ route('produto.index') }}"></i>PRODUTOS
