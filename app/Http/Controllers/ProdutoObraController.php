@@ -72,7 +72,7 @@ class ProdutoObraController extends Controller
         }
         
         $total= $produtos_obra->get()->sum('quantidade');
-        $produtos_obra=$produtos_obra->paginate(13);
+        $produtos_obra=$produtos_obra->orderBy('data','desc')->paginate(13);
         
         return view('app.saida_produto_obra.index', 
         [
