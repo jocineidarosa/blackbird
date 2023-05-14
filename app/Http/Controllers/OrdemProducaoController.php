@@ -99,6 +99,20 @@ class OrdemProducaoController extends Controller
         $total_producao = DB::table('produtos_obra')->selectRaw('sum(quantidade) as total_producao')
             ->where('obra_id', $obra)->first();
         $total_producao = $total_producao->total_producao;
+        $total_producao_do_dia = DB::table('produtos_obra')->selectRaw('ordem_producao_id')
+        ->where('obra_id', $obra)->get();
+
+        $total_producao_do_dia_1=0;
+        $total_prod_dia=0;
+        foreach ($total_producao_do_dia as $prod)  {
+            $total_producao_do_dia_1=DB::table('ordens_producoes')->selectRaw('quantidade_producao')
+            ->where('id', $prod->ordem_producao_id)->first();
+            $total_prod_dia= $total_prod_dia + $total_producao_do_dia_1->quantidade_producao;
+        }
+
+        //dd($total_prod_dia);
+
+        //dd($total_producao_do_dia);
 
         $resumo_producao = DB::table('obras as o')
             ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
@@ -119,12 +133,14 @@ class OrdemProducaoController extends Controller
             inner join produtos p on p.id = ep.produto_id WHERE data <=( SELECT max(op.data) 
             as data FROM produtos_obra as po INNER JOIN ordens_producoes as op on 
             po.ordem_producao_id = op.id WHERE po.obra_id='.$obra.') and p.nome='.'"'.$resumo->nome.'")'))->first();
-            $valor_total = $resumo->total * $preco_produto->preco; //calcula o valor total e grava na variavel $valor_total
+
             $resumo->preco = $preco_produto->preco; //adiciona o campo preco
-            $resumo->teor = $resumo->total / $total_producao;
-            $resumo->quantidade=$resumo->teor * $total_producao;
+            $resumo->teor = $resumo->total / $total_prod_dia;
+            $resumo->total=$resumo->teor * $total_producao;
+            $valor_total = $resumo->total * $preco_produto->preco; //calcula o valor total e grava na variavel $valor_total
             $resumo->v_total = $valor_total; //adiciona o campo v_total
-            $resumo->teor = $resumo->total / $total_producao * 1000; //calcula teor do consumo
+            //$resumo->teor = $resumo->total / $total_producao * 1000; //calcula teor do consumo
+            $resumo->teor= $resumo->teor * 1000;
             $v_total_obra = $v_total_obra + $valor_total;
         }
 
