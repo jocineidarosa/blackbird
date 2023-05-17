@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\Equipamento;
+use App\Models\Produto;
+
 class EquipamentoController extends Controller
 {
     /**
@@ -32,7 +34,8 @@ class EquipamentoController extends Controller
 
         $marcas= Marca::all();
         $equipamentos= Equipamento::all();
-        return view('app.equipamento.create' , ['marcas'=>$marcas, 'equipamentos'=>$equipamentos]);
+        $produtos= Produto::all();
+        return view('app.equipamento.create' , ['marcas'=>$marcas, 'equipamentos'=>$equipamentos, 'produtos'=>$produtos]);
     }
 
     /**

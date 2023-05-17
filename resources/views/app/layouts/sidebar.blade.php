@@ -44,6 +44,20 @@
                                     </a>
                                 </li>
 
+                                <li>
+                                    <a href="{{ route('abastecimento.index') }}" class="nav-link px-2">
+                                        <span class="me-2"></span>
+                                        <span>Abastecimentos</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('consumo.index') }}" class="nav-link px-2">
+                                        <span class="me-2"></span>
+                                        <span>Consumo de produtos</span>
+                                    </a>
+                                </li>
+
                                 
                                 <li>
                                     <a href="{{ route('produto-fornecedor.create') }}" class="nav-link px-2">

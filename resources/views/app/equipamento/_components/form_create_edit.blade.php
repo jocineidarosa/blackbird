@@ -44,6 +44,66 @@
 </div>
 
 <div class="row mb-1">
+    <label for="modelo" class="col-md-4 col-form-label text-md-end">Modelo</label>
+
+    <div class="col-md-6">
+        <input id="modelo" name="modelo" type="text" class="form-control-template"
+            value="{{$equipamento->modelo?? old('modelo') }}" >
+            {{ $errors->has('modelo') ? $errors->first('modelo') : '' }}                            
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="potencia" class="col-md-4 col-form-label text-md-end">Potência</label>
+
+    <div class="col-md-6">
+        <input id="potencia" name="potencia" type="text" class="form-control-template" 
+            value="{{$equipamento->potencia?? old('potencia') }}" >
+            {{ $errors->has('potencia') ? $errors->first('potencia') : '' }}                            
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="tipo_potencia" class="col-md-4 col-form-label text-md-end">Tipo de potência</label>
+
+    <div class="col-md-6">
+        <input id="tipo_potencia" name="tipo_potencia" type="text" class="form-control-template"
+            value="{{$equipamento->tipo_potencia?? old('tipo_potencia') }}" >
+            {{ $errors->has('tipo_potencia') ? $errors->first('tipo_potencia') : '' }}                            
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="data_fabricacao" class="col-md-4 col-form-label text-md-end">Data de Fabricação</label>
+
+    <div class="col-md-6">
+        <input id="data_fabricacao" name="data_fabricacao" type="date" class="form-control-template"
+            value="{{$equipamento->data_fabricacao?? old('data_fabricacao') }}" >
+            {{ $errors->has('data_fabricacao') ? $errors->first('data_fabricacao') : '' }}                            
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="combustivel" class="col-md-4 col-form-label text-md-end">Tipo de Combustível</label>
+
+    <div class="col-md-6">
+        <select name="combustivel" id="" class="form-control-template">
+            <option value=""> --Selecione a combustivel--</option>
+            @foreach ($produtos as $produto)
+                <option value="{{$produto->id}}"
+                    {{ ($equipamento->combustivel ?? old('combustivel')) == $produto->id ? 'selected' : '' }}>{{$produto->nome}}
+                </option>
+            @endforeach
+        </select>
+        {{ $errors->has('combustivel') ? $errors->first('combustivel') : '' }} 
+    </div>
+</div>
+
+
+
+
+
+<div class="row mb-1">
     <label for="equipamento_pai" class="col-md-4 col-form-label text-md-end">Equipamento Pai</label>
 
     <div class="col-md-6">

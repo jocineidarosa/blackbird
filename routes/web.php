@@ -233,3 +233,11 @@ Route::middleware('auth')->prefix('/recursos-producao')->group(function() {
     )->name('recursos-producao.destroy');
 
 });
+
+//abastecimento
+Route::middleware('auth')->resource('/abastecimento', 'App\Http\Controllers\AbastecimentoController');
+Route::middleware('auth')->delete('abastecimento/destroy', 'App\Http\Controllers\AbastecimentoController@destroy')->name('abastecimento.destroy');
+
+//consumos
+Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
+Route::middleware('auth')->delete('consumo/destroy', 'App\Http\Controllers\ConsumoController@destroy')->name('consumo.destroy');
