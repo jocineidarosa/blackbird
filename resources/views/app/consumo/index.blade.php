@@ -59,7 +59,7 @@
     <!-------------------------------------------------------------------------->
     <div class="card">
         <div class="card-header-template">
-            <div><i class="icofont-list mr-2"></i>LISTAGEM DE PRODUTOS</div>
+            <div><i class="icofont-list mr-2"></i>LISTAGEM DE CONSUMO</div>
             <form id="formSearchingProducts" action="{{route('produto.index')}}" method="get">
                 <!--input box filtro buscar produto--------->
                 <input type="text" id="query" name="produto" placeholder="Buscar produto..." aria-label="Search through site content">

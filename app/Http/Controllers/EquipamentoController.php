@@ -46,6 +46,12 @@ class EquipamentoController extends Controller
      */
     public function store(Request $request)
     {
+        if(array_key_exists('controle_consumo', $request->all())){
+            $request['controle_consumo']=1;
+        }else{
+            $request['controle_consumo']=0;
+        }
+
         Equipamento::create($request->all());
         return redirect()->route('equipamento.index');
     }
@@ -71,7 +77,9 @@ class EquipamentoController extends Controller
     {
         $marcas = Marca::all();
         $equipamentos= Equipamento::all();
-        return view('app.equipamento.edit', ['equipamento' => $equipamento, 'equipamentos'=> $equipamentos, 'marcas'=>$marcas]);
+        $produtos=Produto::all();
+        return view('app.equipamento.edit', ['equipamento' => $equipamento, 
+        'equipamentos'=> $equipamentos, 'marcas'=>$marcas, 'produtos'=>$produtos]);
     }
 
     /**
@@ -83,6 +91,12 @@ class EquipamentoController extends Controller
      */
     public function update(Request $request, Equipamento $equipamento)
     {
+            if(array_key_exists('controle_consumo',$request->all())){
+                $request['controle_consumo']=1;
+
+            }else{
+                $request['controle_consumo']=0;
+            }
             $equipamento->update($request->all());
             return redirect()->route('equipamento.index');
     }

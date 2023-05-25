@@ -15,7 +15,9 @@
             @component('app.equipamento._components.form_create_edit', [
                 'marcas'=>$marcas, 
                 'equipamento'=>$equipamento, 
-                'equipamentos'=>$equipamentos])       
+                'equipamentos'=>$equipamentos,
+                'produtos'=>$produtos
+                ])       
             @endcomponent
         </div>
     </div>

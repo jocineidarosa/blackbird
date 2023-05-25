@@ -117,6 +117,16 @@
     </div>
 </div>
 
+<div class="row mb-1">
+    <label for="controle_consumo" class="col-md-4 col-form-label text-md-end">Consumo(AUTO)</label>
+
+    <div class="col-md-6">
+        <input id="controle_consumo" name="controle_consumo" type="checkbox" class="form-control-template"
+            value="{{$equipamento->controle_consumo?? old('controle_consumo') }}" >
+            {{ $errors->has('controle_consumo') ? $errors->first('controle_consumo') : '' }}                            
+    </div>
+</div>
+
 
 <div class="row mb-0">
     <div class="col-md-6 offset-md-4">

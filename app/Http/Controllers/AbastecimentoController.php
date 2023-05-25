@@ -6,6 +6,8 @@ use App\Models\Abastecimento;
 use App\Models\Equipamento;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use App\Models\SaidaProduto;
+use PhpParser\Node\Expr\BinaryOp\Equal;
 
 class AbastecimentoController extends Controller
 {
@@ -16,14 +18,14 @@ class AbastecimentoController extends Controller
      */
     public function index(Request $request)
     {
-        $equipamentos=Equipamento::all();
-        if($request->filtro_equipamento){
-            $abastecimentos=Abastecimento::where('equipamento_id', $request->filtro_equipamento)->paginate(12);
-        }else{
-           $abastecimentos=Abastecimento::orderBy('data', 'asc')->paginate(12); 
+        $equipamentos = Equipamento::all();
+        if ($request->filtro_equipamento) {
+            $abastecimentos = Abastecimento::where('equipamento_id', $request->filtro_equipamento)->paginate(12);
+        } else {
+            $abastecimentos = Abastecimento::orderBy('data', 'asc')->paginate(12);
         }
-        
-        return view('app.abastecimento.index', ['abastecimentos'=>$abastecimentos, 'equipamentos'=>$equipamentos,'request'=>$request->all()] );
+
+        return view('app.abastecimento.index', ['abastecimentos' => $abastecimentos, 'equipamentos' => $equipamentos, 'request' => $request->all()]);
     }
 
     /**
@@ -33,9 +35,9 @@ class AbastecimentoController extends Controller
      */
     public function create()
     {
-        $equipamentos=Equipamento::all();
-        $produtos=Produto::all();
-        return view('app.abastecimento.create',['equipamentos'=>$equipamentos, 'produtos'=>$produtos]);
+        $equipamentos = Equipamento::all();
+        $produtos = Produto::all();
+        return view('app.abastecimento.create', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
     }
 
     /**
@@ -47,6 +49,20 @@ class AbastecimentoController extends Controller
     public function store(Request $request)
     {
         Abastecimento::create($request->all());
+        $controle_consumo = Equipamento::find($request->equipamento_id);
+        $controle_consumo = $controle_consumo->controle_consumo;
+        if ($controle_consumo = 1) {
+            $saida_produto = new SaidaProduto();
+            $saida_produto->produto_id = $request->produto_id;
+            $saida_produto->quantidade = $request->quantidade;
+            $saida_produto->motivo = '1';
+            $saida_produto->data = $request->data;
+            $saida_produto->save();
+
+            $produto = Produto::find($request->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
+            $produto->save();
+        }
         return redirect()->route('abastecimento.index');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consumo;
 use Illuminate\Http\Request;
 
 class ConsumoController extends Controller
@@ -13,7 +14,8 @@ class ConsumoController extends Controller
      */
     public function index()
     {
-        //
+        $consumos=Consumo::all();
+        return view('app.consumo.index', ['consumos'=>$consumos]);
     }
 
     /**
