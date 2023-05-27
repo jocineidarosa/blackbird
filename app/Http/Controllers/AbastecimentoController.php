@@ -7,7 +7,8 @@ use App\Models\Equipamento;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use App\Models\SaidaProduto;
-use PhpParser\Node\Expr\BinaryOp\Equal;
+use App\Models\Consumo;
+use Illuminate\Support\Facades\DB;
 
 class AbastecimentoController extends Controller
 {
@@ -18,12 +19,22 @@ class AbastecimentoController extends Controller
      */
     public function index(Request $request)
     {
+        
         $equipamentos = Equipamento::all();
         if ($request->filtro_equipamento) {
-            $abastecimentos = Abastecimento::where('equipamento_id', $request->filtro_equipamento)->paginate(12);
+            $abastecimentos=DB::table('abastecimentos as ab')
+            ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+            ->join('produtos as pd', 'pd.id','=', 'ab.produto_id')
+            ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
+            ->where('eq.nome',  'like', '%'.$request->filtro_equipamento . '%' )->paginate(12);
         } else {
-            $abastecimentos = Abastecimento::orderBy('data', 'asc')->paginate(12);
+            $abastecimentos=DB::table('abastecimentos as ab')
+            ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+            ->join('produtos as pd', 'pd.id','=', 'ab.produto_id')
+            ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')->paginate(12);
+            
         }
+        
 
         return view('app.abastecimento.index', ['abastecimentos' => $abastecimentos, 'equipamentos' => $equipamentos, 'request' => $request->all()]);
     }
@@ -49,10 +60,9 @@ class AbastecimentoController extends Controller
     public function store(Request $request)
     {
         Abastecimento::create($request->all());
-        $controle_consumo = Equipamento::find($request->equipamento_id);
-        $controle_consumo = $controle_consumo->controle_consumo;
-        if ($controle_consumo = 1) {
+
             $saida_produto = new SaidaProduto();
+            $saida_produto->equipamento_id=$request->equipamento_id;
             $saida_produto->produto_id = $request->produto_id;
             $saida_produto->quantidade = $request->quantidade;
             $saida_produto->motivo = '1';
@@ -62,7 +72,19 @@ class AbastecimentoController extends Controller
             $produto = Produto::find($request->produto_id);
             $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
             $produto->save();
-        }
+
+            $controle_consumo = Equipamento::find($request->equipamento_id);
+            $controle_consumo = $controle_consumo->controle_consumo;
+
+            if($controle_consumo == 1){
+                Consumo::create($request->all());
+            }else{
+                $equipamento= Equipamento::find($request->equipamento_id);
+                $equipamento->quant_tanque = $equipamento->quant_tanque + $request->quantidade;
+                $equipamento->save();
+            }
+
+
         return redirect()->route('abastecimento.index');
     }
 

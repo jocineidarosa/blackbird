@@ -16,8 +16,7 @@ use App\Models\Obra;
 use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Uuid\Type\Integer;
-use Illuminate\Database\Query\Builder;
+use App\Models\Consumo;
 
 class OrdemProducaoController extends Controller
 {
@@ -100,14 +99,14 @@ class OrdemProducaoController extends Controller
             ->where('obra_id', $obra)->first();
         $total_producao = $total_producao->total_producao;
         $total_producao_do_dia = DB::table('produtos_obra')->selectRaw('ordem_producao_id')
-        ->where('obra_id', $obra)->get();
+            ->where('obra_id', $obra)->get();
 
-        $total_producao_do_dia_1=0;
-        $total_prod_dia=0;
-        foreach ($total_producao_do_dia as $prod)  {
-            $total_producao_do_dia_1=DB::table('ordens_producoes')->selectRaw('quantidade_producao')
-            ->where('id', $prod->ordem_producao_id)->first();
-            $total_prod_dia= $total_prod_dia + $total_producao_do_dia_1->quantidade_producao;
+        $total_producao_do_dia_1 = 0;
+        $total_prod_dia = 0;
+        foreach ($total_producao_do_dia as $prod) {
+            $total_producao_do_dia_1 = DB::table('ordens_producoes')->selectRaw('quantidade_producao')
+                ->where('id', $prod->ordem_producao_id)->first();
+            $total_prod_dia = $total_prod_dia + $total_producao_do_dia_1->quantidade_producao;
         }
 
         //dd($total_prod_dia);
@@ -127,20 +126,20 @@ class OrdemProducaoController extends Controller
 
         foreach ($resumo_producao as $resumo) {
             //busca o preço do produto no banco de dados.
-            $preco_produto =DB::table('entradas_produtos')
-            ->select('preco')
-            ->where('id', DB::raw('(SELECT max(ep.id) as cod FROM entradas_produtos ep
+            $preco_produto = DB::table('entradas_produtos')
+                ->select('preco')
+                ->where('id', DB::raw('(SELECT max(ep.id) as cod FROM entradas_produtos ep
             inner join produtos p on p.id = ep.produto_id WHERE data <=( SELECT max(op.data) 
             as data FROM produtos_obra as po INNER JOIN ordens_producoes as op on 
-            po.ordem_producao_id = op.id WHERE po.obra_id='.$obra.') and p.nome='.'"'.$resumo->nome.'")'))->first();
+            po.ordem_producao_id = op.id WHERE po.obra_id=' . $obra . ') and p.nome=' . '"' . $resumo->nome . '")'))->first();
 
             $resumo->preco = $preco_produto->preco; //adiciona o campo preco
             $resumo->teor = $resumo->total / $total_prod_dia;
-            $resumo->total=$resumo->teor * $total_producao;
+            $resumo->total = $resumo->teor * $total_producao;
             $valor_total = $resumo->total * $preco_produto->preco; //calcula o valor total e grava na variavel $valor_total
             $resumo->v_total = $valor_total; //adiciona o campo v_total
             //$resumo->teor = $resumo->total / $total_producao * 1000; //calcula teor do consumo
-            $resumo->teor= $resumo->teor * 1000;
+            $resumo->teor = $resumo->teor * 1000;
             $v_total_obra = $v_total_obra + $valor_total;
         }
 
@@ -250,20 +249,39 @@ class OrdemProducaoController extends Controller
             //salva recursos de produção no banco de dados
             $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
             $request['equipamento_id'] = $request['equipamento_recursos'];
-            unset($request['equipamento_recursos']);
+            unset($request['equipamento_recursos']); //apaga o campo equipamento_recurso, que é substituído por equipamento_id.
             $recurso_producao = RecursosProducao::create($request->all());
 
-            $saida_produto = new SaidaProduto();
-            $saida_produto->produto_id = $request->input('produto_id');
-            $saida_produto->recursos_producao_id = $recurso_producao->id;
-            $saida_produto->quantidade = $request->input('quantidade');
-            $saida_produto->motivo = '1';
-            $saida_produto->data = $request['data'];
-            $saida_produto->save();
+            //atualiza o estoque do tanque.
+            $equipamento = Equipamento::find($request->equipamento_id);
+            $equipamento->quant_tanque = $equipamento->quant_tanque - $request->quantidade;
+            $equipamento->save();
 
-            $produto = Produto::find($request->input('produto_id'));
-            $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
-            $produto->save();
+            $consumo = new Consumo();
+            $consumo->recurso_producao_id = $recurso_producao->id;
+            $consumo->equipamento_id = $request->equipamento_id;
+            $consumo->produto_id = $request->produto_id;
+            $consumo->quantidade = $request->quantidade;
+            $consumo->data = $request->data;
+            $consumo->save();
+
+
+            ### Caso o campo controle_saida de equipamentos seja 1 etão nessa etapa é gerada uma saíde de produto
+            $controle_saida = Equipamento::find($request->equipamento_id);
+            $controle_saida=$controle_saida->controle_saida;
+            if ($controle_saida == 1) {
+                $saida_produto = new SaidaProduto();
+                $saida_produto->equipamento_id=$request->equipamento_id;
+                $saida_produto->produto_id = $request->input('produto_id');
+                $saida_produto->recursos_producao_id = $recurso_producao->id;
+                $saida_produto->quantidade = $request->input('quantidade');
+                $saida_produto->motivo = '1';
+                $saida_produto->data = $request['data'];
+                $saida_produto->save();
+                $produto = Produto::find($request->input('produto_id'));
+                $produto->estoque_atual = $produto->estoque_atual - $request->input('quantidade'); // soma estoque antigo com a entrada de produto
+                $produto->save();
+            }
         }
 
         $recursos_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->get();
@@ -563,14 +581,20 @@ class OrdemProducaoController extends Controller
 
     public function destroyRecursoProducao(RecursosProducao $recurso_producao, OrdemProducao $ordem_producao)
     {
-        $saida_produto = SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->first();
+        /* $saida_produto = SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->first();
         if (!empty($saida_produto)) {
-            $saida_produto->delete();
+            $saida_produto->delete(); */
 
-            $produto = Produto::find($saida_produto->produto_id);
+        /* $produto = Produto::find($saida_produto->produto_id);
             $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
-            $produto->save();
-        }
+            $produto->save(); */
+        $consumo = Consumo::where('recurso_producao_id', $recurso_producao->id);
+        $consumo->delete();
+
+        $equipamento = Equipamento::find($recurso_producao->equipamento_id);
+        $equipamento->quant_tanque = $equipamento->quant_tanque + $recurso_producao->quantidade;
+        $equipamento->save();
+
         $recurso_producao->delete();
         return redirect()->route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id, 'tab_active' => 'recursos']);
     }

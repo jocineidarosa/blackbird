@@ -61,21 +61,8 @@
         <div class="card-header-template">
             <div><i class="icofont-list mr-2"></i>LISTAGEM DE ABASTECIMENTOS</div>
             <form id="formSearchingProducts" action="{{route('abastecimento.index')}}" method="get">
-                <!--input box filtro buscar abastecimento--------->
-                {{-- <input type="text" id="query" name="abastecimento" placeholder="Buscar abastecimento..." aria-label="Search through site content"> --}}
-                    <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
-    
-                    <div class="col-md-6">
-                        <select name="filtro_equipamento" id="" class="form-control-template">
-                            <option value=""> --Selecione a marca--</option>
-                            @foreach ($equipamentos as $equipamento)
-                                <option value="{{ $equipamento->id }}"
-                                    {{ ($abastecimento->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
-                                    {{ $equipamento->nome }}</option>
-                            @endforeach
-                        </select>
-                        {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
-                    </div>
+                <!--input box filtro buscar produto--------->
+                <input type="text" id="query" name="filtro_equipamento" placeholder="Buscar Equipamento..." aria-label="Search through site content">
                 <button type="submit">
                     <i class="icofont-search"></i>
                 </button>
@@ -108,8 +95,8 @@
                     @foreach ($abastecimentos as $abastecimento)
                         <tr>
                             <th scope="row">{{ $abastecimento->id }}</td>
-                            <td>{{ $abastecimento->equipamento->nome }}</td>
-                            <td>{{ $abastecimento->produto->nome}}</td>
+                            <td>{{ $abastecimento->equipamento }}</td>
+                            <td>{{ $abastecimento->produto}}</td>
                             <td>{{ $abastecimento->quantidade }}</td>
                             <td>{{ Carbon\Carbon::parse($abastecimento->data)->format('d/m/Y') }}</td>
                             <td>

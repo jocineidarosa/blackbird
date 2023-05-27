@@ -14,7 +14,10 @@ class AlterEquipamentosAddControleConsumo extends Migration
     public function up()
     {
         Schema::table('equipamentos', function(Blueprint $table){
-            $table->boolean('controle_consumo')->nullable();
+            $table->boolean('controle_consumo')->nullable()->comment('consumo automático e saida automatico');
+            $table->double('quant_tanque', 10,2)->comment('quantidade de combustivel no tanque');
+            $table->double('capacidade_tanque',10,2)->nullable();
+            $table->boolean('controle_saida')->nullable()->comment('cadastra saida ao criar consumo');
         });
     }
 
@@ -25,9 +28,11 @@ class AlterEquipamentosAddControleConsumo extends Migration
      */
     public function down()
     {
-        Schema::table('equipamentos', function(Blueprint $table){
-            
+        Schema::table('equipamentos', function(Blueprint $table){       
             $table->dropColumn('controle_consumo');
+            $table->dropColumn('quant_tanque');
+            $table->dropColumn('capacidade_tanque');
+            $table->dropColumn('controle_saida');
         });
     }
 }
