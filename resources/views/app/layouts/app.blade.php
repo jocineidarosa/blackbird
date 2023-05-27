@@ -27,7 +27,7 @@
         </div>
     </main>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-{{--     <script src="{{ asset('js/innout.js') }}"></script> --}}
+    <script src="{{ asset('js/innout.js') }}"></script>
     {{-- <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script> --}}
 
 </body>

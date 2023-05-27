@@ -9,10 +9,10 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <hr class="dropdown-divider bg-light" />
                     </li>
-{{-- SUPRIMENTOS --}}
+                    {{-- SUPRIMENTOS --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#suprimentos">
                             <span class="me-3"><i class="bi bi-cart-plus"></i></span>
@@ -58,7 +58,7 @@
                                     </a>
                                 </li>
 
-                                
+
                                 <li>
                                     <a href="{{ route('produto-fornecedor.create') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </li>
-{{-- CADASTRO GERAL --}}
+                    {{-- CADASTRO GERAL --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#cadastroGeral">
                             <span class="me-3"><i class="icofont-hard-disk"></i></span>
@@ -165,7 +165,7 @@
                         </div>
                     </li>
 
-{{-- PRODUÇÃO --}}
+                    {{-- PRODUÇÃO --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#producao">
                             <span class="me-3"><i class="icofont-industries-5"></i></span>
@@ -214,7 +214,7 @@
                             </ul>
                         </div>
                     </li>
-{{-- EQUIPAMENTOS --}}
+                    {{-- EQUIPAMENTOS --}}
 
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#equipamentos">
@@ -252,29 +252,29 @@
                     </li>
 
                     @can('admin')
-{{-- CONFIGURAÇÕES --}}   
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#configuracoes">
-                            <span class="me-3"><i class="icofont-settings"></i></span>
-                            <span>Configuracoes</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
+                        {{-- CONFIGURAÇÕES --}}
+                        <li>
+                            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#configuracoes">
+                                <span class="me-3"><i class="icofont-settings"></i></span>
+                                <span>Configuracoes</span>
+                                <span class="ms-auto">
+                                    <span class="right-icon">
+                                        <i class="bi bi-chevron-down"></i>
+                                    </span>
                                 </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="configuracoes">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="{{ route('user.index') }}" class="nav-link px-3">
-                                        <span class="me-2"></span>
-                                        <span>Usuários</span>
-                                    </a>
-                                </li>
+                            </a>
+                            <div class="collapse" id="configuracoes">
+                                <ul class="navbar-nav ps-3">
+                                    <li>
+                                        <a href="{{ route('user.index') }}" class="nav-link px-3">
+                                            <span class="me-2"></span>
+                                            <span>Usuários</span>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </div>
-                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     @endcan
 
                 </ul>

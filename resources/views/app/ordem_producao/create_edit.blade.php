@@ -4,8 +4,8 @@
 
 @section('content')
     @php
-        if(!isset($tab_active)){
-            $tab_active='';
+        if (!isset($tab_active)) {
+            $tab_active = '';
         }
     @endphp
 
@@ -22,22 +22,26 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a href="#dados_principais" class="nav-link {{$tab_active == '' ? 'active' : ''}} mr-1" id="dados_principais_tab" data-bs-toggle="tab"
-                        role="tab" aria-controls="dados_principais">Dados Principais</a>
+                    <a href="#dados_principais" class="nav-link {{ $tab_active == '' ? 'active' : '' }} mr-1"
+                        id="dados_principais_tab" data-bs-toggle="tab" role="tab" aria-controls="dados_principais">Dados
+                        Principais</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#recursos" class="nav-link {{$tab_active == 'recursos' ? 'active' : ''}} mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
+                    <a href="#recursos"
+                        class="nav-link {{ $tab_active == 'recursos' ? 'active' : '' }} mr-1 {{ isset($ordem_producao) ? '' : 'disabled' }}"
                         id="recursos_tab" data-bs-toggle="tab" role="tab" aria-controls="recursos">Recursos</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#paradas_equip" class="nav-link {{$tab_active == 'stop' ? 'active' : ''}} mr-1 {{isset($active_stop)? $active_stop : ''}} {{ isset($ordem_producao) ? '' : 'disabled' }}"
+                    <a href="#paradas_equip"
+                        class="nav-link {{ $tab_active == 'stop' ? 'active' : '' }} mr-1 {{ isset($active_stop) ? $active_stop : '' }} {{ isset($ordem_producao) ? '' : 'disabled' }}"
                         id="paradas_equip_tab" data-bs-toggle="tab" role="tab" aria-controls="paradas_equip">
                         Paradas de
                         Equipamentos</a>
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <a href="#produto_obra" class="nav-link {{$tab_active == 'product' ? 'active' : ''}} mr-1 {{isset($active_exit)? $active_exit : ''}} {{ isset($ordem_producao) ? '' : 'disabled' }}"
+                    <a href="#produto_obra"
+                        class="nav-link {{ $tab_active == 'product' ? 'active' : '' }} mr-1 {{ isset($active_exit) ? $active_exit : '' }} {{ isset($ordem_producao) ? '' : 'disabled' }}"
                         id="produto_obra_tab" data-bs-toggle="tab" role="tab" aria-controls="produto_obra">Saída de
                         Produto para Obra</a>
                 </li>
@@ -100,7 +104,7 @@
             })
 
             /* Busca o estoque atual do produto */
-            $('#produto_id').change(function() {
+     /*        $('#produto_id').change(function() {
                 var produto_id = $('#produto_id option:selected').val();
                 var table = 'produtos';
                 $.ajax({
@@ -117,12 +121,35 @@
                     }
                 })
 
+            }) */
+
+
+
+
+            /* Busca o o estoque do tanque de combustivel do equipamento */
+            $('#equipamento_recursos').change(function() {
+                var equipamento_id = $('#equipamento_recursos option:selected').val();
+                var table = 'equipamentos';
+                $.ajax({
+                    url: "{{ route('utils.get-quant-tanque') }}",
+                    type: "get",
+                    data: {
+                        "equipamento_id": equipamento_id,
+                        "table": table
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        var quant_tanque = JSON.stringify(response.quant_tanque);
+                        $("#estoque_atual").val(quant_tanque);
+                    }
+                })
+
             })
 
             /* Busca o horímetro inicial do equipamento principal*/
             $('#equipamento_id').change(function() {
                 var equipamento_id = $("#equipamento_id option:selected").val();
-                $("#horimetro_inicial").val('');
+                $("#horimetro_inicial").val('');//limpa horímetro inicial
                 $.ajax({
                     url: "{{ route('utils.get-horimetro-inicial') }}",
                     type: "get",

@@ -124,9 +124,19 @@ Route::middleware('auth')->get('utils/get-estoque-final','App\Http\Controllers\U
 Route::middleware('auth')->get('utils/get-estoque-atual','App\Http\Controllers\UtilsController@getEstoqueAtual'
 )->name('utils.get-estoque-atual');
 
+//busca quantidade no tanque do equipamento
+Route::middleware('auth')->get('utils/get-quant-tanque','App\Http\Controllers\UtilsController@getQuantTanque'
+)->name('utils.get-quant-tanque');
+
+
 //busca cidades
 Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
 )->name('utils.get-cidade');
+
+//busca cidades
+Route::middleware('auth')->get('utils/cria-consumo','App\Http\Controllers\UtilsController@criaConsumo'
+)->name('utils.cria-consumo');
+
 
 /* ajax-------------------------------------------------- */
 

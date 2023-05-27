@@ -268,10 +268,10 @@ class OrdemProducaoController extends Controller
 
             ### Caso o campo controle_saida de equipamentos seja 1 etão nessa etapa é gerada uma saíde de produto
             $controle_saida = Equipamento::find($request->equipamento_id);
-            $controle_saida=$controle_saida->controle_saida;
-            if ($controle_saida == 1) {
+            $controle_saida = $controle_saida->controle_saida;
+            if ($controle_saida == 0) {
                 $saida_produto = new SaidaProduto();
-                $saida_produto->equipamento_id=$request->equipamento_id;
+                $saida_produto->equipamento_id = $request->equipamento_id;
                 $saida_produto->produto_id = $request->input('produto_id');
                 $saida_produto->recursos_producao_id = $recurso_producao->id;
                 $saida_produto->quantidade = $request->input('quantidade');
@@ -581,13 +581,15 @@ class OrdemProducaoController extends Controller
 
     public function destroyRecursoProducao(RecursosProducao $recurso_producao, OrdemProducao $ordem_producao)
     {
-        /* $saida_produto = SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->first();
+        $saida_produto = SaidaProduto::where('recursos_producao_id', $recurso_producao->id)->first();
         if (!empty($saida_produto)) {
-            $saida_produto->delete(); */
+            $saida_produto->delete();
 
-        /* $produto = Produto::find($saida_produto->produto_id);
+            $produto = Produto::find($saida_produto->produto_id);
             $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
-            $produto->save(); */
+            $produto->save();
+        }
+
         $consumo = Consumo::where('recurso_producao_id', $recurso_producao->id);
         $consumo->delete();
 
