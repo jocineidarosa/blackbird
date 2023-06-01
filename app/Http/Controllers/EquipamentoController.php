@@ -16,12 +16,19 @@ class EquipamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $equipamentos = Equipamento::orderBy('nome')->paginate(12);
+
+        if($request->filtro_equipamento){
+            $equipamentos=Equipamento::where('nome', 'like','%'. $request->filtro_equipamento . '%')->paginate(12);
+        }else{
+           $equipamentos=Equipamento::orderBy('nome', 'asc')->paginate(12); 
+        }
         return view('app.equipamento.index', 
         [
             'equipamentos' => $equipamentos,
             'request'=>$request->all()
         ]);
+
+
     }
 
     /**

@@ -1,10 +1,10 @@
 @if (isset($equipamento->id))
-<form action="{{ route('equipamento.update', ['equipamento' => $equipamento->id]) }}" method="POST">
-    @csrf
-    @method('PUT')
-@else
-    <form action="{{ route('equipamento.store') }}" method="POST">
+    <form action="{{ route('equipamento.update', ['equipamento' => $equipamento->id]) }}" method="POST">
         @csrf
+        @method('PUT')
+    @else
+        <form action="{{ route('equipamento.store') }}" method="POST">
+            @csrf
 @endif
 
 <div class="row mb-1">
@@ -12,8 +12,8 @@
 
     <div class="col-md-6">
         <input id="nome" type="text" class="form-control-template" name="nome"
-            value="{{$equipamento->nome ?? old('nome') }}" required autocomplete="nome" autofocus>
-            {{ $errors->has('nome') ? $errors->first('nome') : '' }}
+            value="{{ $equipamento->nome ?? old('nome') }}" required autocomplete="nome" autofocus>
+        {{ $errors->has('nome') ? $errors->first('nome') : '' }}
     </div>
 </div>
 
@@ -22,8 +22,8 @@
 
     <div class="col-md-6">
         <input id="descricao" name="descricao" type="text" class="form-control-template" descricao="descricao"
-            value="{{$equipamento->descricao?? old('descricao') }}" required autocomplete="descricao" autofocus>
-            {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}                            
+            value="{{ $equipamento->descricao ?? old('descricao') }}" required autocomplete="descricao" autofocus>
+        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
     </div>
 </div>
 
@@ -34,12 +34,13 @@
         <select name="marca_id" id="" class="form-control-template">
             <option value=""> --Selecione a marca--</option>
             @foreach ($marcas as $marca)
-                <option value="{{$marca->id}}"
-                    {{ ($equipamento->marca_id ?? old('marca_id')) == $marca->id ? 'selected' : '' }}>{{$marca->nome}}
+                <option value="{{ $marca->id }}"
+                    {{ ($equipamento->marca_id ?? old('marca_id')) == $marca->id ? 'selected' : '' }}>
+                    {{ $marca->nome }}
                 </option>
             @endforeach
         </select>
-        {{ $errors->has('marca_id') ? $errors->first('marca_id') : '' }} 
+        {{ $errors->has('marca_id') ? $errors->first('marca_id') : '' }}
     </div>
 </div>
 
@@ -48,8 +49,8 @@
 
     <div class="col-md-6">
         <input id="modelo" name="modelo" type="text" class="form-control-template"
-            value="{{$equipamento->modelo?? old('modelo') }}" >
-            {{ $errors->has('modelo') ? $errors->first('modelo') : '' }}                            
+            value="{{ $equipamento->modelo ?? old('modelo') }}">
+        {{ $errors->has('modelo') ? $errors->first('modelo') : '' }}
     </div>
 </div>
 
@@ -57,9 +58,9 @@
     <label for="potencia" class="col-md-4 col-form-label text-md-end">Potência</label>
 
     <div class="col-md-6">
-        <input id="potencia" name="potencia" type="text" class="form-control-template" 
-            value="{{$equipamento->potencia?? old('potencia') }}" >
-            {{ $errors->has('potencia') ? $errors->first('potencia') : '' }}                            
+        <input id="potencia" name="potencia" type="text" class="form-control-template"
+            value="{{ $equipamento->potencia ?? old('potencia') }}">
+        {{ $errors->has('potencia') ? $errors->first('potencia') : '' }}
     </div>
 </div>
 
@@ -68,8 +69,8 @@
 
     <div class="col-md-6">
         <input id="tipo_potencia" name="tipo_potencia" type="text" class="form-control-template"
-            value="{{$equipamento->tipo_potencia?? old('tipo_potencia') }}" >
-            {{ $errors->has('tipo_potencia') ? $errors->first('tipo_potencia') : '' }}                            
+            value="{{ $equipamento->tipo_potencia ?? old('tipo_potencia') }}">
+        {{ $errors->has('tipo_potencia') ? $errors->first('tipo_potencia') : '' }}
     </div>
 </div>
 
@@ -78,8 +79,8 @@
 
     <div class="col-md-6">
         <input id="data_fabricacao" name="data_fabricacao" type="date" class="form-control-template"
-            value="{{$equipamento->data_fabricacao?? old('data_fabricacao') }}" >
-            {{ $errors->has('data_fabricacao') ? $errors->first('data_fabricacao') : '' }}                            
+            value="{{ $equipamento->data_fabricacao ?? old('data_fabricacao') }}">
+        {{ $errors->has('data_fabricacao') ? $errors->first('data_fabricacao') : '' }}
     </div>
 </div>
 
@@ -90,12 +91,13 @@
         <select name="combustivel" id="" class="form-control-template">
             <option value=""> --Selecione a combustivel--</option>
             @foreach ($produtos as $produto)
-                <option value="{{$produto->id}}"
-                    {{ ($equipamento->combustivel ?? old('combustivel')) == $produto->id ? 'selected' : '' }}>{{$produto->nome}}
+                <option value="{{ $produto->id }}"
+                    {{ ($equipamento->combustivel ?? old('combustivel')) == $produto->id ? 'selected' : '' }}>
+                    {{ $produto->nome }}
                 </option>
             @endforeach
         </select>
-        {{ $errors->has('combustivel') ? $errors->first('combustivel') : '' }} 
+        {{ $errors->has('combustivel') ? $errors->first('combustivel') : '' }}
     </div>
 </div>
 
@@ -110,25 +112,51 @@
         <select name="equipamento_pai" id="" class="form-control-template">
             <option value=""> --Selecione o equipamento_pai--</option>
             @foreach ($equipamentos as $equipment)
-                <option value="{{$equipment->id}}"  {{ ($equipamento->equipamento_pai ?? old('equipamento_pai')) == $equipment->id ? 'selected' : '' }}>{{$equipment->nome}}</option>
+                <option value="{{ $equipment->id }}"
+                    {{ ($equipamento->equipamento_pai ?? old('equipamento_pai')) == $equipment->id ? 'selected' : '' }}>
+                    {{ $equipment->nome }}</option>
             @endforeach
         </select>
-        {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }} 
+        {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
 </div>
 
 <div class="row mb-1">
-    <label for="controle_consumo" class="col-md-4 col-form-label text-md-end">Consumo(AUTO)</label>
+    <label for="controle_consumo" class="col-md-4 col-form-label text-md-end">Consumo ao abastecer?</label>
 
     <div class="col-md-6">
-        <input id="controle_consumo" name="controle_consumo" type="checkbox" class="form-control-template"
-            value="{{$equipamento->controle_consumo?? old('controle_consumo') }}" >
-            {{ $errors->has('controle_consumo') ? $errors->first('controle_consumo') : '' }}                            
+        <select name="controle_consumo" id="" class="form-control-template">
+            <option value="1">SIM</option>
+            <option value="0">NÃO</option>
+        </select>
+        {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
 </div>
 
 
-<div class="row mb-0">
+<div class="row mb-1">
+    <label for="capacidade_tanque" class="col-md-4 col-form-label text-md-end">Capacidade do Tanque</label>
+    <div class="col-md-6">
+        <input id="capacidade_tanque" name="capacidade_tanque" type="text" class="form-control-template"
+            value="{{ $equipamento->capacidade_tanque ?? old('capacidade_tanque') }}">
+        {{ $errors->has('capacidade_tanque') ? $errors->first('capacidade_tanque') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="controle_saida" class="col-md-4 col-form-label text-md-end">Saída ao abastecer?</label>
+
+    <div class="col-md-6">
+        <select name="controle_saida" id="" class="form-control-template">
+            <option value="0">SIM</option>
+            <option value="1">NÂO</option>  
+        </select>
+        {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
+    </div>
+</div>
+
+
+<div class="row mb-1">
     <div class="col-md-6 offset-md-4">
         <button type="submit" class="btn btn-primary">
             {{ isset($equipamento) ? 'Atualizar' : 'Cadastrar' }}
@@ -136,4 +164,3 @@
     </div>
 </div>
 </form>
-

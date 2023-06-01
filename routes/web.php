@@ -133,9 +133,29 @@ Route::middleware('auth')->get('utils/get-quant-tanque','App\Http\Controllers\Ut
 Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
 )->name('utils.get-cidade');
 
-//busca cidades
+//cria consumos
 Route::middleware('auth')->get('utils/cria-consumo','App\Http\Controllers\UtilsController@criaConsumo'
 )->name('utils.cria-consumo');
+
+//atualiza entradas caldeira
+Route::middleware('auth')->get('utils/update-entrada-diesel','App\Http\Controllers\UtilsController@modificaEntradaDiesel'
+)->name('utils.update-entrada-diesel');
+
+//atualiza entradas cap
+Route::middleware('auth')->get('utils/update-entrada-cap','App\Http\Controllers\UtilsController@modificaEntradaCap'
+)->name('utils.update-entrada-diesel');
+
+//atualiza entradas combustivel
+Route::middleware('auth')->get('utils/update-entrada-comb','App\Http\Controllers\UtilsController@modificaEntradaComb'
+)->name('utils.update-entrada-diesel');
+
+//atualiza add abast diesel
+Route::middleware('auth')->get('utils/add-abast-diesel','App\Http\Controllers\UtilsController@addAbastDiesel'
+)->name('utils.add-abast-diesel');
+
+//deletaEntradaDiesel
+Route::middleware('auth')->get('utils/deleta-entrada-diesel','App\Http\Controllers\UtilsController@deletaEntradaDiesel'
+);
 
 
 /* ajax-------------------------------------------------- */

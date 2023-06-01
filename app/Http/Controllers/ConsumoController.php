@@ -12,10 +12,10 @@ class ConsumoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $consumos=Consumo::all();
-        return view('app.consumo.index', ['consumos'=>$consumos]);
+        $consumos=Consumo::orderBy('data', 'desc')->paginate(12);
+        return view('app.consumo.index', ['consumos'=>$consumos, 'request'=>$request->all()]);
     }
 
     /**

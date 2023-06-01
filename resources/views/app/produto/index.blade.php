@@ -2,60 +2,6 @@
 @section('titulo', 'Produtos')
 
 @section('content')
-    <!---estilização do input box buscar produtos---->
-    <style>
-        #formSearchingProducts {
-            background-color: white;
-            width: 50%;
-            height: 30px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        input {
-            all: unset;
-            font: 16px;
-            color: rgb(52, 52, 53);
-            height: 100%;
-            width: 100%;
-            padding: 6px 10px;
-        }
-
-        ::placeholder {
-            color: rgb(132, 134, 141);
-            opacity: 0.9;
-        }
-
-
-        button {
-            all: unset;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-        }
-
-
-        thead {
-            background-color: rgb(169, 169, 169);
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 3px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-
-        tr:hover {
-            background-color: rgb(169, 169, 169);
-        }
-    </style>
     <!-------------------------------------------------------------------------->
     <div class="card">
         <div class="card-header-template">
@@ -63,7 +9,7 @@
             <form id="formSearchingProducts" action="{{route('produto.index')}}" method="get">
                 <!--input box filtro buscar produto--------->
                 <input type="text" id="query" name="produto" placeholder="Buscar produto..." aria-label="Search through site content">
-                <button type="submit">
+                <button type="submit" class="button-search">
                     <i class="icofont-search"></i>
                 </button>
             </form>

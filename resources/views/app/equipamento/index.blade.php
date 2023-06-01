@@ -5,6 +5,13 @@
         <div class="card">
             <div class="card-header-template">
                 <div>LISTAGEM DE EQUIPAMENTOS</div>
+                <form id="formSearchingProducts" action="{{route('equipamento.index')}}" method="get">
+                    <!--input box filtro buscar produto--------->
+                    <input type="text" id="query" name="filtro_equipamento" placeholder="Nome do Equipamento..." aria-label="Search through site content">
+                    <button type="submit" class="button-search">
+                        <i class="icofont-search"></i>
+                    </button>
+                </form>
                 <div>
                     <a class="btn btn-sm btn-primary" href="{{ route('equipamento.create') }}" class="btn">
                         NOVO

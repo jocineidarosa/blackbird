@@ -1,36 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
 body,
 button {
   font-family: "Inter", sans-serif;
 }
+
 :root {
   --offcanvas-width: 270px;
   --topNavbarHeight: 56px;
 }
+
 .sidebar-nav {
   width: var(--offcanvas-width);
 }
+
 .sidebar-link {
   display: flex;
   align-items: center;
 }
+
 .sidebar-link .right-icon {
   display: inline-flex;
 }
+
 .sidebar-link[aria-expanded="true"] .right-icon {
   transform: rotate(180deg);
 }
+
 @media (min-width: 992px) {
   body {
     overflow: auto !important;
   }
+
   main {
     margin-left: var(--offcanvas-width);
   }
+
   /* this is to remove the backdrop */
   .offcanvas-backdrop::before {
     display: none;
   }
+
   .sidebar-nav {
     -webkit-transform: none;
     transform: none;
@@ -38,4 +48,58 @@ button {
     height: calc(100% - var(--topNavbarHeight));
     top: var(--topNavbarHeight);
   }
+}
+
+
+
+#formSearchingProducts {
+  background-color: white;
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input {
+  all: unset;
+  font: 16px;
+  color: rgb(52, 52, 53);
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+::placeholder {
+  color: rgb(132, 134, 141);
+  opacity: 0.9;
+}
+
+
+.button-search {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+
+thead {
+  background-color: rgb(169, 169, 169);
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 3px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:hover {
+  background-color: rgb(169, 169, 169);
 }

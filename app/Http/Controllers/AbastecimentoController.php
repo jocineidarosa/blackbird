@@ -64,7 +64,7 @@ class AbastecimentoController extends Controller
         $controle_consumo = $controle->controle_consumo;
         $controle_saida = $controle->controle_saida;
         
-        if ($controle_saida == 1) {
+        if ($controle_saida == 0) {
             $saida_produto = new SaidaProduto();
             $saida_produto->equipamento_id = $request->equipamento_id;
             $saida_produto->produto_id = $request->produto_id;

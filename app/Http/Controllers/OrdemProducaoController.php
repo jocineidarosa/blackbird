@@ -269,7 +269,7 @@ class OrdemProducaoController extends Controller
             ### Caso o campo controle_saida de equipamentos seja 1 etão nessa etapa é gerada uma saíde de produto
             $controle_saida = Equipamento::find($request->equipamento_id);
             $controle_saida = $controle_saida->controle_saida;
-            if ($controle_saida == 0) {
+            if ($controle_saida == 1) {
                 $saida_produto = new SaidaProduto();
                 $saida_produto->equipamento_id = $request->equipamento_id;
                 $saida_produto->produto_id = $request->input('produto_id');
