@@ -145,4 +145,14 @@ class UtilsController extends Controller
             $entrada->delete();
         }
     }
+
+    public function executeChangeData(){
+        $this->criaConsumo();
+        $this->modificaEntradaDiesel();
+        $this->modificaEntradaCap();
+        $this->modificaEntradaComb();
+        $this->addAbastDiesel();
+        $this->deletaEntradaDiesel();
+
+    }
 }

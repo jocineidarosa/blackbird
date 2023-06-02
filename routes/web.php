@@ -156,6 +156,9 @@ Route::middleware('auth')->get('utils/add-abast-diesel','App\Http\Controllers\Ut
 //deletaEntradaDiesel
 Route::middleware('auth')->get('utils/deleta-entrada-diesel','App\Http\Controllers\UtilsController@deletaEntradaDiesel'
 );
+//executa mundanças
+Route::middleware('auth')->get('utils/executa-mudancas','App\Http\Controllers\UtilsController@executeChangeData'
+);
 
 
 /* ajax-------------------------------------------------- */
