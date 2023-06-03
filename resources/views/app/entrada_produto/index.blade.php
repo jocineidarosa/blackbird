@@ -4,6 +4,13 @@
     <div class="card">
         <div class="card-header-template">
             <div> LISTAGEM DE ENTRADA DE PRODUTOS</div>
+            <form id="formSearchingProducts" action="{{route('entrada-produto.index')}}" method="get">
+                <!--input box filtro buscar produto--------->
+                <input type="text" id="query" name="filtro_produto" placeholder="Buscar produto..." aria-label="Search through site content">
+                <button type="submit" class="button-search">
+                    <i class="icofont-search"></i>
+                </button>
+            </form>
             <div>
                 <a href="{{ route('entrada-produto.create') }}" class="btn btn-sm btn-primary">
                     NOVO
@@ -28,7 +35,7 @@
                         <tr>
                             <th scope="row">{{ $entrada_produto->id }}</td>
                             <td>{{ Carbon\Carbon::parse($entrada_produto->data)->format('d/m/Y') }}</td>
-                            <td>{{ $entrada_produto->produto->nome }}</td>
+                            <td>{{ $entrada_produto->produto }}</td>
                             <td>{{ $entrada_produto->quantidade }}</td>
                             <td>R$ {{ $entrada_produto->preco }}</td>
                             <td>

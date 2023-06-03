@@ -8,6 +8,7 @@ use App\Models\Produto;
 use App\Models\Empresa;
 use App\Models\Fornecedor;
 use Doctrine\DBAL\Types\IntegerType;
+use Illuminate\Support\Facades\DB;
 
 class EntradaProdutoController extends Controller
 {
@@ -18,7 +19,15 @@ class EntradaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $entradas_produtos = EntradaProduto::orderBy('data', 'desc')->paginate(12);
+
+        if($request->filtro_produto){
+            $entradas_produtos=DB::table('produtos as p')->join('entradas_produtos as ep', 'p.id', '=', 'ep.produto_id')
+            ->selectRaw('ep.*, p.nome as produto')->where('p.nome', 'like', '%'.$request->filtro_produto.'%')->orderBy('data', 'desc')->paginate('12');
+        }else{
+            $entradas_produtos=DB::table('produtos as p')->join('entradas_produtos as ep', 'p.id', '=', 'ep.produto_id')
+            ->selectRaw('ep.*, p.nome as produto')->orderBy('data', 'desc')->paginate('12');
+        }
+
         return view('app.entrada_produto.index', [
             'entradas_produtos' => $entradas_produtos,
             'request' => $request->all()

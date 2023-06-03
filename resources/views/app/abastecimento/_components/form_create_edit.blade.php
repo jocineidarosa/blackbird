@@ -16,7 +16,7 @@
                         @foreach ($equipamentos as $equipamento)
                             <option value="{{ $equipamento->id }}"
                                 {{ ($abastecimento->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
-                                {{ $equipamento->nome }}</option>
+                                {{ $equipamento->nome. '    |    '. $equipamento->cod_operacao}}</option>
                         @endforeach
                     </select>
                     {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
@@ -56,6 +56,33 @@
                     <input id="data" name="data" type="date" class="form-control-template"
                         value="{{ $abastecimento->data ?? old('data') }}" >
                     {{ $errors->has('data') ? $errors->first('data') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
+                <div class="col-md-6">
+                    <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-template"
+                        value="{{ $abastecimento->medidor_inicial ?? old('medidor_inicial') }}" >
+                    {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="medidor_final" class="col-md-4 col-form-label text-md-end text-right">Medidor Final</label>
+                <div class="col-md-6">
+                    <input id="medidor_final" name="medidor_final" type="text" class="form-control-template"
+                        value="{{ $abastecimento->medidor_final ?? old('medidor_final') }}" >
+                    {{ $errors->has('medidor_final') ? $errors->first('medidor_final') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro</label>
+                <div class="col-md-6">
+                    <input id="horimetro" name="horimetro" type="text" class="form-control-template"
+                        value="{{ $abastecimento->horimetro ?? old('horimetro') }}" >
+                    {{ $errors->has('horimetro') ? $errors->first('horimetro') : '' }}
                 </div>
             </div>
 

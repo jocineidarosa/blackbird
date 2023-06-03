@@ -15,7 +15,7 @@ class CreateConsumosTable extends Migration
     {
         Schema::create('consumos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('recurso_producao_id');
+            $table->unsignedBigInteger('recurso_producao_id')->nullable();
             $table->foreign('recurso_producao_id')->references('id')->on('recursos_producao');
             $table->unsignedBigInteger('equipamento_id');
             $table->foreign('equipamento_id')->references('id')->on('equipamentos');

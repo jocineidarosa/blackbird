@@ -10,7 +10,7 @@ use App\Models\Equipamento;
 class Consumo extends Model
 {
     use HasFactory;
-    protected $fillable=['equipamento_id', 'produto_id', 'quantidade', 'data'];
+    protected $fillable=['recurso_producao_id, equipamento_id', 'produto_id', 'quantidade', 'data'];
 
     public function produto(){
        return $this->belongsTo(Produto::class);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\SaidaProduto;
 use App\Models\MotivoSaidaProduto;
+use Illuminate\Support\Facades\DB;
 
 class SaidaProdutoController extends Controller
 {
@@ -17,7 +18,17 @@ class SaidaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $saidas_produtos = SaidaProduto::orderBy('data', 'desc')->paginate(12);
+
+        if($request->filtro_produto){
+            $saidas_produtos=DB::table('produtos as p')->join('saidas_produtos as sp', 'p.id', '=', 'sp.produto_id')
+            ->join('motivo_saidas_produto as ms', 'ms.id', '=' ,'sp.motivo' )
+            ->selectRaw('sp.*, p.nome as produto, ms.motivo as motivo')->where('p.nome', 'like', '%'.$request->filtro_produto.'%')->orderBy('data', 'desc')->paginate('12');
+        }else{
+            $saidas_produtos=DB::table('produtos as p')->join('saidas_produtos as sp', 'p.id', '=', 'sp.produto_id')
+            ->join('motivo_saidas_produto as ms', 'ms.id', '=' ,'sp.motivo' )
+            ->selectRaw('sp.*, p.nome as produto, ms.motivo as motivo')->orderBy('data', 'desc')->paginate('12');
+        }
+
         return view('app.saida_produto.index', [
             'saidas_produtos' => $saidas_produtos,
             'request' => $request->all()

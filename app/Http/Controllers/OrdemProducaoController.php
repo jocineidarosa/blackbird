@@ -559,11 +559,17 @@ class OrdemProducaoController extends Controller
             $saida_produto = SaidaProduto::where('recursos_producao_id', $recurso->id)->first();
             if (!empty($saida_produto)) {
                 $saida_produto->delete();
-
-
                 $produto = Produto::find($saida_produto->produto_id);
                 $produto->estoque_atual = $produto->estoque_atual + $saida_produto->quantidade;
                 $produto->save();
+            }
+
+            $consumo=Consumo::where('recurso_producao_id', $recurso->id)->first();
+            if(!empty($consumo)){
+                $consumo->delete();
+                $equipamento=Equipamento::find($recurso->equipamento_id);
+                $equipamento->quant_tanque= $equipamento->quant_tanque + $recurso->quantidade;
+                $equipamento->save();
             }
         }
         $recurso_producao = RecursosProducao::where('ordem_producao_id', $ordem_producao->id)->delete();

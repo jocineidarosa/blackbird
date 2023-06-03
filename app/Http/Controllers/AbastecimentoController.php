@@ -45,8 +45,8 @@ class AbastecimentoController extends Controller
      */
     public function create()
     {
-        $equipamentos = Equipamento::all();
-        $produtos = Produto::all();
+        $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
+        $produtos = Produto::orderBy('nome', 'asc')->get();
         return view('app.abastecimento.create', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
     }
 
@@ -81,7 +81,12 @@ class AbastecimentoController extends Controller
 
 
         if ($controle_consumo == 1) {
-            Consumo::create($request->all());
+            $consumo= new Consumo();
+            $consumo->equipamento_id= $request->equipamento_id;
+            $consumo->produto_id= $request->produto_id;
+            $consumo->quantidade= $request->quantidade;
+            $consumo->data= $request->data;
+            $consumo->save();
         } else {
             $equipamento = Equipamento::find($request->equipamento_id);
             $equipamento->quant_tanque = $equipamento->quant_tanque + $request->quantidade;
