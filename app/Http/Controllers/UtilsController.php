@@ -153,6 +153,7 @@ class UtilsController extends Controller
         $this->modificaEntradaComb();
         $this->addAbastDiesel();
         $this->deletaEntradaDiesel();
+        echo'Executado com exito!';
 
     }
 }

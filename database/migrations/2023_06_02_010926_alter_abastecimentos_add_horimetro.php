@@ -17,6 +17,8 @@ class AlterAbastecimentosAddHorimetro extends Migration
             $table->double('medidor_inicial')->nullable();
             $table->double('medidor_final')->nullable();
             $table->double('horimetro')->nullable();
+            $table->unsignedBigInteger('consumo_id')->nullable();
+            $table->foreign('consumo_id')->references('id')->on('consumos');
         });
     }
 
@@ -31,6 +33,8 @@ class AlterAbastecimentosAddHorimetro extends Migration
             $table->dropColumn('medidor_inicial');
             $table->dropColumn('medidor_final');
             $table->dropColumn('horimetro');
+            $table->dropForeign('abastecimentos_consumo_id_foreign');
+            $table->dropColumn('consumo_id');
         });
     }
 }

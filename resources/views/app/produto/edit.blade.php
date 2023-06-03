@@ -1,7 +1,3 @@
-
-
-
-
 @extends('app.layouts.app')
 
 @section('titulo', 'Produtos')
@@ -37,6 +33,10 @@
 
 
 @endsection
+
+
+
+
 
 
 
