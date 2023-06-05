@@ -65,6 +65,7 @@ class EntradaProdutoController extends Controller
         return redirect()->route('entrada-produto.index');
     }
 
+
     /**
      * Display the specified resource.
      *

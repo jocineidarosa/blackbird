@@ -59,27 +59,10 @@ class AbastecimentoController extends Controller
      */
     public function store(Request $request)
     {
-        Abastecimento::create($request->all());
 
         $controle = Equipamento::find($request->equipamento_id);
         $controle_consumo = $controle->controle_consumo;
         $controle_saida = $controle->controle_saida;
-        
-        if ($controle_saida == 0) {
-            $saida_produto = new SaidaProduto();
-            $saida_produto->equipamento_id = $request->equipamento_id;
-            $saida_produto->produto_id = $request->produto_id;
-            $saida_produto->quantidade = $request->quantidade;
-            $saida_produto->motivo = '1';
-            $saida_produto->data = $request->data;
-            $saida_produto->save();
-
-            $produto = Produto::find($request->produto_id);
-            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
-            $produto->save();
-        }
-
-
 
         if ($controle_consumo == 1) {
             $consumo= new Consumo();
@@ -88,11 +71,30 @@ class AbastecimentoController extends Controller
             $consumo->quantidade= $request->quantidade;
             $consumo->data= $request->data;
             $consumo->save();
+            $request['consumo_id']=$consumo->id;
         } else {
             $equipamento = Equipamento::find($request->equipamento_id);
             $equipamento->quant_tanque = $equipamento->quant_tanque + $request->quantidade;
             $equipamento->save();
         }
+        
+        if ($controle_saida == 0) {
+            $saida_produto = new SaidaProduto();
+            $saida_produto->equipamento_id = $request->equipamento_id;
+            $saida_produto->produto_id = $request->produto_id;
+            $saida_produto->quantidade = $request->quantidade;
+            $saida_produto->motivo = '1';
+            $saida_produto->data = $request->data;
+            $saida_produto->consumo_id=$consumo->id;
+            $saida_produto->save();
+
+            $produto = Produto::find($request->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
+            $produto->save();
+        }
+
+
+        Abastecimento::create($request->all());
 
 
         return redirect()->route('abastecimento.index');
@@ -132,29 +134,12 @@ class AbastecimentoController extends Controller
      */
     public function update(Request $request, Abastecimento $abastecimento)
     {
-        $abastecimento->update($request->all());
         $controle = Equipamento::find($request->equipamento_id);
         $controle_consumo = $controle->controle_consumo;
         $controle_saida = $controle->controle_saida;
-        
-        if ($controle_saida == 0) {
-            $saida_produto = new SaidaProduto();
-            $saida_produto->equipamento_id = $request->equipamento_id;
-            $saida_produto->produto_id = $request->produto_id;
-            $saida_produto->quantidade = $request->quantidade;
-            $saida_produto->motivo = '1';
-            $saida_produto->data = $request->data;
-            $saida_produto->save();
-
-            $produto = Produto::find($request->produto_id);
-            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
-            $produto->save();
-        }
-
-
 
         if ($controle_consumo == 1) {
-            $consumo= new Consumo();
+            $consumo=Consumo::find($abastecimento->consumo_id);
             $consumo->equipamento_id= $request->equipamento_id;
             $consumo->produto_id= $request->produto_id;
             $consumo->quantidade= $request->quantidade;
@@ -165,7 +150,26 @@ class AbastecimentoController extends Controller
             $equipamento->quant_tanque = $equipamento->quant_tanque + $request->quantidade;
             $equipamento->save();
         }
+        
+        if ($controle_saida == 0) {
+                        
+            $saida_produto = SaidaProduto::where('consumo_id', $consumo->id);
 
+            $diferenca_atualizada=$request->quantidade - $saida_produto->quantidade;
+            $produto = Produto::find($request->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual + $request->quantidade; // soma estoque antigo com a entrada de produto
+            $produto->save();
+
+            $saida_produto->equipamento_id = $request->equipamento_id;
+            $saida_produto->produto_id = $request->produto_id;
+            $saida_produto->quantidade = $request->quantidade;
+            $saida_produto->motivo = '1';
+            $saida_produto->data = $request->data;
+            $saida_produto->save();
+
+        }
+
+        $abastecimento->update($request->all());
 
         return redirect()->route('abastecimento.index');
     }

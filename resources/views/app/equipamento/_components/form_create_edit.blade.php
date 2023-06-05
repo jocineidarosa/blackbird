@@ -75,10 +75,10 @@
 </div>
 
 <div class="row mb-1">
-    <label for="data_fabricacao" class="col-md-4 col-form-label text-md-end">Data de Fabricação</label>
+    <label for="data_fabricacao" class="col-md-4 col-form-label text-md-end">Ano Fabricação</label>
 
     <div class="col-md-6">
-        <input id="data_fabricacao" name="data_fabricacao" type="date" class="form-control-template"
+        <input id="data_fabricacao" name="data_fabricacao" type="text" class="form-control-template"
             value="{{ $equipamento->data_fabricacao ?? old('data_fabricacao') }}">
         {{ $errors->has('data_fabricacao') ? $errors->first('data_fabricacao') : '' }}
     </div>
@@ -152,6 +152,26 @@
             <option value="1">NÂO</option>  
         </select>
         {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="cod_fiscal" class="col-md-4 col-form-label text-md-end">Código Fiscal</label>
+
+    <div class="col-md-6">
+        <input id="cod_fiscal" name="cod_fiscal" type="text" class="form-control-template"
+            value="{{ $equipamento->cod_fiscal ?? old('cod_fiscal') }}">
+        {{ $errors->has('cod_fiscal') ? $errors->first('cod_fiscal') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="cod_operacao" class="col-md-4 col-form-label text-md-end">Código de Operação</label>
+
+    <div class="col-md-6">
+        <input id="cod_operacao" name="cod_operacao" type="text" class="form-control-template"
+            value="{{ $equipamento->cod_operacao ?? old('cod_operacao') }}">
+        {{ $errors->has('cod_operacao') ? $errors->first('cod_operacao') : '' }}
     </div>
 </div>
 
