@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //$this->call(UserSeeder::class);
-        $this->call(MarcaSeeder::class);
+        /* $this->call(MarcaSeeder::class);
         $this->call(CategoriaSeeder::class);
         $this->call(UnidadeMedidaSeeder::class);
         $this->call(MotivoSaidaProdutoSeeder::class);
@@ -31,7 +31,13 @@ class DatabaseSeeder extends Seeder
         $this->call(PessoaSeeder::class);
         $this->call(ProdutoFornecedorSeeder::class);
         $this->call(OrdemProducaoSeeder::class);
-        $this->call(RecursosProducaoSeeder::class);
+        $this->call(RecursosProducaoSeeder::class); */
+        $this->call(AddEquipamentosSeeder::class);
+        $this->call(AddEntradaProduto::class);
+        $this->call(AddConsumo::class);
+        $this->call(AddAbastecimentos::class);
+        $this->call(AddSaidaProduto::class);
+
 
     }
 }
