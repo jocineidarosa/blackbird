@@ -14,27 +14,27 @@ class AddSaidaProduto extends Seeder
      */
     public function run()
     {
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '116', 'motivo' > '1', 'data' => '2022-10-26', 'consumo_id' => '285']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '176', 'motivo' > '1', 'data' => '2022-10-26', 'consumo_id' => '286']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' > '280', 'motivo' > '1', 'data' => '2022-10-26', 'consumo_id' => '287']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' > '67', 'motivo' > '1', 'data' => '2022-10-26', 'consumo_id' => '288']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '95', 'motivo' > '1', 'data' => '2022-10-28', 'consumo_id' => '289']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '115', 'motivo' > '1', 'data' => '2022-10-31', 'consumo_id' => '290']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '158', 'motivo' > '1', 'data' => '2022-11-01', 'consumo_id' => '291']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' > '202', 'motivo' > '1', 'data' => '2022-11-01', 'consumo_id' => '292']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' > '124', 'motivo' > '1', 'data' => '2022-11-01', 'consumo_id' => '293']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '21', 'produto_id' => '2', 'quantidade' > '101', 'motivo' > '1', 'data' => '2022-11-03', 'consumo_id' => '294']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '134', 'motivo' > '1', 'data' => '2022-11-04', 'consumo_id' => '295']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '84', 'motivo' > '1', 'data' => '2022-11-04', 'consumo_id' => '296']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '117', 'motivo' > '1', 'data' => '2022-11-05', 'consumo_id' => '297']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '103', 'motivo' > '1', 'data' => '2022-11-08', 'consumo_id' => '298']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' > '264', 'motivo' > '1', 'data' => '2022-11-08', 'consumo_id' => '299']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '131', 'motivo' > '1', 'data' => '2022-11-09', 'consumo_id' => '300']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' > '88', 'motivo' > '1', 'data' => '2022-11-12', 'consumo_id' => '301']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '55', 'motivo' > '1', 'data' => '2022-11-12', 'consumo_id' => '302']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '113', 'motivo' > '1', 'data' => '2022-11-14', 'consumo_id' => '303']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' > '400', 'motivo' > '1', 'data' => '2022-11-15', 'consumo_id' => '304']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' > '120', 'motivo' > '1', 'data' => '2022-11-16', 'consumo_id' => '305']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '116', 'motivo'=> '1', 'data' => '2022-10-26', 'consumo_id' => '285']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '176', 'motivo'=> '1', 'data' => '2022-10-26', 'consumo_id' => '286']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade'=> '280', 'motivo'=> '1', 'data' => '2022-10-26', 'consumo_id' => '287']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade'=> '67', 'motivo'=> '1', 'data' => '2022-10-26', 'consumo_id' => '288']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '95', 'motivo'=> '1', 'data' => '2022-10-28', 'consumo_id' => '289']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '115', 'motivo'=> '1', 'data' => '2022-10-31', 'consumo_id' => '290']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '158', 'motivo'=> '1', 'data' => '2022-11-01', 'consumo_id' => '291']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade'=> '202', 'motivo'=> '1', 'data' => '2022-11-01', 'consumo_id' => '292']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade'=> '124', 'motivo'=> '1', 'data' => '2022-11-01', 'consumo_id' => '293']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '21', 'produto_id' => '2', 'quantidade'=> '101', 'motivo'=> '1', 'data' => '2022-11-03', 'consumo_id' => '294']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '134', 'motivo'=> '1', 'data' => '2022-11-04', 'consumo_id' => '295']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '84', 'motivo'=> '1', 'data' => '2022-11-04', 'consumo_id' => '296']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '117', 'motivo'=> '1', 'data' => '2022-11-05', 'consumo_id' => '297']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '103', 'motivo'=> '1', 'data' => '2022-11-08', 'consumo_id' => '298']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade'=> '264', 'motivo'=> '1', 'data' => '2022-11-08', 'consumo_id' => '299']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '131', 'motivo'=> '1', 'data' => '2022-11-09', 'consumo_id' => '300']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade'=> '88', 'motivo'=> '1', 'data' => '2022-11-12', 'consumo_id' => '301']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '55', 'motivo'=> '1', 'data' => '2022-11-12', 'consumo_id' => '302']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '113', 'motivo'=> '1', 'data' => '2022-11-14', 'consumo_id' => '303']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade'=> '400', 'motivo'=> '1', 'data' => '2022-11-15', 'consumo_id' => '304']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade'=> '120', 'motivo'=> '1', 'data' => '2022-11-16', 'consumo_id' => '305']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '18', 'produto_id' => '2', 'quantidade' => '62', 'motivo' => '1', 'data' => '2022-11-17', 'consumo_id' => '306']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '204', 'motivo' => '1', 'data' => '2022-11-19', 'consumo_id' => '307']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '152', 'motivo' => '1', 'data' => '2022-11-19', 'consumo_id' => '308']);
@@ -152,7 +152,7 @@ class AddSaidaProduto extends Seeder
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '104', 'motivo' => '1', 'data' => '2023-04-17', 'consumo_id' => '420']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '695', 'motivo' => '1', 'data' => '2023-04-18', 'consumo_id' => '421']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '266', 'motivo' => '1', 'data' => '2023-04-19', 'consumo_id' => '422']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '85', 'motivo' => '1', 'data' => ' 19/04/2023', 'consumo_id' => '423']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '85', 'motivo' => '1', 'data' => '2023-04-19', 'consumo_id' => '423']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '71', 'motivo' => '1', 'data' => '2023-04-20', 'consumo_id' => '424']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '65', 'motivo' => '1', 'data' => '2023-04-21', 'consumo_id' => '425']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '149', 'motivo' => '1', 'data' => '2023-04-22', 'consumo_id' => '426']);

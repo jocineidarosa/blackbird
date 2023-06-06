@@ -11,6 +11,8 @@ use App\Models\OrdemProducao;
 use App\Models\RecursosProducao;
 use App\Models\SaidaProduto;
 use Illuminate\Support\Facades\DB;
+use PDF;
+
 
 use Illuminate\Http\Request;
 
@@ -155,5 +157,12 @@ class UtilsController extends Controller
         $this->deletaEntradaDiesel();
         echo'Executado com exito!';
 
+    }
+
+    public function export(){
+        $abastecimentos=Abastecimento::all();
+        $pdf = PDF::loadView('app.produto.teste', ['abastecimentos'=>$abastecimentos]);
+        return $pdf->download('lista_de_tarefas.pdf');
+        
     }
 }

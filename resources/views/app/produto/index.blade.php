@@ -20,6 +20,9 @@
                 <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-page"></i>TODOS
                 </a>
+                <a href="{{ route('produto.export_pdf') }}" class="btn btn-sm btn-primary">
+                    <i class="icofont-plus-circle mr-1"></i>PDF
+                </a>
             </div>
 
         </div>

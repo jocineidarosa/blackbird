@@ -45,6 +45,7 @@ Route::middleware('auth')->delete('empresa/destroy','App\Http\Controllers\Empres
 //produto
 Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoController');
 Route::middleware('auth')->delete('produto/destroy', 'App\Http\Controllers\ProdutoController@destroy')->name('produto.destroy');
+Route::middleware('auth')->get('produto/export-pdf', 'App\Http\Controllers\ProdutoController@exportPdf')->name('produto.export_pdf');
 
 
 //clientes
@@ -158,6 +159,9 @@ Route::middleware('auth')->get('utils/deleta-entrada-diesel','App\Http\Controlle
 );
 //executa mundanças
 Route::middleware('auth')->get('utils/executa-mudancas','App\Http\Controllers\UtilsController@executeChangeData'
+);
+
+Route::middleware('auth')->get('utils/export','App\Http\Controllers\UtilsController@export'
 );
 
 

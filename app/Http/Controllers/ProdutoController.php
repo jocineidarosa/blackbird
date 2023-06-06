@@ -119,4 +119,8 @@ class ProdutoController extends Controller
         $produto->delete();
         return redirect()->route('produto.index');
     }
+
+    public function exportPdf(){
+        echo'chegamos';
+    }
 }
