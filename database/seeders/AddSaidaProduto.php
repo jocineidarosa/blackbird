@@ -161,6 +161,8 @@ class AddSaidaProduto extends Seeder
         DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '286', 'motivo' => '1', 'data' => '2023-04-26', 'consumo_id' => '429']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '12', 'motivo' => '1', 'data' => '2023-04-26', 'consumo_id' => '430']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '161', 'motivo' => '1', 'data' => '2023-04-27', 'consumo_id' => '431']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '90', 'motivo' => '1', 'data' => '2023-04-27', 'consumo_id' => '460']);
+
         DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '275', 'motivo' => '1', 'data' => '2023-04-28', 'consumo_id' => '432']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '124', 'motivo' => '1', 'data' => '2023-04-29', 'consumo_id' => '433']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '360', 'motivo' => '1', 'data' => '2023-05-02', 'consumo_id' => '434']);
@@ -173,7 +175,8 @@ class AddSaidaProduto extends Seeder
         DB::table('saidas_produtos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'motivo' => '1', 'data' => '2023-07-02', 'consumo_id' => '441']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '296', 'motivo' => '1', 'data' => '2023-05-10', 'consumo_id' => '442']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '20', 'produto_id' => '2', 'quantidade' => '204', 'motivo' => '1', 'data' => '2023-05-11', 'consumo_id' => '443']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '143', 'motivo' => '1', 'data' => '2023-05-12', 'consumo_id' => '444']);
+       
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '146', 'motivo' => '1', 'data' => '2023-05-12', 'consumo_id' => '444']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '252', 'motivo' => '1', 'data' => '2023-05-13', 'consumo_id' => '445']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '126', 'motivo' => '1', 'data' => '2023-05-15', 'consumo_id' => '446']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '118', 'motivo' => '1', 'data' => '2023-05-15', 'consumo_id' => '447']);
@@ -182,7 +185,7 @@ class AddSaidaProduto extends Seeder
         DB::table('saidas_produtos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '142', 'motivo' => '1', 'data' => '2023-05-18', 'consumo_id' => '450']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '126', 'motivo' => '1', 'data' => '2023-05-18', 'consumo_id' => '451']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '10', 'motivo' => '1', 'data' => '2023-05-18', 'consumo_id' => '452']);
-        DB::table('saidas_produtos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '251', 'motivo' => '1', 'data' => '2023-05-22', 'consumo_id' => '453']);
+        DB::table('saidas_produtos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '252', 'motivo' => '1', 'data' => '2023-05-22', 'consumo_id' => '453']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '156', 'motivo' => '1', 'data' => '2023-05-23', 'consumo_id' => '454']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '608', 'motivo' => '1', 'data' => '2023-05-24', 'consumo_id' => '455']);
         DB::table('saidas_produtos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '71', 'motivo' => '1', 'data' => '2023-05-24', 'consumo_id' => '456']);

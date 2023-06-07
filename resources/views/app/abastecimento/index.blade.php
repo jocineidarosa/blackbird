@@ -19,6 +19,10 @@
                 <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-page"></i>TODOS
                 </a>
+
+                <a href="{{ route('abastecimento.exporta-pdf') }}" class="btn btn-sm btn-primary">
+                    <i class="icofont-page"></i>PDF
+                </a>
             </div>
 
         </div>

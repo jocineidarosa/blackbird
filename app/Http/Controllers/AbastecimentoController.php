@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\SaidaProduto;
 use App\Models\Consumo;
 use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Stmt\Return_;
+use PDF;
 
 class AbastecimentoController extends Controller
 {
@@ -20,7 +20,6 @@ class AbastecimentoController extends Controller
      */
     public function index(Request $request)
     {
-
         $equipamentos = Equipamento::all();
         if ($request->filtro_equipamento) {
             $abastecimentos = DB::table('abastecimentos as ab')
@@ -183,5 +182,24 @@ class AbastecimentoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportaPdf( Request $request){
+
+        if ($request->filtro_equipamento) {
+            $abastecimentos = DB::table('abastecimentos as ab')
+                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
+                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
+                ->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%')->get();
+        } else {
+            $abastecimentos = DB::table('abastecimentos as ab')
+                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
+                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')->get();
+        }
+
+        $pdf = PDF::loadView('app.abastecimento.exporta_pdf', ['abastecimentos' => $abastecimentos]);
+        return $pdf->stream('lista_de_tarefas.pdf');
     }
 }

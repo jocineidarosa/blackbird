@@ -173,7 +173,7 @@ class AddConsumo extends Seeder
         DB::table('consumos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'data' => '2023-07-02']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '296', 'data' => '2023-05-10']);
         DB::table('consumos')->insert(['equipamento_id' => '20', 'produto_id' => '2', 'quantidade' => '204', 'data' => '2023-05-11']);
-        DB::table('consumos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '143', 'data' => '2023-05-12']);
+        DB::table('consumos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '146', 'data' => '2023-05-12']);
         DB::table('consumos')->insert(['equipamento_id' => '42', 'produto_id' => '2', 'quantidade' => '252', 'data' => '2023-05-13']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '126', 'data' => '2023-05-15']);
         DB::table('consumos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '118', 'data' => '2023-05-15']);
@@ -182,12 +182,14 @@ class AddConsumo extends Seeder
         DB::table('consumos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '142', 'data' => '2023-05-18']);
         DB::table('consumos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '126', 'data' => '2023-05-18']);
         DB::table('consumos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '10', 'data' => '2023-05-18']);
-        DB::table('consumos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '251', 'data' => '2023-05-22']);
+        DB::table('consumos')->insert(['equipamento_id' => '43', 'produto_id' => '2', 'quantidade' => '252', 'data' => '2023-05-22']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '156', 'data' => '2023-05-23']);
         DB::table('consumos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '608', 'data' => '2023-05-24']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '71', 'data' => '2023-05-24']);
         DB::table('consumos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '4', 'data' => '2023-05-25']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '141', 'data' => '2023-06-25']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '160', 'data' => '2023-05-26']);
+        DB::table('consumos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '90', 'data' => '2023-05-26']);
+
     }
 }
