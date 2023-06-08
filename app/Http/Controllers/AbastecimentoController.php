@@ -20,22 +20,28 @@ class AbastecimentoController extends Controller
      */
     public function index(Request $request)
     {
+        $filtro_equipamento='';
         $equipamentos = Equipamento::all();
         if ($request->filtro_equipamento) {
+            $filtro_equipamento=$request->filtro_equipamento;
             $abastecimentos = DB::table('abastecimentos as ab')
                 ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
                 ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
                 ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
-                ->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%')->paginate(12);
+                ->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%')->orderBy('data','desc')->paginate(12);
         } else {
             $abastecimentos = DB::table('abastecimentos as ab')
                 ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
                 ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
-                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')->paginate(12);
+                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
+                ab.quantidade as quantidade, ab.data as data ')->orderBy('data','desc')->paginate(12);
         }
 
 
-        return view('app.abastecimento.index', ['abastecimentos' => $abastecimentos, 'equipamentos' => $equipamentos, 'request' => $request->all()]);
+        return view('app.abastecimento.index', ['abastecimentos' => $abastecimentos,
+         'equipamentos' => $equipamentos, 'request' => $request->all(),
+        'filtro_equipamento'=>$filtro_equipamento
+        ]);
     }
 
     /**
@@ -184,14 +190,13 @@ class AbastecimentoController extends Controller
         //
     }
 
-    public function exportaPdf( Request $request){
-
-        if ($request->filtro_equipamento) {
+    public function pdfExport($equipamento=''){
+        if ($equipamento <>'') {
             $abastecimentos = DB::table('abastecimentos as ab')
                 ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
                 ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
                 ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
-                ->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%')->get();
+                ->where('eq.nome',  'like', '%' . $equipamento . '%')->get();
         } else {
             $abastecimentos = DB::table('abastecimentos as ab')
                 ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
@@ -199,7 +204,9 @@ class AbastecimentoController extends Controller
                 ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')->get();
         }
 
-        $pdf = PDF::loadView('app.abastecimento.exporta_pdf', ['abastecimentos' => $abastecimentos]);
-        return $pdf->stream('lista_de_tarefas.pdf');
+        $total_quant=$abastecimentos->sum('quantidade');
+
+        $pdf = PDF::loadView('app.abastecimento.exporta_pdf', ['abastecimentos' => $abastecimentos, 'total_quant'=>$total_quant]);
+        return $pdf->stream('Abastecimentos.pdf');
     }
 }

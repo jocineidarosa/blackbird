@@ -172,7 +172,7 @@ class AddAbastecimentos extends Seeder
         DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '103', 'data' => '2023-05-08', 'medidor_inicial' => '26891', 'medidor_final' => '26994', 'horimetro' => '18408.1', 'consumo_id' => '438']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '128', 'data' => '2023-05-08', 'medidor_inicial' => '26994', 'medidor_final' => '27122', 'horimetro' => '4603', 'consumo_id' => '439']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '76', 'data' => '2023-05-10', 'medidor_inicial' => '27122', 'medidor_final' => '27198', 'horimetro' => '18417', 'consumo_id' => '440']);
-        DB::table('abastecimentos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'data' => '2023-07-02', 'medidor_inicial' => '27198', 'medidor_final' => '27400', 'horimetro' => '0', 'consumo_id' => '441']);
+        DB::table('abastecimentos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'data' => '2023-05-02', 'medidor_inicial' => '27198', 'medidor_final' => '27400', 'horimetro' => '0', 'consumo_id' => '441']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '296', 'data' => '2023-05-10', 'medidor_inicial' => '27400', 'medidor_final' => '27696', 'horimetro' => '358', 'consumo_id' => '442']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '20', 'produto_id' => '2', 'quantidade' => '204', 'data' => '2023-05-11', 'medidor_inicial' => '27696', 'medidor_final' => '27900', 'horimetro' => '0', 'consumo_id' => '443']);
         
@@ -191,7 +191,7 @@ class AddAbastecimentos extends Seeder
         DB::table('abastecimentos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '608', 'data' => '2023-05-24', 'medidor_inicial' => '29570', 'medidor_final' => '30178', 'horimetro' => '7935.66', 'consumo_id' => '455']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '71', 'data' => '2023-05-24', 'medidor_inicial' => '30178', 'medidor_final' => '30249', 'horimetro' => '3914.2', 'consumo_id' => '456']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '4', 'data' => '2023-05-25', 'medidor_inicial' => '30249', 'medidor_final' => '30253', 'horimetro' => '0', 'consumo_id' => '457']);
-        DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '141', 'data' => '2023-06-25', 'medidor_inicial' => '30253', 'medidor_final' => '30394', 'horimetro' => '3928', 'consumo_id' => '458']);
+        DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '141', 'data' => '2023-05-25', 'medidor_inicial' => '30253', 'medidor_final' => '30394', 'horimetro' => '3928', 'consumo_id' => '458']);
         DB::table('abastecimentos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '160', 'data' => '2023-05-26', 'medidor_inicial' => '30394', 'medidor_final' => '30554', 'horimetro' => '3940.5', 'consumo_id' => '459']);
     }
 }

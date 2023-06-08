@@ -6,17 +6,17 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-/* Route::get('/', function () {
+Route::get('/', function () {
     if (Auth::check()){
         return redirect()->route('app.home');
     }else{
         return view('auth.login');
     }
-}); */
+});
 
-Route::get('/',function (){
-    return view('site.home');
-})->name('site.home');
+/* Route::get('/',function (){
+    return view('site.manutencao');
+})->name('site.home'); */
 
 Auth::routes();
 
@@ -274,8 +274,7 @@ Route::middleware('auth')->prefix('/recursos-producao')->group(function() {
 //abastecimento
 Route::middleware('auth')->resource('/abastecimento', 'App\Http\Controllers\AbastecimentoController');
 Route::middleware('auth')->delete('abastecimento/destroy', 'App\Http\Controllers\AbastecimentoController@destroy')->name('abastecimento.destroy');
-Route::middleware('auth')->get('/abastecimento/exporta-pdf','App\Http\Controllers\AbastecimentoController@exportaPdf')->name('abastecimento.exporta-pdf');
-Route::middleware('auth')->get('pdf/abastecimento/exporta-pdf','App\Http\Controllers\AbastecimentoController@exportaPdf')->name('abastecimento.exporta-pdf');
+Route::middleware('auth')->get('pdf/abastecimento/{equipamento?}','App\Http\Controllers\AbastecimentoController@pdfExport')->name('abastecimento.pdf_export');
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');

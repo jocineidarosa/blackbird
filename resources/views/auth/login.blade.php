@@ -12,7 +12,6 @@
 
     <title>STRATUS ERP - Login</title>
 </head>
-
 <body>
 
     <form action="{{ route('login') }}" method="POST" class="form-login">

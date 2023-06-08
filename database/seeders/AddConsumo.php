@@ -170,7 +170,7 @@ class AddConsumo extends Seeder
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '103', 'data' => '2023-05-08']);
         DB::table('consumos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '128', 'data' => '2023-05-08']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '76', 'data' => '2023-05-10']);
-        DB::table('consumos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'data' => '2023-07-02']);
+        DB::table('consumos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '202', 'data' => '2023-05-02']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '296', 'data' => '2023-05-10']);
         DB::table('consumos')->insert(['equipamento_id' => '20', 'produto_id' => '2', 'quantidade' => '204', 'data' => '2023-05-11']);
         DB::table('consumos')->insert(['equipamento_id' => '49', 'produto_id' => '2', 'quantidade' => '146', 'data' => '2023-05-12']);
@@ -187,7 +187,7 @@ class AddConsumo extends Seeder
         DB::table('consumos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '608', 'data' => '2023-05-24']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '71', 'data' => '2023-05-24']);
         DB::table('consumos')->insert(['equipamento_id' => '77', 'produto_id' => '2', 'quantidade' => '4', 'data' => '2023-05-25']);
-        DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '141', 'data' => '2023-06-25']);
+        DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '141', 'data' => '2023-05-25']);
         DB::table('consumos')->insert(['equipamento_id' => '62', 'produto_id' => '2', 'quantidade' => '160', 'data' => '2023-05-26']);
         DB::table('consumos')->insert(['equipamento_id' => '88', 'produto_id' => '2', 'quantidade' => '90', 'data' => '2023-05-26']);
 
