@@ -39,18 +39,7 @@
 </div>
 
 <div class="row mb-1">
-    <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
-    <div class="col-md-6">
-        <input id="quantidade" type="text" class="form-control-template" name="quantidade"
-            value="{{ $abastecimento->quantidade ?? old('quantidade') }}" required>
-        {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
-    </div>
-</div>
-
-
-<div class="row mb-1">
     <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
-
     <div class="col-md-6">
         <input id="data" name="data" type="date" class="form-control-template"
             value="{{ $abastecimento->data ?? old('data') }}">
@@ -61,8 +50,8 @@
 <div class="row mb-1">
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
-        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-template" readonly
-            value="{{ $abastecimento->medidor_inicial ?? old('medidor_inicial') }}">
+        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
+            value="{{$contador_inicial ?? ''}}">
         {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
     </div>
 </div>
@@ -73,6 +62,15 @@
         <input id="medidor_final" name="medidor_final" type="text" class="form-control-template"
             value="{{ $abastecimento->medidor_final ?? old('medidor_final') }}">
         {{ $errors->has('medidor_final') ? $errors->first('medidor_final') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
+    <div class="col-md-6">
+        <input id="quantidade" type="text" class="form-control-disabled" name="quantidade" readonly
+            value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
+        {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
     </div>
 </div>
 

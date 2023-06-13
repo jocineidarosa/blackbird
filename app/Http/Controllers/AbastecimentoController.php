@@ -53,9 +53,11 @@ class AbastecimentoController extends Controller
     public function create()
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
-        $contador_inicial=Abastecimento::max('contador_final as cb')->get();
+        $contador_inicial=DB::table('abastecimentos')->selectRaw('max(medidor_final) as contador_inicial')->first();
+        $contador_inicial=$contador_inicial=$contador_inicial->contador_inicial;
         $produtos = Produto::orderBy('nome', 'asc')->get();
-        return view('app.abastecimento.create', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
+        return view('app.abastecimento.create', ['equipamentos' => $equipamentos,
+         'produtos' => $produtos, 'contador_inicial'=>$contador_inicial]);
     }
 
     /**
