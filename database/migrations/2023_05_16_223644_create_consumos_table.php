@@ -23,6 +23,8 @@ class CreateConsumosTable extends Migration
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->double('quantidade','10,2');
             $table->date('data');
+            $table->unsignedBigInteger('abastecimento_id')->nullable();
+            $table->foreign('abastecimento_id')->references('id')->on('abastecimentos');
             $table->timestamps();
         });
     }

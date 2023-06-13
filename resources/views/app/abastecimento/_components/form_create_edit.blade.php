@@ -1,4 +1,3 @@
-
 @if (isset($abastecimento->id))
     <form action="{{ route('abastecimento.update', ['abastecimento' => $abastecimento->id]) }}" method="POST">
         @csrf
@@ -11,7 +10,7 @@
 <div class="row mb-1">
     <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
     <div class="col-md-6">
-        <select name="equipamento_id" id="" class="form-control-template">
+        <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus>
             <option value=""> --equipamento--</option>
             @foreach ($equipamentos as $equipamento)
                 <option value="{{ $equipamento->id }}"
@@ -62,7 +61,7 @@
 <div class="row mb-1">
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
-        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-template"
+        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-template" readonly
             value="{{ $abastecimento->medidor_inicial ?? old('medidor_inicial') }}">
         {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
     </div>

@@ -1,6 +1,6 @@
 php artisan migrate
-executa rota: utils/escuta-mudancas
+executa rota: utils/executa-mudancas
 php artisan db:seed
-atualiza manualmente o estoque de diesel.
-atualiza o tanque da caldeira em EQUIPAMENTO
+atualiza manualmente o estoque de diesel para 1580.
+atualiza o tanque da caldeira em EQUIPAMENTO para 238  .
 

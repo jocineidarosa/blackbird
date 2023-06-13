@@ -14,6 +14,7 @@ class AlterEquipamentosAddControleConsumo extends Migration
     public function up()
     {
         Schema::table('equipamentos', function(Blueprint $table){
+            //cadastra consumo ao abastecer para vlor '1'.
             $table->boolean('controle_consumo')->nullable()->comment('consumo automático e saida automatico');
             $table->double('quant_tanque', 10,2)->nullable()->comment('quantidade de combustivel no tanque');
             $table->double('capacidade_tanque',10,2)->nullable();

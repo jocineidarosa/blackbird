@@ -10,6 +10,7 @@ use App\Models\SaidaProduto;
 use App\Models\Consumo;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
 
 class AbastecimentoController extends Controller
 {
@@ -37,7 +38,6 @@ class AbastecimentoController extends Controller
                 ab.quantidade as quantidade, ab.data as data ')->orderBy('data', 'desc')->paginate(12);
         }
 
-
         return view('app.abastecimento.index', [
             'abastecimentos' => $abastecimentos,
             'equipamentos' => $equipamentos, 'request' => $request->all(),
@@ -53,6 +53,7 @@ class AbastecimentoController extends Controller
     public function create()
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
+        $contador_inicial=Abastecimento::max('contador_final as cb')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
         return view('app.abastecimento.create', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
     }
@@ -70,12 +71,15 @@ class AbastecimentoController extends Controller
         $controle_consumo = $controle->controle_consumo;
         $controle_saida = $controle->controle_saida;
 
+        $abastecimento = Abastecimento::create($request->all());
+
         if ($controle_consumo == 1) {
             $consumo = new Consumo();
             $consumo->equipamento_id = $request->equipamento_id;
             $consumo->produto_id = $request->produto_id;
             $consumo->quantidade = $request->quantidade;
             $consumo->data = $request->data;
+            $consumo->abastecimento_id = $abastecimento->id;
             $consumo->save();
             $request['consumo_id'] = $consumo->id;
         } else {
@@ -92,16 +96,12 @@ class AbastecimentoController extends Controller
             $saida_produto->quantidade = $request->quantidade;
             $saida_produto->motivo = '1';
             $saida_produto->data = $request->data;
-            $saida_produto->consumo_id = $consumo->id;
+            $saida_produto->abastecimento_id = $abastecimento->id;
             $saida_produto->save();
-
             $produto = Produto::find($request->produto_id);
-            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // soma estoque antigo com a entrada de produto
+            $produto->estoque_atual = $produto->estoque_atual - $request->quantidade; // desconta quantidade do estoque de produto.
             $produto->save();
         }
-
-
-        Abastecimento::create($request->all());
 
 
         return redirect()->route('abastecimento.index');
@@ -188,22 +188,30 @@ class AbastecimentoController extends Controller
     public function destroy(Request $request)
     {
         $abastecimento = Abastecimento::find($request->data_id);
-        $consumo = Consumo::find($abastecimento->consumo_id);
         $equipamento = Equipamento::find($abastecimento->equipamento_id);
+        $produto = Produto::find($abastecimento->produto_id);
         $controle_consumo = $equipamento->controle_consumo;
         $controle_saida = $equipamento->controle_saida;
 
-        if(isset($controle_saida)){
-            echo'existe';
-            exit();
-            $saida_produto=SaidaProduto::where('consumo_id', $consumo->id)->first();
-            $saida_produto->delete();
+        $saida_produto = SaidaProduto::where('abastecimento_id', $abastecimento->id)->first();
+        if (isset($saida_produto)) {
+            //atualiza estoqu do produto.
+            $produto->estoque_atual = $produto->estoque_atual + $abastecimento->quantidade;
+            $produto->save();
+            $saida_produto->delete(); //deleta saída
+        }
+        if ($controle_consumo == 0) {
+            $equipamento->quant_tanque = $equipamento->quant_tanque - $abastecimento->quantidade;
+            $equipamento->save();
         }
 
-        $consumo->delete();
+        //atualiza estoque e tanque do equipamento
+        $consumo = Consumo::where('abastecimento_id', $abastecimento->id)->first();
+        if (isset($consumo)) {
+            $consumo->delete(); //deleta consumo
+        }
+        $abastecimento->delete(); //deleta abastecimento
 
-
-        $abastecimento->delete();
         return redirect()->route('abastecimento.index');
     }
 
@@ -227,4 +235,16 @@ class AbastecimentoController extends Controller
         $pdf = PDF::loadView('app.abastecimento.exporta_pdf', ['abastecimentos' => $abastecimentos, 'total_quant' => $total_quant]);
         return $pdf->stream('Abastecimentos.pdf');
     }
+
+    public function getEstoqueAtual(Request $request)
+    {
+        $table = $request->get('table');
+        $produto_id = $request->get('produto_id');
+        $estoque_atual = DB::table($table)->selectRaw('estoque_atual')
+            ->where('id', $produto_id)->first();
+
+        //echo json_encode($estoque_final->quantidade);
+        return response()->json(['estoque_atual' => $estoque_atual->estoque_atual]);
+    }
+
 }

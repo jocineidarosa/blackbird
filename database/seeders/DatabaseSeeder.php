@@ -34,9 +34,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RecursosProducaoSeeder::class); */
         $this->call(AddEquipamentosSeeder::class);
         $this->call(AddEntradaProduto::class);
-        $this->call(AddConsumo::class);
         $this->call(AddAbastecimentos::class);
         $this->call(AddSaidaProduto::class);
+        $this->call(AddConsumo::class);
 
 
     }

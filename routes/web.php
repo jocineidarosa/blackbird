@@ -276,6 +276,7 @@ Route::middleware('auth')->resource('/abastecimento', 'App\Http\Controllers\Abas
 Route::middleware('auth')->delete('abastecimento/destroy', 'App\Http\Controllers\AbastecimentoController@destroy')->name('abastecimento.destroy');
 Route::middleware('auth')->get('pdf/abastecimento/{equipamento?}','App\Http\Controllers\AbastecimentoController@pdfExport')->name('abastecimento.pdf_export');
 
+
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
 Route::middleware('auth')->delete('consumo/destroy', 'App\Http\Controllers\ConsumoController@destroy')->name('consumo.destroy');

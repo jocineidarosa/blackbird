@@ -16,12 +16,10 @@ class AlterSaidasProdutosAddEquipamentoId extends Migration
         Schema::table('saidas_produtos', function(Blueprint $table){
             $table->unsignedBigInteger('equipamento_id')->nullable()->after('id');
             $table->foreign('equipamento_id')->references('id')->on('equipamentos');
-
-            $table->unsignedBigInteger('consumo_id')->nullable();
-            $table->foreign('consumo_id')->references('id')->on('consumos');
+            $table->unsignedBigInteger('abastecimento_id')->nullable();
+            $table->foreign('abastecimento_id')->references('id')->on('abastecimentos');
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -32,8 +30,8 @@ class AlterSaidasProdutosAddEquipamentoId extends Migration
         Schema::table('saidas_produtos', function(Blueprint $table){ 
             $table->dropForeign('saidas_produtos_equipamento_id_foreign');
             $table->dropColumn('equipamento_id');
-            $table->dropForeign('saidas_produtos_consumo_id_foreign');
-            $table->dropColumn('consumo_id');
+            $table->dropForeign('saidas_produtos_abastecimento_foreign');
+            $table->dropColumn('abastecimento_id');
         });
     }
 }
