@@ -46,6 +46,7 @@
                         Produto para Obra</a>
                 </li>
             </ul>
+            {{-- ####abaixo totod os includes dos views das abas --}}
             {{-- -----------------includes------------------ --}}
             {{-- ORDEM DE PRODUÇÃO --}}
             @include('app.ordem_producao._components.create_principal')

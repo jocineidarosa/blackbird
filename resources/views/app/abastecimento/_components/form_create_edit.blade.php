@@ -51,7 +51,7 @@
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
         <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
-            value="{{$contador_inicial ?? ''}}">
+            value="{{ $contador_inicial ?? '' }}">
         {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
     </div>
 </div>
@@ -91,3 +91,18 @@
     </div>
 </div>
 </form>
+
+<script>
+    $(function() {
+
+        $('#medidor_final').change(function() {
+            var medidor_inicial = $('#medidor_inicial').val();
+            var medidor_final = $('#medidor_final').val();
+            if (medidor_inicial > 0 && medidor_final > 0) {
+                var quantidade = medidor_final - medidor_inicial;
+                $('#quantidade').val(quantidade);
+            }
+        })
+
+    });
+</script>
