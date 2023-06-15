@@ -27,7 +27,8 @@
             [
                 'abastecimento'=>$abastecimento, 
                 'equipamentos'=>$equipamentos,
-                'produtos'=>$produtos
+                'produtos'=>$produtos,
+                'total_horimetro'=>$total_horimetro
             ])
                     
                 @endcomponent  

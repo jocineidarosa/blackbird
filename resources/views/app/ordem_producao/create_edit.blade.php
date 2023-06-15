@@ -156,7 +156,8 @@
                     type: "get",
                     data: {
                         'equipamento_id': equipamento_id,
-                        'table': 'ordens_producoes'
+                        'table': 'ordens_producoes',
+                        'field': 'horimetro_final'
                     },
                     dataType: "json",
                     success: function(response) {
@@ -174,7 +175,8 @@
                     type: "get",
                     data: {
                         'equipamento_id': equipamento_id,
-                        'table': 'recursos_producao'
+                        'table': 'recursos_producao',
+                        'field': 'horimetro_final'
                     },
                     dataType: "json",
                     success: function(response) {

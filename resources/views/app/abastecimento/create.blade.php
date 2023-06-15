@@ -16,7 +16,7 @@
                     [
                         'equipamentos'=>$equipamentos,
                         'produtos'=>$produtos,
-                        'contador_inicial'=>$contador_inicial
+                        'contador_inicial'=>$contador_inicial,
                     ])
                 @endcomponent
             </div>

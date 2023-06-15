@@ -53,11 +53,13 @@ class AbastecimentoController extends Controller
     public function create()
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
-        $contador_inicial=DB::table('abastecimentos')->selectRaw('max(medidor_final) as contador_inicial')->first();
-        $contador_inicial=$contador_inicial=$contador_inicial->contador_inicial;
+        $contador_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as contador_inicial')->first();
+        $contador_inicial = $contador_inicial = $contador_inicial->contador_inicial;
         $produtos = Produto::orderBy('nome', 'asc')->get();
-        return view('app.abastecimento.create', ['equipamentos' => $equipamentos,
-         'produtos' => $produtos, 'contador_inicial'=>$contador_inicial]);
+        return view('app.abastecimento.create', [
+            'equipamentos' => $equipamentos,
+            'produtos' => $produtos, 'contador_inicial' => $contador_inicial
+        ]);
     }
 
     /**
@@ -130,7 +132,17 @@ class AbastecimentoController extends Controller
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
-        return view('app.abastecimento.edit', ['abastecimento' => $abastecimento, 'equipamentos' => $equipamentos, 'produtos' => $produtos]);
+        $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
+            ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
+        $horimetro_inicial=$horimetro_inicial->horimetro_inicial;
+        $total_horimetro = $abastecimento->horimetro - $horimetro_inicial;
+        $abastecimento->horimetro_inicial=$horimetro_inicial;
+        return view('app.abastecimento.edit', [
+            'abastecimento' => $abastecimento,
+            'equipamentos' => $equipamentos,
+            'produtos' => $produtos,
+            'total_horimetro'=>$total_horimetro
+        ]);
     }
 
     /**
@@ -248,5 +260,4 @@ class AbastecimentoController extends Controller
         //echo json_encode($estoque_final->quantidade);
         return response()->json(['estoque_atual' => $estoque_atual->estoque_atual]);
     }
-
 }

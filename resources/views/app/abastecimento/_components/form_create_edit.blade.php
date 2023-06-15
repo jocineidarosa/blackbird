@@ -51,7 +51,7 @@
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
         <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
-            value="{{ $contador_inicial ?? '' }}">
+            value="{{ $contador_inicial ?? $abastecimento->medidor_inicial }}">
         {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
     </div>
 </div>
@@ -68,18 +68,36 @@
 <div class="row mb-1">
     <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
     <div class="col-md-6">
-        <input id="quantidade" type="text" class="form-control-disabled" name="quantidade" readonly
+        <input id="quantidade" type="text" class="form-control-template" name="quantidade" placeholder="Calcula automático (opcional)"
             value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
         {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
     </div>
 </div>
 
 <div class="row mb-1">
-    <label for="horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro</label>
+    <label for="horimetro_inicial" class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
     <div class="col-md-6">
-        <input id="horimetro" name="horimetro" type="text" class="form-control-template"
+        <input id="horimetro_inicial" name="horimetro_inicial" type="text" class="form-control-disabled" disabled
+            value="{{ $abastecimento->horimetro_inicial ?? old('horimetro_inicial') }}">
+    </div>
+</div>
+
+
+<div class="row mb-1">
+    <label for="horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro Final</label>
+    <div class="col-md-6">
+        <input id="horimetro_final" name="horimetro" type="text" class="form-control-template"
             value="{{ $abastecimento->horimetro ?? old('horimetro') }}">
         {{ $errors->has('horimetro') ? $errors->first('horimetro') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="qtde_horimetro" class="col-md-4 col-form-label text-md-end text-right">Quantidade de Horas</label>
+    <div class="col-md-6">
+        <input id="qtde_horimetro" name="qtde_horimetro" type="text" class="form-control-disabled" disabled
+            value="{{ $total_horimetro ?? old('qtde_horimetro') }}">
+        {{ $errors->has('qtde_horimetro') ? $errors->first('qtde_horimetro') : '' }}
     </div>
 </div>
 
@@ -102,7 +120,41 @@
                 var quantidade = medidor_final - medidor_inicial;
                 $('#quantidade').val(quantidade);
             }
-        })
+        });
+        //busca Horímetro inicial
+        $('#equipamento_id').change(function() {
+            var equipamento_id = $("#equipamento_id option:selected").val();
+            $("#horimetro_inicial").val(''); //limpa horímetro inicial
+            $.ajax({
+                url: "{{ route('utils.get-horimetro-inicial') }}",
+                type: "get",
+                data: {
+                    'equipamento_id': equipamento_id,
+                    'table': 'abastecimentos',
+                    'field': 'horimetro'
+                },
+                dataType: "json",
+                success: function(response) {
+                    $("#horimetro_inicial").val(response);
+                }
+            })
+        });
+
+        $('#horimetro_final').change(function(){
+            var horimetro_inicial= $('#horimetro_inicial').val();
+            var horimetro_final= $('#horimetro_final').val();
+            var total_horas=horimetro_final - horimetro_inicial;
+            total_horas=total_horas.toFixed(2);
+            if(total_horas > 0 ){
+                $('#qtde_horimetro').val(total_horas);
+            }else{
+                alert('O Horímetro Final deve ser maior que o horímeto inicial');
+                $('#horimetro_final').val('');
+                $('#horimetro_final').focus();
+            }
+        })      
+
+
 
     });
 </script>
