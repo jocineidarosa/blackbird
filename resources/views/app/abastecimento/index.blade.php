@@ -8,10 +8,11 @@
             <form id="formSearchingProducts" action="{{route('abastecimento.index')}}" method="get">
                 <!--input box filtro buscar produto--------->
                 <input type="text" id="query" name="filtro_equipamento" placeholder="Buscar Equipamento..." aria-label="Search through site content">
-                <button type="submit">
+                <button type="submit" class="button-search">
                     <i class="icofont-search"></i>
                 </button>
             </form>
+
             <div>
                 <a href="{{ route('abastecimento.create') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-plus-circle pr-2"></i>NOVO
@@ -19,7 +20,7 @@
                 <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-page pr-2"></i>TODOS
                 </a>
-                <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.show',['abastecimento'=>'1']) }}" class="btn btn-sm btn-primary">
                     <i class="icofont-filter"></i>
                 </a>
                 {{--rota com parâmetro opcional, caso exista uma consulta pronta o pdf mostra essa pequisa--}}

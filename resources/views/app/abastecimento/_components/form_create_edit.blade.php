@@ -26,7 +26,7 @@
     <label for="produto_id" class="col-md-4 col-form-label text-md-end text-right">Produto</label>
 
     <div class="col-md-6">
-        <select name="produto_id" id="" class="form-control-template">
+        <select name="produto_id" id="produto_id" class="form-control-template">
             <option value=""> --Selecione o produto--</option>
             @foreach ($produtos as $produto)
                 <option value="{{ $produto->id }}"
@@ -68,8 +68,8 @@
 <div class="row mb-1">
     <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
     <div class="col-md-6">
-        <input id="quantidade" type="text" class="form-control-template" name="quantidade" placeholder="Calcula automático (opcional)"
-            value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
+        <input id="quantidade" type="text" class="form-control-template" name="quantidade"
+            placeholder="Calcula automático (opcional)" value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
         {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
     </div>
 </div>
@@ -140,21 +140,24 @@
             })
         });
 
-        $('#horimetro_final').change(function(){
-            var horimetro_inicial= $('#horimetro_inicial').val();
-            var horimetro_final= $('#horimetro_final').val();
-            var total_horas=horimetro_final - horimetro_inicial;
-            total_horas=total_horas.toFixed(2);
-            if(total_horas > 0 ){
+        $('#horimetro_final').change(function() {
+            var horimetro_inicial = $('#horimetro_inicial').val();
+            var horimetro_final = $('#horimetro_final').val();
+            var total_horas = horimetro_final - horimetro_inicial;
+            total_horas = total_horas.toFixed(2);
+            if (total_horas > 0) {
                 $('#qtde_horimetro').val(total_horas);
-            }else{
+            } else {
                 alert('O Horímetro Final deve ser maior que o horímeto inicial');
                 $('#horimetro_final').val('');
                 $('#horimetro_final').focus();
             }
-        })      
-
-
+        })
 
     });
+
+    $(document).ready(function() {
+            $('#equipamento_id').select2();
+            $('#produto_id').select2();
+        });
 </script>

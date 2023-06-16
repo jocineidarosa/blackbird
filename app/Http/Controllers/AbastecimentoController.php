@@ -119,7 +119,7 @@ class AbastecimentoController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('app.abastecimento.select2');
     }
 
     /**
@@ -133,9 +133,9 @@ class AbastecimentoController extends Controller
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
         $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
-            ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
+        ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
         $horimetro_inicial=$horimetro_inicial->horimetro_inicial;
-        $total_horimetro = $abastecimento->horimetro - $horimetro_inicial;
+        $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
         $abastecimento->horimetro_inicial=$horimetro_inicial;
         return view('app.abastecimento.edit', [
             'abastecimento' => $abastecimento,
@@ -154,9 +154,9 @@ class AbastecimentoController extends Controller
      */
     public function update(Request $request, Abastecimento $abastecimento)
     {
-        $controle = Equipamento::find($request->equipamento_id);
-        $controle_consumo = $controle->controle_consumo;
-        $controle_saida = $controle->controle_saida;
+        $equipamento = Equipamento::find($abastecimento->equipamento_id);
+        $controle_consumo = $equipamento->controle_consumo;
+        $controle_saida = $equipamento->controle_saida;
 
         if ($controle_consumo == 1) {
             $consumo = Consumo::find($abastecimento->consumo_id);
@@ -166,18 +166,15 @@ class AbastecimentoController extends Controller
             $consumo->data = $request->data;
             $consumo->save();
         } else {
-            $equipamento = Equipamento::find($request->equipamento_id);
-            $equipamento->quant_tanque = $equipamento->quant_tanque + $request->quantidade;
+            $dif_quant=$abastecimento->quantidade - $request->quantidade;
+            $equipamento->quant_tanque = $equipamento->quant_tanque - $dif_quant;
             $equipamento->save();
         }
 
         if ($controle_saida == 0) {
-
-            $saida_produto = SaidaProduto::where('consumo_id', $consumo->id);
-
-            $diferenca_atualizada = $request->quantidade - $saida_produto->quantidade;
-            $produto = Produto::find($request->produto_id);
-            $produto->estoque_atual = $produto->estoque_atual + $request->quantidade; // soma estoque antigo com a entrada de produto
+            $saida_produto = SaidaProduto::where('abastecimento_id',$abastecimento->id)->first();
+            $produto = Produto::find($abastecimento->produto_id);
+            $produto->estoque_atual = $produto->estoque_atual - $dif_quant;// atualiza o estoque do produto
             $produto->save();
 
             $saida_produto->equipamento_id = $request->equipamento_id;
