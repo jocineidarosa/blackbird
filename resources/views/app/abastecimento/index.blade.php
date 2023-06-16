@@ -20,7 +20,7 @@
                 <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-page pr-2"></i>TODOS
                 </a>
-                <a href="{{ route('abastecimento.show',['abastecimento'=>'1']) }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.consulta_avancada') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-filter"></i>
                 </a>
                 {{--rota com parâmetro opcional, caso exista uma consulta pronta o pdf mostra essa pequisa--}}

@@ -157,7 +157,7 @@
     });
 
     $(document).ready(function() {
-            $('#equipamento_id').select2();
-            $('#produto_id').select2();
-        });
+        $('#equipamento_id').select2();
+        $('#produto_id').select2();
+    });
 </script>

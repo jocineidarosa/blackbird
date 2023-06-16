@@ -21,22 +21,40 @@ class AbastecimentoController extends Controller
      */
     public function index(Request $request)
     {
-        $filtro_equipamento = '';
+        $regras = [
+            'data_final' => 'required_with:data_inicial',
+            'data_inicial' => 'required_with:data_final'
+        ];
+        $feedback = [
+            'required_with' => 'O campo :attribute deve ser preenchido'
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $filtro_equipamento = '';//parametro usado para guardar filtro para ser executado no pdf
         $equipamentos = Equipamento::all();
+        $abastecimentos = DB::table('abastecimentos as ab')
+            ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+            ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
+            ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
+        ab.quantidade as quantidade, ab.data as data ');
+
         if ($request->filtro_equipamento) {
-            $filtro_equipamento = $request->filtro_equipamento;
-            $abastecimentos = DB::table('abastecimentos as ab')
-                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
-                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
-                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
-                ->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%')->orderBy('data', 'desc')->paginate(12);
-        } else {
-            $abastecimentos = DB::table('abastecimentos as ab')
-                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
-                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
-                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
-                ab.quantidade as quantidade, ab.data as data ')->orderBy('data', 'desc')->paginate(12);
+            $filtro_equipamento=$request->filtro_equipamento;
+            $abastecimentos = $abastecimentos->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%');
         }
+        if ($request->equipamento_id) {
+            $filtro_equipamento=$request->equipamento_id;
+            $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
+        }
+        if($request->produto_id){
+            $abastecimentos=$abastecimentos->where('ab.produto_id', $request->produto_id);
+        }
+        if($request->data_inicial){
+            $abastecimentos=$abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        }
+
+        $abastecimentos=$abastecimentos->orderBy('data', 'desc')->paginate(12);
 
         return view('app.abastecimento.index', [
             'abastecimentos' => $abastecimentos,
@@ -119,7 +137,6 @@ class AbastecimentoController extends Controller
      */
     public function show($id)
     {
-        return view('app.abastecimento.select2');
     }
 
     /**
@@ -133,15 +150,15 @@ class AbastecimentoController extends Controller
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
         $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
-        ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
-        $horimetro_inicial=$horimetro_inicial->horimetro_inicial;
+            ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
+        $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
         $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
-        $abastecimento->horimetro_inicial=$horimetro_inicial;
+        $abastecimento->horimetro_inicial = $horimetro_inicial;
         return view('app.abastecimento.edit', [
             'abastecimento' => $abastecimento,
             'equipamentos' => $equipamentos,
             'produtos' => $produtos,
-            'total_horimetro'=>$total_horimetro
+            'total_horimetro' => $total_horimetro
         ]);
     }
 
@@ -166,15 +183,15 @@ class AbastecimentoController extends Controller
             $consumo->data = $request->data;
             $consumo->save();
         } else {
-            $dif_quant=$abastecimento->quantidade - $request->quantidade;
+            $dif_quant = $abastecimento->quantidade - $request->quantidade;
             $equipamento->quant_tanque = $equipamento->quant_tanque - $dif_quant;
             $equipamento->save();
         }
 
         if ($controle_saida == 0) {
-            $saida_produto = SaidaProduto::where('abastecimento_id',$abastecimento->id)->first();
+            $saida_produto = SaidaProduto::where('abastecimento_id', $abastecimento->id)->first();
             $produto = Produto::find($abastecimento->produto_id);
-            $produto->estoque_atual = $produto->estoque_atual - $dif_quant;// atualiza o estoque do produto
+            $produto->estoque_atual = $produto->estoque_atual - $dif_quant; // atualiza o estoque do produto
             $produto->save();
 
             $saida_produto->equipamento_id = $request->equipamento_id;
@@ -256,5 +273,17 @@ class AbastecimentoController extends Controller
 
         //echo json_encode($estoque_final->quantidade);
         return response()->json(['estoque_atual' => $estoque_atual->estoque_atual]);
+    }
+
+    public function consultaAvancada()
+    {
+        $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
+        $produtos = Produto::orderBy('nome', 'asc')->get();
+        return view('app.abastecimento.consulta_avancada', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
+    }
+
+    public function executaConsultaAvancada(Request $request)
+    {
+        dd($request->all());
     }
 }
