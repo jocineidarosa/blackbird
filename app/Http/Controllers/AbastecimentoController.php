@@ -178,7 +178,7 @@ class AbastecimentoController extends Controller
         $controle_saida = $equipamento->controle_saida;
 
         if ($controle_consumo == 1) {
-            $consumo = Consumo::find($abastecimento->consumo_id);
+            $consumo = Consumo::where('abastecimento_id',$abastecimento->id);
             $consumo->equipamento_id = $request->equipamento_id;
             $consumo->produto_id = $request->produto_id;
             $consumo->quantidade = $request->quantidade;
