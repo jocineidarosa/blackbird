@@ -5,9 +5,10 @@
         method="POST">
         @csrf
         <div class="row mb-1">
-            <label for="equipamento_recursos" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
+            <label for="equipamento_id"
+            class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
             <div class="col-md-6">
-                <select name="equipamento_recursos" id="equipamento_recursos" class="form-control" autofocus>
+                <select name="equipamento_recursos" id="equipamento_recursos" class="form-control-template" autofocus>
                     <option value=""> --Selecione o Equipamento--</option>
                     @foreach ($equipamentos as $equipamento)
                         <option value="{{ $equipamento->id }}">

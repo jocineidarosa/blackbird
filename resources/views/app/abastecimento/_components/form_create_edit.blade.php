@@ -50,8 +50,7 @@
 <div class="row mb-1">
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
-        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
-            value="{{ $contador_inicial ?? $abastecimento->medidor_inicial }}">
+        <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly value="">
         {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
     </div>
 </div>
@@ -111,7 +110,29 @@
 </form>
 
 <script>
+    $(document).ready(function() {
+        $('#equipamento_id').select2();
+        $('#produto_id').select2();
+    });
+
     $(function() {
+
+        $('#produto_id').change(function() {
+            var produto_id = $("#produto_id option:selected").val();
+            $("#medidor_inicial").val(''); //limpa horímetro inicial
+            $.ajax({
+                url: "{{route('abastecimento.busca_contador_inicial') }}",
+                type: "get",
+                data: {
+                    'table': 'abastecimentos',
+                    'produto_id':produto_id 
+                },
+                dataType: "json",
+                success: function(response) {
+                    $("#medidor_inicial").val(response);
+                }
+            })
+        });
 
         $('#medidor_final').change(function() {
             var medidor_inicial = $('#medidor_inicial').val();
@@ -154,10 +175,5 @@
             }
         })
 
-    });
-
-    $(document).ready(function() {
-        $('#equipamento_id').select2();
-        $('#produto_id').select2();
     });
 </script>

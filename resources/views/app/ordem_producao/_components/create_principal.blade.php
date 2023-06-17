@@ -132,7 +132,7 @@
         <div class="row mb-1">
             <label for="situacao"class="col-md-4 col-form-label text-md-end text-right">Situaçao</label>
             <div class="col-md-6">
-                <select name="status_id" id="" class="form-control-template" required>
+                <select name="status_id" id="situacao" class="form-control-template" required>
                     <option value=""> --Selecione a Situação-</option>
                     @foreach ($statuss as $status)
                         <option value="{{ $status->id }}"

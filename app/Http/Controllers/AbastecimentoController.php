@@ -73,12 +73,10 @@ class AbastecimentoController extends Controller
     public function create()
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
-        $contador_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as contador_inicial')->first();
-        $contador_inicial = $contador_inicial = $contador_inicial->contador_inicial;
         $produtos = Produto::orderBy('nome', 'asc')->get();
         return view('app.abastecimento.create', [
             'equipamentos' => $equipamentos,
-            'produtos' => $produtos, 'contador_inicial' => $contador_inicial
+            'produtos' => $produtos
         ]);
     }
 
@@ -296,8 +294,12 @@ class AbastecimentoController extends Controller
         return view('app.abastecimento.consulta_avancada', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
     }
 
-    public function executaConsultaAvancada(Request $request)
+    public function getContadorInicialProduto(Request $request)
     {
-        dd($request->all());
+        $table = $request->get('table');
+        $produto_id= $request->get('produto_id');
+        $contador_inicial = DB::table($table)->selectRaw('max(medidor_final) as contador_inicial')
+            ->where('produto_id', $produto_id)->first();
+        echo json_encode($contador_inicial->contador_inicial);
     }
 }

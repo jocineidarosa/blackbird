@@ -15,11 +15,14 @@
                 @component('app.abastecimento._components.form_create_edit', 
                     [
                         'equipamentos'=>$equipamentos,
-                        'produtos'=>$produtos,
-                        'contador_inicial'=>$contador_inicial,
+                        'produtos'=>$produtos
                     ])
                 @endcomponent
             </div>
         </div>
+
+        <script>
+             
+        </script>
 
 @endsection

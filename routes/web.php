@@ -279,6 +279,8 @@ Route::middleware('auth')->get('abastecimento/consulta/avancada','App\Http\Contr
 ->name('abastecimento.consulta_avancada');
 Route::middleware('auth')->get('abastecimento/consulta/executa-consulta-avancada','App\Http\Controllers\AbastecimentoController@executaConsultaAvancada')
 ->name('abastecimento.executa_consulta_avancada');
+Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\Http\Controllers\AbastecimentoController@getContadorInicialProduto')
+->name('abastecimento.busca_contador_inicial');//busca contador inicial
 
 
 
