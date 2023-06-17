@@ -10,6 +10,7 @@ use App\Models\SaidaProduto;
 use App\Models\Consumo;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Svg\CssLength;
 use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
 
 class AbastecimentoController extends Controller
@@ -28,38 +29,39 @@ class AbastecimentoController extends Controller
         $feedback = [
             'required_with' => 'O campo :attribute deve ser preenchido'
         ];
-
         $request->validate($regras, $feedback);
 
-        $filtro_equipamento = '';//parametro usado para guardar filtro para ser executado no pdf
+        $filtros = '';
         $equipamentos = Equipamento::all();
         $abastecimentos = DB::table('abastecimentos as ab')
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
             ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
             ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
         ab.quantidade as quantidade, ab.data as data ');
-
         if ($request->filtro_equipamento) {
-            $filtro_equipamento=$request->filtro_equipamento;
+            $filtros = '?filtro_equipamento=' . $request->filtro_equipamento;
             $abastecimentos = $abastecimentos->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%');
         }
         if ($request->equipamento_id) {
-            $filtro_equipamento=$request->equipamento_id;
+            $filtros = '?equipamento_id=' . $request->equipamento_id;
             $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
         }
-        if($request->produto_id){
-            $abastecimentos=$abastecimentos->where('ab.produto_id', $request->produto_id);
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
         }
-        if($request->data_inicial){
-            $abastecimentos=$abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $abastecimentos=$abastecimentos->orderBy('data', 'desc')->paginate(12);
-
+        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->paginate(12);
         return view('app.abastecimento.index', [
             'abastecimentos' => $abastecimentos,
-            'equipamentos' => $equipamentos, 'request' => $request->all(),
-            'filtro_equipamento' => $filtro_equipamento
+            'equipamentos' => $equipamentos,
+            'request' => $request->all(),
+            'filtros' => $filtros
         ]);
     }
 
@@ -243,23 +245,32 @@ class AbastecimentoController extends Controller
         return redirect()->route('abastecimento.index');
     }
 
-    public function pdfExport($equipamento = '')
+    public function pdfExport(Request $request)
     {
-        if ($equipamento <> '') {
-            $abastecimentos = DB::table('abastecimentos as ab')
-                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
-                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
-                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')
-                ->where('eq.nome',  'like', '%' . $equipamento . '%')->get();
-        } else {
-            $abastecimentos = DB::table('abastecimentos as ab')
-                ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
-                ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
-                ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, ab.quantidade as quantidade, ab.data as data ')->get();
+        $abastecimentos = DB::table('abastecimentos as ab')
+            ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+            ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
+            ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
+        ab.quantidade as quantidade, ab.data as data ');
+        if ($request->filtro_equipamento) {
+            $filtros = '?filtro_equipamento=' . $request->filtro_equipamento;
+            $abastecimentos = $abastecimentos->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%');
         }
-
+        if ($request->equipamento_id) {
+            $filtros = '?equipamento_id=' . $request->equipamento_id;
+            $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
+        }
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
+        }
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        }
+        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->get();
         $total_quant = $abastecimentos->sum('quantidade');
-
         $pdf = PDF::loadView('app.abastecimento.exporta_pdf', ['abastecimentos' => $abastecimentos, 'total_quant' => $total_quant]);
         return $pdf->stream('Abastecimentos.pdf');
     }
@@ -280,10 +291,5 @@ class AbastecimentoController extends Controller
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
         return view('app.abastecimento.consulta_avancada', ['equipamentos' => $equipamentos, 'produtos' => $produtos]);
-    }
-
-    public function executaConsultaAvancada(Request $request)
-    {
-        dd($request->all());
     }
 }

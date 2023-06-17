@@ -274,7 +274,7 @@ Route::middleware('auth')->prefix('/recursos-producao')->group(function() {
 //abastecimento
 Route::middleware('auth')->resource('/abastecimento', 'App\Http\Controllers\AbastecimentoController');
 Route::middleware('auth')->delete('abastecimento/destroy', 'App\Http\Controllers\AbastecimentoController@destroy')->name('abastecimento.destroy');
-Route::middleware('auth')->get('pdf/abastecimento/{equipamento?}','App\Http\Controllers\AbastecimentoController@pdfExport')->name('abastecimento.pdf_export');
+Route::middleware('auth')->get('pdf/abastecimento','App\Http\Controllers\AbastecimentoController@pdfExport')->name('abastecimento.pdf_export');
 Route::middleware('auth')->get('abastecimento/consulta/avancada','App\Http\Controllers\AbastecimentoController@consultaAvancada')
 ->name('abastecimento.consulta_avancada');
 Route::middleware('auth')->get('abastecimento/consulta/executa-consulta-avancada','App\Http\Controllers\AbastecimentoController@executaConsultaAvancada')

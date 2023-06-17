@@ -24,7 +24,8 @@
                     <i class="icofont-filter"></i>
                 </a>
                 {{--rota com parâmetro opcional, caso exista uma consulta pronta o pdf mostra essa pequisa--}}
-                <a href="{{ route('abastecimento.pdf_export',['equipamento'=>$filtro_equipamento ? $filtro_equipamento : '']) }}" class="btn btn-sm btn-primary">
+                {{-- <a href="{{ route('abastecimento.pdf_export',['equipamento'=>$filtro_equipamento ? $filtro_equipamento : '']) }}" class="btn btn-sm btn-primary"> --}}
+                <a href="{{ route('abastecimento.pdf_export')}}{{$filtros ? $filtros : ''}}" class="btn btn-sm btn-primary">
                     <i class="icofont-file-pdf pr-2"></i>PDF
                 </a>
             </div>
