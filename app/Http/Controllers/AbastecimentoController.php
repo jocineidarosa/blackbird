@@ -30,7 +30,7 @@ class AbastecimentoController extends Controller
         ];
         $request->validate($regras, $feedback);
 
-        $filtros='';
+        $filtros = '';
         $equipamentos = Equipamento::all();
         $abastecimentos = DB::table('abastecimentos as ab')
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
@@ -39,24 +39,24 @@ class AbastecimentoController extends Controller
         ab.quantidade as quantidade, ab.data as data ');
 
         if ($request->filtro_equipamento) {
-            $filtros= '?filtro_equipamento='. $request->filtro_quipamento;
+            $filtros = '?filtro_equipamento=' . $request->filtro_quipamento;
             $abastecimentos = $abastecimentos->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%');
         }
         if ($request->equipamento_id) {
-            $filtros='?equipamento_id='. $request->equipamento_id;
+            $filtros = '?equipamento_id=' . $request->equipamento_id;
             $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
         }
-        if($request->produto_id){
-            $filtros= strlen($filtros) > 0 ? $filtros . '&produto_id='. $request->produto_id : '?produto_id=' . $request->produto_id; 
-            $abastecimentos=$abastecimentos->where('ab.produto_id', $request->produto_id);
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
         }
-        if($request->data_inicial){
-            $filtros= strlen($filtros) > 0 ? $filtros . '&data_inicial='. $request->data_inicial . '&data_final='.$request->data_final : 
-            '?data_inicial=' . $request->data_inicial . '&data_final='. $request->data_final;
-            $abastecimentos=$abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $abastecimentos=$abastecimentos->orderBy('data', 'desc')->paginate(12);
+        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->paginate(12);
 
         return view('app.abastecimento.index', [
             'abastecimentos' => $abastecimentos,
@@ -154,6 +154,10 @@ class AbastecimentoController extends Controller
         $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
         $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
         $abastecimento->horimetro_inicial = $horimetro_inicial;
+        $medidor_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as medidor_inicial')
+            ->where('medidor_final', '<', $abastecimento->medidor_final)
+            ->where('produto_id', $abastecimento->produto_id)->first();
+        $abastecimento->medidor_inicial=$medidor_inicial->medidor_inicial;
         return view('app.abastecimento.edit', [
             'abastecimento' => $abastecimento,
             'equipamentos' => $equipamentos,
@@ -174,9 +178,9 @@ class AbastecimentoController extends Controller
         $equipamento = Equipamento::find($abastecimento->equipamento_id);
         $controle_consumo = $equipamento->controle_consumo;
         $controle_saida = $equipamento->controle_saida;
-        $dif_quant = $abastecimento->quantidade - $request->quantidade;//diferença entre quantidade antiga e quantidade nova no request.
+        $dif_quant = $abastecimento->quantidade - $request->quantidade; //diferença entre quantidade antiga e quantidade nova no request.
         if ($controle_consumo == 1) {
-            $consumo = Consumo::where('abastecimento_id',$abastecimento->id)->first();
+            $consumo = Consumo::where('abastecimento_id', $abastecimento->id)->first();
             $consumo->produto_id = $request->produto_id;
             $consumo->quantidade = $request->quantidade;
             $consumo->data = $request->data;
@@ -243,7 +247,7 @@ class AbastecimentoController extends Controller
 
     public function pdfExport(Request $request)
     {
-        $filtros='';
+        $filtros = '';
         $abastecimentos = DB::table('abastecimentos as ab')
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
             ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
@@ -251,24 +255,24 @@ class AbastecimentoController extends Controller
         ab.quantidade as quantidade, ab.data as data ');
 
         if ($request->filtro_equipamento) {
-            $filtros= '?filtro_equipamento='. $request->filtro_quipamento;
+            $filtros = '?filtro_equipamento=' . $request->filtro_quipamento;
             $abastecimentos = $abastecimentos->where('eq.nome',  'like', '%' . $request->filtro_equipamento . '%');
         }
         if ($request->equipamento_id) {
-            $filtros='?equipamento_id='. $request->equipamento_id;
+            $filtros = '?equipamento_id=' . $request->equipamento_id;
             $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
         }
-        if($request->produto_id){
-            $filtros= strlen($filtros) > 0 ? $filtros . '&produto_id='. $request->produto_id : '?produto_id=' . $request->produto_id; 
-            $abastecimentos=$abastecimentos->where('ab.produto_id', $request->produto_id);
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
         }
-        if($request->data_inicial){
-            $filtros= strlen($filtros) > 0 ? $filtros . '&data_inicial='. $request->data_inicial . '&data_final='.$request->data_final : 
-            '?data_inicial=' . $request->data_inicial . '&data_final='. $request->data_final;
-            $abastecimentos=$abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $abastecimentos=$abastecimentos->orderBy('data', 'desc')->get();
+        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->get();
 
         $total_quant = $abastecimentos->sum('quantidade');
 
@@ -297,7 +301,7 @@ class AbastecimentoController extends Controller
     public function getContadorInicialProduto(Request $request)
     {
         $table = $request->get('table');
-        $produto_id= $request->get('produto_id');
+        $produto_id = $request->get('produto_id');
         $contador_inicial = DB::table($table)->selectRaw('max(medidor_final) as contador_inicial')
             ->where('produto_id', $produto_id)->first();
         echo json_encode($contador_inicial->contador_inicial);
