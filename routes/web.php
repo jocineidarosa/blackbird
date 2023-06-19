@@ -134,7 +134,7 @@ Route::middleware('auth')->get('utils/get-quant-tanque','App\Http\Controllers\Ut
 Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
 )->name('utils.get-cidade');
 
-//cria consumos
+/* //cria consumos
 Route::middleware('auth')->get('utils/cria-consumo','App\Http\Controllers\UtilsController@criaConsumo'
 )->name('utils.cria-consumo');
 
@@ -156,10 +156,10 @@ Route::middleware('auth')->get('utils/add-abast-diesel','App\Http\Controllers\Ut
 
 //deletaEntradaDiesel
 Route::middleware('auth')->get('utils/deleta-entrada-diesel','App\Http\Controllers\UtilsController@deletaEntradaDiesel'
-);
+); */
 //executa mundanças
-Route::middleware('auth')->get('utils/executa-mudancas','App\Http\Controllers\UtilsController@executeChangeData'
-);
+/* Route::middleware('auth')->get('utils/executa-mudancas','App\Http\Controllers\UtilsController@executeChangeData'
+); */
 
 Route::middleware('auth')->get('utils/export','App\Http\Controllers\UtilsController@export'
 );
@@ -281,8 +281,6 @@ Route::middleware('auth')->get('abastecimento/consulta/executa-consulta-avancada
 ->name('abastecimento.executa_consulta_avancada');
 Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\Http\Controllers\AbastecimentoController@getContadorInicialProduto')
 ->name('abastecimento.busca_contador_inicial');//busca contador inicial
-
-
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');

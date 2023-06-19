@@ -150,7 +150,7 @@ class UtilsController extends Controller
         }
     }
 
-    public function executeChangeData(){
+   /*  public function executeChangeData(){
         $this->criaConsumo();
         $this->modificaEntradaDiesel();
         $this->modificaEntradaCap();
@@ -159,7 +159,7 @@ class UtilsController extends Controller
         $this->deletaEntradaDiesel();
         echo'Executado com exito!';
 
-    }
+    } */
 
     public function export(){
         $abastecimentos=Abastecimento::all();
