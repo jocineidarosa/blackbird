@@ -391,3 +391,11 @@ table td{
 .container-fluid{
     padding: 0;  
 }  
+
+.alert-error {
+    position: relative;
+    padding:0.6 rem;
+    margin-bottom: 0.3rem;
+    border: 1px solid transparent;
+    border-radius: .25rem
+}

@@ -1,9 +1,9 @@
 @if (isset($abastecimento->id))
-    <form action="{{ route('abastecimento.update', ['abastecimento' => $abastecimento->id]) }}" method="POST">
+    <form id="frmDados" action="{{ route('abastecimento.update', ['abastecimento' => $abastecimento->id]) }}" method="POST">
         @csrf
         @method('PUT')
     @else
-        <form action="{{ route('abastecimento.store') }}" method="POST">
+        <form id="frmDados" action="{{ route('abastecimento.store') }}" method="POST">
             @csrf
 @endif
 
@@ -18,7 +18,11 @@
                     {{ $equipamento->nome . '    |    ' . $equipamento->cod_operacao }}</option>
             @endforeach
         </select>
-        {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
+        @if ($errors->has('equipamento_id'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('equipamento_id') }}
+            </div>
+        @endif
     </div>
 </div>
 
@@ -34,7 +38,11 @@
                     {{ $produto->nome }}</option>
             @endforeach
         </select>
-        {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}
+        @if ($errors->has('produto_id'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('produto_id') }}
+            </div>
+        @endif
     </div>
 </div>
 
@@ -43,7 +51,11 @@
     <div class="col-md-6">
         <input id="data" name="data" type="date" class="form-control-template"
             value="{{ $abastecimento->data ?? old('data') }}">
-        {{ $errors->has('data') ? $errors->first('data') : '' }}
+        @if ($errors->has('data'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('data') }}
+            </div>
+        @endif
     </div>
 </div>
 
@@ -51,8 +63,7 @@
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
         <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
-         value="{{$abastecimento->medidor_inicial ?? ''}}">
-        {{ $errors->has('medidor_inicial') ? $errors->first('medidor_inicial') : '' }}
+            value="{{ $abastecimento->medidor_inicial ?? '' }}">
     </div>
 </div>
 
@@ -61,7 +72,6 @@
     <div class="col-md-6">
         <input id="medidor_final" name="medidor_final" type="text" class="form-control-template"
             value="{{ $abastecimento->medidor_final ?? old('medidor_final') }}">
-        {{ $errors->has('medidor_final') ? $errors->first('medidor_final') : '' }}
     </div>
 </div>
 
@@ -70,7 +80,11 @@
     <div class="col-md-6">
         <input id="quantidade" type="text" class="form-control-template" name="quantidade"
             placeholder="Calcula automático (opcional)" value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
-        {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
+            @if ($errors->has('quantidade'))
+                <div class="alert-error alert-danger">
+                    {{ $errors->first('quantidade') }}
+                </div>
+            @endif
     </div>
 </div>
 
@@ -101,8 +115,8 @@
 
 <div class="row mb-1">
     <div class="col-md-6 offset-md-4">
-        <button type="submit" class="btn btn-primary">
-            {{ isset($abastecimento) ? 'Atualizar' : 'Cadastrar' }}
+        <button type="submit" class="btn btn-primary" id="submit">
+            {{ isset($abastecimento) ? 'Atualizar [F5]' : 'Cadastrar [F5]' }}
         </button>
     </div>
 </div>
@@ -114,17 +128,23 @@
         $('#produto_id').select2();
     });
 
-    $(function() {
+    document.addEventListener("keypress", function(e) {
+        if (event.ctrlKey && event.key == "Enter") {
+            document.querySelector('#submit').click();
+        }
 
+    });
+
+    $(function() {
         $('#produto_id').change(function() {
             var produto_id = $("#produto_id option:selected").val();
             $("#medidor_inicial").val(''); //limpa horímetro inicial
             $.ajax({
-                url: "{{route('abastecimento.busca_contador_inicial') }}",
+                url: "{{ route('abastecimento.busca_contador_inicial') }}",
                 type: "get",
                 data: {
                     'table': 'abastecimentos',
-                    'produto_id':produto_id 
+                    'produto_id': produto_id
                 },
                 dataType: "json",
                 success: function(response) {

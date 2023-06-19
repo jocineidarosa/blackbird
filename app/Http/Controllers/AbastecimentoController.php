@@ -89,6 +89,18 @@ class AbastecimentoController extends Controller
     public function store(Request $request)
     {
 
+        $regras = [
+            'equipamento_id'=>'required',
+            'produto_id'=>'required',
+            'data' => 'required',
+            'quantidade'=>'required'
+        ];
+        $feedback = [
+            'required_with' => 'O campo :attribute deve ser preenchido',
+            'required'=>'Este campo não pode ficar em branco'
+        ];
+        $request->validate($regras, $feedback);
+
         $controle = Equipamento::find($request->equipamento_id);
         $controle_consumo = $controle->controle_consumo;
         $controle_saida = $controle->controle_saida;
@@ -149,15 +161,25 @@ class AbastecimentoController extends Controller
     {
         $equipamentos = Equipamento::orderBy('nome', 'asc')->get();
         $produtos = Produto::orderBy('nome', 'asc')->get();
-        $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
-            ->where('horimetro', '<', $abastecimento->horimetro)->where('equipamento_id', $abastecimento->equipamento_id)->first();
-        $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
-        $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
-        $abastecimento->horimetro_inicial = $horimetro_inicial;
-        $medidor_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as medidor_inicial')
-            ->where('medidor_final', '<', $abastecimento->medidor_final)
-            ->where('produto_id', $abastecimento->produto_id)->first();
-        $abastecimento->medidor_inicial=$medidor_inicial->medidor_inicial;
+        //dd($abastecimento);
+        if (isset($abastecimento->horimetro)) {
+            $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
+                ->where('horimetro', '<', $abastecimento->horimetro)
+                ->where('equipamento_id', $abastecimento->equipamento_id)->first();
+            $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
+            dd($horimetro_inicial);
+            $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
+            $abastecimento->horimetro_inicial = $horimetro_inicial;
+        }else{
+            $total_horimetro ='';
+        }
+
+        if(isset($abastecimento->medidor_final)){
+            $medidor_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as medidor_inicial')
+                ->where('medidor_final', '<', $abastecimento->medidor_final)
+                ->where('produto_id', $abastecimento->produto_id)->first();
+            $abastecimento->medidor_inicial = $medidor_inicial->medidor_inicial;
+        }
         return view('app.abastecimento.edit', [
             'abastecimento' => $abastecimento,
             'equipamentos' => $equipamentos,
