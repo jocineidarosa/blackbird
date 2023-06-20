@@ -167,7 +167,6 @@ class AbastecimentoController extends Controller
                 ->where('horimetro', '<', $abastecimento->horimetro)
                 ->where('equipamento_id', $abastecimento->equipamento_id)->first();
             $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
-            dd($horimetro_inicial);
             $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
             $abastecimento->horimetro_inicial = $horimetro_inicial;
         }else{
