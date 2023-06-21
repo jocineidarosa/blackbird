@@ -17,18 +17,18 @@
 
         <div class="card-header-template">
             <div>
-                <a href="{{ route('abastecimento.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.create') }}" class="btn btn-sm btn-primary m-1">
                     <i class="icofont-plus-circle pr-2"></i>NOVO
                 </a>
-                <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary m-1">
                     <i class="icofont-page pr-2"></i>TODOS
                 </a>
-                <a href="{{ route('abastecimento.consulta_avancada') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.consulta_avancada') }}" class="btn btn-sm btn-primary m-1">
                     <i class="icofont-filter"></i>CONSULTA AVANÇADA
                 </a>
                 {{--rota com parâmetro opcional, caso exista uma consulta pronta o pdf mostra essa pequisa--}}
                 {{-- <a href="{{ route('abastecimento.pdf_export',['equipamento'=>$filtro_equipamento ? $filtro_equipamento : '']) }}" class="btn btn-sm btn-primary"> --}}
-                <a href="{{ route('abastecimento.pdf_export')}}{{$filtros ? $filtros : ''}}" class="btn btn-sm btn-primary">
+                <a href="{{ route('abastecimento.pdf_export')}}{{$filtros ? $filtros : ''}}" class="btn btn-sm btn-primary m-1">
                     <i class="icofont-file-pdf pr-2"></i>PDF
                 </a>
             </div>
