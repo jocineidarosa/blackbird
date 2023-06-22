@@ -147,8 +147,28 @@ class AbastecimentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Abastecimento $abastecimento)
     {
+
+        if (isset($abastecimento->horimetro)) {
+            $horimetro_inicial = DB::table('abastecimentos')->selectRaw('max(horimetro) as horimetro_inicial')
+                ->where('horimetro', '<', $abastecimento->horimetro)
+                ->where('equipamento_id', $abastecimento->equipamento_id)->first();
+            $horimetro_inicial = $horimetro_inicial->horimetro_inicial;
+            $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
+            $abastecimento->horimetro_inicial = $horimetro_inicial;
+        }else{
+            $total_horimetro ='';
+        }
+
+        if(isset($abastecimento->medidor_final)){
+            $medidor_inicial = DB::table('abastecimentos')->selectRaw('max(medidor_final) as medidor_inicial')
+                ->where('medidor_final', '<', $abastecimento->medidor_final)
+                ->where('produto_id', $abastecimento->produto_id)->first();
+            $abastecimento->medidor_inicial = $medidor_inicial->medidor_inicial;
+        }
+
+       return view('app.abastecimento.show', ['abastecimento'=>$abastecimento, 'total_horimetro' => $total_horimetro]);
     }
 
     /**

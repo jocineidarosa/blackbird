@@ -1,5 +1,6 @@
 @if (isset($abastecimento->id))
-    <form id="frmDados" action="{{ route('abastecimento.update', ['abastecimento' => $abastecimento->id]) }}" method="POST">
+    <form id="frmDados" action="{{ route('abastecimento.update', ['abastecimento' => $abastecimento->id]) }}"
+        method="POST">
         @csrf
         @method('PUT')
     @else
@@ -7,10 +8,10 @@
             @csrf
 @endif
 
-<div class="row mb-1">
+<div class="row mb-1 disabled">
     <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
     <div class="col-md-6">
-        <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus>
+        <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus >
             <option value=""> --equipamento--</option>
             @foreach ($equipamentos as $equipamento)
                 <option value="{{ $equipamento->id }}"
@@ -80,11 +81,11 @@
     <div class="col-md-6">
         <input id="quantidade" type="text" class="form-control-template" name="quantidade"
             placeholder="Calcula automático (opcional)" value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
-            @if ($errors->has('quantidade'))
-                <div class="alert-error alert-danger">
-                    {{ $errors->first('quantidade') }}
-                </div>
-            @endif
+        @if ($errors->has('quantidade'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('quantidade') }}
+            </div>
+        @endif
     </div>
 </div>
 
