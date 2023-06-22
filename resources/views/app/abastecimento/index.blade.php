@@ -63,12 +63,12 @@
                                         href="{{ route('abastecimento.show', ['abastecimento' => $abastecimento->id]) }}"><i
                                             class="icofont-eye-alt"></i>
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
-                                        href="{{ route('abastecimento.edit', ['abastecimento' => $abastecimento->id]) }}">
+                                    <a class="btn btn-sm-template btn-outline-success" 
+                                        @can('admin') href="{{ route('abastecimento.edit', ['abastecimento' => $abastecimento->id]) }}" @endcan>
                                         <i class="icofont-ui-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan"
-                                        href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    <a class="btn btn-sm-template btn-outline-danger" 
+                                        href="#" data-bs-toggle="modal" @can('admin')data-bs-target="#deleteModal" @endcan
                                         data-id="{{ $abastecimento->id }}">
                                         <i class="icofont-ui-delete"></i>
                                     </a>
