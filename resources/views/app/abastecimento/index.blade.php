@@ -17,7 +17,9 @@
 
         <div class="card-header-template">
             <div>
-                <a href="{{ route('abastecimento.create') }}" class="btn btn-sm btn-primary mb-1">
+                <a @can('admin') href="{{ route('abastecimento.create') }}"
+                @elsecan('user')data-bs-toggle="modal" data-bs-target="#modal_msg"  @endcan 
+                class="btn btn-sm btn-primary mb-1">
                     <i class="icofont-plus-circle pr-2"></i>NOVO
                 </a>
                 <a href="{{ route('abastecimento.index') }}" class="btn btn-sm btn-primary mb-1">
@@ -58,17 +60,19 @@
                             <td>{{ $abastecimento->quantidade }}</td>
                             <td>{{ Carbon\Carbon::parse($abastecimento->data)->format('d/m/Y') }}</td>
                             <td>
-                                <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                <div class="btn-group btn-group-actions visible-on-hover">
                                     <a class="btn btn-sm-template btn-outline-primary"
                                         href="{{ route('abastecimento.show', ['abastecimento' => $abastecimento->id]) }}"><i
                                             class="icofont-eye-alt"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-success" 
-                                        @can('admin') href="{{ route('abastecimento.edit', ['abastecimento' => $abastecimento->id]) }}" @endcan>
+                                        @can('admin') href="{{ route('abastecimento.edit', ['abastecimento' => $abastecimento->id]) }}"
+                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
                                         <i class="icofont-ui-edit"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-danger" 
-                                        href="#" data-bs-toggle="modal" @can('admin')data-bs-target="#deleteModal" @endcan
+                                        href="#" @can('admin') data-bs-toggle="modal" data-bs-target="#deleteModal" @endcan
+                                        @can('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan
                                         data-id="{{ $abastecimento->id }}">
                                         <i class="icofont-ui-delete"></i>
                                     </a>
@@ -81,6 +85,8 @@
             </table>
             @component('app.shared.modal_delete')
                 {{ route('abastecimento.destroy') }}
+            @endcomponent
+            @component('app.shared.modal_msg_no_permission')
             @endcomponent
             <div class="d-flex justify-content-center">
                 {{ $abastecimentos->appends($request)->links() }}

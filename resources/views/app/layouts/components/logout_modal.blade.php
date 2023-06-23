@@ -15,7 +15,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name="data_id" id="data_id">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Logout</button>
+                    <button type="submit" class="btn btn-danger">Sair</button>
                 </div>
             </div>
         </div>

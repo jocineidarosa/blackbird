@@ -45,12 +45,16 @@
                                             href="{{ route('ordem-producao.show', ['ordem_producao' => $ordem_producao->id]) }}"><i
                                             class="icofont-eye-alt"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-outline-success  @can('user') disabled @endcan"
-                                            href="{{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }}">
+                                        <a class="btn btn-sm-template btn-outline-success"
+                                            @can('admin')href="{{ route('ordem-producao.edit', ['ordem_producao' => $ordem_producao->id]) }}"
+                                            @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg"@endcan
+                                            >
                                             <i class="icofont-ui-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-outline-danger @can('user') disabled @endcan" 
-                                            href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $ordem_producao->id }}">
+                                        <a class="btn btn-sm-template btn-outline-danger" 
+                                            @can('admin')href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            @elsecan('user')data-bs-toggle="modal" data-bs-target="#modal_msg"@endcan
+                                            data-id="{{ $ordem_producao->id }}">
                                             <i class="icofont-ui-delete"></i>
                                             </a>
                                     </div>
@@ -68,6 +72,8 @@
                 </table>
                 @component('app.shared.modal_delete')
                     {{route('ordem-producao.destroy')}}
+                @endcomponent
+                @component('app.shared.modal_msg_no_permission')    
                 @endcomponent
                 <div class="d-flex justify-content-center">
                     {{ $ordens_producoes->appends($request)->links() }}

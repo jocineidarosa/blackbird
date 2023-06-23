@@ -395,6 +395,7 @@ class OrdemProducaoController extends Controller
 
     public function show(OrdemProducao $ordem_producao)
     {
+        //horimetro inicial da ordem de operação
         $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
             ->where('equipamento_id', $ordem_producao->equipamento_id)
             ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
