@@ -9,7 +9,8 @@ class Equipamento extends Model
     use HasFactory;
     protected $fillable=[
         'nome', 'descricao', 'marca_id', 'modelo', 'potencia', 'tipo_potencia',
-        'data_fabricacao','equipamento_pai', 'combustivel', 'controle_consumo'];
+        'ano_fabricacao','equipamento_pai', 'combustivel', 'controle_consumo',
+        'capacidade_tanque', 'controle_saida', 'cod_fiscal', 'cod_operacao'];
 
     public function marca(){
        return $this->belongsTo('\App\Models\Marca', 'marca_id', 'id' );
