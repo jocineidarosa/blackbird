@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Abastecimento;
 use App\Models\EntradaProduto;
 use Illuminate\Http\Request;
 use App\Models\Produto;
@@ -461,14 +462,15 @@ class OrdemProducaoController extends Controller
             $recurso->estoque_atual = $estoque->estoque_atual;
             /* soma quantidade total de entrada de produto até a data da ordem de produção 
             depois a saida de produto da mesma forma subtrai a saida da entrada*/
-            $total_entrada_produto = EntradaProduto::where('data', '<=', $ordem_producao->data)
+            $total_consumo = RecursosProducao::where('data', '<=', $ordem_producao->data)
                 ->where('produto_id', $recurso->produto_id)->get('quantidade');
-            $total_entrada_produto = $total_entrada_produto->sum('quantidade');
-            $total_saida_produto = SaidaProduto::where('data', '<=', $ordem_producao->data)
-                ->where('produto_id', $recurso->produto_id)->get('quantidade');
-            $total_saida_produto = $total_saida_produto->sum('quantidade');
+            $total_consumo = $total_consumo->sum('quantidade');
+            
+            $total_abastecimento = Abastecimento::where('data', '<=', $ordem_producao->data)
+                ->where('equipamento_id', $recurso->equipamento_id)->get('quantidade');
+            $total_abastecimento = $total_abastecimento->sum('quantidade');
 
-            $recurso->estoque_final = $total_entrada_produto - $total_saida_produto;
+            $recurso->estoque_final = $total_abastecimento - $total_consumo;
             $recurso->estoque_anterior = $recurso->estoque_atual + $recurso->quantidade;
         }
 
