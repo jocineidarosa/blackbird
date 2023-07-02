@@ -17,18 +17,18 @@ class EquipamentoController extends Controller
     public function index(Request $request)
     {
 
-        if($request->filtro_equipamento){
-            $equipamentos=Equipamento::where('nome', 'like','%'. $request->filtro_equipamento . '%')->paginate(12);
-        }else{
-           $equipamentos=Equipamento::orderBy('nome', 'asc')->paginate(12); 
+        if ($request->filtro_equipamento) {
+            $equipamentos = Equipamento::where('nome', 'like', '%' . $request->filtro_equipamento . '%')->paginate(12);
+        } else {
+            $equipamentos = Equipamento::orderBy('nome', 'asc')->paginate(12);
         }
-        return view('app.equipamento.index', 
-        [
-            'equipamentos' => $equipamentos,
-            'request'=>$request->all()
-        ]);
-
-
+        return view(
+            'app.equipamento.index',
+            [
+                'equipamentos' => $equipamentos,
+                'request' => $request->all()
+            ]
+        );
     }
 
     /**
@@ -39,10 +39,10 @@ class EquipamentoController extends Controller
     public function create()
     {
 
-        $marcas= Marca::all();
-        $equipamentos= Equipamento::all();
-        $produtos= Produto::all();
-        return view('app.equipamento.create' , ['marcas'=>$marcas, 'equipamentos'=>$equipamentos, 'produtos'=>$produtos]);
+        $marcas = Marca::all();
+        $equipamentos = Equipamento::all();
+        $produtos = Produto::all();
+        return view('app.equipamento.create', ['marcas' => $marcas, 'equipamentos' => $equipamentos, 'produtos' => $produtos]);
     }
 
     /**
@@ -53,12 +53,6 @@ class EquipamentoController extends Controller
      */
     public function store(Request $request)
     {
-        if(array_key_exists('controle_consumo', $request->all())){
-            $request['controle_consumo']=1;
-        }else{
-            $request['controle_consumo']=0;
-        }
-
         Equipamento::create($request->all());
         return redirect()->route('equipamento.index');
     }
@@ -83,10 +77,12 @@ class EquipamentoController extends Controller
     public function edit(Equipamento $equipamento)
     {
         $marcas = Marca::all();
-        $equipamentos= Equipamento::all();
-        $produtos=Produto::all();
-        return view('app.equipamento.edit', ['equipamento' => $equipamento, 
-        'equipamentos'=> $equipamentos, 'marcas'=>$marcas, 'produtos'=>$produtos]);
+        $equipamentos = Equipamento::all();
+        $produtos = Produto::all();
+        return view('app.equipamento.edit', [
+            'equipamento' => $equipamento,
+            'equipamentos' => $equipamentos, 'marcas' => $marcas, 'produtos' => $produtos
+        ]);
     }
 
     /**
@@ -98,14 +94,8 @@ class EquipamentoController extends Controller
      */
     public function update(Request $request, Equipamento $equipamento)
     {
-            if(array_key_exists('controle_consumo',$request->all())){
-                $request['controle_consumo']=1;
-
-            }else{
-                $request['controle_consumo']=0;
-            }
-            $equipamento->update($request->all());
-            return redirect()->route('equipamento.index');
+        $equipamento->update($request->all());
+        return redirect()->route('equipamento.index');
     }
 
 

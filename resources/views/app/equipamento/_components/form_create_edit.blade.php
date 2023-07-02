@@ -75,12 +75,12 @@
 </div>
 
 <div class="row mb-1">
-    <label for="data_fabricacao" class="col-md-4 col-form-label text-md-end">Ano Fabricação</label>
+    <label for="ano_fabricacao" class="col-md-4 col-form-label text-md-end">Ano Fabricação</label>
 
     <div class="col-md-6">
-        <input id="data_fabricacao" name="data_fabricacao" type="text" class="form-control-template"
-            value="{{ $equipamento->data_fabricacao ?? old('data_fabricacao') }}">
-        {{ $errors->has('data_fabricacao') ? $errors->first('data_fabricacao') : '' }}
+        <input id="ano_fabricacao" name="ano_fabricacao" type="text" class="form-control-template"
+            value="{{ $equipamento->ano_fabricacao ?? old('ano_fabricacao') }}">
+        {{ $errors->has('ano_fabricacao') ? $errors->first('ano_fabricacao') : '' }}
     </div>
 </div>
 
@@ -100,10 +100,6 @@
         {{ $errors->has('combustivel') ? $errors->first('combustivel') : '' }}
     </div>
 </div>
-
-
-
-
 
 <div class="row mb-1">
     <label for="equipamento_pai" class="col-md-4 col-form-label text-md-end">Equipamento Pai</label>
@@ -126,8 +122,9 @@
 
     <div class="col-md-6">
         <select name="controle_consumo" id="" class="form-control-template">
-            <option value="1">SIM</option>
-            <option value="0">NÃO</option>
+            <option value="">...</option>
+            <option value="1" {{$equipamento->controle_consumo == 1 ?'selected' :'' }}>SIM</option>
+            <option value="0" {{$equipamento->controle_consumo == 0 ?'selected' :'' }}>NÃO</option>
         </select>
         {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
@@ -148,8 +145,9 @@
 
     <div class="col-md-6">
         <select name="controle_saida" id="" class="form-control-template">
-            <option value="0">SIM</option>
-            <option value="1">NÂO</option>  
+            <option value="">...</option>
+            <option value="0" {{$equipamento->controle_saida == 0 ?'selected' :'' }}>SIM</option>
+            <option value="1" {{$equipamento->controle_saida == 1 ?'selected' :'' }}>NÃO</option>  
         </select>
         {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
