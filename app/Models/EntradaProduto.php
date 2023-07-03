@@ -15,6 +15,7 @@ class EntradaProduto extends Model
         'quantidade',
         'preco',
         'nota_fiscal',
+        'descricao',
         'data'
     ];
 

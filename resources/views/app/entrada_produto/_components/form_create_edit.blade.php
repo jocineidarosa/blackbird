@@ -1,10 +1,11 @@
             @if (isset($entrada_produto->id))
-                <form action="{{ route('entrada-produto.update', ['entrada_produto' => $entrada_produto->id]) }}" method="POST">
+                <form action="{{ route('entrada-produto.update', ['entrada_produto' => $entrada_produto->id]) }}"
+                    method="POST">
                     @csrf
                     @method('PUT')
                 @else
                     <form action="{{ route('entrada-produto.store') }}" method="POST">
-                    @csrf
+                        @csrf
             @endif
 
             <div class="row mb-1">
@@ -14,7 +15,8 @@
                         <option value=""> --Selecione o Produto--</option>
                         @foreach ($produtos as $produto)
                             <option value="{{ $produto->id }}"
-                                {{($produto_selected ?? $entrada_produto->produto_id ?? old('produto_id'))== $produto->id ? 'selected' : ''}}>{{ $produto->nome }}
+                                {{ ($produto_selected ?? ($entrada_produto->produto_id ?? old('produto_id'))) == $produto->id ? 'selected' : '' }}>
+                                {{ $produto->nome }}
                             </option>
                         @endforeach
                     </select>
@@ -30,7 +32,7 @@
                         @foreach ($fornecedores as $fornecedor)
                             <option value="{{ $fornecedor->id }}"
                                 {{ ($entrada_produto->fornecedor_id ?? old('fornecedor_id')) == $fornecedor->id ? 'selected' : '' }}>
-                                {{ $fornecedor->nome_fantasia}}</option>
+                                {{ $fornecedor->nome_fantasia }}</option>
                         @endforeach
                     </select>
                     {{ $errors->has('fornecedor_id') ? $errors->first('fornecedor_id') : '' }}
@@ -40,7 +42,7 @@
             <div class="row mb-1">
                 <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
                 <div class="col-md-6">
-                    <input name="quantidade" id="quantidade" type="text" class="form-control "
+                    <input name="quantidade" id="quantidade" type="text" class="form-control-template"
                         value="{{ $entrada_produto->quantidade ?? old('quantidade') }}">
                     {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
                 </div>
@@ -49,7 +51,7 @@
             <div class="row mb-1">
                 <label for="preco" class="col-md-4 col-form-label text-md-end text-right">Preço</label>
                 <div class="col-md-6">
-                    <input name="preco" id="preco" type="text" class="form-control "
+                    <input name="preco" id="preco" type="text" class="form-control-template"
                         value="{{ $entrada_produto->preco ?? old('preco') }}">
                     {{ $errors->has('preco') ? $errors->first('preco') : '' }}
                 </div>
@@ -58,18 +60,27 @@
             <div class="row mb-1">
                 <label for="nota_fiscal" class="col-md-4 col-form-label text-md-end text-right">Nota Fiscal</label>
                 <div class="col-md-6">
-                    <input name="nota_fiscal" id="nota_fiscal" type="text" class="form-control "
+                    <input name="nota_fiscal" id="nota_fiscal" type="text" class="form-control-template "
                         value="{{ $entrada_produto->nota_fiscal ?? old('nota_fiscal') }}">
                     {{ $errors->has('nota_fiscal') ? $errors->first('nota_fiscal') : '' }}
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
                 <div class="col-md-6">
-                    <input name="data" id="data" type="date" class="form-control "
+                    <input name="data" id="data" type="date" class="form-control-template "
                         value="{{ $entrada_produto->data ?? old('data') }}">
                     {{ $errors->has('data') ? $errors->first('data') : '' }}
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
+                <div class="col-md-6">
+                    <input id="descricao" type="text" class="form-control-template" name="descricao"
+                        value="{{ $entrada_produto->descricao ?? old('descricao') }}" required>
+                    {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
                 </div>
             </div>
 
