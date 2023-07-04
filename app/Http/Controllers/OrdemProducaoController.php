@@ -463,7 +463,7 @@ class OrdemProducaoController extends Controller
             /* soma quantidade total de entrada de produto até a data da ordem de produção 
             depois a saida de produto da mesma forma subtrai a saida da entrada*/
             $total_consumo = RecursosProducao::where('data', '<=', $ordem_producao->data)
-                ->where('produto_id', $recurso->produto_id)->get('quantidade');
+                ->where('equipamento_id', $recurso->equipamento_id)->get('quantidade');
             $total_consumo = $total_consumo->sum('quantidade');
             
             $total_abastecimento = Abastecimento::where('data', '<=', $ordem_producao->data)
