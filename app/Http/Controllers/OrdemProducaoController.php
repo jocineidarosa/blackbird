@@ -115,7 +115,7 @@ class OrdemProducaoController extends Controller
         //dd($total_producao_do_dia);
 
         $resumo_producao = DB::table('obras as o')
-            ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
+                        ->join('produtos_obra as po', 'o.id', '=', 'po.obra_id')
             ->join('ordens_producoes as op', 'po.ordem_producao_id', '=', 'op.id')
             ->join('recursos_producao as rp', 'op.id', '=', 'rp.ordem_producao_id')
             ->join('produtos as p', 'p.id', '=', 'rp.produto_id')

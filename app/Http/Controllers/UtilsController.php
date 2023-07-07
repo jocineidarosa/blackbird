@@ -24,7 +24,6 @@ class UtilsController extends Controller
         $table = $request->get('table');
         $field= $request->get('field');
         $equipamento_id = $request->get('equipamento_id');
-        //$horimetro_inicial = DB::table($table)->selectRaw(' max(horimetro_final) as horimetro_inicial')
         $horimetro_inicial = DB::table($table)->selectRaw('max('.$field.') as horimetro_inicial')
             ->where('equipamento_id', $equipamento_id)->first();
         echo json_encode($horimetro_inicial->horimetro_inicial);

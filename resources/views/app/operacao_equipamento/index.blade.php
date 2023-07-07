@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="card">
-{{-- 
+        {{-- 
         <div class="card-header-template">// essa mensagem aparece caso não seja possivel deletar o registro por dependecia
             <div>{{ $message ?? '' }}</div>
         </div> --}}
@@ -39,8 +39,8 @@
                             <td>{{ $operacao->equipamento->nome }}</td>
                             <td>{{ $operacao->produto->nome }}</td>
                             <td>{{ $operacao->quantidade }}</td>
-                            <td>{{ $operacao->horimetro_final }}</td>
-                            <td>{{ Carbon\Carbon::parse($operacao->data)->format('d/m/Y')}}</td>
+                                        <td>{{ $operacao->horimetro_final }}</td>
+                            <td>{{ Carbon\Carbon::parse($operacao->data)->format('d/m/Y') }}</td>
                             <td>{{ $operacao->hora_inicio }}</td>
                             <td>{{ $operacao->hora_fim }}</td>
                             <td>

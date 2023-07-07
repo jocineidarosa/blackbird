@@ -17,7 +17,7 @@
             <div>
                 <a @can('admin')href="{{ route('produto.create') }}"
                 @elsecan('user')data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan
-                class="btn btn-sm btn-primary">
+                    class="btn btn-sm btn-primary">
                     <i class="icofont-plus-circle mr-1"></i>NOVO
                 </a>
                 <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
@@ -58,17 +58,16 @@
                                             class="icofont-eye-alt"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-success "
-                                       @can('admin') href="{{ route('produto.edit', ['produto' => $produto->id]) }}"
-                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan >
+                                        @can('admin') href="{{ route('produto.edit', ['produto' => $produto->id]) }}"
+                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
                                         <i class="icofont-ui-edit"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-success"
-                                       @can('admin') href="{{ route('entrada-produto.create', ['produto_selected' => $produto->id]) }}"
+                                        @can('admin') href="{{ route('entrada-produto.create', ['produto_selected' => $produto->id]) }}"
                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
                                         <i class="icofont-plus-square"></i>
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-danger"
-                                        href="#" data-bs-toggle="modal"
+                                    <a class="btn btn-sm-template btn-outline-danger" href="#" data-bs-toggle="modal"
                                         @can('admin')data-bs-target="#deleteModal"
                                         @elsecan('user') data-bs-target="#modal_msg" @endcan
                                         data-id="{{ $produto->id }}">
