@@ -75,5 +75,22 @@ class UtilsController extends Controller
         //return response()->json(['cidades'=>$cidades]);
     }
 
+    public function getHorimetroInicialByData(Request $request)
+    {
+        $equipamento=$request->equipamento_id;
+        $data=$request->data;
+
+        $lastData = DB::table('abastecimentos')->selectRaw('max(data) as data')
+        ->where('data', '<=', $data)
+        ->where('equipamento_id', $equipamento)->first();
+
+        $horimetro_inicial=DB::table('abastecimentos')->selectRaw('horimetro')
+        ->where('equipamento_id', $equipamento)
+        ->where('data', $lastData->data)->first();
+
+        return json_encode($horimetro_inicial->horimetro);
+
+    }
+
 
 }

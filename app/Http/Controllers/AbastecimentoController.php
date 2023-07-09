@@ -348,13 +348,16 @@ class AbastecimentoController extends Controller
 
     public function getHorimetroInicial(Request $request)
     {
-        $data= $request->data;
+        //$data= $request->data;
+        //$equipamento_id = $request->equipamento_id;
+        $equipamento_id = $request->get('equipamento_id');
 
-
-        $equipamento_id = $request->equipamento_id;
         $lastData = DB::table('abastecimentos')->selectRaw('max(data) as data')
-            ->where('equipamento_id', $equipamento_id)->first();
+        ->where('equipamento_id', $equipamento_id)->first();
+        
         $horimetro_inicial=DB::table('abastecimentos')->selectRaw('horimetro')->where('data', $lastData)->first();
-        echo json_encode($horimetro_inicial->horimetro_inicial);
+        //echo json_encode($horimetro_inicial->horimetro_inicial);
+        //echo json_encode($data);
+        echo json_encode($equipamento_id);
     }
 }
