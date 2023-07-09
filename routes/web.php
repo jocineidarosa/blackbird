@@ -138,15 +138,6 @@ Route::middleware('auth')->get('utils/get-quant-tanque','App\Http\Controllers\Ut
 Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
 )->name('utils.get-cidade');
 
-<<<<<<< HEAD
-=======
-
-
-Route::middleware('auth')->get('utils/get-horimetro-inicial-by-data','App\Http\Controllers\UtilsController@getHorimetroInicialByData'
-)->name('utils-get-horimetro-inicial-by-data');
-
-
->>>>>>> d52bb1004cc5850ef59045b383afc444e0187204
 /* ajax-------------------------------------------------- */
 
 //grupo Ordem de Produção
@@ -263,13 +254,8 @@ Route::middleware('auth')->get('abastecimento/consulta/executa-consulta-avancada
 ->name('abastecimento.executa_consulta_avancada');
 Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\Http\Controllers\AbastecimentoController@getContadorInicialProduto')
 ->name('abastecimento.busca_contador_inicial');//busca contador inicial
-<<<<<<< HEAD
 Route::middleware('auth')->get('abastecimento/ajax/busca-horimetro','App\Http\Controllers\AbastecimentoController@getHorimetroInicial')
 ->name('abastecimento.horimetro-inicial');//busca horímetro inicial
-=======
-/* Route::middleware('auth')->get('/testando','App\Http\Controllers\AbastecimentoController@getHorimetroInicial')
-->name('abastecimento.horimetro-inicial');//busca horímetro inicial */
->>>>>>> d52bb1004cc5850ef59045b383afc444e0187204
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
