@@ -64,7 +64,7 @@
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
         <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
-            value="{{ $abastecimento->medidor_inicial ?? '' }}">
+            value="{{ $abastecimento->medidor_inicial ?? old('medidor_inicial') }}">
     </div>
 </div>
 
@@ -92,7 +92,7 @@
 <div class="row mb-1">
     <label for="horimetro_inicial" class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
     <div class="col-md-6">
-        <input id="horimetro_inicial" name="horimetro_inicial" type="text" class="form-control-disabled" disabled
+        <input id="horimetro_inicial" name="horimetro_inicial" type="text" class="form-control-disabled" readonly
             value="{{ $abastecimento->horimetro_inicial ?? old('horimetro_inicial') }}">
     </div>
 </div>
