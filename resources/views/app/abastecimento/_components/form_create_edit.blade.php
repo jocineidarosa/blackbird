@@ -164,12 +164,20 @@
         });
 
         //busca Horímetro inicial
+<<<<<<< HEAD
         $('#data, #equipamento_id').change(function() {
+=======
+        $('#data').change(function() {
+>>>>>>> d52bb1004cc5850ef59045b383afc444e0187204
             var equipamento_id = $("#equipamento_id option:selected").val();
             var vdata = $("#data").val();
             $("#horimetro_inicial").val(''); //limpa horímetro inicial
             $.ajax({
+<<<<<<< HEAD
                 url: "{{ route('abastecimento.horimetro-inicial') }}",
+=======
+                url: "{{ route('utils-get-horimetro-inicial-by-data') }}",
+>>>>>>> d52bb1004cc5850ef59045b383afc444e0187204
                 type: "get",
                 data: {
                     'equipamento_id': equipamento_id,
