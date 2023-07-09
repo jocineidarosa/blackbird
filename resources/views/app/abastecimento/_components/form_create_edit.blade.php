@@ -11,7 +11,7 @@
 <div class="row mb-1 disabled">
     <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
     <div class="col-md-6">
-        <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus >
+        <select name="equipamento_id" id="equipamento_id" class="form-control-template" autofocus>
             <option value=""> --equipamento--</option>
             @foreach ($equipamentos as $equipamento)
                 <option value="{{ $equipamento->id }}"
@@ -117,7 +117,7 @@
 <div class="row mb-1">
     <div class="col-md-6 offset-md-4">
         <button type="submit" class="btn btn-primary" id="submit">
-            {{ isset($abastecimento) ? 'Atualizar [F5]' : 'Cadastrar [F5]' }}
+            {{ isset($abastecimento) ? 'Atualizar [CTRL+ENTER]' : 'Cadastrar [CTRL+ENTER]' }}
         </button>
     </div>
 </div>
@@ -162,17 +162,18 @@
                 $('#quantidade').val(quantidade);
             }
         });
+
         //busca Horímetro inicial
-        $('#equipamento_id').change(function() {
+        $('#data, #equipamento_id').change(function() {
             var equipamento_id = $("#equipamento_id option:selected").val();
+            var vdata = $("#data").val();
             $("#horimetro_inicial").val(''); //limpa horímetro inicial
             $.ajax({
-                url: "{{ route('utils.get-horimetro-inicial') }}",
+                url: "{{ route('abastecimento.horimetro-inicial') }}",
                 type: "get",
                 data: {
                     'equipamento_id': equipamento_id,
-                    'table': 'abastecimentos',
-                    'field': 'horimetro'
+                    'data': vdata
                 },
                 dataType: "json",
                 success: function(response) {
@@ -181,6 +182,7 @@
             })
         });
 
+        // se o horímetro final for menor que o inicial da uma mensagem de erro
         $('#horimetro_final').change(function() {
             var horimetro_inicial = $('#horimetro_inicial').val();
             var horimetro_final = $('#horimetro_final').val();

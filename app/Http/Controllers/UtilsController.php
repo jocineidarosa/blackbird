@@ -75,5 +75,4 @@ class UtilsController extends Controller
         //return response()->json(['cidades'=>$cidades]);
     }
 
-
 }

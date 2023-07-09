@@ -110,6 +110,10 @@ Route::middleware('auth')->resource('/user', UserController::class);
 Route::middleware('auth')->resource('/parada-equipamento', 'App\Http\Controllers\ParadaEquipamentoController');
 
 /* ajax-------------------------------------------------- */
+/**Funções AJAX 
+ * 
+ * 
+ */
 
 //busca o horimetro inicial via ajax
 
@@ -133,9 +137,6 @@ Route::middleware('auth')->get('utils/get-quant-tanque','App\Http\Controllers\Ut
 //busca cidades
 Route::middleware('auth')->get('utils/get-cidade','App\Http\Controllers\UtilsController@getCidade'
 )->name('utils.get-cidade');
-
-Route::middleware('auth')->get('utils/export','App\Http\Controllers\UtilsController@export'
-);
 
 /* ajax-------------------------------------------------- */
 
@@ -253,6 +254,8 @@ Route::middleware('auth')->get('abastecimento/consulta/executa-consulta-avancada
 ->name('abastecimento.executa_consulta_avancada');
 Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\Http\Controllers\AbastecimentoController@getContadorInicialProduto')
 ->name('abastecimento.busca_contador_inicial');//busca contador inicial
+Route::middleware('auth')->get('abastecimento/ajax/busca-horimetro','App\Http\Controllers\AbastecimentoController@getHorimetroInicial')
+->name('abastecimento.horimetro-inicial');//busca horímetro inicial
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
