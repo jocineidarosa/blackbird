@@ -360,8 +360,39 @@ class AbastecimentoController extends Controller
         return json_encode($horimetro_inicial->horimetro);
     }
 
-    public function exportExcel(){
-        return Excel::download(new AbastecimentoExport, 'users.xlsx');
+    public function exportExcel(Request $request){
+
+        $filtros = '';
+        $nome_arquivo='abastecimentos';
+        $abastecimentos = DB::table('abastecimentos as ab')
+            ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
+            ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
+            ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
+        ab.quantidade as quantidade, ab.data as data ');
+
+        if ($request->filtro_equipamento) {
+            $filtros = '?filtro_equipamento=' . $request->filtro_quipamento;
+            $abastecimentos = $abastecimentos->where('eq.nome', 'like', '%' . $request->filtro_equipamento . '%');
+        }
+        if ($request->equipamento_id) {
+            $filtros = '?equipamento_id=' . $request->equipamento_id;
+            $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
+        }
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
+        }
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        }
+
+        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->get();
+
+        $total_quant = $abastecimentos->sum('quantidade');
+
+        return Excel::download(new AbastecimentoExport($abastecimentos, $total_quant), $nome_arquivo.'.xlsx');
     }
 
 

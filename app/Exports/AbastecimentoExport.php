@@ -2,23 +2,31 @@
 
 namespace App\Exports;
 
-use App\Models\Abastecimento;
-use Maatwebsite\Excel\Concerns\FromCollection;
+
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use PhpParser\Node\Expr\FuncCall;
 
-class AbastecimentoExport implements FromCollection
+class AbastecimentoExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
+
+    protected $abastecimentos;
+    protected $total_quant;
+    public function __construct($abastecimentos, $total_quant)
     {
-        return Abastecimento::all();
+        $this->abastecimentos=$abastecimentos;
+        $this->total_quant=$total_quant;
     }
 
-    public function view(): View {
-        return view('abastecimento.export_excel');
+    public function view(): View
+    {
+        return view('app.abastecimento.export_excel', [
+            'abastecimentos' => $this->abastecimentos,
+            'total_quant' => $this->total_quant,
+        ]);
     }
+
+
 }
