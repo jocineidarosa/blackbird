@@ -10,7 +10,8 @@ use App\Models\SaidaProduto;
 use App\Models\Consumo;
 use Illuminate\Support\Facades\DB;
 use PDF;
-use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
+use App\Exports\AbastecimentoExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbastecimentoController extends Controller
 {
@@ -357,7 +358,10 @@ class AbastecimentoController extends Controller
         ->where('equipamento_id', $equipamento)
         ->where('data', $lastData->data)->first();
         return json_encode($horimetro_inicial->horimetro);
+    }
 
+    public function exportExcel(){
+        return Excel::download(new AbastecimentoExport, 'users.xlsx');
     }
 
 

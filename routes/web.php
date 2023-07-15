@@ -256,6 +256,9 @@ Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\
 ->name('abastecimento.busca_contador_inicial');//busca contador inicial
 Route::middleware('auth')->get('abastecimento/ajax/busca-horimetro','App\Http\Controllers\AbastecimentoController@getHorimetroInicial')
 ->name('abastecimento.horimetro-inicial');//busca horímetro inicial
+Route::middleware('auth')->get('abastecimento/export/excel','App\Http\Controllers\AbastecimentoController@exportExcel')
+->name('abastecimento.export_excel');//busca horímetro inicial
+
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
