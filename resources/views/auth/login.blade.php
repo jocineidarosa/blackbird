@@ -19,7 +19,7 @@
         <div class="login-card card">
             <div class="card-header">
                 <i class="icofont-circuit "></i>
-                <span class="font-wheight-light">STRATUS ERP</span>
+                <span class="font-wheight-light">DBMAXIS SOLUTIONS</span>
             </div>
             <div class="card-body">
                 <div class="form-group">

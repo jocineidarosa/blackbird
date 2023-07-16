@@ -5,7 +5,7 @@
                  aria-controls="offcanvasExample">
                  <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
              </button>
-             <i class="icofont-molecule mr-2 sidebar-brand-icon"></i>
+             <i class="icofont-molecule  sidebar-brand-icon"></i>
              <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">
                  DBMAXIS<sup>solutions</sup>
             </a>
