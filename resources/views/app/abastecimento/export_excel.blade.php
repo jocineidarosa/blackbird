@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-   {{--  <style>
+    <style>
         table {
-            border: 0.2px solid #b2a7a7;
+            border: 0.2px solid #191818;
             border-collapse: collapse;
             width: 100%;
         }
 
         th {
-            border: 0.2px solid #b2a7a7;
+            border: 0.2px solid #131212;
             background-color: #e9e2e2;
         }
 
@@ -26,43 +26,39 @@
         .table-striped>tbody>tr:nth-of-type(odd) {
             background-color: #ece5e5;
         }
-    </style> --}}
+    </style>
 </head>
 
 <body>
 
     <table class="table-striped">
-        <thead>
+        <tr>
             <th colspan="5">ABASTECIMENTOS</th>
-        </thead>
-        <thead>
+        </tr>
+
+        <tr>
+            <th>Cod</th>
+            <th>Equipamento</th>
+            <th>Produto</th>
+            <th>quantidade</th>
+            <th>Data</th>
+
+        </tr>
+        @foreach ($abastecimentos as $abastecimento)
             <tr>
-                <th>Cod</th>
-                <th>Equipamento</th>
-                <th>Produto</th>
-                <th>quantidade</th>
-                <th>Data</th>
-
+                <td>{{ $abastecimento->id }}</td>
+                <td>{{ $abastecimento->equipamento }}</td>
+                <td>{{ $abastecimento->produto }}</td>
+                <td>{{ $abastecimento->quantidade }}</td>
+                <td>{{ date('d/m/Y', strtotime($abastecimento->data)) }}</td>
             </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($abastecimentos as $abastecimento)
-                <tr>
-                    <th scope="row">{{ $abastecimento->id }}</td>
-                    <td>{{ $abastecimento->equipamento }}</td>
-                    <td>{{ $abastecimento->produto }}</td>
-                    <td>{{ $abastecimento->quantidade }}</td>
-                    <td>{{date('d/m/Y', strtotime($abastecimento->data)) }}</td>
-                </tr>
-            @endforeach
-            <tr style="background-color: #92989c; color:rgb(1, 1, 1);">
-                <td colspan="2"></td>
-                <td >TOTAL</td>
-                <td >{{$total_quant}}</td>
-                <td ></td>
-            </tr>
-        </tbody>
+        @endforeach
+        <tr style="background-color: #92989c; color:rgb(1, 1, 1);">
+            <td colspan="2"></td>
+            <td>TOTAL</td>
+            <td>{{ $total_quant }}</td>
+            <td></td>
+        </tr>
     </table>
 
 </body>

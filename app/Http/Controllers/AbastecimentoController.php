@@ -10,8 +10,9 @@ use App\Models\SaidaProduto;
 use App\Models\Consumo;
 use Illuminate\Support\Facades\DB;
 use PDF;
-use App\Exports\AbastecimentoExport;
+use App\Exports\AbastecimentoExcelExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportExcel;
 
 class AbastecimentoController extends Controller
 {
@@ -360,10 +361,9 @@ class AbastecimentoController extends Controller
         return json_encode($horimetro_inicial->horimetro);
     }
 
-    public function exportExcel(Request $request){
-
+    public function exportExcel(Request $request)
+    {
         $filtros = '';
-        $nome_arquivo='abastecimentos';
         $abastecimentos = DB::table('abastecimentos as ab')
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
             ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
@@ -392,8 +392,9 @@ class AbastecimentoController extends Controller
 
         $total_quant = $abastecimentos->sum('quantidade');
 
-        return Excel::download(new AbastecimentoExport($abastecimentos, $total_quant), $nome_arquivo.'.xlsx');
+        return Excel::download(new AbastecimentoExcelExport($abastecimentos, $total_quant), 'abastecimentos.xlsx');
     }
+
 
 
    

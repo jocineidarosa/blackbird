@@ -257,7 +257,7 @@ Route::middleware('auth')->get('abastecimento/ajax/busca-contador-inicial','App\
 Route::middleware('auth')->get('abastecimento/ajax/busca-horimetro','App\Http\Controllers\AbastecimentoController@getHorimetroInicial')
 ->name('abastecimento.horimetro-inicial');//busca horímetro inicial
 Route::middleware('auth')->get('abastecimento/export/excel','App\Http\Controllers\AbastecimentoController@exportExcel')
-->name('abastecimento.export_excel');//busca horímetro inicial
+->name('abastecimento.export_excel');//Exporta View Excel
 
 
 //consumos
