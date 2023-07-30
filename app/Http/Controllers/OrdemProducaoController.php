@@ -220,8 +220,7 @@ class OrdemProducaoController extends Controller
             $ordem_producao = $exists_ordem;
         }
         return view(
-            'app.ordem_producao.create_edit',
-            [
+            'app.ordem_producao.create_edit',[
                 'produtos' => $produtos,
                 'equipamentos' => $equipamentos,
                 'ordem_producao' => $ordem_producao,
@@ -543,8 +542,22 @@ class OrdemProducaoController extends Controller
      */
     public function update(Request $request, OrdemProducao $ordem_producao)
     {
+        $produtos = Produto::all();
+        $equipamentos = Equipamento::all();
+        $statuss = Status::all();
+        $obras = Obra::all();
+        $transportadoras = Transportadora::all();
         $ordem_producao->update($request->all());
-        return redirect()->route('ordem-producao.index');
+
+        return view( 'app.ordem_producao.create_edit',[
+                'produtos' => $produtos,
+                'equipamentos' => $equipamentos,
+                'ordem_producao' => $ordem_producao,
+                'statuss' => $statuss,
+                'obras' => $obras,
+                'transportadoras' => $transportadoras
+            ]
+        );
     }
 
     /**

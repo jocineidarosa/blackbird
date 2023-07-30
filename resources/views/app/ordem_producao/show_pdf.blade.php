@@ -1,7 +1,5 @@
-@extends('app.layouts.app')
 
-@section('content')
-        <div class="card">
+    <div class="card">
             <div class="card-header-template">
                 <div>
                     Visualizar Ordem de Produção
@@ -175,4 +173,3 @@
             </div>
         </div>
 
-@endsection
