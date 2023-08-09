@@ -52,8 +52,7 @@
                 <input name="quantidade_producao" id="quantidade_producao" type="text"
                     class="form-control-template " quantidade_producao="quantidade_producao"
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                    value="{{ $ordem_producao->quantidade_producao ?? old('quantidade_producao') }}"
-                    required>
+                    value="{{ $ordem_producao->quantidade_producao ?? old('quantidade_producao') }}">
                 {{ $errors->has('quantidade_producao') ? $errors->first('quantidade_producao') : '' }}
             </div>
         </div>

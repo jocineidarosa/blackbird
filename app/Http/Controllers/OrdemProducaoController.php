@@ -192,11 +192,8 @@ class OrdemProducaoController extends Controller
         $regras = [
             'equipamento_id' => 'required',
             'produto_id' => 'required',
-            'quantidade_producao' => 'required',
             'data' => 'required',
             'hora_inicio' => 'required',
-            'hora_fim' => 'required',
-            'horimetro_final' => 'required',
             'status_id' => 'required'
         ];
 
