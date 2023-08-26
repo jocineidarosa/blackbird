@@ -9,7 +9,7 @@
                 Inicial</label>
 
             <div class="col-md-6">
-                <input name="hora_inicio" id="hora_inicio" type="time" class="form-control">
+                <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template">
             </div>
         </div>
 
@@ -18,14 +18,14 @@
                 Final</label>
 
             <div class="col-md-6">
-                <input name="hora_fim" id="hora_fim" type="time" class="form-control">
+                <input name="hora_fim" id="hora_fim" type="time" class="form-control-template">
             </div>
         </div>
 
         <div class="row mb-1">
             <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
             <div class="col-md-6">
-                <input name="descricao" id="descricao" type="text" class="form-control" descricao="descricao">
+                <input name="descricao" id="descricao" type="text" class="form-control-template" descricao="descricao">
             </div>
         </div>
 

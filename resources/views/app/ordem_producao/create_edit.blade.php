@@ -226,8 +226,8 @@
         $('#equipamento_id').select2();
         $('#produto_id_principal').select2();
         $('#situacao').select2();
-        //recursos
         $('#equipamento_recursos').select2();
+        $('#produto_recursos').select2();
     });
     </script>
 

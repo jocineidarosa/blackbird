@@ -8,8 +8,8 @@
             <label for="equipamento_id"
             class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
             <div class="col-md-6">
-                <select name="equipamento_recursos" id="equipamento_recursos" class="form-control-template" autofocus>
-                    <option value=""> --Selecione o Equipamento--</option>
+                <select name="equipamento_recursos" id="equipamento_recursos" class="js-example-basic-single js-states form-control" autofocus>
+                    <option value="">--Selecione o Equipamento--</option>
                     @foreach ($equipamentos as $equipamento)
                         <option value="{{ $equipamento->id }}">
                             {{ $equipamento->nome }}</option>
@@ -20,11 +20,9 @@
         </div>
 
         <div class="row mb-1">
-            <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Material
-                Utilizado</label>
-
+            <label for="produto" class="col-md-4 col-form-label text-md-end text-right">Material Utilizado</label>
             <div class="col-md-6">
-                <select name="produto_id" id="produto_id" class="form-control" required>
+                <select name="produto_id" id="produto_recursos" class="form-control" required>
                     <option value=""> --Selecione o Material-</option>
                     @foreach ($produtos as $produto)
                         <option value="{{ $produto->id }}">
@@ -39,33 +37,33 @@
             <label for="estoque_atual" class="col-md-4 col-form-label text-md-end text-right">Estoque
                 Atual</label>
             <div class="col-md-6">
-                <input name="estoque_atual" id="estoque_atual" type="text" class="form-control-disabled " disabled>
+                <input name="estoque_atual" id="estoque_atual" type="text" class="form-control-disabled ">
                 {{ $errors->has('estoque_atual') ? $errors->first('estoque_atual') : '' }}
             </div>
         </div>
 
         <div class="row mb-1">
-            <label for="medida_final" class="col-md-4 col-form-label text-md-end text-right">Medida
-                Final</label>
+            <label for="medida_final"
+                class="col-md-4 col-form-label text-md-end text-right">Medida Final</label>
             <div class="col-md-6">
-                <input name="medida_final" id="medida_final" type="number" class="form-control "
-                    value="{{ $recurso->medida_final ?? old('medida_final') }}">
+                <input name="medida_final" id="medida_final" type="text"
+                    class="form-control-template " medida_final="medida_final"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                    value="{{ $ordem_producao->medida_final ?? old('medida_final') }}">
                 {{ $errors->has('medida_final') ? $errors->first('medida_final') : '' }}
             </div>
         </div>
 
-
         <div class="row mb-1">
-            <label for="estoque_final" class="col-md-4 col-form-label text-md-end text-right">Estoque
-                Final</label>
+            <label for="estoque_atual" class="col-md-4 col-form-label text-md-end text-right">Estoque
+                Atual</label>
             <div class="col-md-6">
-                <input name="estoque_final" id="estoque_final" type="text" class="form-control-disabled "
-                    value="{{ $produto->estoque_final ?? old('estoque_final') }}" disabled>
-                {{ $errors->has('estoque_final') ? $errors->first('estoque_final') : '' }}
+                <input name="estoque_atual" id="estoque_atual" type="text" class="form-control-disabled ">
+                {{ $errors->has('estoque_atual') ? $errors->first('estoque_atual') : '' }}
             </div>
         </div>
 
-        <div class="row mb-1">
+        <div class="row mb-2">
             <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.Material
                 Utilizado</label>
             <div class="col-md-6">
@@ -74,6 +72,12 @@
                 {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
 
             </div>
+        </div>
+
+
+
+
+        <div class="row mb-1">
             <button class="btn btn-secondary" id="bt_calcula_consumo" type="button">
                 <i class="icofont-ui-calculator"></i>
             </button>
@@ -98,15 +102,14 @@
         <div class="row mb-1">
             <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro Total</label>
             <div class="col-md-6">
-                <input name="total_horimetro" id="total_horimetro" type="text" class="form-control-disabled"
-                    disabled>
+                <input name="total_horimetro" id="total_horimetro" type="text" class="form-control-disabled">
             </div>
         </div>
 
         <div class="row mb-1">
             <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
             <div class="col-md-6">
-                <input name="data" id="data" type="date" class="form-control"
+                <input name="data" id="data" type="date" class="form-control-template"
                     value="{{ $ordem_producao->data ?? old('data') }}">
             </div>
         </div>
@@ -116,7 +119,7 @@
                 Inicial</label>
 
             <div class="col-md-6">
-                <input name="hora_inicio" id="hora_inicio" type="time" class="form-control"
+                <input name="hora_inicio" id="hora_inicio" type="time" class="form-control-template"
                     hora_inicio="hora_inicio" value="{{ $ordem_producao->hora_inicio ?? old('hora_inicio') }}">
                 {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
 
@@ -124,11 +127,9 @@
         </div>
 
         <div class="row mb-1">
-            <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora
-                Final</label>
-
+            <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
             <div class="col-md-6">
-                <input name="hora_fim" id="hora_fim" type="time" class="form-control" hora_fim="hora_fim"
+                <input name="hora_fim" id="hora_fim" type="time" class="form-control-template" hora_fim="hora_fim"
                     value="{{ $ordem_producao->hora_fim ?? old('hora_fim') }}">
                 {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
 

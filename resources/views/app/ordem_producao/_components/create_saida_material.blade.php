@@ -48,7 +48,7 @@
         <div class="row mb-1">
             <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
             <div class="col-md-6">
-                <input name="quantidade" id="quantidade" type="text" class="form-control">
+                <input name="quantidade" id="quantidade" type="text" class="form-control-template">
             </div>
         </div>
 
@@ -56,14 +56,14 @@
             <label for="qtde_cargas" class="col-md-4 col-form-label text-md-end text-right">Qtde
                 Cargas</label>
             <div class="col-md-6">
-                <input name="qtde_cargas" id="qtde_cargas" type="text" class="form-control">
+                <input name="qtde_cargas" id="qtde_cargas" type="text" class="form-control-template">
             </div>
         </div>
 
         <div class="row mb-1">
             <label for="transportadora_id" class="col-md-4 col-form-label text-md-end text-right">Transportadora</label>
             <div class="col-md-6">
-                <select name="transportadora_id" id="transportadora_id" class="form-control-template" required
+                <select name="transportadora_id" id="transportadora_id" class="form-control-template-template" required
                     autofocus>
                     <option value=""> --Selecione o Produto--</option>
                     @foreach ($transportadoras as $transportadora)
