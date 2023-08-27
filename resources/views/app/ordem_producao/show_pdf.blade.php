@@ -1,4 +1,6 @@
 
+@extends('app.layouts.app')
+@section('content') 
     <div class="card">
             <div class="card-header-template">
                 <div>
@@ -172,4 +174,5 @@
                 </table>
             </div>
         </div>
+    @endsection
 
