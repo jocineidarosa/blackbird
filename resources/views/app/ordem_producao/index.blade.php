@@ -28,12 +28,6 @@
                 <a href="{{ route('ordem-producao.edit-filter') }}" class="btn btn-sm btn-primary mb-1">
                     <i class="icofont-filter"></i>CONSULTA AVANÇADA
                 </a>
-                <a href="" class="btn btn-sm btn-danger mb-1">
-                    <i class="icofont-file-pdf pr-2"></i>PDF
-                </a>
-                <a href="" class="btn btn-sm btn-success mb-1">
-                    <i class="icofont-file-excel"></i>Excel
-                </a>
             </div>
 
         </div>

@@ -634,4 +634,124 @@ class OrdemProducaoController extends Controller
         $horimetro_inicial = $horimetro_inicial->horimetro_final;
         echo json_encode($horimetro_inicial);
     }
+
+    function pdfExport(OrdemProducao $ordem_producao)
+    {
+        //horimetro inicial da ordem de operação
+        $op_horimetro_inicial = DB::table('ordens_producoes')->selectRaw(' max(horimetro_final) as horimetro_inicial')
+            ->where('equipamento_id', $ordem_producao->equipamento_id)
+            ->where('horimetro_final', '<', $ordem_producao->horimetro_final)->first();
+
+        if ($op_horimetro_inicial->horimetro_inicial == null) {
+            $op_horimetro_inicial = $ordem_producao->horimetro_final;
+            $total_horimetro = 0.0;
+        } else {
+            $op_horimetro_inicial = $op_horimetro_inicial->horimetro_inicial;
+            $total_horimetro =  $ordem_producao->horimetro_final - $op_horimetro_inicial;
+        }
+
+
+        $hora_inicio = Carbon::createFromDate($ordem_producao->hora_inicio); //formata hora do carbon
+        $hora_fim = Carbon::createFromDate($ordem_producao->hora_fim); //formata hora do carbon
+        $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
+        $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
+        $total_horas_equipamento = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
+
+        /* $total_minutos = $hora_fim->diffInMinutes($hora_inicio); */
+        if ($total_horimetro > 0) {
+            $producao_por_hora = round($ordem_producao->quantidade_producao / $total_horimetro);
+        } else {
+            $producao_por_hora = '';
+        }
+
+        $recursos_producao = DB::table('recursos_producao as rp')
+            ->join('equipamentos as eq', 'eq.id', '=', 'rp.equipamento_id')
+            ->join('produtos as p', 'p.id', '=', 'rp.produto_id')
+            ->selectRaw('rp.*, eq.nome as equipamento, p.nome as produto')
+            ->where('rp.ordem_producao_id', $ordem_producao->id)
+            ->where('rp.quantidade', '>', 1)->get();
+
+        //adiciona horimetro_inicial, total_horimetro na collection
+        foreach ($recursos_producao as $recurso) {
+            $hora_inicio = Carbon::createFromDate($recurso->hora_inicio); //formata hora do carbon
+            $hora_fim = Carbon::createFromDate($recurso->hora_fim); //formata hora do carbon
+            $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
+            $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
+            $recurso->total_hora = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
+
+            if (($recurso->horimetro_final != null) and ($recurso->horimetro_final != 0)) { //VERIFICA SE O EQUIPAMENTO TEM HORÍMETRO
+                $horimetro_inicial = DB::table('recursos_producao')->selectRaw(' max(horimetro_final) as horimetro_inicial')
+                    ->where('equipamento_id', $recurso->equipamento_id)
+                    ->where('horimetro_final', '<', $recurso->horimetro_final)->first();
+                $recurso->horimetro_inicial = $horimetro_inicial->horimetro_inicial;
+                $recurso->total_horimetro = round($recurso->horimetro_final - $recurso->horimetro_inicial, 2);
+                $recurso->consumo_hora = $recurso->quantidade / $recurso->total_horimetro;
+            } else { //CASO O EQUIPMENTO NÃO TENHA HORÍMETRO
+                $recurso->horimetro_inicial = '';
+                $recurso->total_horimetro = '';
+                if ($total_horimetro > 0) {
+                    $recurso->consumo_hora = round($recurso->quantidade / $total_horimetro, 2);
+                } else {
+                    $recurso->consumo_hora = 0.0;
+                }
+            }
+            $recurso->consumo_quant = $recurso->quantidade / $ordem_producao->quantidade_producao * 1000;
+
+
+            $estoque = Produto::select('estoque_atual')
+                ->where('id', $recurso->produto_id)->first();
+            $recurso->estoque_atual = $estoque->estoque_atual;
+            /* soma quantidade total de entrada de produto até a data da ordem de produção 
+            depois a saida de produto da mesma forma subtrai a saida da entrada*/
+            $total_consumo = RecursosProducao::where('data', '<=', $ordem_producao->data)
+                ->where('equipamento_id', $recurso->equipamento_id)->get('quantidade');
+            $total_consumo = $total_consumo->sum('quantidade');
+            
+            $total_abastecimento = Abastecimento::where('data', '<=', $ordem_producao->data)
+                ->where('equipamento_id', $recurso->equipamento_id)->get('quantidade');
+            $total_abastecimento = $total_abastecimento->sum('quantidade');
+
+            $recurso->estoque_final = $total_abastecimento - $total_consumo;
+            $recurso->estoque_anterior = $recurso->estoque_atual + $recurso->quantidade;
+        }
+
+        $paradas = ParadaEquipamento::where('ordem_producao_id', $ordem_producao->id)->get();
+        foreach ($paradas as $parada) {
+            /* aqui vai o codigo de paradas de equipamentos */
+            $hora_inicio = Carbon::createFromDate($parada->hora_inicio); //formata hora do carbon
+            $hora_fim = Carbon::createFromDate($parada->hora_fim); //formata hora do carbon
+            $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
+            $minutes = ($hora_fim->diffInMinutes($hora_inicio)) % 60; //recebe o total em minutos e pega o resto da divisão por 60
+            $parada->total_hora = $hours . ':' . $minutes; // concatena horas e minutos com os ':'
+        }
+
+        $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
+
+        return view(
+            'app.ordem_producao.show',
+            [
+                'ordem_producao' => $ordem_producao,
+                'op_horimetro_inicial' => $op_horimetro_inicial,
+                'paradas' => $paradas,
+                'produtos_obra' => $produtos_obra,
+                'recursos_producao' => $recursos_producao,
+                'total_horimetro' => $total_horimetro,
+                'total_horas_equipamento' => $total_horas_equipamento,
+                'producao_por_hora' => $producao_por_hora,
+            ]
+        );
+
+        $pdf = PDF::loadView('app.ordem_producao.show_pdf', [
+            'ordem_producao' => $ordem_producao,
+            'op_horimetro_inicial' => $op_horimetro_inicial,
+            'paradas' => $paradas,
+            'produtos_obra' => $produtos_obra,
+            'recursos_producao' => $recursos_producao,
+            'total_horimetro' => $total_horimetro,
+            'total_horas_equipamento' => $total_horas_equipamento,
+            'producao_por_hora' => $producao_por_hora,
+        ] );
+        return $pdf->stream('Ordem_producao.pdf');
+        
+    }
 }

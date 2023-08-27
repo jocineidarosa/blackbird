@@ -6,8 +6,10 @@
                 Visualizar Ordem de Produção
             </div>
             <div>
-                <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}">NOVO</a>
-                <a class="btn btn-primary btn-sm" href="{{ route('ordem-producao.index') }}">LISTAGEM</a>
+                <a class="btn btn-primary btn-sm mr-2" href="{{ route('ordem-producao.create') }}">
+                    <i class="icofont-plus-circle pr-2"></i>NOVO</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('ordem-producao.index') }}">
+                    <i class="icofont-page pr-2"></i>LISTAGEM</a>
             </div>
         </div>
 
