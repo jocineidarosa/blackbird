@@ -29,7 +29,7 @@ class OrdemProducaoController extends Controller
     public function index(Request $request)
     {
         $produtos = Produto::all();
-        $ordens_producoes = OrdemProducao::where('quantidade_producao', '>', 0)->orderBy('data', 'desc')->paginate(12);
+        $ordens_producoes = OrdemProducao::orderBy('data', 'desc')->paginate(12);
         $total_producao = OrdemProducao::where('quantidade_producao', '>', 0)->get()->sum('quantidade_producao');
         return view('app.ordem_producao.index', [
             'produtos' => $produtos,
@@ -60,7 +60,7 @@ class OrdemProducaoController extends Controller
 
         $request->validate($regras, $feedback);
 
-        $ordens_producoes = OrdemProducao::orderBy('data');
+        $ordens_producoes = OrdemProducao::orderBy('data', 'desc');
         if ($request->data_inicial) {
             $ordens_producoes->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
