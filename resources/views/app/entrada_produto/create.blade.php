@@ -21,5 +21,25 @@
         </div>
     </div>
 
-   
+    <script>
+        function formatarMoeda(numero) {
+            numero = numero.replace(/\./g, '').replace(',', '.');
+            if (numero === '' || isNaN(numero)) {
+                return '';
+            }
+            var partes = numero.split(".");
+            var parteInteira = partes[0];
+            var parteDecimal = partes[1] || '00';
+            parteInteira = parteInteira.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return "R$ " + parteInteira + "," + (parteDecimal.length === 1 ? parteDecimal + '0' : parteDecimal);
+        }
+
+        function formatCurrency(input) {
+            var valor = input.value;
+            if (!valor.startsWith("R$ ")) {
+                var numeroFormatado = formatarMoeda(valor);
+                input.value = numeroFormatado;
+            }
+        }
+    </script>
 @endsection
