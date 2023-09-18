@@ -94,6 +94,8 @@
                 });
 
             });
+
+
             /* calcula o consumo após ter o estoque final */
             $('#bt_calcula_consumo').click(function() {
                 var estoque_atual = $('#estoque_atual').val();
@@ -103,29 +105,6 @@
                     $('#quantidade').val(quantidade_utilizada);
                 }
             })
-
-            /* Busca o estoque atual do produto */
-     /*        $('#produto_id').change(function() {
-                var produto_id = $('#produto_id option:selected').val();
-                var table = 'produtos';
-                $.ajax({
-                    url: "{{ route('utils.get-estoque-atual') }}",
-                    type: "get",
-                    data: {
-                        "produto_id": produto_id,
-                        "table": table
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        var estoque_atual = JSON.stringify(response.estoque_atual);
-                        $("#estoque_atual").val(estoque_atual);
-                    }
-                })
-
-            }) */
-
-
-
 
             /* Busca o o estoque do tanque de combustivel do equipamento */
             $('#equipamento_recursos').change(function() {

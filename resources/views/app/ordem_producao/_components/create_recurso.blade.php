@@ -55,11 +55,11 @@
         </div>
 
         <div class="row mb-1">
-            <label for="estoque_atual" class="col-md-4 col-form-label text-md-end text-right">Estoque
-                Atual</label>
+            <label for="estoque_final" class="col-md-4 col-form-label text-md-end text-right">Estoque
+                Final</label>
             <div class="col-md-6">
-                <input name="estoque_atual" id="estoque_atual" type="text" class="form-control-disabled ">
-                {{ $errors->has('estoque_atual') ? $errors->first('estoque_atual') : '' }}
+                <input name="estoque_final" id="estoque_final" type="text" class="form-control-disabled ">
+                {{ $errors->has('estoque_final') ? $errors->first('estoque_final') : '' }}
             </div>
         </div>
 
