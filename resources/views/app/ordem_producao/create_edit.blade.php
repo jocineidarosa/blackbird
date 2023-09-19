@@ -98,6 +98,7 @@
 
             /* calcula o consumo após ter o estoque final */
             $('#bt_calcula_consumo').click(function() {
+                debugger;
                 var estoque_atual = $('#estoque_atual').val();
                 var estoque_final = $('#estoque_final').val();
                 if (estoque_atual > 0 && estoque_final > 0) {
@@ -148,7 +149,7 @@
             /* Busca o horímetro inicial do equipamento em recursos de produção */
             $('#equipamento_recursos').change(function() {
                 var equipamento_id = $("#equipamento_recursos option:selected").val();
-                $("#horimetro_inicial_recursos").val('');
+                $("#horimetro_inicial_rec").val('');
                 $.ajax({
                     url: "{{ route('utils.get-horimetro-inicial') }}",
                     type: "get",
@@ -159,18 +160,26 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        $("#horimetro_inicial_recursos").val(response);
+                        $("#horimetro_inicial_rec").val(response);
                     }
                 })
             });
 
 
-            /* Calcula o total de horas apartir do horímetro */
+            /* Calcula o total de horas apartir do horímetro no principal*/
             $('#horimetro_final').change(function() {
                 var horimetro_inicial = $('#horimetro_inicial').val();
                 var horimetro_final = $('#horimetro_final').val();
                 var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
                 $('#total_horimetro').val(total_horimetro);
+            });
+
+              /* Calcula o total de horas apartir do horímetro em recursos */
+              $('#horimetro_final_rec').change(function() {
+                var horimetro_inicial = $('#horimetro_inicial_rec').val();
+                var horimetro_final = $('#horimetro_final_rec').val();
+                var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
+                $('#total_horimetro_rec').val(total_horimetro);
             });
 
             /* Calcula a produção por hora */
@@ -182,6 +191,7 @@
                     $('#producao_hora').val(producao_hora);
                 }
             });
+
 
         });
 

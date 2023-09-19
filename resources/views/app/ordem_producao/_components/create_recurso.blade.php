@@ -63,46 +63,37 @@
             </div>
         </div>
 
-        <div class="row mb-2">
-            <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.Material
-                Utilizado</label>
-            <div class="col-md-6">
-                <input name="quantidade" id="quantidade" type="number" class="form-control" quantidade="quantidade"
-                    value="{{ $produto->quantidade ?? old('quantidade') }}" required>
-                {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
 
+        <div class="row mb-1">
+            <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.Material Utilizado</label>
+            <div class="col-md-6">
+                <input name="quantidade" id="quantidade" type="text" class="form-control-template" value="{{ $produto->quantidade ?? old('quantidade') }}" required>
+                {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
+                <button type="button" class="btn btn-sm btn-primary" id="bt_calcula_consumo"><i class="icofont-ui-calculator">Calcula</i></button>
             </div>
         </div>
 
 
 
-
         <div class="row mb-1">
-            <button class="btn btn-secondary" id="bt_calcula_consumo" type="button">
-                <i class="icofont-ui-calculator"></i>
-            </button>
-        </div>
-
-        <div class="row mb-1">
-            <label for="horimetro_inicial_recursos" class="col-md-4 col-form-label text-md-end text-right">Horímetro
-                Inicial</label>
+            <label for="horimetro_inicial_rec" class="col-md-4 col-form-label text-md-end text-right">Horímetro Inicial</label>
             <div class="col-md-6">
-                <input name="horimetro_inicial_recursos" id="horimetro_inicial_recursos" type="text"
+                <input name="horimetro_inicial_rec" id="horimetro_inicial_rec" type="text"
                     class="form-control-disabled" disabled>
             </div>
         </div>
 
         <div class="row mb-1">
-            <label for="horimetro_final" class="col-md-4 col-form-label text-md-end text-right">Horímetro Final</label>
+            <label for="horimetro_final_rec" class="col-md-4 col-form-label text-md-end text-right">Horímetro Final</label>
             <div class="col-md-6">
-                <input name="horimetro_final" id="horimetro_final" type="text" class="form-control-template">
+                <input name="horimetro_final_rec" id="horimetro_final_rec" type="text" class="form-control-template">
             </div>
         </div>
 
         <div class="row mb-1">
-            <label for="total_horimetro" class="col-md-4 col-form-label text-md-end text-right">Horímetro Total</label>
+            <label for="total_horimetro_rec" class="col-md-4 col-form-label text-md-end text-right">Horímetro Total</label>
             <div class="col-md-6">
-                <input name="total_horimetro" id="total_horimetro" type="text" class="form-control-disabled">
+                <input name="total_horimetro_rec" id="total_horimetro_rec" type="text" class="form-control-disabled">
             </div>
         </div>
 

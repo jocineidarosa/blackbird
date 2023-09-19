@@ -247,6 +247,8 @@ class OrdemProducaoController extends Controller
             $request['ordem_producao_id'] = $ordem_producao->id; //adiciona mais um ítem no Array '$request'.
             $request['equipamento_id'] = $request['equipamento_recursos'];
             unset($request['equipamento_recursos']); //apaga o campo equipamento_recurso, que é substituído por equipamento_id.
+            $request['horimetro_final'] = $request['horimetro_final_rec'];
+            unset($request['horimetro_final_rec']);
             $recurso_producao = RecursosProducao::create($request->all());
 
             //atualiza o estoque do tanque.
