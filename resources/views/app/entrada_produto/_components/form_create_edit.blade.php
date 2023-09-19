@@ -52,7 +52,7 @@
                 <label for="preco" class="col-md-4 col-form-label text-md-end text-right">Preço Unitário</label>
                 <div class="col-md-6">
                     <input name="preco" id="preco" type="text" class="form-control-template"
-                        value="{{ $entrada_produto->preco ?? old('preco') }}" onchange="formatCurrency(this)">
+                        value="{{ $entrada_produto->preco ?? old('preco') }}" {{-- onchange="formatCurrency(this)" --}}>
                     {{ $errors->has('preco') ? $errors->first('preco') : '' }}
                 </div>
             </div>

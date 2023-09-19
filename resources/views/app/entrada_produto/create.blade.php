@@ -41,5 +41,15 @@
                 input.value = numeroFormatado;
             }
         }
+
+
+
+        $(function(){
+        $('#preco').maskMoney({
+          prefix:'R$ ',
+          allowNegative: true,
+          thousands:'.', decimal:',',
+          affixesStay: true});
+    })
     </script>
 @endsection
