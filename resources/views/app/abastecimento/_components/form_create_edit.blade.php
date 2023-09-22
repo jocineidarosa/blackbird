@@ -8,6 +8,32 @@
             @csrf
 @endif
 
+<div class="row mb-1">
+    <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
+    <div class="col-md-6">
+        <input id="data" name="data" type="date" class="form-control-template"
+            value="{{ $abastecimento->data ?? old('data') }}">
+        @if ($errors->has('data'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('data') }}
+            </div>
+        @endif
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="hora" class="col-md-4 col-form-label text-md-end text-right">hora</label>
+    <div class="col-md-6">
+        <input id="hora" name="hora" type="time" class="form-control-template"
+            value="{{ $abastecimento->hora ?? old('hora') }}">
+        @if ($errors->has('hora'))
+            <div class="alert-error alert-danger">
+                {{ $errors->first('hora') }}
+            </div>
+        @endif
+    </div>
+</div>
+
 <div class="row mb-1 disabled">
     <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
     <div class="col-md-6">
@@ -48,19 +74,6 @@
 </div>
 
 <div class="row mb-1">
-    <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
-    <div class="col-md-6">
-        <input id="data" name="data" type="date" class="form-control-template"
-            value="{{ $abastecimento->data ?? old('data') }}">
-        @if ($errors->has('data'))
-            <div class="alert-error alert-danger">
-                {{ $errors->first('data') }}
-            </div>
-        @endif
-    </div>
-</div>
-
-<div class="row mb-1">
     <label for="medidor_inicial" class="col-md-4 col-form-label text-md-end text-right">Medidor Inicial</label>
     <div class="col-md-6">
         <input id="medidor_inicial" name="medidor_inicial" type="text" class="form-control-disabled" readonly
@@ -80,7 +93,7 @@
     <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Quantidade</label>
     <div class="col-md-6">
         <input id="quantidade" type="text" class="form-control-template" name="quantidade"
-            placeholder="Calcula automático (opcional)" value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
+            placeholder="Cálculo automático ou digite a quantidade" value="{{ $abastecimento->quantidade ?? old('quantidade') }}">
         @if ($errors->has('quantidade'))
             <div class="alert-error alert-danger">
                 {{ $errors->first('quantidade') }}

@@ -14,6 +14,23 @@
         <div class="card-body">
 
             <div class="row mb-1">
+                <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
+                <div class="col-md-6">
+                    <input id="data" name="data" type="text" class="form-control-template" disabled
+                        value="{{ date('d/m/Y', strtotime($abastecimento->data)) }}">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label for="hora" class="col-md-4 col-form-label text-md-end text-right">hora</label>
+                <div class="col-md-6">
+                    <input id="hora" name="hora" type="text" class="form-control-template" disabled
+                        value="{{$abastecimento->hora}}">
+                </div>
+            </div>
+
+
+            <div class="row mb-1">
                 <label for="data" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
                 <div class="col-md-6">
                     <input id="data" name="data" type="text" class="form-control-template" disabled
@@ -26,15 +43,6 @@
                 <div class="col-md-6">
                     <input id="data" name="data" type="text" class="form-control-template" disabled
                         value="{{ $abastecimento->produto->nome }}">
-                </div>
-            </div>
-
-
-            <div class="row mb-1">
-                <label for="data" class="col-md-4 col-form-label text-md-end text-right">Data</label>
-                <div class="col-md-6">
-                    <input id="data" name="data" type="text" class="form-control-template" disabled
-                        value="{{ date('d/m/Y', strtotime($abastecimento->data)) }}">
                 </div>
             </div>
 
