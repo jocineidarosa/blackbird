@@ -12,35 +12,37 @@
                     <li>
                         <hr class="dropdown-divider bg-light" />
                     </li>
-                    {{-- SUPRIMENTOS --}}
+                    {{-- ESTOQUE --}}
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#suprimentos">
-                            <span class="me-3"><i class="bi bi-cart-plus"></i></span>
-                            <span>Suprimentos</span>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#produto">
+                            <span class="me-3"><i class="icofont-wall"></i></span>
+                            <span>Produtos</span>
                             <span class="ms-auto">
                                 <span class="right-icon">
                                     <i class="bi bi-chevron-down"></i>
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="suprimentos">
+                        <div class="collapse" id="produto">
                             <ul class="navbar-nav ps-3">
                                 <li>
                                     <a href="{{ route('produto.index') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Produtos</span>
+                                        <span>Cadastrar Novo</span>
                                     </a>
                                 </li>
+
                                 <li>
                                     <a href="{{ route('entrada-produto.index') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Entrada de Produto</span>
+                                        <span>Entrada</span>
                                     </a>
                                 </li>
+
                                 <li>
                                     <a href="{{ route('saida-produto.index') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Saída de Produto</span>
+                                        <span>Saída</span>
                                     </a>
                                 </li>
 
@@ -54,20 +56,20 @@
                                 <li>
                                     <a href="{{ route('consumo.index') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Consumo de produtos</span>
+                                        <span>Consumo</span>
                                     </a>
                                 </li>
-
-
                                 <li>
                                     <a href="{{ route('produto-fornecedor.create') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Produto x Fornecedor</span>
+                                        <span>Por Fornecedor</span>
                                     </a>
                                 </li>
+
                             </ul>
                         </div>
                     </li>
+
                     {{-- CADASTRO GERAL --}}
                     <li>
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#cadastroGeral">
@@ -81,6 +83,7 @@
                         </a>
                         <div class="collapse" id="cadastroGeral">
                             <ul class="navbar-nav ps-3">
+
                                 <li>
                                     <a href="{{ route('pessoa.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
@@ -178,6 +181,12 @@
                         </a>
                         <div class="collapse" id="producao">
                             <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="{{ route('ordem-producao.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Ordem de Produção</span>
+                                    </a>
+                                </li>
 
                                 <li>
                                     <a href="{{ route('ordem-producao.edit-filter-resumo') }}" class="nav-link px-3">
@@ -186,12 +195,6 @@
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="{{ route('ordem-producao.index') }}" class="nav-link px-3">
-                                        <span class="me-2"></span>
-                                        <span>Ordem de Produção</span>
-                                    </a>
-                                </li>
 
                                 <li>
                                     <a href="{{ route('recursos-producao.index') }}" class="nav-link px-3">

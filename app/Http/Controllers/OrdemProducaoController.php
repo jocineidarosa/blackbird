@@ -18,6 +18,7 @@ use App\Models\ProdutoObra;
 use App\Models\Transportadora;
 use Illuminate\Support\Facades\DB;
 use App\Models\Consumo;
+use PDF;
 
 class OrdemProducaoController extends Controller
 {
@@ -651,8 +652,6 @@ class OrdemProducaoController extends Controller
             $op_horimetro_inicial = $op_horimetro_inicial->horimetro_inicial;
             $total_horimetro =  $ordem_producao->horimetro_final - $op_horimetro_inicial;
         }
-
-
         $hora_inicio = Carbon::createFromDate($ordem_producao->hora_inicio); //formata hora do carbon
         $hora_fim = Carbon::createFromDate($ordem_producao->hora_fim); //formata hora do carbon
         $hours = $hora_fim->diffInHours($hora_inicio); //recebe a diferença em horas sem minutos
@@ -698,8 +697,6 @@ class OrdemProducaoController extends Controller
                 }
             }
             $recurso->consumo_quant = $recurso->quantidade / $ordem_producao->quantidade_producao * 1000;
-
-
             $estoque = Produto::select('estoque_atual')
                 ->where('id', $recurso->produto_id)->first();
             $recurso->estoque_atual = $estoque->estoque_atual;
@@ -729,19 +726,6 @@ class OrdemProducaoController extends Controller
 
         $produtos_obra = ProdutoObra::where('ordem_producao_id', $ordem_producao->id)->get();
 
-        return view(
-            'app.ordem_producao.show',
-            [
-                'ordem_producao' => $ordem_producao,
-                'op_horimetro_inicial' => $op_horimetro_inicial,
-                'paradas' => $paradas,
-                'produtos_obra' => $produtos_obra,
-                'recursos_producao' => $recursos_producao,
-                'total_horimetro' => $total_horimetro,
-                'total_horas_equipamento' => $total_horas_equipamento,
-                'producao_por_hora' => $producao_por_hora,
-            ]
-        );
 
         $pdf = PDF::loadView('app.ordem_producao.show_pdf', [
             'ordem_producao' => $ordem_producao,
@@ -754,6 +738,6 @@ class OrdemProducaoController extends Controller
             'producao_por_hora' => $producao_por_hora,
         ] );
         return $pdf->stream('Ordem_producao.pdf');
-        
+
     }
 }

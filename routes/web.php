@@ -197,7 +197,7 @@ Route::middleware('auth')->prefix('/ordem-producao')->group(function() {
     Route::get('filter-resumo','App\Http\Controllers\OrdemProducaoController@filterResumo'
     )->name('ordem-producao.filter-resumo');
 
-    Route::get('pdf-export','App\Http\Controllers\OrdemProducaoController@filterResumo'
+    Route::get('pdf-export/{ordem_producao}','App\Http\Controllers\OrdemProducaoController@pdfExport'
     )->name('ordem-producao.pdf-export');
 
 });
