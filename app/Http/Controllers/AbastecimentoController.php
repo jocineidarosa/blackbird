@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Exports\AbastecimentoExcelExport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ExportExcel;
+use App\Imports\AbastecimentoImport;
+use Illuminate\Support\Collection;
+use Http;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
 class AbastecimentoController extends Controller
 {
@@ -91,14 +94,14 @@ class AbastecimentoController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'equipamento_id'=>'required',
-            'produto_id'=>'required',
+            'equipamento_id' => 'required',
+            'produto_id' => 'required',
             'data' => 'required',
-            'quantidade'=>'required'
+            'quantidade' => 'required'
         ];
         $feedback = [
             'required_with' => 'O campo :attribute deve ser preenchido',
-            'required'=>'Este campo não pode ficar em branco'
+            'required' => 'Este campo não pode ficar em branco'
         ];
         $request->validate($regras, $feedback);
 
@@ -158,7 +161,7 @@ class AbastecimentoController extends Controller
             $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
             $abastecimento->horimetro_inicial = $horimetro_inicial;
         } else {
-            $total_horimetro ='';
+            $total_horimetro = '';
         }
 
         if (isset($abastecimento->medidor_final)) {
@@ -168,7 +171,7 @@ class AbastecimentoController extends Controller
             $abastecimento->medidor_inicial = $medidor_inicial->medidor_inicial;
         }
 
-        return view('app.abastecimento.show', ['abastecimento'=>$abastecimento, 'total_horimetro' => $total_horimetro]);
+        return view('app.abastecimento.show', ['abastecimento' => $abastecimento, 'total_horimetro' => $total_horimetro]);
     }
 
     /**
@@ -190,7 +193,7 @@ class AbastecimentoController extends Controller
             $total_horimetro = round($abastecimento->horimetro - $horimetro_inicial, 2);
             $abastecimento->horimetro_inicial = $horimetro_inicial;
         } else {
-            $total_horimetro ='';
+            $total_horimetro = '';
         }
 
         if (isset($abastecimento->medidor_final)) {
@@ -350,14 +353,14 @@ class AbastecimentoController extends Controller
 
     public function getHorimetroInicial(Request $request)
     {
-        $equipamento=$request->equipamento_id;
-        $data=$request->data;
+        $equipamento = $request->equipamento_id;
+        $data = $request->data;
         $lastData = DB::table('abastecimentos')->selectRaw('max(data) as data')
-        ->where('data', '<=', $data)
-        ->where('equipamento_id', $equipamento)->first();
-        $horimetro_inicial=DB::table('abastecimentos')->selectRaw('horimetro')
-        ->where('equipamento_id', $equipamento)
-        ->where('data', $lastData->data)->first();
+            ->where('data', '<=', $data)
+            ->where('equipamento_id', $equipamento)->first();
+        $horimetro_inicial = DB::table('abastecimentos')->selectRaw('horimetro')
+            ->where('equipamento_id', $equipamento)
+            ->where('data', $lastData->data)->first();
         return json_encode($horimetro_inicial->horimetro);
     }
 
@@ -395,7 +398,16 @@ class AbastecimentoController extends Controller
         return Excel::download(new AbastecimentoExcelExport($abastecimentos, $total_quant), 'abastecimentos.xlsx');
     }
 
+    public function importExcel(Request $request)
+    {
+      /*   Excel::import(new AbastecimentoImport, request()->file('file'));
+        return redirect('abastecimentos.index'); */
+        $abastecimentos= (new AbastecimentoImport)->toArray($request->file('file'));
+        dd($abastecimentos);
+    }
 
-
-   
+    public function searchExcel()
+    {
+        return view('app.abastecimento.search_excel');
+    }
 }

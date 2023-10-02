@@ -262,6 +262,14 @@ Route::middleware('auth')->get('abastecimento/ajax/busca-horimetro','App\Http\Co
 Route::middleware('auth')->get('abastecimento/export/excel','App\Http\Controllers\AbastecimentoController@exportExcel')
 ->name('abastecimento.export_excel');//Exporta View Excel
 
+Route::middleware('auth')->get('abastecimento/import/search','App\Http\Controllers\AbastecimentoController@searchExcel')
+->name('abastecimento.search_excel');//Exporta View Excel
+
+Route::middleware('auth')->post('abastecimento/import/excel','App\Http\Controllers\AbastecimentoController@importExcel')
+->name('abastecimento.import_excel');//Importa abastecimentos Excel
+
+
+
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
