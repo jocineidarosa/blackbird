@@ -58,6 +58,10 @@ class EntradaProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        $valor_unitário= str_replace([','],['.'],str_replace(['R$','.'], ['', ''], $request->preco)); 
+        $valor_unitário=preg_replace('/\s+/', '', $valor_unitário);//tira todos os espaços em branco
+        $request['preco']=$valor_unitário;
+        dd($request->all());
         EntradaProduto::create($request->all());
         $produto = Produto::find($request->input('produto_id')); //busca o registro do produto com o id da entrada do produto
         $produto->estoque_atual = $produto->estoque_atual + $request->input('quantidade'); // soma estoque antigo com a entrada de produto

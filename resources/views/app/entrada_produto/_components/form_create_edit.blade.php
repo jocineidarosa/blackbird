@@ -79,7 +79,7 @@
                 <label for="descricao" class="col-md-4 col-form-label text-md-end text-right">Descrição</label>
                 <div class="col-md-6">
                     <input id="descricao" type="text" class="form-control-template" name="descricao"
-                        value="{{ $entrada_produto->descricao ?? old('descricao') }}" required>
+                        value="{{ $entrada_produto->descricao ?? old('descricao') }}">
                     {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
                 </div>
             </div>
