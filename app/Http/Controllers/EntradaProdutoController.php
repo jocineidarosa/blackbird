@@ -19,7 +19,6 @@ class EntradaProdutoController extends Controller
      */
     public function index(Request $request)
     {
-
         if($request->filtro_produto){
             $entradas_produtos=DB::table('produtos as p')->join('entradas_produtos as ep', 'p.id', '=', 'ep.produto_id')
             ->selectRaw('ep.*, p.nome as produto')->where('p.nome', 'like', '%'.$request->filtro_produto.'%')->orderBy('data', 'desc')->paginate('12');
@@ -27,7 +26,10 @@ class EntradaProdutoController extends Controller
             $entradas_produtos=DB::table('produtos as p')->join('entradas_produtos as ep', 'p.id', '=', 'ep.produto_id')
             ->selectRaw('ep.*, p.nome as produto')->orderBy('data', 'desc')->paginate('12');
         }
-
+        foreach($entradas_produtos as $entrada){
+                 $entrada->quantidade=number_format($entrada->quantidade, 0, ',', '.');
+        }
+   
         return view('app.entrada_produto.index', [
             'entradas_produtos' => $entradas_produtos,
             'request' => $request->all()
@@ -89,6 +91,7 @@ class EntradaProdutoController extends Controller
     public function edit(EntradaProduto $entrada_produto)
     {
         $entrada_produto['preco']='R$ '. str_replace(['.'],[','],$entrada_produto['preco']);
+        $entrada_produto->quantidade=number_format($entrada_produto->quantidade, 0, ',', '.');
         $produtos = Produto::all();
         $fornecedores = Fornecedor::all();
         return view('app.entrada_produto.edit', [
@@ -111,14 +114,13 @@ class EntradaProdutoController extends Controller
         $valor_unitário= str_replace([','],['.'],str_replace(['R$','.'], ['', ''], $request->preco)); 
         $valor_unitário=preg_replace('/\s+/', '', $valor_unitário);//tira todos os espaços em branco
         $request['preco']=$valor_unitário;
+        $request['quantidade']=str_replace(['.'],[''],$request['quantidade']);//tira o ponto do numero para o banco de dados não entender como decimal.
         $diferenca_atualizada=$request->quantidade - $entrada_produto->quantidade;
         $entrada_produto->update($request->all());
         $produto = Produto::findOrFail($entrada_produto->produto_id);
         $produto->estoque_atual = $produto->estoque_atual + $diferenca_atualizada;
         $produto->save();
-        return redirect()->route('entrada-produto.index');
-
-        
+        return redirect()->route('entrada-produto.index');      
     }
 
     /**

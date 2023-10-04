@@ -112,10 +112,19 @@
 
 <div class="row mb-1">
     <label for="lastro" class="col-md-4 col-form-label text-md-end text-right">Lastro</label>
-
     <div class="col-md-6">
         <input name="lastro" id="lastro" type="text" class="form-control-template " lastro="lastro"
             value="{{ $produto->lastro ?? old('lastro') }}">
+        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
+
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="teor_consumo" class="col-md-4 col-form-label text-md-end text-right">teor_consumo</label>
+    <div class="col-md-6">
+        <input name="teor_consumo" id="teor_consumo" type="text" class="form-control-template"
+            value="{{ $produto->teor_consumo ?? old('teor_consumo') }}">
         {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
 
     </div>

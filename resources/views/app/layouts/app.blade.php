@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     {{-- <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css"> --}}
+    
 
 {{--     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script> --}}
     <script src="{{ asset('js/jquery.form.min.js') }}"></script>

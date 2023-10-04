@@ -13,7 +13,7 @@ class Produto extends Model
          'unidade_medida_id', 'categoria_id',
           'estoque_minimo', 'estoque_ideal', 
           'estoque_maximo', 'estoque_atual',
-          'lastro'
+          'lastro','teor_consumo'
         ];
 
     public function marca(){

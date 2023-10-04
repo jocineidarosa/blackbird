@@ -1,3 +1,4 @@
+{{-- @dd($recursos) --}}
 @extends('app.layouts.app')
 @section('content')
     <div class="card">

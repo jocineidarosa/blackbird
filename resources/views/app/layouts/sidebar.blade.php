@@ -28,7 +28,7 @@
                                 <li>
                                     <a href="{{ route('produto.index') }}" class="nav-link px-2">
                                         <span class="me-2"></span>
-                                        <span>Cadastrar Novo</span>
+                                        <span>Cadastro</span>
                                     </a>
                                 </li>
 
