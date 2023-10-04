@@ -61,7 +61,6 @@ class EntradaProdutoController extends Controller
         $valor_unitário= str_replace([','],['.'],str_replace(['R$','.'], ['', ''], $request->preco)); 
         $valor_unitário=preg_replace('/\s+/', '', $valor_unitário);//tira todos os espaços em branco
         $request['preco']=$valor_unitário;
-        dd($request->all());
         EntradaProduto::create($request->all());
         $produto = Produto::find($request->input('produto_id')); //busca o registro do produto com o id da entrada do produto
         $produto->estoque_atual = $produto->estoque_atual + $request->input('quantidade'); // soma estoque antigo com a entrada de produto
@@ -89,6 +88,7 @@ class EntradaProdutoController extends Controller
      */
     public function edit(EntradaProduto $entrada_produto)
     {
+        $entrada_produto['preco']='R$ '. str_replace(['.'],[','],$entrada_produto['preco']);
         $produtos = Produto::all();
         $fornecedores = Fornecedor::all();
         return view('app.entrada_produto.edit', [
@@ -108,6 +108,9 @@ class EntradaProdutoController extends Controller
      */
     public function update(Request $request, EntradaProduto $entrada_produto)
     {
+        $valor_unitário= str_replace([','],['.'],str_replace(['R$','.'], ['', ''], $request->preco)); 
+        $valor_unitário=preg_replace('/\s+/', '', $valor_unitário);//tira todos os espaços em branco
+        $request['preco']=$valor_unitário;
         $diferenca_atualizada=$request->quantidade - $entrada_produto->quantidade;
         $entrada_produto->update($request->all());
         $produto = Produto::findOrFail($entrada_produto->produto_id);

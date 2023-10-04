@@ -37,7 +37,7 @@
                             <td>{{ Carbon\Carbon::parse($entrada_produto->data)->format('d/m/Y') }}</td>
                             <td>{{ $entrada_produto->produto }}</td>
                             <td>{{ $entrada_produto->quantidade }}</td>
-                            <td>R$ {{ $entrada_produto->preco }}</td>
+                            <td>R$ {{ str_replace(['.'],[','],$entrada_produto->preco) }}</td>
                             <td>
                                 <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
                                     <a class="btn btn-sm-template btn-outline-primary"
