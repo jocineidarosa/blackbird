@@ -33,23 +33,24 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->email_verified_at }}</td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ date('d/m/Y', strtotime($user->created_at)) }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1"
-                                            href="{{ route('user.show', ['user' => $user->id]) }}"><i
-                                                class="icofont-eye-alt"></i></a>
-                                        <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                            href="{{ route('user.edit', ['user' => $user->id]) }}"><i
-                                                class="icofont-pen-alt-1"></i></a>
-                                        <form id="form_{{ $user->id }}" method="post"
-                                            action="{{ route('user.destroy', ['user' => $user->id]) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
-                                                onclick="document.getElementById('form_{{ $user->id }}').submit()"><i
-                                                    class="icofont-close-squared-alt"></i></a>
-                                        </form>
+                                    <div class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary"
+                                            href="{{ route('user.show', ['user' => $user->id])}}">
+                                            <i class="icofont-eye-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-success" 
+                                            @can('admin') href="{{ route('user.edit', ['user' => $user->id]) }}"
+                                            @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
+                                            <i class="icofont-ui-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-danger" 
+                                            href="#" @can('admin') data-bs-toggle="modal" data-bs-target="#deleteModal" @endcan
+                                            @can('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan
+                                            data-id="{{ $user->id }}">
+                                            <i class="icofont-ui-delete"></i>
+                                        </a>
                                     </div>
                                 </td>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,27 +17,6 @@ class UserController extends Controller
     {
         $users=User::all();
         return view('app.usuario.index', ['users'=>$users]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -56,9 +36,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $nivels=Permission::all();
+        return view('app.usuario.edit',['user'=>$user, 'nivels'=>$nivels]);
     }
 
     /**
