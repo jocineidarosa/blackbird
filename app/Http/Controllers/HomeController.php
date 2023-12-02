@@ -35,10 +35,11 @@ class HomeController extends Controller
         $recursos= Produto::whereIn('id',[1,2,13,147])->get();
         foreach($recursos as $recurso){
             $recurso->percent_estoque = round($recurso->estoque_atual / $recurso->estoque_maximo * 100 , 0);
+            $recurso->estoque_util=$recurso->estoque_atual - $recurso->lastro;
             $recurso->estoque_maximo= $recurso->estoque_maximo;
             $recurso->estoque_atual= $recurso->estoque_atual;
             $recurso->nome_prod= $recurso->nome;
-            $recurso->autonomia= round($recurso->estoque_atual / $recurso->teor_consumo);
+            $recurso->autonomia= round($recurso->estoque_util/ $recurso->teor_consumo);
         }
         return view('app.layouts.dashboard', ['recursos' => $recursos]);
         //return ('chegameos aqui');
