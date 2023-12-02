@@ -141,7 +141,7 @@
         $('#equipamento_id').select2();
         $('#produto_id').select2();
     });
-
+    // evia os dados se precionar control+enter
     document.addEventListener("keypress", function(e) {
         if (event.ctrlKey && event.key == "Enter") {
             document.querySelector('#submit').click();
@@ -172,7 +172,7 @@
             var medidor_final = $('#medidor_final').val();
             if (medidor_inicial > 0 && medidor_final > 0) {
                 var quantidade = medidor_final - medidor_inicial;
-                $('#quantidade').val(quantidade);
+                $('#quantidade').val(quantidade.toFixed(1));
             }
         });
 
@@ -200,7 +200,7 @@
             var horimetro_inicial = $('#horimetro_inicial').val();
             var horimetro_final = $('#horimetro_final').val();
             var total_horas = horimetro_final - horimetro_inicial;
-            total_horas = total_horas.toFixed(2);
+            total_horas = total_horas.toFixed(1);
             if (total_horas > 0) {
                 $('#qtde_horimetro').val(total_horas);
             } else {
