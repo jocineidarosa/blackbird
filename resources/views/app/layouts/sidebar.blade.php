@@ -27,41 +27,35 @@
                             <ul class="navbar-nav ps-3">
                                 <li>
                                     <a href="{{ route('produto.index') }}" class="nav-link px-2">
-                                        <span><i class="icofont-data"></i></span>
                                         <span>Cadastro</span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="{{ route('entrada-produto.index') }}" class="nav-link px-2">
-                                        <span><i class="icofont-database-add"></i></span>
                                         <span>Entrada</span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="{{ route('saida-produto.index') }}" class="nav-link px-2">
-                                        <span><i class="icofont-database-remove"></i></span>
                                         <span>Saída</span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="{{ route('abastecimento.index') }}" class="nav-link px-2">
-                                        <span><i class="icofont-glue-oil"></i></span>
                                         <span>Abastecimentos</span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="{{ route('consumo.index') }}" class="nav-link px-2">
-                                        <span class="me-2"></span>
                                         <span>Consumo</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('produto-fornecedor.create') }}" class="nav-link px-2">
-                                        <span class="me-2"></span>
                                         <span>Por Fornecedor</span>
                                     </a>
                                 </li>

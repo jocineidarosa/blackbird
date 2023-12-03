@@ -7,8 +7,7 @@
                 ESTOQUES PRINCIPAIS
             </div>
             <div>
-                <a class="btn btn-primary btn-sm mr-2" href="{{ route('produto.index') }}"></i>PRODUTOS
-                </a>
+
             </div>
         </div>
 
@@ -19,12 +18,11 @@
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary text-uppercase bg-primary rounded-3 p-2 text-light">
+                                <div class="col mr-2 ">
+                                    <div class="font-weight-bold text-primary text-uppercase bg-primary rounded-3 p-2 text-light mb-3">
                                         <i class="icofont-bucket2"></i>
                                         {{ $recurso->nome_prod}}
                                     </div>
-                                    <hr>
                                     <div class="mb-2 font-weight-bold">
                                         <span class="text-secondary">ESTOQUE BRUTO:</span> <span class="text-danger">{{ str_replace(',', '.', number_format($recurso->estoque_atual, 0)) }}</span>
                                     </div>
@@ -35,7 +33,7 @@
                                     <span class="text-secondary">AUTONOMIA:</span> <span class="text-danger">{{str_replace(',','.',number_format($recurso->autonomia, 0))}}</span> TON
                                     </div>
                                     <div class="mb-3">
-                                        ESTQ MÁX: {{str_replace(',','.',number_format($recurso->estoque_maximo,0))}}
+                                        ESTOQUE MÁX: {{str_replace(',','.',number_format($recurso->estoque_maximo,0))}}
                                     </div>
 
                                     <div class="col">
@@ -50,9 +48,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-auto">
+{{--                                 <div class="col-auto">
                                     <i class="icofont-navigation-menu"></i>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
