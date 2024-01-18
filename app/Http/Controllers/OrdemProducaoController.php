@@ -72,8 +72,8 @@ class OrdemProducaoController extends Controller
             $ordens_producoes->where('produto_id', $request->produto_id);
         }
 
-        $ordens_producoes = $ordens_producoes->paginate(13);
         $total_producao = $ordens_producoes->sum('quantidade_producao');
+        $ordens_producoes = $ordens_producoes->paginate(13);
         return view(
             'app.ordem_producao.index',
             [

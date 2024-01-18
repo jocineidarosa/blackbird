@@ -346,9 +346,17 @@ class AbastecimentoController extends Controller
     {
         $table = $request->get('table');
         $produto_id = $request->get('produto_id');
-        $contador_inicial = DB::table($table)->selectRaw('max(medidor_final) as contador_inicial')
-            ->where('produto_id', $produto_id)->first();
-        echo json_encode($contador_inicial->contador_inicial);
+        $max_id=  DB::table($table)->selectRaw('max(id) as max_id')
+        ->where('produto_id', $produto_id)->first();
+        $max_id=$max_id->max_id;
+        $contador_inicial= DB::table($table)->selectRaw('medidor_final')->where('id', $max_id)->first();
+
+       /*  $contador_inicial = DB::table($table)->selectRaw('max(medidor_final) as contador_inicial')
+        ->where('produto_id', $produto_id)->first(); */
+
+       //echo json_encode($contador_inicial->contador_inicial);
+
+        echo json_encode($contador_inicial->medidor_final);
     }
 
     public function getHorimetroInicial(Request $request)
