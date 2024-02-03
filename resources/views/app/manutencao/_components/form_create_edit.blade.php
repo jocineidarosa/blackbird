@@ -9,11 +9,52 @@
 
 <div class="row mb-1">
     <label for="data_inicio" class="col-md-4 col-form-label text-md-end text-right">Data Inicial</label>
-
     <div class="col-md-6">
-        <input id="data_inicio" type="text" class="form-control-template" name="data_inicio"
+        <input id="data_inicio" type="date" class="form-control-template" name="data_inicio"
             value="{{ $manutencao->data_inicio ?? old('data_inicio') }}" required autocomplete="data_inicio" autofocus>
         {{ $errors->has('data_inicio') ? $errors->first('data_inicio') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
+    <div class="col-md-6">
+        <input id="data_fim" type="date" class="form-control-template" name="data_fim"
+            value="{{ $manutencao->data_fim ?? old('data_fim') }}" required autocomplete="data_fim" autofocus>
+        {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
+    <div class="col-md-6">
+        <input id="hora_inicio" type="time" class="form-control-template" name="hora_inicio"
+            value="{{ $manutencao->hora_inicio ?? old('hora_inicio') }}" required autocomplete="hora_inicio" autofocus>
+        {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
+    <div class="col-md-6">
+        <input id="hora_fim" type="time" class="form-control-template" name="hora_fim"
+            value="{{ $manutencao->hora_fim ?? old('hora_fim') }}" required autocomplete="hora_fim" autofocus>
+        {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="equipamento_id" class="col-md-4 col-form-label text-md-end text-right">Equipamento</label>
+    <div class="col-md-6">
+        <select name="equipamento_id" id="" class="form-control-template">
+            <option value=""> --Selecione o equipamento--</option>
+            @foreach ($equipamentos as $equipamento)
+                <option value="{{ $equipamento->id }}"
+                    {{ ($produto->equipamento_id ?? old('equipamento_id')) == $equipamento->id ? 'selected' : '' }}>
+                    {{ $equipamento->nome }}</option>
+            @endforeach
+        </select>
+        {{ $errors->has('equipamento_id') ? $errors->first('equipamento_id') : '' }}
     </div>
 </div>
 
@@ -29,106 +70,18 @@
 </div>
 
 <div class="row mb-1">
-    <label for="marca_id" class="col-md-4 col-form-label text-md-end text-right">Marca</label>
-
+    <label for="tipo_manutencao" class="col-md-4 col-form-label text-md-end text-right">Tipo de Manutenção</label>
     <div class="col-md-6">
-        <select name="marca_id" id="" class="form-control-template">
-            <option value=""> --Selecione a marca--</option>
-            @foreach ($marcas as $marca)
-                <option value="{{ $marca->id }}"
-                    {{ ($manutencao->marca_id ?? old('marca_id')) == $marca->id ? 'selected' : '' }}>
-                    {{ $marca->nome }}</option>
-            @endforeach
+        <select name="tipo_manutencao" id="" class="form-control-template">
+            <option value=""> --Selecione o tipo--</option>
+            <option value="0">CORRETIVA</option>
+            <option value="1">PREVENTIVA</option>
+            <option value="2">PREDITIVA</option>
         </select>
-        {{ $errors->has('marca_id') ? $errors->first('marca_id') : '' }}
+        {{ $errors->has('tipo_manutencao') ? $errors->first('tipo_manutencao') : '' }}
     </div>
 </div>
 
-<div class="row mb-1">
-    <label for="unidade_medida_id" class="col-md-4 col-form-label text-md-end text-right">Unidade de Medida</label>
-    <div class="col-md-6">
-        <select name="unidade_medida_id" id="" class="form-control-template">
-            <option value=""> --Selecione a Unidade de Medida--</option>
-            @foreach ($unidades as $unidade)
-                <option value="{{ $unidade->id }}"
-                    {{ ($manutencao->unidade_medida_id ?? old('unidade_medida_id')) == $unidade->id ? 'selected' : '' }}>
-                    {{ $unidade->nome }}</option>
-            @endforeach
-        </select>
-        {{ $errors->has('unidade_id') ? $errors->first('unidade_id') : '' }}
-    </div>
-</div>
-
-<div class="row mb-1">
-    <label for="categoria_id" class="col-md-4 col-form-label text-md-end text-right">Categoria</label>
-
-    <div class="col-md-6">
-        <select name="categoria_id" id="" class="form-control-template">
-            <option value=""> --Selecione a Categoria--</option>
-            @foreach ($categorias as $categoria)
-                <option value="{{ $categoria->id }}"
-                    {{ ($manutencao->categoria_id ?? old('categoria_id')) == $categoria->id ? 'selected' : '' }}>
-                    {{ $categoria->nome }}</option>
-            @endforeach
-        </select>
-        {{ $errors->has('categoria_id') ? $errors->first('categoria_id') : '' }}
-    </div>
-</div>
-
-
-<div class="row mb-1">
-    <label for="estoque_minimo" class="col-md-4 col-form-label text-md-end text-right">Estoque Mínimo</label>
-
-    <div class="col-md-6">
-        <input name="estoque_minimo" id="estoque_minimo" type="text"
-            class="form-control-template @error('estoque_minimo') is-invalid @enderror" estoque_minimo="estoque_minimo"
-            value="{{ $manutencao->estoque_minimo ?? old('estoque_minimo') }}">
-        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
-    </div>
-</div>
-
-<div class="row mb-1">
-    <label for="estoque_ideal" class="col-md-4 col-form-label text-md-end text-right">Estoque Ideal</label>
-
-    <div class="col-md-6">
-        <input name="estoque_ideal" id="estoque_ideal" type="text" class="form-control-template "
-            estoque_ideal="estoque_ideal" value="{{ $manutencao->estoque_ideal ?? old('estoque_ideal') }}">
-        {{ $errors->has('estoque_ideal') ? $errors->first('estoque_ideal') : '' }}
-    </div>
-</div>
-
-
-<div class="row mb-1">
-    <label for="estoque_maximo" class="col-md-4 col-form-label text-md-end text-right">Estoque Máximo</label>
-
-    <div class="col-md-6">
-        <input name="estoque_maximo" id="estoque_maximo" type="text"
-            class="form-control-template @error('estoque_maximo') is-invalid @enderror" estoque_maximo="estoque_maximo"
-            value="{{ $manutencao->estoque_maximo ?? old('estoque_maximo') }}">
-        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
-
-    </div>
-</div>
-
-<div class="row mb-1">
-    <label for="lastro" class="col-md-4 col-form-label text-md-end text-right">Lastro</label>
-    <div class="col-md-6">
-        <input name="lastro" id="lastro" type="text" class="form-control-template " lastro="lastro"
-            value="{{ $manutencao->lastro ?? old('lastro') }}">
-        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
-
-    </div>
-</div>
-
-<div class="row mb-1">
-    <label for="teor_consumo" class="col-md-4 col-form-label text-md-end text-right">teor_consumo</label>
-    <div class="col-md-6">
-        <input name="teor_consumo" id="teor_consumo" type="text" class="form-control-template"
-            value="{{ $manutencao->teor_consumo ?? old('teor_consumo') }}">
-        {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
-
-    </div>
-</div>
 
 <div class="row mb-1">
     <div class="col-md-6 offset-md-4">

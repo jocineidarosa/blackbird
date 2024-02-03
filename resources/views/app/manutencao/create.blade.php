@@ -3,7 +3,7 @@
 @section('content')
         <div class="card">
             <div class="card-header-template">
-                <div>CADASTRO DE PRODUTOS</div>
+                <div>CADASTRO DE MANUTENÇÕES</div>
                 <div>
                     <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
                         LISTAGEM
@@ -12,11 +12,9 @@
             </div>
 
             <div class="card-body">
-                @component('app.produto._components.form_create_edit', 
+                @component('app.manutencao._components.form_create_edit', 
                     [
-                        'marcas'=>$marcas,
-                        'unidades'=>$unidades,
-                        'categorias'=>$categorias,
+                        'equipamentos'=>$equipamentos
                     ])
                 @endcomponent
             </div>

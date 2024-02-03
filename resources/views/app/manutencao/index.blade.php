@@ -30,11 +30,13 @@
                 <thead>
                     <tr>
                         <th scope="col" class="th-title">Id</th>
-                        <th scope="col" class="th-title">Nome</th>
-                        <th scope="col" class="th-title">Marca</th>
-                        <th scope="col" class="th-title">Categoria</th>
-                        <th scope="col" class="th-title">Estoque</th>
-                        <th scope="col" class="th-title">Operaçoes</th>
+                        <th scope="col" class="th-title">Data Inicial</th>
+                        <th scope="col" class="th-title">Data Final</th>
+                        <th scope="col" class="th-title">Hora Inicial</th>
+                        <th scope="col" class="th-title">Hora Final</th>
+                        <th scope="col" class="th-title">Descricao</th>
+                        <th scope="col" class="th-title">Equipamento</th>
+                        <th scope="col" class="th-title">OPERAÇÕES</th>
 
                     </tr>
                 </thead>
@@ -43,10 +45,12 @@
                     @foreach ($manutencoes as $manutencao)
                         <tr>
                             <th scope="row">{{ $manutencao->id }}</td>
-                            <td>{{ $manutencao->nome }}</td>
-                            <td>{{ $manutencao->marca->nome }}</td>
-                            <td>{{ $manutencao->categoria->nome }}</td>
-                            <td>{{ str_replace(',', '.', number_format($manutencao->estoque_atual, 0)) }}</td>
+                            <td>{{ $manutencao->data_inicio }}</td>
+                            <td>{{ $manutencao->data_fim }}</td>
+                            <td>{{ $manutencao->hora_inicio }}</td>
+                            <td>{{ $manutencao->hora_fim }}</td>
+                            <td>{{ $manutencao->descricao }}</td>
+                            <td>{{ $manutencao->equipamento->nome}}</td>
                             <td>
                                 <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
                                     <a class="btn btn-sm-template btn-outline-primary"
@@ -59,7 +63,7 @@
                                         <i class="icofont-ui-edit"></i>
                                     </a>
                                     <a class="btn btn-sm-template btn-outline-success"
-                                        @can('admin') href="{{ route('entrada-manutencao.create', ['manutencao_selected' => $manutencao->id]) }}"
+                                        @can('admin') href="{{ route('manutencao.create', ['manutencao_selected' => $manutencao->id]) }}"
                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
                                         <i class="icofont-plus-square"></i>
                                     </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipamento;
 use Illuminate\Http\Request;
 use App\Models\Manutencao;
 
@@ -17,7 +18,7 @@ class ManutencaoController extends Controller
         if($request->descricao){
             $manutencoes=Manutencao::where('descricao', 'like','%'. $request->descricao . '%')->paginate(12);
         }else{
-           $manutencoes=Manutencao::orderBy('data_inicial', 'asc')->paginate(12); 
+           $manutencoes=Manutencao::orderBy('data_inicio', 'asc')->paginate(12); 
         }
         
         return view('app.manutencao.index', ['manutencoes'=>$manutencoes, 'request'=>$request->all()] );
@@ -30,7 +31,8 @@ class ManutencaoController extends Controller
      */
     public function create()
     {
-        //
+        $equipamentos= Equipamento::all();
+        return view('app.manutencao.create', ['equipamentos'=>$equipamentos]);
     }
 
     /**
@@ -41,7 +43,9 @@ class ManutencaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Manutencao::create($request->all());
+        return redirect()->route('manutencao.index');
+
     }
 
     /**

@@ -30,7 +30,6 @@
 
 <div class="row mb-1">
     <label for="marca_id" class="col-md-4 col-form-label text-md-end text-right">Marca</label>
-
     <div class="col-md-6">
         <select name="marca_id" id="" class="form-control-template">
             <option value=""> --Selecione a marca--</option>
