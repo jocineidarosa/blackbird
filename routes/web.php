@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TransportadoraController;
 use App\Http\Controllers\EquipamentoController;
+use App\Http\Controllers\ManutencaoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,11 @@ Route::middleware('auth')->delete('funcionario/destroy', 'App\Http\Controllers\F
 
 //equipamento
 Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
+
+//manutencao
+Route::middleware('auth')->resource('/manutencao', ManutencaoController::class);
+Route::middleware('auth')->delete('manutencao/destroy', 'App\Http\Controllers\ManutencaoController@destroy')->name('manutencao.destroy');
+
 
 //entrada de produtos
 Route::middleware('auth')->resource('/entrada-produto','App\Http\Controllers\EntradaProdutoController');

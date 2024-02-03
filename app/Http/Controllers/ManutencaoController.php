@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Funcionario;
-use App\Models\Pessoa;
-use App\Models\Uf;
 use Illuminate\Http\Request;
+use App\Models\Manutencao;
 
-class FuncionarioController extends Controller
+class ManutencaoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,13 @@ class FuncionarioController extends Controller
      */
     public function index(Request $request)
     {
-        $funcionarios=Funcionario::orderBy('data_admissao','desc')->paginate(12);
-        return view('app.funcionario.index', ['funcionarios'=>$funcionarios]);
+        if($request->descricao){
+            $manutencoes=Manutencao::where('descricao', 'like','%'. $request->descricao . '%')->paginate(12);
+        }else{
+           $manutencoes=Manutencao::orderBy('data_inicial', 'asc')->paginate(12); 
+        }
+        
+        return view('app.manutencao.index', ['manutencoes'=>$manutencoes, 'request'=>$request->all()] );
     }
 
     /**
@@ -27,8 +30,7 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        $ufs= Uf::all()->sortBy('nome');
-        return view('app.funcionario.create', ['ufs'=>$ufs]);
+        //
     }
 
     /**
@@ -39,8 +41,7 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-        Funcionario::create($request->all());
-        return redirect()->route('funcionario.index');
+        //
     }
 
     /**
@@ -60,10 +61,9 @@ class FuncionarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Funcionario $funcionario)
+    public function edit($id)
     {
-        $ufs= Uf::all()->sortBy('nome');
-        return view('app.funcionario.edit', ['funcionario'=>$funcionario, 'ufs'=>$ufs]);
+        //
     }
 
     /**
@@ -73,10 +73,9 @@ class FuncionarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Funcionario $funcionario)
+    public function update(Request $request, $id)
     {
-        $funcionario->update($request->all());
-        return redirect()->route('funcionario.index');
+        //
     }
 
     /**
@@ -85,10 +84,8 @@ class FuncionarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $funcionario= Funcionario::find($request->data_id);
-        $funcionario->delete();
-        return redirect()->route('funcionario.index');
+        //
     }
 }

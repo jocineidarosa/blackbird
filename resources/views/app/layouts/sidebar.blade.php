@@ -233,6 +233,13 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{ route('manutencao.index') }}" class="nav-link px-3">
+                                        <span class="me-2"></span>
+                                        <span>Manutenção</span>
+                                    </a>
+                                </li>
+
+                                <li>
                                     <a href="{{ route('recursos-producao.index') }}" class="nav-link px-3">
                                         <span class="me-2"></span>
                                         <span>Operação de Equipamentos</span>

@@ -1,5 +1,4 @@
 @extends('app.layouts.app')
-@section('titulo', 'Produtos')
 
 @section('content')
         <div class="card">
@@ -33,20 +32,26 @@
                                 <td>{{ $funcionario->telefone }}</td>
                                 <td>{{ $funcionario->salario }}</td>
                                 <td>
-                                    <div class="div-op">
-                                        <a class="btn btn-sm-template btn-primary mx-1"
-                                            href="{{ route('carregamento.show', ['carregamento' => $funcionario->id]) }}"><i
+                                    <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                        <a class="btn btn-sm-template btn-outline-primary"
+                                            href="{{ route('funcionario.show', ['funcionario' => $funcionario->id]) }}"><i
                                                 class="icofont-eye-alt"></i>
                                         </a>
-                                        <a
-                                            class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan 
-                                            "href="{{ route('carregamento.edit', ['carregamento' => $funcionario->id]) }}">
-                                            <i class="icofont-pen-alt-1"></i>
+                                        <a class="btn btn-sm-template btn-outline-success "
+                                            @can('admin') href="{{ route('funcionario.edit', ['funcionario' => $funcionario->id]) }}"
+                                            @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
+                                            <i class="icofont-ui-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm-template btn-danger mx-1" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal" data-id="{{ $funcionario->id }}"
-                                            @can('user') disabled @endcan>
-                                            <i class="icofont-close-squared-alt"></i>
+                                        <a class="btn btn-sm-template btn-outline-success"
+                                            @can('admin') href="{{ route('funcionario.create', ['funcionario_selected' => $funcionario->id]) }}"
+                                           @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
+                                            <i class="icofont-plus-square"></i>
+                                        </a>
+                                        <a class="btn btn-sm-template btn-outline-danger" href="#" data-bs-toggle="modal"
+                                            @can('admin')data-bs-target="#deleteModal"
+                                            @elsecan('user') data-bs-target="#modal_msg" @endcan
+                                            data-id="{{ $funcionario->id }}">
+                                            <i class="icofont-ui-delete"></i>
                                         </a>
                                     </div>
                                 </td>
