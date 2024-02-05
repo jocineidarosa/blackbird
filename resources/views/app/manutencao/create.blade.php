@@ -5,7 +5,7 @@
             <div class="card-header-template">
                 <div>CADASTRO DE MANUTENÇÕES</div>
                 <div>
-                    <a href="{{ route('produto.index') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('manutencao.index') }}" class="btn btn-sm btn-primary">
                         LISTAGEM
                     </a>
                 </div>

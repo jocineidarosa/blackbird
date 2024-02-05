@@ -17,20 +17,20 @@
 </div>
 
 <div class="row mb-1">
-    <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
-    <div class="col-md-6">
-        <input id="data_fim" type="date" class="form-control-template" name="data_fim"
-            value="{{ $manutencao->data_fim ?? old('data_fim') }}" required autocomplete="data_fim" autofocus>
-        {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
-    </div>
-</div>
-
-<div class="row mb-1">
     <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
     <div class="col-md-6">
         <input id="hora_inicio" type="time" class="form-control-template" name="hora_inicio"
             value="{{ $manutencao->hora_inicio ?? old('hora_inicio') }}" required autocomplete="hora_inicio" autofocus>
         {{ $errors->has('hora_inicio') ? $errors->first('hora_inicio') : '' }}
+    </div>
+</div>
+
+<div class="row mb-1">
+    <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
+    <div class="col-md-6">
+        <input id="data_fim" type="date" class="form-control-template" name="data_fim"
+            value="{{ $manutencao->data_fim ?? old('data_fim') }}" required autocomplete="data_fim" autofocus>
+        {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
     </div>
 </div>
 

@@ -30,10 +30,8 @@
                 <thead>
                     <tr>
                         <th scope="col" class="th-title">Id</th>
-                        <th scope="col" class="th-title">Data Inicial</th>
-                        <th scope="col" class="th-title">Data Final</th>
-                        <th scope="col" class="th-title">Hora Inicial</th>
-                        <th scope="col" class="th-title">Hora Final</th>
+                        <th scope="col" class="th-title">Data</th>
+                        <th scope="col" class="th-title">Hora</th>
                         <th scope="col" class="th-title">Descricao</th>
                         <th scope="col" class="th-title">Equipamento</th>
                         <th scope="col" class="th-title">OPERAÇÕES</th>
@@ -46,9 +44,7 @@
                         <tr>
                             <th scope="row">{{ $manutencao->id }}</td>
                             <td>{{ $manutencao->data_inicio }}</td>
-                            <td>{{ $manutencao->data_fim }}</td>
                             <td>{{ $manutencao->hora_inicio }}</td>
-                            <td>{{ $manutencao->hora_fim }}</td>
                             <td>{{ $manutencao->descricao }}</td>
                             <td>{{ $manutencao->equipamento->nome}}</td>
                             <td>
