@@ -15,6 +15,14 @@ class CreateManutentoresTable extends Migration
     {
         Schema::create('manutentores', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('manutencao_id');
+            $table->foreign('manutencao_id')->references('id')->on('manutencoes');
+            $table->unsignedBigInteger('funcionario_id');
+            $table->foreign('funcionario_id')->references('id')->on('funcionarios');
+            $table->date('data_inicio');
+            $table->time('hora_inicio');
+            $table->date('data_fim');
+            $table->time('hora_fim');
             $table->timestamps();
         });
     }
