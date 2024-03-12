@@ -14,7 +14,8 @@
             <div class="card-body">
                 @component('app.manutencao._components.form_create_edit', 
                     [
-                        'equipamentos'=>$equipamentos
+                        'equipamentos'=>$equipamentos,
+                        'funcionarios'=>$funcionarios
                     ])
                 @endcomponent
             </div>

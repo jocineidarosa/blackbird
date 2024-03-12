@@ -16,6 +16,8 @@
     </div>
 </div>
 
+
+
 <div class="row mb-1">
     <label for="hora_inicio" class="col-md-4 col-form-label text-md-end text-right">Hora Inicial</label>
     <div class="col-md-6">
@@ -29,7 +31,7 @@
     <label for="data_fim" class="col-md-4 col-form-label text-md-end text-right">Data Final</label>
     <div class="col-md-6">
         <input id="data_fim" type="date" class="form-control-template" name="data_fim"
-            value="{{ $manutencao->data_fim ?? old('data_fim') }}" required autocomplete="data_fim" autofocus>
+            value="{{ $manutencao->data_fim ?? old('data_fim') }}" required>
         {{ $errors->has('data_fim') ? $errors->first('data_fim') : '' }}
     </div>
 </div>
@@ -38,7 +40,7 @@
     <label for="hora_fim" class="col-md-4 col-form-label text-md-end text-right">Hora Final</label>
     <div class="col-md-6">
         <input id="hora_fim" type="time" class="form-control-template" name="hora_fim"
-            value="{{ $manutencao->hora_fim ?? old('hora_fim') }}" required autocomplete="hora_fim" autofocus>
+            value="{{ $manutencao->hora_fim ?? old('hora_fim') }}" required>
         {{ $errors->has('hora_fim') ? $errors->first('hora_fim') : '' }}
     </div>
 </div>
@@ -82,6 +84,24 @@
     </div>
 </div>
 
+<div class="row mb-1">
+    <label for="funcionario_id" class="col-md-4 col-form-label text-md-end text-right">Manutentores</label>
+    <div class="col-md-6" id="maintainers">
+        <select name="maintainers" id="" class="form-control-template" onchange="addMaintainerField(this)">
+            <option value=""> --Selecione o manutentor--</option>
+            @foreach ($funcionarios as $funcionario)
+                <option value="{{ $funcionario->id }}">
+                    {{ $funcionario->nome_completo }}
+                </option>
+            @endforeach
+        </select>
+        {{ $errors->has('funcionario_id') ? $errors->first('funcionario_id') : '' }}
+    </div>
+</div>
+<div id="selected-maintainers">
+    <!-- Aqui serão adicionados os inputs para cada manutentor selecionado -->
+</div>
+
 
 <div class="row mb-1">
     <div class="col-md-6 offset-md-4">
@@ -91,3 +111,20 @@
     </div>
 </div>
 </form>
+
+<script>
+    function addMaintainerField(select) {
+        const selectedOption = select.options[select.selectedIndex];
+        if (selectedOption.value !== '') {
+            const selectedMaintainerDiv = document.createElement('div');
+            selectedMaintainerDiv.className = 'selected-maintainer';
+            selectedMaintainerDiv.innerHTML = `
+                <input type="hidden" name="selected_maintainers[]" value="${selectedOption.value}">
+                        <input id="manutentor" type="text"  name="manutentor"
+                        value="${selectedOption.text}">
+            `;
+            document.getElementById('maintainers').appendChild(selectedMaintainerDiv);
+            select.selectedIndex = 0;
+        }
+    }
+</script>

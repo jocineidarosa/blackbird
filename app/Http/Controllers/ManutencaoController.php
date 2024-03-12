@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipamento;
+use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\Manutencao;
+use App\Models\Manutentor;
 
 class ManutencaoController extends Controller
 {
@@ -32,7 +34,8 @@ class ManutencaoController extends Controller
     public function create()
     {
         $equipamentos= Equipamento::all();
-        return view('app.manutencao.create', ['equipamentos'=>$equipamentos]);
+        $funcionarios= Funcionario::all();
+        return view('app.manutencao.create', ['equipamentos'=>$equipamentos, 'funcionarios'=>$funcionarios]);
     }
 
     /**
@@ -42,10 +45,21 @@ class ManutencaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         Manutencao::create($request->all());
-        return redirect()->route('manutencao.index');
+        foreach($request->selected_maintainers as $maintainer){
+            Manutentor::create(['funcionario_id'=>$maintainer, 
+                                'data_inicio'=>$request->data_inicio,
+                                'hora_inicio'=>$request->hora_inicio,
+                                'data_fim'=>$request->hora_inicio,
+                                'hora_'=>$request->hora_inicio,
+                                'hora_inicio'=>$request->hora_inicio
+        ]);
 
+        }
+
+        return redirect()->route('manutencao.index');
+   
     }
 
     /**
