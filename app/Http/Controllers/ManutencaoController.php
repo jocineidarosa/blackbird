@@ -46,15 +46,17 @@ class ManutencaoController extends Controller
      */
     public function store(Request $request)
     {   
-        Manutencao::create($request->all());
+        $manutencao=Manutencao::create($request->all());
         foreach($request->selected_maintainers as $maintainer){
-            Manutentor::create(['funcionario_id'=>$maintainer, 
+            Manutentor::create(['manutencao_id'=>$manutencao->id,
+                                'funcionario_id'=>$maintainer, 
                                 'data_inicio'=>$request->data_inicio,
                                 'hora_inicio'=>$request->hora_inicio,
-                                'data_fim'=>$request->hora_inicio,
-                                'hora_'=>$request->hora_inicio,
-                                'hora_inicio'=>$request->hora_inicio
+                                'data_fim'=>$request->data_fim,
+                                'hora_fim'=>$request->hora_fim
         ]);
+
+        return redirect()->route('manutencao.index');
 
         }
 

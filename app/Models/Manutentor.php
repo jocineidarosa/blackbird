@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Manutentor extends Model
 {
     use HasFactory;
-    protected $table="manutendores";
+    protected $table="manutentores";
     protected $fillable=['manutencao_id', 'funcionario_id', 'data_inicio','hora_inicio', 'data_fim','hora_fim' ];
 }
