@@ -33,7 +33,7 @@
 
     <table class="table-striped">
         <tr>
-            <th colspan="5">ABASTECIMENTOS</th>
+            <th colspan="5">ABASTECIMENTOS DOS EQUIPAMENTOS - BRESOLA TERRAPLANAGEM E PAVIMENTAÇÃO</th>
         </tr>
 
         <tr>
@@ -57,6 +57,7 @@
                 <td>{{$abastecimento->medidor_inicial}}</td>
                 <td>{{$abastecimento->medidor_final}}</td>
                 <td>{{$abastecimento->horimetro}}</td>
+                <td>{{$abastecimento->hora}}</td>
             </tr>
         @endforeach
         <tr style="background-color: #92989c; color:rgb(1, 1, 1);">
