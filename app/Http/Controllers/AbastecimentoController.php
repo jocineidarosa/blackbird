@@ -379,7 +379,7 @@ class AbastecimentoController extends Controller
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
             ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
             ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
-        ab.quantidade as quantidade, ab.data as data ');
+        ab.quantidade as quantidade, ab.data as data, ab.medidor_inicial as medidor_inicial, ab.medidor_final as medidor_final, ab.horimetro, ab.hora ');
 
         if ($request->filtro_equipamento) {
             $filtros = '?filtro_equipamento=' . $request->filtro_quipamento;

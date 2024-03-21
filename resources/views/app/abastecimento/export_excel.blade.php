@@ -42,6 +42,9 @@
             <th>Produto</th>
             <th>quantidade</th>
             <th>Data</th>
+            <td>Medidor Inicial</td>
+            <td>Medidor Final</td>
+            <td>Horímetro</td>
 
         </tr>
         @foreach ($abastecimentos as $abastecimento)
@@ -51,6 +54,9 @@
                 <td>{{ $abastecimento->produto }}</td>
                 <td>{{ $abastecimento->quantidade }}</td>
                 <td>{{ date('d/m/Y', strtotime($abastecimento->data)) }}</td>
+                <td>{{$abastecimento->medidor_inicial}}</td>
+                <td>{{$abastecimento->medidor_final}}</td>
+                <td>{{$abastecimento->horimetro}}</td>
             </tr>
         @endforeach
         <tr style="background-color: #92989c; color:rgb(1, 1, 1);">
