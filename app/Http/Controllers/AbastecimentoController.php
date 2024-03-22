@@ -399,7 +399,7 @@ class AbastecimentoController extends Controller
             $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $abastecimentos = $abastecimentos->orderBy('data', 'desc')->get();
+        $abastecimentos = $abastecimentos->orderBy('data', 'asc')->get();
 
         $total_quant = $abastecimentos->sum('quantidade');
 
@@ -411,7 +411,6 @@ class AbastecimentoController extends Controller
       /*   Excel::import(new AbastecimentoImport, request()->file('file'));
         return redirect('abastecimentos.index'); */
         $abastecimentos= (new AbastecimentoImport)->toArray($request->file('file'));
-        dd($abastecimentos);
     }
 
     public function searchExcel()
