@@ -269,7 +269,7 @@ class AbastecimentoController extends Controller
 
         $saida_produto = SaidaProduto::where('abastecimento_id', $abastecimento->id)->first();
         if (isset($saida_produto)) {
-            //atualiza estoqu do produto.
+            //atualiza estoque do produto.
             $produto->estoque_atual = $produto->estoque_atual + $abastecimento->quantidade;
             $produto->save();
             $saida_produto->delete(); //deleta saída
@@ -346,15 +346,10 @@ class AbastecimentoController extends Controller
     {
         $table = $request->get('table');
         $produto_id = $request->get('produto_id');
-        $max_id=  DB::table($table)->selectRaw('max(id) as max_id')
-        ->where('produto_id', $produto_id)->first();
-        $max_id=$max_id->max_id;
-        $contador_inicial= DB::table($table)->selectRaw('medidor_final')->where('id', $max_id)->first();
-
-       /*  $contador_inicial = DB::table($table)->selectRaw('max(medidor_final) as contador_inicial')
-        ->where('produto_id', $produto_id)->first(); */
-
-       //echo json_encode($contador_inicial->contador_inicial);
+        $max_id =  DB::table($table)->selectRaw('max(id) as max_id')
+            ->where('produto_id', $produto_id)->first();
+        $max_id = $max_id->max_id;
+        $contador_inicial = DB::table($table)->selectRaw('medidor_final')->where('id', $max_id)->first();
 
         echo json_encode($contador_inicial->medidor_final);
     }
@@ -375,11 +370,13 @@ class AbastecimentoController extends Controller
     public function exportExcel(Request $request)
     {
         $filtros = '';
+        $file_name = 'DBMAXIS BRESOLA - ABASTECIMENTOS';
         $abastecimentos = DB::table('abastecimentos as ab')
             ->join('equipamentos as eq', 'eq.id', '=', 'ab.equipamento_id')
             ->join('produtos as pd', 'pd.id', '=', 'ab.produto_id')
             ->selectRaw('ab.id as id, eq.nome as equipamento, pd.nome as produto, 
         ab.quantidade as quantidade, ab.data as data, ab.medidor_inicial as medidor_inicial, ab.medidor_final as medidor_final, ab.horimetro, ab.hora ');
+
 
         if ($request->filtro_equipamento) {
             $filtros = '?filtro_equipamento=' . $request->filtro_quipamento;
@@ -388,29 +385,33 @@ class AbastecimentoController extends Controller
         if ($request->equipamento_id) {
             $filtros = '?equipamento_id=' . $request->equipamento_id;
             $abastecimentos = $abastecimentos->where('ab.equipamento_id', $request->equipamento_id);
+            $file_name = $file_name .' - '. strtoupper(Equipamento::find($request->equipamento_id)->nome);
         }
         if ($request->produto_id) {
             $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
             $abastecimentos = $abastecimentos->where('ab.produto_id', $request->produto_id);
         }
+
         if ($request->data_inicial) {
             $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
                 '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
             $abastecimentos = $abastecimentos->whereBetween('data', [$request->data_inicial, $request->data_final]);
+            $file_name = $file_name .' DE '. date('d-m-Y',strtotime($request->data_inicial)) . ' a ' . date('d-m-Y', strtotime($request->data_final));
         }
+
 
         $abastecimentos = $abastecimentos->orderBy('data', 'asc')->get();
 
         $total_quant = $abastecimentos->sum('quantidade');
 
-        return Excel::download(new AbastecimentoExcelExport($abastecimentos, $total_quant), 'abastecimentos.xlsx');
+        return Excel::download(new AbastecimentoExcelExport($abastecimentos, $total_quant), $file_name . '.xlsx');
     }
 
     public function importExcel(Request $request)
     {
-      /*   Excel::import(new AbastecimentoImport, request()->file('file'));
-        return redirect('abastecimentos.index'); */
-        $abastecimentos= (new AbastecimentoImport)->toArray($request->file('file'));
+        Excel::import(new AbastecimentoImport, request()->file('file'));
+        return redirect('abastecimentos.index');
+        $abastecimentos = (new AbastecimentoImport)->toArray($request->file('file'));
     }
 
     public function searchExcel()

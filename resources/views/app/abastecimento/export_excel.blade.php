@@ -45,6 +45,7 @@
             <td>Medidor Inicial</td>
             <td>Medidor Final</td>
             <td>Horímetro</td>
+            <td>Hora</td>
 
         </tr>
         @foreach ($abastecimentos as $abastecimento)
