@@ -399,3 +399,13 @@ table td{
     border: 1px solid transparent;
     border-radius: .25rem
 }
+
+.btn-sm-calc {
+    /* padding: .5rem; */
+    font-size: .875rem;
+    border-radius: .2rem
+}
+
+.icone-cinza {
+    color: #6c757d; /* Defina a cor cinza desejada */
+}

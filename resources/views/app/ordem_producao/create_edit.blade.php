@@ -130,7 +130,7 @@
             /* Busca o horímetro inicial do equipamento principal*/
             $('#equipamento_id').change(function() {
                 var equipamento_id = $("#equipamento_id option:selected").val();
-                $("#horimetro_inicial").val('');//limpa horímetro inicial
+                $("#horimetro_inicial").val(''); //limpa horímetro inicial
                 $.ajax({
                     url: "{{ route('utils.get-horimetro-inicial') }}",
                     type: "get",
@@ -174,8 +174,8 @@
                 $('#total_horimetro').val(total_horimetro);
             });
 
-              /* Calcula o total de horas apartir do horímetro em recursos */
-              $('#horimetro_final_rec').change(function() {
+            /* Calcula o total de horas apartir do horímetro em recursos */
+            $('#horimetro_final_rec').change(function() {
                 var horimetro_inicial = $('#horimetro_inicial_rec').val();
                 var horimetro_final = $('#horimetro_final_rec').val();
                 var total_horimetro = (horimetro_final - horimetro_inicial).toFixed(2);
@@ -210,14 +210,18 @@
             }
 
         }
-        $(document).ready(function() {
-        //principal
-        $('#equipamento_id').select2();
-        $('#produto_id_principal').select2();
-        $('#situacao').select2();
-        $('#equipamento_recursos').select2();
-        $('#produto_recursos').select2();
-    });
+      /*   $(document).ready(function() {
+            //principal
+            $('#equipamento_id').select2();
+            $('#produto_id_principal').select2();
+            $('#situacao').select2();
+            $('#equipamento_recursos').select2();
+            $('#produto_recursos').select2();
+        }); */
+
+        $(document).ready(function(){
+            $('#equipamento_id').selectpicker();
+        });
     </script>
 
 @endsection

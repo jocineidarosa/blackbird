@@ -66,12 +66,16 @@
 
         <div class="row mb-1">
             <label for="quantidade" class="col-md-4 col-form-label text-md-end text-right">Qtde.Material Utilizado</label>
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex"> <!-- Adicionando classe align-items-center -->
                 <input name="quantidade" id="quantidade" type="text" class="form-control-template" value="{{ $produto->quantidade ?? old('quantidade') }}" required>
-                {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
-                <button type="button" class="btn btn-sm btn-primary" id="bt_calcula_consumo"><i class="icofont-ui-calculator">Calcula</i></button>
+                <button type="button" class="{{-- btn btn-sm btn-primary ml-2 --}}btn-sm-calc" id="bt_calcula_consumo">
+                    <i class="icofont-calculator-alt-2 icofont-lg icone-cinza"></i>
+                </button>
             </div>
+            {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
         </div>
+        
+        
 
 
 
