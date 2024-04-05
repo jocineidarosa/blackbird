@@ -210,19 +210,15 @@
             }
 
         }
-      /*   $(document).ready(function() {
+        $(document).ready(function() {
             //principal
             $('#equipamento_id').select2();
             $('#produto_id_principal').select2();
             $('#situacao').select2();
             $('#equipamento_recursos').select2();
             $('#produto_recursos').select2();
-        }); */
-
-        $(document).ready(function(){
-            $('#equipamento_id').selectpicker();
         });
-    </script>
 
+    </script>
+ZS
 @endsection
-{{-- -------------- --}}
