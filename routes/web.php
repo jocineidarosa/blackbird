@@ -62,6 +62,7 @@ Route::middleware('auth')->delete('funcionario/destroy', 'App\Http\Controllers\F
 
 //equipamento
 Route::middleware('auth')->resource('/equipamento', EquipamentoController::class);
+Route::middleware('auth')->delete('equipamento/destroy', 'App\Http\Controllers\EquipamentoController@destroy')->name('equipamento.destroy');
 
 //manutencao
 Route::middleware('auth')->resource('/manutencao', ManutencaoController::class);

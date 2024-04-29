@@ -103,3 +103,10 @@ tr:nth-child(even) {
 tr:hover {
   background-color: rgb(169, 169, 169);
 }
+
+.select2-container {
+    width: 100% !important;
+    font-size: 15px;
+    line-height: 20px;
+
+}

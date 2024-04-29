@@ -123,8 +123,14 @@
     <div class="col-md-6">
         <select name="controle_consumo" id="" class="form-control-template">
             <option value="">...</option>
-            <option value="1" {{$equipamento->controle_consumo == 1 ?'selected' :'' }}>SIM</option>
-            <option value="0" {{$equipamento->controle_consumo == 0 ?'selected' :'' }}>NÃO</option>
+            @isset($equipamento)
+                <option value="0" {{ $equipamento->controle_consumo == 0 ? 'selected' : '' }}>SIM</option>
+                <option value="1" {{ $equipamento->controle_consumo == 1 ? 'selected' : '' }}>NÃO</option>
+            @else
+                <option value=""></option>
+                <option value="0">SIM</option>
+                <option value="1">NÃO</option>
+            @endisset
         </select>
         {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
@@ -142,12 +148,17 @@
 
 <div class="row mb-1">
     <label for="controle_saida" class="col-md-4 col-form-label text-md-end">Saída ao abastecer?</label>
-
     <div class="col-md-6">
         <select name="controle_saida" id="" class="form-control-template">
             <option value="">...</option>
-            <option value="0" {{$equipamento->controle_saida == 0 ?'selected' :'' }}>SIM</option>
-            <option value="1" {{$equipamento->controle_saida == 1 ?'selected' :'' }}>NÃO</option>  
+            @isset($equipamento)
+                <option value="0" {{ $equipamento->controle_saida == 0 ? 'selected' : '' }}>NÃO</option>
+                <option value="1" {{ $equipamento->controle_saida == 1 ? 'selected' : '' }}>SIM</option>
+            @else
+                <option value=""></option>
+                <option value="0">NÃO</option>
+                <option value="1">SIM</option>
+            @endisset
         </select>
         {{ $errors->has('equipamento_pai') ? $errors->first('equipamento_pai') : '' }}
     </div>
