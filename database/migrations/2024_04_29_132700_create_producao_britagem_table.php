@@ -19,8 +19,8 @@ class CreateProducaoBritagemTable extends Migration
             $table->string('pedrisco');
             $table->string('pedra');
             $table->string('pó');
-            $table->energia_usina('pó');
-            $table->energia_britagem('pó');
+            $table->string('energia_usina');
+            $table->string('energia_britagem');
             $table->date('date');;
             $table->time('hora');;
 
