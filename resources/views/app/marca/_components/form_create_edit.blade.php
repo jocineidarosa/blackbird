@@ -32,7 +32,7 @@
 <div class="row mb-1">
     <div class="col-md-6 offset-md-4">
         <button type="submit" class="btn btn-primary">
-            {{ isset($produto) ? 'Atualizar' : 'Cadastrar' }}
+            {{ isset($marca) ? 'Atualizar' : 'Cadastrar' }}
         </button>
     </div>
 </div>

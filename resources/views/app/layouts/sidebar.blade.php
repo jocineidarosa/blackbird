@@ -27,7 +27,7 @@
                             <ul class="navbar-nav ps-3">
                                 <li>
                                     <a href="{{ route('produto.index') }}" class="nav-link px-2">
-                                        <span>Cadastro</span>
+                                        <span>Produto</span>
                                     </a>
                                 </li>
 
