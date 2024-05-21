@@ -119,7 +119,7 @@
                         <td>{{ $recurso->total_hora }}</td>
                         <td>{{ number_format($recurso->consumo_hora, 2) }}</td>
                         <td>{{ number_format($recurso->consumo_quant, 2) }}</td>
-                        <td>{{ number_format($recurso->estoque_final, 2) }}</td>
+                        <td>{{ number_format($recurso->estoque_final, 2 }}</td>
                     </tr>
                 @endforeach
 
