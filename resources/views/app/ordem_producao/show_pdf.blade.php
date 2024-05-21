@@ -530,7 +530,7 @@
             <td class="th-title">TOTAL</td>
             <td class="th-title">CONSUMO/H</td>
             <td class="th-title">CONSUMO/T</td>
-            <td class="th-title">Estoque</td>
+            <td class="th-title">ESTOQUE_FINAL</td>
         </tr>
 
 
