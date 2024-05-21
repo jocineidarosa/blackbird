@@ -33,6 +33,7 @@ Route::middleware('auth')->resource('/unidade-medida', 'App\Http\Controllers\Uni
 
 //Marca
 Route::middleware('auth')->resource('/marca', 'App\Http\Controllers\MarcaController');
+Route::middleware('auth')->delete('marca/destroy', 'App\Http\Controllers\MarcaController@destroy')->name('marca.destroy');
 
 
 //fornecedor

@@ -75,7 +75,8 @@ class MarcaController extends Controller
      */
     public function update(Request $request, Marca $marca)
     {
-        //
+        $marca->update($request->all());
+        return redirect()->route('marca.index');
     }
 
     /**
@@ -84,8 +85,9 @@ class MarcaController extends Controller
      * @param  \App\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy(Request $request)
     {
+        $marca=Marca::find($request->data_id);
         $marca->delete();
         return redirect()->route('marca.index');
     }

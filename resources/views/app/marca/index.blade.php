@@ -30,30 +30,37 @@
                             <td>{{ $marca->nome }}</td>
                             <td>{{ $marca->descricao }}</td>
                             <td>
-                                <div class="div-op">
-                                    <a class="btn btn-sm-template btn-primary mx-1"
+                                <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
+                                    <a class="btn btn-sm-template btn-outline-primary"
                                         href="{{ route('marca.show', ['marca' => $marca->id]) }}"><i
-                                            class="icofont-eye-alt"></i></a>
-                                    <a class="btn btn-sm-template btn-success mx-1 @can('user') disabled @endcan"
-                                        href="{{ route('marca.edit', ['marca' => $marca->id]) }}"><i
-                                            class="icofont-pen-alt-1"></i></a>
-                                    <form id="form_{{ $marca->id }}" method="post"
-                                        action="{{ route('marca.destroy', ['marca' => $marca->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a class="btn btn-sm-template btn-danger mx-1 @can('user') disabled @endcan" href="#"
-                                            onclick="document.getElementById('form_{{ $marca->id }}').submit()"><i
-                                                class="icofont-close-squared-alt"></i></a>
-                                    </form>
+                                            class="icofont-eye-alt"></i>
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-success "
+                                        @can('admin') href="{{ route('marca.edit', ['marca' => $marca->id]) }}"
+                                        @elsecan('user') data-bs-toggle="modal" data-bs-target="#modal_msg" @endcan>
+                                        <i class="icofont-ui-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-danger" href="#" data-bs-toggle="modal"
+                                        @can('admin')data-bs-target="#deleteModal"
+                                        @elsecan('user') data-bs-target="#modal_msg" @endcan
+                                        data-id="{{ $marca->id }}">
+                                        <i class="icofont-ui-delete"></i>
+                                    </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            @component('app.shared.modal_delete')
+                {{ route('marca.destroy') }}
+            @endcomponent
+            @component('app.shared.modal_msg_no_permission')
+            @endcomponent
             <div class="d-flex justify-content-center">
-                {{$marcas->appends($request)->links()}}
+                {{ $marcas->appends($request)->links() }}
             </div>
 
         </div>
