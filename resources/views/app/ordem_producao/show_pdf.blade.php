@@ -547,7 +547,7 @@
                 <td class="th-normal">{{ $recurso->total_hora }}</td>
                 <td class="th-normal">{{ number_format($recurso->consumo_hora, 2) }}</td>
                 <td class="th-normal">{{ number_format($recurso->consumo_quant, 2) }}</td>
-                <td class="th-normal">{{ $recurso->estoque_final }}</td>
+                <td class="th-normal">{{ number_format($recurso->estoque_final, 2) }}</td>
             </tr>
         @endforeach
 
