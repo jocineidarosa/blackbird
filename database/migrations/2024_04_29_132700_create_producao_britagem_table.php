@@ -15,15 +15,13 @@ class CreateProducaoBritagemTable extends Migration
     {
         Schema::create('producao_britagem', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('pedrisco');
             $table->string('pedra');
-            $table->string('pó');
+            $table->string('po');
             $table->string('energia_usina');
             $table->string('energia_britagem');
-            $table->date('date');;
-            $table->time('hora');;
-
+            $table->date('date');
+            $table->time('hora');
         });
     }
 
