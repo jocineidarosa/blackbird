@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\OrdemProducao;
 use App\Models\Produto;
-use App\Models\RecursosProducao;
+/* use App\Models\RecursosProducao;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; */
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -41,7 +42,23 @@ class HomeController extends Controller
             $recurso->nome_prod= $recurso->nome;
             $recurso->autonomia= round($recurso->estoque_util/ $recurso->teor_consumo);
         }
-        return view('app.layouts.dashboard', ['recursos' => $recursos]);
+
+
+        $producoes = DB::table('producao_britagem')
+        ->select(DB::raw('DATE_FORMAT(data_hora,"%d/%m/%Y") as data'), 'producao_po')
+        ->orderBy('id',  'desc')->limit(300)
+        ->get();
+
+        $labels = $producoes->pluck('data')->toArray();
+        $data = $producoes->pluck('producao_po')->toArray();
+
+        $chartData = [
+            'labels' => $labels,
+            'data' => $data
+        ];
+
+
+        return view('app.layouts.dashboard', ['recursos' => $recursos, 'chartData' => $chartData]);
         //return ('chegameos aqui');
     }
 }
