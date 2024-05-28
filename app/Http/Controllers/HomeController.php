@@ -45,7 +45,7 @@ class HomeController extends Controller
 
 
         $producoes = DB::table('producao_britagem')
-        ->select(DB::raw('DATE_FORMAT(data_hora,"%d/%m/%Y") as data'), 'producao_po')
+        ->select(DB::raw('DATE_FORMAT(data,"%d/%m/%Y") as data'), 'producao_po')
         ->orderBy('id',  'desc')->limit(300)
         ->get();
 
