@@ -44,21 +44,6 @@ class HomeController extends Controller
         }
 
 
-        /* $producoes = DB::table('producao_britagem')
-        ->select(DB::raw('DATE_FORMAT(data,"%d/%m/%Y") as data'), 'producao_po')
-        ->orderBy('id',  'desc')->limit(300)
-        ->get();
-
-        $labels = $producoes->pluck('data')->toArray();
-        $data = $producoes->pluck('producao_po')->toArray();
-
-        $chartData = [
-            'labels' => $labels,
-            'data' => $data
-        ];
-
- */
-
 
         // Buscar a data do último dia registrado
         $ultimaData = DB::table('producao_britagem')
@@ -67,23 +52,73 @@ class HomeController extends Controller
             ->first()
             ->data;
 
-        // Buscar os dados do último dia
-        $producoes = DB::table('producao_britagem')
-            ->select(DB::raw('TIME(hora) as hora'), 'producao_po')
+        $subquery = DB::table('producao_britagem')
+            ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Inclua 'id' para ordenar posteriormente
             ->whereDate('data', $ultimaData)
-            ->orderBy('data')
+            ->orderBy('id', 'desc')
+            ->limit(100);
+
+        // Em seguida, faça uma consulta principal para ordenar esses resultados em ordem crescente pelo id
+        $producoes = DB::table(DB::raw("({$subquery->toSql()}) as sub"))
+            ->mergeBindings($subquery)  // Merge bindings é necessário para subconsultas
+            ->orderBy('id', 'asc')
             ->get();
+
+
 
         // Preparar os dados para o gráfico
         $labels = $producoes->pluck('hora')->toArray();
-        $data = $producoes->pluck('producao_pedrisco')->toArray();
+        $data = $producoes->pluck('producao_po')->toArray();
+
+
 
         $chartData = [
             'labels' => $labels,
             'data' => $data,
             'dataTitulo' => $ultimaData
         ];
-        return view('app.layouts.dashboard', ['recursos' => $recursos, 'chartData' => $chartData]);
+
+
+        return view('app.layouts.dashboard', ['recursos' => $recursos, 'chartData'=>$chartData]);
         //return ('chegameos aqui');
+    }
+
+    function getChartData()
+    {
+
+        // Buscar a data do último dia registrado
+        $ultimaData = DB::table('producao_britagem')
+            ->select(DB::raw('DATE(data) as data'))
+            ->orderByDesc('data')
+            ->first()
+            ->data;
+
+        $subquery = DB::table('producao_britagem')
+            ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Inclua 'id' para ordenar posteriormente
+            ->whereDate('data', $ultimaData)
+            ->orderBy('id', 'desc')
+            ->limit(100);
+
+        // Em seguida, faça uma consulta principal para ordenar esses resultados em ordem crescente pelo id
+        $producoes = DB::table(DB::raw("({$subquery->toSql()}) as sub"))
+            ->mergeBindings($subquery)  // Merge bindings é necessário para subconsultas
+            ->orderBy('id', 'asc')
+            ->get();
+
+
+
+        // Preparar os dados para o gráfico
+        $labels = $producoes->pluck('hora')->toArray();
+        $data = $producoes->pluck('producao_po')->toArray();
+
+
+
+        $chartData = [
+            'labels' => $labels,
+            'data' => $data,
+            'dataTitulo' => $ultimaData
+        ];
+
+        return response()->json($chartData);
     }
 }

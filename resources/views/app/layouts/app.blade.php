@@ -21,6 +21,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-crosshair@1.2.0/dist/chartjs-plugin-crosshair.min.js"></script>{{-- linha que corre com o mouse --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>{{--###GERAÇÃO DE GRÁFICO DE PRODUÇÃO --}}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>{{-- gráfico da google --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>

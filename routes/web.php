@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TransportadoraController;
 use App\Http\Controllers\EquipamentoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManutencaoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -281,4 +282,7 @@ Route::middleware('auth')->post('abastecimento/import/excel','App\Http\Controlle
 
 //consumos
 Route::middleware('auth')->resource('/consumo', 'App\Http\Controllers\ConsumoController');
-Route::middleware('auth')->delete('consumo/destroy', 'App\Http\Controllers\ConsumoController@destroy')->name('consumo.destroy');    
+Route::middleware('auth')->delete('consumo/destroy', 'App\Http\Controllers\ConsumoController@destroy')->name('consumo.destroy');
+
+
+Route::get('dashboard/get-chart-data', [HomeController::class, 'getChartData']);
