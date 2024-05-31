@@ -1,13 +1,13 @@
 {{-- @dd($recursos) --}}
 @extends('app.layouts.app')
 @section('content')
-    <div class="card">
-        <div class="card-header-template">
+    <div class="card ">
+        <div class="card-header-template ">
             <div>
-                PRODUÇÃO DA BRITAGEM
+                TESTE DE PRODUÇÃO EM TERMPO REAL - BRESOLA
             </div>
         </div>
-        <div>
+        <div style="background-color:rgba(38, 38, 40, 0.883)">
             <canvas id="myChart" width="300" height="100"></canvas>{{-- renderiza chartjs --}}
         </div>
 
@@ -77,8 +77,8 @@
 
     </div>
 
-    
-{{--     <script>
+
+    {{--     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let ctx = document.getElementById('myChart').getContext('2d');
             let chartData = @json($chartData);
@@ -129,49 +129,64 @@
         fetchData();
     </script> --}}
 
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        let ctx = document.getElementById('myChart').getContext('2d');
-        let chartData = @json($chartData);
+            let ctx = document.getElementById('myChart').getContext('2d');
+            let chartData = @json($chartData);
 
-        let myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: 'PÓ DE PEDRA',
-                    data: chartData.data,
-                    backgroundColor: '#FFFFFF',
-                    borderColor: '#2784c7',
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0,
-                    pointStyle: false,
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            let myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'PÓ DE PEDRA',
+                        data: chartData.data,
+                        backgroundColor: 'rgba(0, 0, 0, 0.5',
+                        borderColor: '#66f5f3',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0,
+                        pointStyle: false,
+                    }]
                 },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#ffffff' // Cor das letras do eixo y
+                            }
+                        },
+
+                        x: {
+                            ticks: {
+                                color: '#ffffff' // Cor das letras do eixo x
+                            }
+                        },
+            
+                    },
+                    animations: {
+                        duration: 1
+                    },
+
+
+                }
+            });
+
+            function fetchData() {
+                fetch('/dashboard/get-chart-data')
+                    .then(response => response.json())
+                    .then(data => {
+                        myChart.data.labels = data.labels;
+                        myChart.data.datasets[0].data = data.data;
+                        myChart.update();
+                    })
+                    .catch(error => console.error('Erro ao buscar dados:', error));
             }
+
+            fetchData();
+            setInterval(fetchData, 3000);
         });
-
-        function fetchData() {
-            fetch('/dashboard/get-chart-data')
-                .then(response => response.json())
-                .then(data => {
-                    myChart.data.labels = data.labels;
-                    myChart.data.datasets[0].data = data.data;
-                    myChart.update();
-                })
-                .catch(error => console.error('Erro ao buscar dados:', error));
-        }
-
-        fetchData();
-        setInterval(fetchData, 3000);
-    });
     </script>
 @endsection
