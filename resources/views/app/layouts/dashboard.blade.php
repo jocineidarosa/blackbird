@@ -7,7 +7,7 @@
                 TESTE DE PRODUÇÃO EM TERMPO REAL - BRESOLA
             </div>
         </div>
-        <div style="background-color:rgba(38, 38, 40, 0.883)">
+        <div {{-- style="background-color:rgba(244, 244, 244, 0.883)" --}}>
             <canvas id="myChart" width="300" height="100"></canvas>{{-- renderiza chartjs --}}
         </div>
 
@@ -142,35 +142,31 @@
                     datasets: [{
                         label: 'PÓ DE PEDRA',
                         data: chartData.data,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5',
-                        borderColor: '#66f5f3',
-                        borderWidth: 2,
-                        fill: false,
+                        backgroundColor: 'rgba(161, 180, 227, 0.5)',
+                        borderColor: '#325aa8',
+                        borderWidth: 1,
+                        fill: true,
                         tension: 0,
                         pointStyle: false,
                     }]
                 },
                 options: {
                     scales: {
-                        y: {
+                         y: {
                             beginAtZero: true,
-                            ticks: {
+                           /*  ticks: {
                                 color: '#ffffff' // Cor das letras do eixo y
-                            }
+                            } */
                         },
 
-                        x: {
+                        /* x: {
                             ticks: {
                                 color: '#ffffff' // Cor das letras do eixo x
                             }
-                        },
+                        }, */
             
                     },
-                    animations: {
-                        duration: 1
-                    },
-
-
+                    animations:false
                 }
             });
 
