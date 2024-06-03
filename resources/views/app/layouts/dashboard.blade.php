@@ -142,7 +142,7 @@
                     datasets: [{
                         label: 'PÓ DE PEDRA',
                         data: chartData.data,
-                        backgroundColor: 'rgba(161, 180, 227, 0.5)',
+                        backgroundColor: 'rgba(240, 159, 134, 0.3)',
                         borderColor: '#325aa8',
                         borderWidth: 1,
                         fill: true,
