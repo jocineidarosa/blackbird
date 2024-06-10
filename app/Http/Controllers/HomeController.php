@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrdemProducao;
+use App\Models\Producao_britagem;
+use App\Models\ProducaoBritagem;
 use App\Models\Produto;
 /* use App\Models\RecursosProducao;
 use GuzzleHttp\Handler\Proxy;
@@ -44,6 +46,11 @@ class HomeController extends Controller
         }
 
 
+        $Producao_britagem = ProducaoBritagem::orderBy('id', 'desc')->first();
+         // Pegar o valor do horímetro parcial desse registro
+
+
+
 
         // Buscar a data do último dia registrado
         $ultimaData = DB::table('producao_britagem')
@@ -79,7 +86,10 @@ class HomeController extends Controller
         ];
 
 
-        return view('app.layouts.dashboard', ['recursos' => $recursos, 'chartData'=>$chartData]);
+        return view('app.layouts.dashboard', ['recursos' => $recursos, 
+        'chartData' => $chartData,
+        'producao_britagem'=>$Producao_britagem
+        ]);
         //return ('chegameos aqui');
     }
 
