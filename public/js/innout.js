@@ -43,5 +43,38 @@ $(function () {
 
 
 
+/* Aqui está o script do modal inicial */
+/* $(document).ready(function() {
+  // Quando o usuário clicar no botão de fechar, o modal será fechado
+  $('#close-button').on('click', function() {
+      $('#modalx').hide();
+  });
+
+  // Quando o usuário clicar em qualquer lugar fora do modal, o modal será fechado
+  $(window).on('click', function(event) {
+      if ($(event.target).is('#modalx')) {
+          $('#modalx').hide();
+      }
+  });
+}); */
+
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("modalx");
+  var closeButton = document.getElementById("close-button");
+
+  // Quando o usuário clicar no botão de fechar, o modal será fechado
+  closeButton.onclick = function () {
+      modal.style.display = "none";
+  };
+
+  // Quando o usuário clicar em qualquer lugar fora do modal, o modal será fechado
+  window.onclick = function (event) {
+      if (event.target === modal) {
+          modal.style.display = "none";
+      }
+  };
+});
+
+
 
 

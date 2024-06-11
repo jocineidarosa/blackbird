@@ -15,8 +15,9 @@
 
     <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/template.css') }}">
-    //<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/start_card_modal.css') }}">
 
 
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-crosshair@1.2.0/dist/chartjs-plugin-crosshair.min.js"></script>{{-- linha que corre com o mouse --}}
@@ -33,6 +34,24 @@
 </head>
 
 <body>
+    <div id="modalx" class="modalx">
+        <div class="modalx-content">
+            <span class="close-button" id="close-button">&times;</span>
+            <h3>Mensagem Informativa: Testes de Monitoramento na Britagem</h3>
+            <p>Prezados Colaboradores,</p>
+            <p>Gostaríamos de informá-los que estamos implementando novos testes de monitoramento no setor de britagem. Estas mudanças visam otimizar nosso sistema e aumentar a eficiência operacional. Os seguintes parâmetros estão sendo monitorados:</p>
+            <ul>
+                <li><strong>Horímetros:</strong> Controle do tempo de operação das máquinas.</li>
+                <li><strong>Total de Energia Gasta:</strong> Monitoramento do consumo energético durante o processo de britagem.</li>
+                <li><strong>Produção por Hora:</strong> Avaliação da quantidade de material processado a cada hora.</li>
+                <li><strong>Produção Total:</strong> Medição do volume total de produção ao longo do período de testes.</li>
+            </ul>
+            <p>Esses testes são fundamentais para identificar oportunidades de melhoria e garantir que nossos processos sejam mais eficientes e sustentáveis. Agradecemos a colaboração de todos e contamos com o apoio de cada um para o sucesso desta iniciativa.</p>
+            <p>Atenciosamente,</p>
+            <p>Jocinei da Rosa</p>
+        </div>
+    </div>
+
     @include('app.layouts.topbar')
     @include('app.layouts.sidebar')
     @include('app.layouts.components.logout_modal')
@@ -43,9 +62,11 @@
         </div>
     </main>
 
-    <script src="{{ asset('js/innout.js') }}"></script>
+    
     {{-- <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script> --}}
+    <script src="{{ asset('js/innout.js') }}"></script>
 
 </body>
+
 
 </html>
