@@ -1,7 +1,6 @@
 
-/* Estilo do Modal */
 .modalx {
-    display: none; /* Inicia com o modalx visível */
+    display: none; /* Inicia com o modal escondido */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -9,14 +8,12 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Conteúdo do Modalx */
+/* Conteúdo do Modal */
 .modalx-content {
     background-color: #fefefe;
     padding: 20px;
@@ -24,19 +21,22 @@
     width: 80%;
     max-width: 800px;
     border-radius: 10px;
+    position: relative;
 }
 
 /* Botão de Fechar */
 .close-button {
     color: #aaa;
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close-button:hover,
 .close-button:focus {
     color: black;
     text-decoration: none;
-    cursor: pointer;
 }
