@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="modalx" class="modalx">
+   {{--  <div id="modalx" class="modalx">
         <div class="modalx-content">
             <span class="close-button" id="close-button">&times;</span>
             <h3>Mensagem Informativa: Testes de Monitoramento na Britagem</h3>
@@ -50,7 +50,7 @@
             <p>Atenciosamente,</p>
             <p>Jocinei da Rosa</p>
         </div>
-    </div>
+    </div> --}}
 
     @include('app.layouts.topbar')
     @include('app.layouts.sidebar')

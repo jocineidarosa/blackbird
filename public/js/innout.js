@@ -41,23 +41,7 @@ $(function () {
   var accordion = new Accordion($('.accordion-menu'), false);
 })
 
-
-
-/* Aqui está o script do modal inicial */
-/* $(document).ready(function() {
-  // Quando o usuário clicar no botão de fechar, o modal será fechado
-  $('#close-button').on('click', function() {
-      $('#modalx').hide();
-  });
-
-  // Quando o usuário clicar em qualquer lugar fora do modal, o modal será fechado
-  $(window).on('click', function(event) {
-      if ($(event.target).is('#modalx')) {
-          $('#modalx').hide();
-      }
-  });
-}); */
-
+/* 
 document.addEventListener("DOMContentLoaded", function () {
   var modal = document.getElementById("modalx");
   var closeButton = document.getElementById("close-button");
@@ -74,7 +58,22 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   };
 });
+ */
 
+$(document).ready(function() {
+  // Verifica se o cookie 'modalShown' existe
+  if (!document.cookie.split(';').some((item) => item.trim().startsWith('modalShown='))) {
+      // Se não existe, mostra o modal
+      $('#modalx').show();
+  }
+
+  // Quando o usuário clicar no botão de fechar, o modal será fechado
+  $('#close-button').on('click', function() {
+      $('#modalx').hide();
+      // Define o cookie 'modalShown' para evitar que o modal apareça novamente
+      document.cookie = "modalShown=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+  });
+});
 
 
 
