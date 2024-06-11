@@ -9,39 +9,25 @@
         </div>
 
         <!-- Content Row -->
-        <div class="row m-2">
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
+        <div class="row mt-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold text-primary bg-secondary   rounded-3 rounded-top p-1 text-light mb-3">
-                                    Horímetro Total
-                                </div>
-                                <div class="mb-2 font-weight-bold ">
-                                    <span class="text-primary ">{{$producao_britagem->horimetro_britagem . ' HORAS'}}</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold  bg-secondary   rounded-3 p-1 text-light mb-3">
-                                    Horímetro Parcial
+                                <div class="font-weight-bold text-uppercase bg-primary  rounded-3 p-2 text-light mb-3">
+                                    <i class="icofont-wall-clock"></i>
+                                    HORÍMETRO
                                 </div>
                                 <div class="mb-2 font-weight-bold">
-                                    <span class="text-primary">{{Carbon\Carbon::parse($producao_britagem->horimetro_parcial_britagem)->format('H:i')}}</span>
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ $producao_britagem->horimetro_britagem . ' HORAS' }}</span>
                                 </div>
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">DIÁRIO:</span> <span
+                                        class="text-danger">{{ Carbon\Carbon::parse($producao_britagem->horimetro_parcial_britagem)->format('H:i') }}</span>
+                                </div>
+
                             </div>
 
                         </div>
@@ -49,80 +35,121 @@
                 </div>
             </div>
 
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
+            
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold  bg-secondary   rounded-3 p-1 text-light mb-3">
-                                    Energia Britagem
+                                <div class="font-weight-bold text-uppercase bg-success  rounded-3 p-2 text-light mb-3">
+                                    <i class="icofont-eco-energy"></i>
+                                    CONSUMO DE ENERGIA
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">USINA:</span> <span
+                                        class="text-danger">{{ $producao_britagem->energia_usina . ' ' }}KW</span>
                                 </div>
                                 <div class="mb-2 font-weight-bold">
-                                    <span class="text-primary">{{$producao_britagem->energia_britagem . ' '}}KW</span>
+                                    <span class="text-secondary">BRITAGEM:</span> <span
+                                        class="text-danger">{{ $producao_britagem->energia_britagem . ' ' }}KW</span>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold  bg-secondary   rounded-3 p-1 text-light mb-3">
-                                    Produção pó
+                                <div class="font-weight-bold text-uppercase bg-info  rounded-3 p-2 text-light mb-3">
+                                    <i class="icofont-chart-bar-graph"></i>
+                                    PRODUÇÃO PÓ DE PEDRA
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->po, 0)) . '  KG' }}</span>
                                 </div>
                                 <div class="mb-2 font-weight-bold">
-                                    <span class="text-primary">{{str_replace(',', '.', number_format($producao_britagem->po, 0)). '  KG'}}</span>
+                                    <span class="text-secondary">POR HORA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_po, 0)) . '  T/H' }}</span>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold  bg-secondary   rounded-3 p-1 text-light mb-3">
-                                    Produção Pedrisco
+                                <div class="font-weight-bold text-uppercase bg-danger  rounded-3 p-2 text-light mb-3">
+                                    <i class="icofont-chart-bar-graph"></i>
+                                    PRODUÇÃO PEDRISCO
                                 </div>
-                                <div class="mb-2 font-weight-bold ">
-                                    <span class="text-primary">{{str_replace(',','.',number_format($producao_britagem->producao_pedrisco, 0))}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-primary shadow ">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 ">
-                                <div
-                                    class="font-weight-bold  bg-secondary   rounded-3 p-1 text-light mb-3">
-                                    Produção Pedra 1
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedrisico, 0)) . '  KG' }}</span>
                                 </div>
                                 <div class="mb-2 font-weight-bold">
-                                    <span class="text-primary">{{str_replace(',','.',number_format($producao_britagem->producao_pedra34, 0))}}</span>
+                                    <span class="text-secondary">POR HORA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_pedrisco, 0)) . '  T/H' }}</span>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2 ">
+                                <div class="font-weight-bold text-uppercase bg-secondary  rounded-3 p-2 text-light mb-3">
+                                    <i class="icofont-chart-bar-graph"></i>
+                                    PRODUÇÃO PEDRA 3/4                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedra34, 0)) . '  KG' }}</span>
+                                </div>
+                                <div class="mb-2 font-weight-bold">
+                                    <span class="text-secondary">POR HORA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_pedra34, 0)) . '  T/H' }}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
 
         </div>
+
+
     </div>
+
     <div class="card ">
         <div {{-- style="background-color:rgba(244, 244, 244, 0.883)" --}}>
             <canvas id="myChart" width="300" height="100"></canvas>{{-- renderiza chartjs --}}
