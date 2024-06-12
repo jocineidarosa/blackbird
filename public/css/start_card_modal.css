@@ -2,7 +2,7 @@
 .modalx {
     display: none; /* Inicia com o modal escondido */
     position: fixed;
-    z-index: 1;
+    z-index: 200;
     left: 0;
     top: 0;
     width: 100%;
@@ -16,6 +16,8 @@
 /* Conteúdo do Modal */
 .modalx-content {
     background-color: #fefefe;
+    position: absolute;
+    top: 200px;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -30,7 +32,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
 }
