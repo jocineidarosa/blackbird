@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrdemProducao;
-use App\Models\Producao_britagem;
 use App\Models\ProducaoBritagem;
 use App\Models\Produto;
 /* use App\Models\RecursosProducao;
@@ -11,6 +10,7 @@ use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; */
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -33,8 +33,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+
+
         $last_data_production = OrdemProducao::max('data');
-        $last_production = OrdemProducao::where('data', $last_data_production)->first();
+        //$last_production = OrdemProducao::where('data', $last_data_production)->first();
         $recursos = Produto::whereIn('id', [1, 2, 13, 147])->get();
         foreach ($recursos as $recurso) {
             $recurso->percent_estoque = round($recurso->estoque_atual / $recurso->estoque_maximo * 100, 0);
@@ -47,9 +50,15 @@ class HomeController extends Controller
 
 
         $Producao_britagem = ProducaoBritagem::orderBy('id', 'desc')->first();
-         // Pegar o valor do horímetro parcial desse registro
+        // Pegar o valor do horímetro parcial desse registro
 
+        $dataAtual = Carbon::now()->format('Y-m-d'); // Formato: 2024-06-18
+        $producao_inicial = ProducaoBritagem::where('data', $dataAtual)->limit(1)->orderBy('id', 'asc')->first();
 
+        $producao_diaria_po = $Producao_britagem->po - $producao_inicial->po;
+        $producao_diaria_pedrisco = $Producao_britagem->pedrisco - $producao_inicial->pedrisco;
+        $producao_diaria_pedra34 = $Producao_britagem->pedra32 - $producao_inicial->pedra34;
+        $producao_diaria_pedra2 = $Producao_britagem->pedra2 - $producao_inicial->pedra2;
 
 
         // Buscar a data do último dia registrado
@@ -86,13 +95,21 @@ class HomeController extends Controller
         ];
 
 
-        return view('app.layouts.dashboard', ['recursos' => $recursos, 
-        'chartData' => $chartData,
-        'producao_britagem'=>$Producao_britagem
+        return view('app.layouts.dashboard', [
+            'recursos' => $recursos,
+            'chartData' => $chartData,
+            'producao_britagem' =>$Producao_britagem,
+            'producao_diaria_po'=>$producao_diaria_po,
+            'producao_diaria_pedrisco'=>$producao_diaria_pedrisco,
+            'producao_diaria_pedra34'=>$producao_diaria_pedra34,
+            'producao_diaria_pedra2'=>$producao_diaria_pedra2,
+            
         ]);
         //return ('chegameos aqui');
     }
 
+
+    //***Pega os dados via ajax */
     function getChartData()
     {
 

@@ -72,14 +72,18 @@
                                     <i class="icofont-chart-bar-graph"></i>
                                     PRODUÇÃO PÓ DE PEDRA
                                 </div>
-
-                                <div class="mb-2 font-weight-bold  text-success">
-                                    <span class="text-secondary">TOTAL:</span> <span
-                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->po, 0)) . '  KG' }}</span>
-                                </div>
+                                
                                 <div class="mb-2 font-weight-bold">
                                     <span class="text-secondary">POR HORA:</span> <span
                                         class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_po, 0)) . '  T/H' }}</span>
+                                </div>
+                                <div class="mb-2 font-weight-bold">
+                                    <span class="text-secondary">DIÁRIA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_diaria_po, 0)) . '  KG' }}</span>
+                                </div>
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->po, 0)) . '  KG' }}</span>
                                 </div>
 
                             </div>
@@ -99,13 +103,20 @@
                                     PRODUÇÃO PEDRISCO
                                 </div>
 
-                                <div class="mb-2 font-weight-bold  text-success">
-                                    <span class="text-secondary">TOTAL:</span> <span
-                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedrisico, 0)) . '  KG' }}</span>
-                                </div>
+                                
                                 <div class="mb-2 font-weight-bold">
                                     <span class="text-secondary">POR HORA:</span> <span
                                         class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_pedrisco, 0)) . '  T/H' }}</span>
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">DIÁRIA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_diaria_pedrisco, 0)) . '  KG' }}</span>
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedrisico, 0)) . '  KG' }}</span>
                                 </div>
 
                             </div>
@@ -124,13 +135,20 @@
                                     <i class="icofont-chart-bar-graph"></i>
                                     PRODUÇÃO PEDRA 3/4                                </div>
 
-                                <div class="mb-2 font-weight-bold  text-success">
-                                    <span class="text-secondary">TOTAL:</span> <span
-                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedra34, 0)) . '  KG' }}</span>
-                                </div>
+                                
                                 <div class="mb-2 font-weight-bold">
                                     <span class="text-secondary">POR HORA:</span> <span
                                         class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->producao_pedra34, 0)) . '  T/H' }}</span>
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">DIÁRIA:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_diaria_pedra34, 0)) . '  KG' }}</span>
+                                </div>
+
+                                <div class="mb-2 font-weight-bold  text-success">
+                                    <span class="text-secondary">TOTAL:</span> <span
+                                        class="text-danger">{{ str_replace(',', '.', number_format($producao_britagem->pedra34, 0)) . '  KG' }}</span>
                                 </div>
 
                             </div>
