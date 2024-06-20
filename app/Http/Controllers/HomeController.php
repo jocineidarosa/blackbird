@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth; */
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+use function PHPUnit\Framework\isEmpty;
+
 class HomeController extends Controller
 {
     /**
@@ -54,11 +56,18 @@ class HomeController extends Controller
 
         $dataAtual = Carbon::now()->format('Y-m-d'); // Formato: 2024-06-18
         $producao_inicial = ProducaoBritagem::where('data', $dataAtual)->limit(1)->orderBy('id', 'asc')->first();
+        if (empty($dataAtual)) {
+            $producao_diaria_po = $Producao_britagem->po - $producao_inicial->po ;
+            $producao_diaria_pedrisco = $Producao_britagem->pedrisco - $producao_inicial->pedrisco ;
+            $producao_diaria_pedra34 = $Producao_britagem->pedra32 - $producao_inicial->pedra34 ;
+            $producao_diaria_pedra2 = $Producao_britagem->pedra2 - $producao_inicial->pedra2 ;
+        } else{
+            $producao_diaria_po = 0;
+            $producao_diaria_pedrisco = 0;
+            $producao_diaria_pedra34 = 0;
+            $producao_diaria_pedra2 = 0;
+        }
 
-        $producao_diaria_po = $Producao_britagem->po - $producao_inicial->po;
-        $producao_diaria_pedrisco = $Producao_britagem->pedrisco - $producao_inicial->pedrisco;
-        $producao_diaria_pedra34 = $Producao_britagem->pedra32 - $producao_inicial->pedra34;
-        $producao_diaria_pedra2 = $Producao_britagem->pedra2 - $producao_inicial->pedra2;
 
 
         // Buscar a data do último dia registrado
