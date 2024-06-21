@@ -57,11 +57,11 @@ class HomeController extends Controller
         $dataAtual = Carbon::now()->format('Y-m-d'); // Formato: 2024-06-18
         $producao_inicial = ProducaoBritagem::where('data', $dataAtual)->limit(1)->orderBy('id', 'asc')->first();
         if (empty($dataAtual)) {
-            $producao_diaria_po = $Producao_britagem->po - $producao_inicial->po ;
-            $producao_diaria_pedrisco = $Producao_britagem->pedrisco - $producao_inicial->pedrisco ;
-            $producao_diaria_pedra34 = $Producao_britagem->pedra32 - $producao_inicial->pedra34 ;
-            $producao_diaria_pedra2 = $Producao_britagem->pedra2 - $producao_inicial->pedra2 ;
-        } else{
+            $producao_diaria_po = $Producao_britagem->po - $producao_inicial->po;
+            $producao_diaria_pedrisco = $Producao_britagem->pedrisco - $producao_inicial->pedrisco;
+            $producao_diaria_pedra34 = $Producao_britagem->pedra32 - $producao_inicial->pedra34;
+            $producao_diaria_pedra2 = $Producao_britagem->pedra2 - $producao_inicial->pedra2;
+        } else {
             $producao_diaria_po = 0;
             $producao_diaria_pedrisco = 0;
             $producao_diaria_pedra34 = 0;
@@ -69,7 +69,7 @@ class HomeController extends Controller
         }
 
 
-
+        /* 
         // Buscar a data do último dia registrado
         $ultimaData = DB::table('producao_britagem')
             ->select(DB::raw('DATE(data) as data'))
@@ -101,25 +101,52 @@ class HomeController extends Controller
             'labels' => $labels,
             'data' => $data,
             'dataTitulo' => $ultimaData
+        ]; */
+
+        // Fetch the last recorded date
+        $ultimaData = DB::table('producao_britagem')
+            ->select(DB::raw('DATE(data) as data'))
+            ->orderByDesc('data')
+            ->first()
+            ->data;
+
+        // Subquery to fetch records from the last recorded date with interval filtering
+        $subquery = DB::table('producao_britagem')
+            ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Include 'id' for ordering
+            ->whereDate('data', $ultimaData)
+            ->whereRaw('MOD(id, 20  ) = 0')  // Select every 20th record
+            ->orderBy('id', 'asc');  // Ascending order is fine directly here
+
+        // Execute the query and get the results
+        $producoes = $subquery->get();
+
+        // Prepare the data for the chart
+        $labels = $producoes->pluck('hora')->toArray();
+        $data = $producoes->pluck('producao_po')->toArray();
+
+        $chartData = [
+            'labels' => $labels,
+            'data' => $data,
+            'dataTitulo' => $ultimaData
         ];
 
 
         return view('app.layouts.dashboard', [
             'recursos' => $recursos,
             'chartData' => $chartData,
-            'producao_britagem' =>$Producao_britagem,
-            'producao_diaria_po'=>$producao_diaria_po,
-            'producao_diaria_pedrisco'=>$producao_diaria_pedrisco,
-            'producao_diaria_pedra34'=>$producao_diaria_pedra34,
-            'producao_diaria_pedra2'=>$producao_diaria_pedra2,
-            
+            'producao_britagem' => $Producao_britagem,
+            'producao_diaria_po' => $producao_diaria_po,
+            'producao_diaria_pedrisco' => $producao_diaria_pedrisco,
+            'producao_diaria_pedra34' => $producao_diaria_pedra34,
+            'producao_diaria_pedra2' => $producao_diaria_pedra2,
+
         ]);
         //return ('chegameos aqui');
     }
 
 
     //***Pega os dados via ajax */
-/*     function getChartData()
+    /*     function getChartData()
     {
 
         // Buscar a data do último dia registrado
@@ -159,35 +186,34 @@ class HomeController extends Controller
     } */
 
     function getChartData()
-{
-    // Fetch the last recorded date
-    $ultimaData = DB::table('producao_britagem')
-        ->select(DB::raw('DATE(data) as data'))
-        ->orderByDesc('data')
-        ->first()
-        ->data;
+    {
+        // Fetch the last recorded date
+        $ultimaData = DB::table('producao_britagem')
+            ->select(DB::raw('DATE(data) as data'))
+            ->orderByDesc('data')
+            ->first()
+            ->data;
 
-    // Subquery to fetch records from the last recorded date with interval filtering
-    $subquery = DB::table('producao_britagem')
-        ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Include 'id' for ordering
-        ->whereDate('data', $ultimaData)
-        ->whereRaw('MOD(id, 100  ) = 0')  // Select every 20th record
-        ->orderBy('id', 'asc');  // Ascending order is fine directly here
+        // Subquery to fetch records from the last recorded date with interval filtering
+        $subquery = DB::table('producao_britagem')
+            ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Include 'id' for ordering
+            ->whereDate('data', $ultimaData)
+            ->whereRaw('MOD(id, 20  ) = 0')  // Select every 20th record
+            ->orderBy('id', 'asc');  // Ascending order is fine directly here
 
-    // Execute the query and get the results
-    $producoes = $subquery->get();
+        // Execute the query and get the results
+        $producoes = $subquery->get();
 
-    // Prepare the data for the chart
-    $labels = $producoes->pluck('hora')->toArray();
-    $data = $producoes->pluck('producao_po')->toArray();
+        // Prepare the data for the chart
+        $labels = $producoes->pluck('hora')->toArray();
+        $data = $producoes->pluck('producao_po')->toArray();
 
-    $chartData = [
-        'labels' => $labels,
-        'data' => $data,
-        'dataTitulo' => $ultimaData
-    ];
+        $chartData = [
+            'labels' => $labels,
+            'data' => $data,
+            'dataTitulo' => $ultimaData
+        ];
 
-    return response()->json($chartData);
-}
-
+        return response()->json($chartData);
+    }
 }
