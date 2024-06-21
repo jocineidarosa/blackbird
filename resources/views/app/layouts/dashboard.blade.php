@@ -282,7 +282,7 @@
             }
 
             fetchData();
-            setInterval(fetchData, 3000);
+            setInterval(fetchData, 30000);
         });
     </script>
 @endsection

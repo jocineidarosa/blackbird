@@ -81,7 +81,7 @@ class HomeController extends Controller
             ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Inclua 'id' para ordenar posteriormente
             ->whereDate('data', $ultimaData)
             ->orderBy('id', 'desc')
-            ->limit(100);
+            ->limit(1000);
 
         // Em seguida, faça uma consulta principal para ordenar esses resultados em ordem crescente pelo id
         $producoes = DB::table(DB::raw("({$subquery->toSql()}) as sub"))
@@ -119,7 +119,7 @@ class HomeController extends Controller
 
 
     //***Pega os dados via ajax */
-    function getChartData()
+/*     function getChartData()
     {
 
         // Buscar a data do último dia registrado
@@ -133,7 +133,7 @@ class HomeController extends Controller
             ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Inclua 'id' para ordenar posteriormente
             ->whereDate('data', $ultimaData)
             ->orderBy('id', 'desc')
-            ->limit(100);
+            ->limit(10000);
 
         // Em seguida, faça uma consulta principal para ordenar esses resultados em ordem crescente pelo id
         $producoes = DB::table(DB::raw("({$subquery->toSql()}) as sub"))
@@ -156,5 +156,38 @@ class HomeController extends Controller
         ];
 
         return response()->json($chartData);
-    }
+    } */
+
+    function getChartData()
+{
+    // Fetch the last recorded date
+    $ultimaData = DB::table('producao_britagem')
+        ->select(DB::raw('DATE(data) as data'))
+        ->orderByDesc('data')
+        ->first()
+        ->data;
+
+    // Subquery to fetch records from the last recorded date with interval filtering
+    $subquery = DB::table('producao_britagem')
+        ->select(DB::raw('TIME(hora) as hora'), 'producao_po', 'id')  // Include 'id' for ordering
+        ->whereDate('data', $ultimaData)
+        ->whereRaw('MOD(id, 100  ) = 0')  // Select every 20th record
+        ->orderBy('id', 'asc');  // Ascending order is fine directly here
+
+    // Execute the query and get the results
+    $producoes = $subquery->get();
+
+    // Prepare the data for the chart
+    $labels = $producoes->pluck('hora')->toArray();
+    $data = $producoes->pluck('producao_po')->toArray();
+
+    $chartData = [
+        'labels' => $labels,
+        'data' => $data,
+        'dataTitulo' => $ultimaData
+    ];
+
+    return response()->json($chartData);
+}
+
 }
