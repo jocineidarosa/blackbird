@@ -32,6 +32,12 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{ route('pesagem.index') }}" class="nav-link px-2">
+                                        <span>Pesagem</span>
+                                    </a>
+                                </li>
+
+                                <li>
                                     <a href="{{ route('entrada-produto.index') }}" class="nav-link px-2">
                                         <span>Entrada</span>
                                     </a>

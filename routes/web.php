@@ -50,6 +50,9 @@ Route::middleware('auth')->resource('/produto', 'App\Http\Controllers\ProdutoCon
 Route::middleware('auth')->delete('produto/destroy', 'App\Http\Controllers\ProdutoController@destroy')->name('produto.destroy');
 Route::middleware('auth')->get('produto/export-pdf', 'App\Http\Controllers\ProdutoController@exportPdf')->name('produto.export_pdf');
 
+//Pesagem
+Route::middleware('auth')->resource('/pesagem', 'App\Http\Controllers\PesagemController');
+
 
 //clientes
 Route::middleware('auth')->resource('/cliente', 'App\Http\Controllers\ClienteController');
