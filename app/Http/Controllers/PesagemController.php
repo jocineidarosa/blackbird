@@ -15,7 +15,7 @@ class PesagemController extends Controller
      */
     public function index(Request $request)
     {
-        $pesagens = Pesagem::orderBy('id', 'desc')->paginate(15);
+        $pesagens = Pesagem::orderBy('id', 'desc')->paginate(12);
         foreach ($pesagens as $pesagem) {
             if ($pesagem->situacao == 'CO') {
                 $pesagem->situacao = 'COMPLETO';
