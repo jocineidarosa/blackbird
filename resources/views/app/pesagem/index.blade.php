@@ -5,22 +5,35 @@
     <div class="card">
         <div class="card-header-template">
             <div><i class="icofont-list mr-2"></i>LISTAGEM DE PESAGENS</div>
-            <form id="formSearchingProducts" action="{{ route('pesagem.index') }}" method="get">
-                <!--input box filtro buscar pesagem--------->
-                <input type="text" id="query" name="pesagem" placeholder="Buscar pesagem..."
-                    aria-label="Search through site content">
+            <form id="formSearchingProducts" action="{{route('pesagem.index')}}" method="get">
+                <!--input box filtro buscar produto--------->
+                <input type="text" id="query" name="filtro_motorista" placeholder="Buscar Motorista..." aria-label="Search through site content">
                 <button type="submit" class="button-search">
                     <i class="icofont-search"></i>
                 </button>
             </form>
-            <div>   
+        </div>
 
-                <a href="{{ route('pesagem.index') }}" class="btn btn-sm btn-primary">
-                    <i class="icofont-page"></i>TODOS
+        <div class="card-header-template">
+            <div>
+                <a href="{{ route('pesagem.index') }}" class="btn btn-sm btn-primary mb-1">
+                    <i class="icofont-page pr-2"></i>TODOS
                 </a>
+                <a href="{{ route('pesagem.consulta_avancada') }}" class="btn btn-sm btn-primary mb-1">
+                    <i class="icofont-filter"></i>CONSULTA AVANÇADA
+                </a>
+                <a href="{{-- {{ route('pesagem.pdf_export')}}{{$filtros ? $filtros : ''}} --}}" class="btn btn-sm btn-danger mb-1" target="_blank">
+                    <i class="icofont-file-pdf pr-2"></i>PDF
+                </a>
+                <a href="#{{-- colocar rota --}}" class="btn btn-sm btn-success mb-1">
+                    <i class="icofont-file-excel"></i>Excel
+                </a>
+                
             </div>
 
         </div>
+
+       
         <div class="card-body">
             <table class="table-template table-striped table-hover table-bordered">
                 <thead>
@@ -50,9 +63,9 @@
                             <td>{{ Carbon\Carbon::parse($pesagem->data)->format('d/m/Y') }}</td>
                             <td>{{ $pesagem->placa }}</td>
                             <td>{{ $pesagem->sequencia }}</td>
-                            <td>{{ $pesagem->parceiro->nome }}</td>
-                            <td>{{ $pesagem->produto->nome }}</td>
-                            <td>{{ $pesagem->motorista->nome }}</td>
+                            <td>{{ $pesagem->parceiro }}</td>
+                            <td>{{ $pesagem->produto }}</td>
+                            <td>{{ $pesagem->motorista }}</td>
                             <td>{{ str_replace(',', '.', number_format($pesagem->peso_tara, 0)) }}</td>
                             <td>{{ str_replace(',', '.', number_format($pesagem->peso_bruto, 0)) }}</td>
                             <td>{{ str_replace(',', '.', number_format($pesagem->peso_liquido, 0)) }}</td>

@@ -13,9 +13,6 @@ use PDF;
 use App\Exports\AbastecimentoExcelExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AbastecimentoImport;
-use Illuminate\Support\Collection;
-use Http;
-use Maatwebsite\Excel\Concerns\ToCollection;
 
 class AbastecimentoController extends Controller
 {

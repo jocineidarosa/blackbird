@@ -91,7 +91,7 @@
                         <div class="div-label-right">Produto</div>
                     </div>
                     <div style="width: 90%;">
-                        <div class="div-label-left">{{$pesagem->produto_id}} - {{$pesagem->placa}}</div>
+                        <div class="div-label-left">{{$pesagem->produto_id}} - {{$pesagem->produto->nome}}</div>
                     </div>
                 </div>
             </td>

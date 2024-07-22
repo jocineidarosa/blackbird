@@ -52,6 +52,9 @@ Route::middleware('auth')->get('produto/export-pdf', 'App\Http\Controllers\Produ
 
 //Pesagem
 Route::middleware('auth')->resource('/pesagem', 'App\Http\Controllers\PesagemController');
+Route::middleware('auth')->get('pesagem/consulta/avancada','App\Http\Controllers\PesagemController@consultaAvancada')
+->name('pesagem.consulta_avancada');
+Route::middleware('auth')->get('pdf/pesagem','App\Http\Controllers\PesagemController@pdfExport')->name('pesagem.pdf_export');
 
 
 //clientes

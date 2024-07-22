@@ -34,10 +34,7 @@
                 <a href="{{ route('abastecimento.export_excel')}}{{$filtros ? $filtros : ''}}" class="btn btn-sm btn-success mb-1">
                     <i class="icofont-file-excel"></i>Excel
                 </a>
-
-                <a href="{{ route('abastecimento.search_excel')}}" class="btn btn-sm btn-success mb-1">
-                    <i class="icofont-fileexcel"></i>Import
-                </a>
+                
             </div>
 
         </div>
