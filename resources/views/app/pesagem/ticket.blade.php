@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truck Scale Ticket</title>
-    <link rel="stylesheet" href="teste.css">
+    <link rel="stylesheet" href="{{asset('css/ticket.css')}}">
     <script>
         function printTicket() {
             window.print();
@@ -16,7 +17,9 @@
 <body>
 
     <!-- ---------------------------- -->
-    <table style="width: 700px; margin-bottom: 3px;">
+
+    @for ($i = 0; $i < $quant_impress ; $i++)
+    <table style="width: 695px; margin-bottom: 3px;">
         <tr class="td-bordered" style="background-color: rgb(183, 183, 183);">
             <td colspan="4" class="title">
                 <div style="display: flex; padding: 4px;">
@@ -25,11 +28,11 @@
                         <div>Fone: (49)3541-0685</div>
                     </div>
 
-                    <div style="width: 60%;">
-                        Ticket de Pesagem
+                    <div style="width: 60%; text-align:center">
+                        TICKET DE PESAGEM
                     </div>
                     <div style="width: 20%;">
-                        Ticket No. 3500
+                        Ticket No. {{$pesagem->id}}
                     </div>
                 </div>
             </td>
@@ -45,9 +48,9 @@
                     </div>
 
                     <div style="width: 70%;">
-                        <div class="div-label-left">MKA2I59</div>
-                        <div class="div-label-left">103 - CAPINZAL - JOSÉ ZORTÉIA</div>
-                        <div class="div-label-left">CAPINZAL</div>
+                        <div class="div-label-left">{{$pesagem->placa}}</div>
+                        <div class="div-label-left">{{$pesagem->parceiro_id}} - {{$pesagem->parceiro->nome}}</div>
+                        <div class="div-label-left">{{$pesagem->parceiro->endereco}}</div>
                     </div>
 
                     <div style="width: 10%;">
@@ -56,9 +59,9 @@
                         <div class="div-label-right">No NF</div>
                     </div>
                     <div style="width: 10%;">
-                        <div class="div-label-left">20/07/2024</div>
-                        <div class="div-label-left">25.300</div>
-                        <div class="div-label-left">124.236</div>
+                        <div class="div-label-left">{{Carbon\Carbon::parse($pesagem->data)->format('d/m/Y')}}</div>
+                        <div class="div-label-left">{{$pesagem->peso_nf}}</div>
+                        <div class="div-label-left">{{$pesagem->nota_fiscal}}</div>
                     </div>
 
                 </div>
@@ -72,7 +75,7 @@
                         <div class="div-label-right">Motorista</div>
                     </div>
                     <div style="width: 90%;">
-                        <div class="div-label-left">56 - LEARCINDO LOPES</div>
+                        <div class="div-label-left">{{$pesagem->motorista_id}} - {{$pesagem->motorista->nome}}</div>
                     </div>
                 </div>
 
@@ -86,7 +89,7 @@
                         <div class="div-label-right">Produto</div>
                     </div>
                     <div style="width: 90%;">
-                        <div class="div-label-left">25 - BASE</div>
+                        <div class="div-label-left">{{$pesagem->produto_id}} - {{$pesagem->placa}}</div>
                     </div>
                 </div>
             </td>
@@ -96,7 +99,7 @@
                         <div class="div-label-right">Tipo</div>
                     </div>
                     <div style="width: 70%;">
-                        <div class="div-label-left">SAÍDA</div>
+                        <div class="div-label-left">{{$pesagem->movimentacao}}</div>
                     </div>
                 </div>
             </td>
@@ -104,33 +107,33 @@
 
         <tr class="td-bordered" style="background-color: rgb(183, 183, 183);">
             <td colspan="4" style="text-align: center;">
-                <div style="padding: 3px; ">PESAGEM</div>
+                <div style="padding: 2px; font-size:14px; ">PESAGEM</div>
             </td>
         </tr>
         <tr class="label">
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Bruto</div>
-                    <div style="width: 50%;" class="div-label-left">10.500</div>
+                    <div style="width: 50%;" class="div-label-left">{{$pesagem->peso_bruto}}</div>
                 </div>
             </td>
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Data</div>
-                    <div style="width: 50%;" class="div-label-left">21/07/2024</div>
+                    <div style="width: 50%;" class="div-label-left">{{Carbon\Carbon::parse($pesagem->data_bruto)->format('d/m/Y')}}</div>
                 </div>
             </td>
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Hora</div>
-                    <div style="width: 50%;" class="div-label-left">10:25:15</div>
+                    <div style="width: 50%;" class="div-label-left">{{$pesagem->hora_bruto}}</div>
                 </div>
             </td>
 
             <th class="td-bordered" rowspan="2">
                 <div >
                     <div style=" font-size: 12;" >Peso Liquido</div>
-                    <div style="font-size: 18px; font-weight: 300;" >19.600</div>
+                    <div style="font-size: 18px; font-weight: 300;" >{{$pesagem->peso_liquido}}</div>
                 </div>
             </th>
 
@@ -140,59 +143,54 @@
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Tara</div>
-                    <div style="width: 50%;" class="div-label-left">10.500</div>
+                    <div style="width: 50%;" class="div-label-left">{{$pesagem->peso_tara}}</div>
                 </div>
             </td>
             <td class="td-bordered">
                 <div style="display: flex;">
-                    <div style="width: 50%;" class="div-label-right">Bruto</div>
-                    <div style="width: 50%;" class="div-label-left">10.500</div>
+                    <div style="width: 50%;" class="div-label-right">Data</div>
+                    <div style="width: 50%;" class="div-label-left">{{Carbon\Carbon::parse($pesagem->data_tara)->format('d/m/Y')}}</div>
                 </div>
             </td>
             <td class="td-bordered">
                 <div style="display: flex;">
-                    <div style="width: 50%;" class="div-label-right">Bruto</div>
-                    <div style="width: 50%;" class="div-label-left">10.500</div>
+                    <div style="width: 50%;" class="div-label-right">Hora</div>
+                    <div style="width: 50%;" class="div-label-left">{{$pesagem->hora_tara}}</div>
                 </div>
             </td>
 
         </tr>
 
-        <tr>
-            <td class="td-bordered label" colspan="3" >
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 5%;"></td>
-                        <td colspan="4">Obs.:</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" style="height:40px;"></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;"></td>
-                        <td style="border-top: 1px solid #6f6b6b; width: 42.5%;">Motorista</td>
-                        <td style="width: 5%;"></td>
-                        <td style="border-top: 1px solid #6f6b6b; width: 42.5%;">Cliente</td>
-                        <td style="width: 5%;"></td>    
-
-                    </tr>
-                </table>
-
+        <tr >    
+            <td class="td-bordered label" colspan="3" style="vertical-align:top; ">
+                <div style="display:flex; flex-direction:column; justify-content:flex-start;height:100%;">
+                    <div style="height:15px; width:10%" class="div-label-right">Obs.:</div>
+                    <div style="height:30px;" >
+                    </div>
+                    <div style="height:20px;" >{{-- assinaturas --}}</div>
+                    <div style="height:15px; display:flex;"  >
+                        <div style="width:20px; "></div>
+                        <div style="width:180px; border-top:#6f6b6b solid 1px;">Motorista</div>
+                        <div style="width:80px"></div>
+                        <div style="width:180px; border-top:#6f6b6b solid 1px;">Cliente</div>
+                    </div>
+                </div>
             </td>
-            <td class="td-bordered" style="width: 175px;">
-                <div style="width: 50%;" class="label-sm">Peso Ton</div>
-                <div style="width: 50%;" class="label-sm">Valor Unit Prod</div>
-                <div style="width: 50%;" class="label-sm">Valor Total Prod</div>
-                <div style="width: 50%;" class="label-sm">Valor frete(Km/Ton)</div>
-                <div style="width: 50%;" class="label-sm">Valor Total frete</div>
-                <div style="width: 50%;" class="label-sm">Total Geral.:</div>
+            <td class="td-bordered" style="width: 175px; font-size:11px;">
+                <div class="label-sm">Peso Ton</div>
+                <div class="label-sm">Valor Unit Prod</div>
+                <div class="label-sm">Valor Total Prod</div>
+                <div class="label-sm">Valor frete(Km/Ton)</div>
+                <div class="label-sm">Valor Total frete</div>
+                <div class="label-sm">Total Geral.:</div>
             </td>
 
         </tr>
 
     </table>
+    @endfor
 
-
+    {{-- ---------------------------------------- --}}
 
 
 </body>

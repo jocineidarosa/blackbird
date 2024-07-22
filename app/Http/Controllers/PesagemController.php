@@ -58,9 +58,10 @@ class PesagemController extends Controller
      * @param  \App\Models\Pesagem  $pesagem
      * @return \Illuminate\Http\Response
      */
-    public function show(Pesagem $pesagem)
+    public function show(Pesagem $pesagem, Request $request )
     {
-        //
+        $quant_impress= (int)$request->quant_impress;
+        return view('app.pesagem.ticket', ['pesagem' =>$pesagem, 'quant_impress'=>$quant_impress]);
     }
 
     /**
@@ -71,7 +72,7 @@ class PesagemController extends Controller
      */
     public function edit(Pesagem $pesagem)
     {
-        //
+        
     }
 
     /**

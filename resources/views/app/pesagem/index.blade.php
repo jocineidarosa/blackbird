@@ -37,6 +37,7 @@
                         <th scope="col" class="th-title">Peso Líquido</th>
                         <th scope="col" class="th-title">Tipo</th>
                         <th scope="col" class="th-title">Situação</th>
+                        <th scope="col" class="th-title"><i class="icofont-print"></i>Imp.</th>
                         
 
                     </tr>
@@ -60,8 +61,15 @@
                             <td>
                                 <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
                                     <a class="btn btn-sm-template btn-outline-primary"
-                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id]) }}"><i
-                                            class="icofont-eye-alt"></i>
+                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'1']) }}">
+                                        1
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-primary"
+                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'2']) }}">
+                                        2
+                                    </a>
+                                    <a class="btn btn-sm-template btn-outline-primary"
+                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'3']) }}">3
                                     </a>
                                 </div>
                             </td>
