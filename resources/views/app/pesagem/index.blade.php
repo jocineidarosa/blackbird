@@ -22,7 +22,7 @@
                 <a href="{{ route('pesagem.consulta_avancada') }}" class="btn btn-sm btn-primary mb-1">
                     <i class="icofont-filter"></i>CONSULTA AVANÇADA
                 </a>
-                <a href="{{-- {{ route('pesagem.pdf_export')}}{{$filtros ? $filtros : ''}} --}}" class="btn btn-sm btn-danger mb-1" target="_blank">
+                <a href="{{route('pesagem.pdf_export')}}" class="btn btn-sm btn-danger mb-1" target="_blank">
                     <i class="icofont-file-pdf pr-2"></i>PDF
                 </a>
                 <a href="#{{-- colocar rota --}}" class="btn btn-sm btn-success mb-1">
