@@ -13,7 +13,7 @@
                     <i class="icofont-search"></i>
                 </button>
             </form>
-            <div>
+            <div>   
 
                 <a href="{{ route('pesagem.index') }}" class="btn btn-sm btn-primary">
                     <i class="icofont-page"></i>TODOS
@@ -60,15 +60,15 @@
                             <td>{{ $pesagem->situacao }}</td>
                             <td>
                                 <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
-                                    <a class="btn btn-sm-template btn-outline-primary"
+                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
                                         href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'1']) }}">
                                         1
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-primary"
+                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
                                         href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'2']) }}">
                                         2
                                     </a>
-                                    <a class="btn btn-sm-template btn-outline-primary"
+                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
                                         href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'3']) }}">3
                                     </a>
                                 </div>

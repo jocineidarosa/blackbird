@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truck Scale Ticket</title>
+    <title>Ticket de Pesagem</title>
     <link rel="stylesheet" href="{{asset('css/ticket.css')}}">
     <script>
         function printTicket() {
@@ -23,14 +23,16 @@
         <tr class="td-bordered" style="background-color: rgb(183, 183, 183);">
             <td colspan="4" class="title">
                 <div style="display: flex; padding: 4px;">
-                    <div style="width: 20%;">
+                    <div style="width: 30%;">
                         <div>Bresola Terraplanagem</div>
                         <div>Fone: (49)3541-0685</div>
                     </div>
 
-                    <div style="width: 60%; text-align:center">
-                        TICKET DE PESAGEM
+                    <div style="width: 40%; text-align:center;" >
+                        <p>TICKET DE PESAGEM</p>
+                        
                     </div>
+                    <div style="width:10%"></div>
                     <div style="width: 20%;">
                         Ticket No. {{$pesagem->id}}
                     </div>
@@ -114,7 +116,7 @@
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Bruto</div>
-                    <div style="width: 50%;" class="div-label-left">{{$pesagem->peso_bruto}}</div>
+                    <div style="width: 50%;" class="div-label-left">{{number_format($pesagem->peso_bruto, 0)}}</div>
                 </div>
             </td>
             <td class="td-bordered">
