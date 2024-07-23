@@ -116,7 +116,7 @@
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Bruto</div>
-                    <div style="width: 50%;" class="div-label-left">{{number_format($pesagem->peso_bruto, 0)}}</div>
+                    <div style="width: 50%;" class="div-label-left">{{str_replace(',','.',number_format($pesagem->peso_bruto,0))}}</div>
                 </div>
             </td>
             <td class="td-bordered">
@@ -135,7 +135,7 @@
             <th class="td-bordered" rowspan="2">
                 <div >
                     <div style=" font-size: 12;" >Peso Liquido</div>
-                    <div style="font-size: 18px; font-weight: 300;" >{{$pesagem->peso_liquido}}</div>
+                    <div style="font-size: 25px; font-weight: 300; font-family: 'DS-Digital', sans-serif;" >{{str_replace(',','.',number_format($pesagem->peso_liquido,0))}}</div>
                 </div>
             </th>
 
@@ -145,7 +145,7 @@
             <td class="td-bordered">
                 <div style="display: flex;">
                     <div style="width: 50%;" class="div-label-right">Tara</div>
-                    <div style="width: 50%;" class="div-label-left">{{$pesagem->peso_tara}}</div>
+                    <div style="width: 50%;" class="div-label-left">{{str_replace(',','.',number_format($pesagem->peso_tara,0))}}</div>
                 </div>
             </td>
             <td class="td-bordered">

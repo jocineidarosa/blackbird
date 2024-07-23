@@ -8,40 +8,27 @@
     <title>Document</title>
 
     <style>
-        table {
-            border: 0.2px solid #c7c7c7;
-            border-collapse: collapse;
-            width: 100%;
-        }
+        td, th{
+            text-align: left;
+            white-space: nowrap;
 
-        th {
-            border: 0.2px solid #aeaeae;
-            background-color: #ebebeb;
-        }
-
-        td {
-            border: 0.2px solid #b2a7a7;
-        }
-
-        .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #ececec;
         }
     </style>
 </head>
 
 <body>
 
-    <table class="table-striped">
+    <table style="font-size: 10px; width:100%;" >
         <thead>
-            <th colspan="12">ABASTECIMENTOS</th>
+            <th colspan="12">Relatório de Pesagens</th>
         </thead>
-        <thead>
+        <thead style="border-bottom: solid 0.5px #737373">
             <tr>
-                <th>Id</th>
+                <th>Ticket</th>
                 <th>Data</th>
                 <th>Placa</th>
                 <th>Seq.</th>
-                <th>Parceiro</th>
+                <th style="width:15%;">Parceiro</th>
                 <th>Produto</th>
                 <th>Motorista</th>
                 <th>Peso Tara</th>
@@ -56,16 +43,16 @@
         <tbody>
             @foreach ($pesagens as $pesagem)
                 <tr>
-                    <th scope="row">{{ $pesagem->id }}</td>
-                    <td>{{ $pesagem->data }}</td>
+                    <td> {{ $pesagem->id }}</td>
+                    <td>{{ Carbon\Carbon::parse($pesagem->data)->format('d/m/Y') }}</td>
                     <td>{{ $pesagem->placa }}</td>
                     <td>{{ $pesagem->sequencia }}</td>
-                    <td>{{ $pesagem->parceiro }}</td>
+                    <td >{{ $pesagem->parceiro }}</td>
                     <td>{{ $pesagem->produto }}</td>
                     <td>{{ $pesagem->motorista   }}</td>
-                    <td>{{ $pesagem->peso_tara }}</td>
-                    <td>{{ $pesagem->peso_bruto }}</td>
-                    <td>{{ $pesagem->peso_liquido }}</td>
+                    <td>{{str_replace(',','.',number_format($pesagem->peso_tara, 0)) }}</td>
+                    <td>{{str_replace(',','.',number_format($pesagem->peso_bruto, 0)) }}</td>
+                    <td>{{str_replace(',','.',number_format($pesagem->peso_liquido, 0)) }}</td>
                     <td>{{ $pesagem->movimentacao}}</td>
                     <td>{{ $pesagem->situacao   }}</td>
                 </tr>

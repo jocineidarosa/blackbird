@@ -203,6 +203,7 @@ class PesagemController extends Controller
         }
 
         $pesagens = $pesagens->orderBy('data', 'desc')->get();
+        $total_cargas= $pesagens->count();
 
         foreach ($pesagens as $pesagem) {
             if ($pesagem->situacao == 'CO') {
@@ -218,9 +219,14 @@ class PesagemController extends Controller
             }
         }
 
-
         $pdf = PDF::loadView('app.pesagem.export_pdf', ['pesagens' => $pesagens,]);
         $pdf->setPaper('A4', 'landscape');
+        $pdf->setOptions([
+            'margin-top'=>0,
+            'margin-botton'=>0,
+            'margin-right'=>0,
+            'margin-left'=>0,
+        ]);
         return $pdf->stream('Relatório de Pesagem.pdf');
     }
 
