@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Pesagem</title>
 
     <style>
         td, th{
@@ -28,14 +28,14 @@
                 <th>Data</th>
                 <th>Placa</th>
                 <th>Seq.</th>
-                <th style="width:15%;">Parceiro</th>
-                <th>Produto</th>
-                <th>Motorista</th>
-                <th>Peso Tara</th>
-                <th>Peso Bruto</th>
+                <th colspan="2">Parceiro</th>
+                <th colspan="2">Produto</th>
+                <th colspan="2">Motorista</th>
+                <th colspan="3">Peso Tara</th>
+                <th colspan="3">Peso Bruto</th>
                 <th>Peso Líquido</th>
-                <th>Tipo</th>
-                <th>Situação</th>
+                <th>Tp.</th>
+                <th>St.</th>
 
             </tr>
         </thead>
@@ -47,16 +47,31 @@
                     <td>{{ Carbon\Carbon::parse($pesagem->data)->format('d/m/Y') }}</td>
                     <td>{{ $pesagem->placa }}</td>
                     <td>{{ $pesagem->sequencia }}</td>
+                    <td>{{ $pesagem->parceiro_id }}</td>
                     <td >{{ $pesagem->parceiro }}</td>
+                    <td>{{ $pesagem->produto_id }}</td>
                     <td>{{ $pesagem->produto }}</td>
-                    <td>{{ $pesagem->motorista   }}</td>
+                    <td>{{ $pesagem->motorista_id}}</td>
+                    <td>{{ $pesagem->motorista}}</td>
                     <td>{{str_replace(',','.',number_format($pesagem->peso_tara, 0)) }}</td>
+                    <td>{{ $pesagem->data_tara}}</td>
+                    <td>{{ $pesagem->hora_tara}}</td>
                     <td>{{str_replace(',','.',number_format($pesagem->peso_bruto, 0)) }}</td>
+                    <td>{{ $pesagem->data_bruto}}</td>
+                    <td>{{ $pesagem->hora_bruto}}</td>
                     <td>{{str_replace(',','.',number_format($pesagem->peso_liquido, 0)) }}</td>
                     <td>{{ $pesagem->movimentacao}}</td>
                     <td>{{ $pesagem->situacao   }}</td>
                 </tr>
             @endforeach
+
+            <tr>
+                <td colspan="12" style="border-top:0.5px solid #666; height:10px;"></td>
+            </tr>  
+            <tr>
+                <td colspan="9"></td>
+                <td colspan="3"> Total de Cargas: {{$total_cargas}}</td>
+            </tr>
 
         </tbody>
     </table>

@@ -10,6 +10,7 @@ use App\Models\Parceiro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use PhpParser\Node\Stmt\Foreach_;
 
 class PesagemController extends Controller
 {
@@ -206,20 +207,13 @@ class PesagemController extends Controller
         $total_cargas= $pesagens->count();
 
         foreach ($pesagens as $pesagem) {
-            if ($pesagem->situacao == 'CO') {
-                $pesagem->situacao = 'COMPLETO';
-            } else if ($pesagem->situacao == 'CA') {
-                $pesagem->situacao = 'CANCELADO';
-            } else if ($pesagem->situacao == 'ED') {
-                $pesagem->situacao = 'EDITADO';
-            } else if ($pesagem->situacao == 'IN') {
-                $pesagem->situacao = 'INCOMPLETO';
-            } else if ($pesagem->situacao == 'MA') {
-                $pesagem->situacao = 'MANUAL';
+            if($pesagem->movimentacao =='SAIDA'){
+                $pesagem->movimentacao='S';
             }
         }
 
-        $pdf = PDF::loadView('app.pesagem.export_pdf', ['pesagens' => $pesagens,]);
+
+        $pdf = PDF::loadView('app.pesagem.export_pdf', ['pesagens' => $pesagens,'total_cargas'=> $total_cargas]);
         $pdf->setPaper('A4', 'landscape');
         $pdf->setOptions([
             'margin-top'=>0,
