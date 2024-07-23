@@ -66,12 +66,19 @@
             @endforeach
 
             <tr>
-                <td colspan="12" style="border-top:0.5px solid #666; height:10px;"></td>
+                <td colspan="19" style="border-top:0.5px solid #737373; height:10px;"></td>
             </tr>  
             <tr>
-                <td colspan="9"></td>
-                <td colspan="3"> Total de Cargas: {{$total_cargas}}</td>
+                <td colspan="1"></td>
+                <td colspan="10"> Total de Cargas: {{$total_cargas}}</td>
+                <td colspan="4"> Entradas : {{$qtd_entrada}}</td>
+                <td colspan="4">Peso Total Entrada :{{str_replace(',','.',number_format($total_peso_entrada,0))}}</td>
             </tr>
+            <tr>
+                <td colspan="11"></td>
+                <td colspan="4"> Saídas: {{$qtd_saida}}</td>
+                <td colspan="4"> Peso Total Saída: {{str_replace(',','.',number_format($total_peso_saida,0))}}</td>
+            </tr>   
 
         </tbody>
     </table>

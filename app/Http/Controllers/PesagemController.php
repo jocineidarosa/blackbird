@@ -173,7 +173,7 @@ class PesagemController extends Controller
 
     public function pdfExport(Request $request)
     {
-        
+
         $filtros = '';
         $pesagens = DB::table('pesagens as ps')
             ->join('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
@@ -203,25 +203,50 @@ class PesagemController extends Controller
             $pesagens = $pesagens->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
+
         $pesagens = $pesagens->orderBy('data', 'desc')->get();
-        $total_cargas= $pesagens->count();
+        $total_cargas = $pesagens->count();
 
         foreach ($pesagens as $pesagem) {
-            if($pesagem->movimentacao =='SAIDA'){
-                $pesagem->movimentacao='S';
+            if ($pesagem->movimentacao == 'SAIDA') {
+                $pesagem->movimentacao = 'S';
+            }
+            if ($pesagem->movimentacao == 'ENTRADA') {
+                $pesagem->movimentacao = 'E';
             }
         }
 
+        $qtd_saida = $pesagens->filter(function ($item) {
+            return strpos($item->movimentacao, 'S') !== false;
+        })->count();
 
-        $pdf = PDF::loadView('app.pesagem.export_pdf', ['pesagens' => $pesagens,'total_cargas'=> $total_cargas]);
+        $qtd_entrada = $pesagens->filter(function ($item) {
+            return strpos($item->movimentacao, 'E') !== false;
+        })->count();
+
+        $total_peso_saida = $pesagens->filter(function ($item) {
+            return $item->movimentacao == 'S';
+        })->sum('peso_liquido');
+
+        $total_peso_entrada = $pesagens->filter(function ($item) {
+            return $item->movimentacao == 'E';
+        })->sum('peso_liquido');
+
+        $pdf = PDF::loadView('app.pesagem.export_pdf', [
+            'pesagens' => $pesagens,
+            'total_cargas' => $total_cargas,
+            'qtd_saida' => $qtd_saida,
+            'qtd_entrada' => $qtd_entrada,
+            'total_peso_saida'=>$total_peso_saida,
+            'total_peso_entrada'=>$total_peso_entrada
+        ]);
         $pdf->setPaper('A4', 'landscape');
         $pdf->setOptions([
-            'margin-top'=>0,
-            'margin-botton'=>0,
-            'margin-right'=>0,
-            'margin-left'=>0,
+            'margin-top' => 0,
+            'margin-botton' => 0,
+            'margin-right' => 0,
+            'margin-left' => 0,
         ]);
         return $pdf->stream('Relatório de Pesagem.pdf');
     }
-
 }
