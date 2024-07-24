@@ -206,9 +206,30 @@ class PesagemController extends Controller
             $filtros = '?filtro_motorista=' . $request->filtro_motorista;
             $pesagens = $pesagens->where('mt.nome', 'like', '%' . $request->filtro_motorista . '%');
         }
+        //restante dos filtros vem do view pesquisa_avancada
         if ($request->parceiro_id) {
             $filtros = '?parceiro_id=' . $request->parceiro_id;
             $pesagens = $pesagens->where('ps.parceiro_id', $request->parceiro_id);
+        }
+        if ($request->id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&id=' . $request->id : '?id=' . $request->id;
+            $pesagens = $pesagens->where('ps.id', $request->id);
+        }
+        if ($request->placa) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&placa=' . $request->placa : '?placa=' . $request->placa;
+            $pesagens = $pesagens->where('ps.placa', $request->placa);
+        }
+        if ($request->sequencia) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&sequencia=' . $request->sequencia : '?sequencia=' . $request->sequencia;
+            $pesagens = $pesagens->where('ps.sequencia', $request->sequencia);
+        }
+        if ($request->situacao) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&situacao=' . $request->situacao : '?situacao=' . $request->situacao;
+            $pesagens = $pesagens->where('ps.situacao', $request->situacao);
+        }
+        if ($request->movimentacao) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&movimentacao=' . $request->movimentacao : '?movimentacao=' . $request->movimentacao;
+            $pesagens = $pesagens->where('ps.movimentacao', $request->movimentacao);
         }
         if ($request->produto_id) {
             $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
@@ -223,7 +244,6 @@ class PesagemController extends Controller
                 '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
             $pesagens = $pesagens->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
-
 
         $pesagens = $pesagens->orderBy('data', 'desc')->get();
         $total_cargas = $pesagens->count();
