@@ -245,7 +245,7 @@ class PesagemController extends Controller
             $pesagens = $pesagens->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $pesagens = $pesagens->orderBy('data', 'desc')->get();
+        $pesagens = $pesagens->whereNotIn('situacao', ['CA','IN'])->orderBy('data', 'desc')->get();
         $total_cargas = $pesagens->count();
 
         foreach ($pesagens as $pesagem) {

@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
-    <title>STRATUS ERP - Login</title>
+    <title>DBMAXIS - Login</title>
 </head>
 <body style="background-image: url('{{asset('img/site/fundo3.jpg')}}');  background-size: cover; 
 background-position: center; ">
 
     <form action="{{ route('login') }}" method="POST" class="form-login">
         @csrf
-        <div class="login-card bg-secondary">
+        <div class="login-card rounded" style="background-color: #a6dcdf">
             <div class="card-header">
                {{--  <span class="font-wheight-light">DBMAXIS SOLUTIONS</span> --}}
                 <img src="{{asset('img/site/logo_dbmaxis.png')}}" alt="">
