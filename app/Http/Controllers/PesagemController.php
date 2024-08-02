@@ -81,7 +81,10 @@ class PesagemController extends Controller
             $pesagens = $pesagens->whereBetween('data', [$request->data_inicial, $request->data_final]);
         }
 
-        $pesagens = $pesagens->orderBy('data', 'desc')->paginate(12);
+        $pesagens=$pesagens->where('situacao', '!=', 'CA');
+
+
+        $pesagens = $pesagens->orderBy('id', 'desc')->paginate(12);
 
         foreach ($pesagens as $pesagem) {
             if ($pesagem->situacao == 'CO') {
