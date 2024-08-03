@@ -293,4 +293,80 @@ class PesagemController extends Controller
         ]);
         return $pdf->stream('Relatório de Pesagem.pdf');
     }
+
+    function reloadWeighings(Request $request){
+
+        $filtros = '';
+        $pesagens = DB::table('pesagens as ps')
+            ->join('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
+            ->join('produtos as pd', 'ps.produto_id', '=', 'pd.id')
+            ->join('motoristas_ as mt', 'ps.motorista_id', '=', 'mt.id')
+            ->selectRaw('ps.*, pc.nome as parceiro, pd.nome as produto, mt.nome as motorista');
+        //campo de filtro no view index  
+        if ($request->filtro_motorista) {
+            $filtros = '?filtro_motorista=' . $request->filtro_motorista;
+            $pesagens = $pesagens->where('mt.nome', 'like', '%' . $request->filtro_motorista . '%');
+        }
+        //restante dos filtros vem do view pesquisa_avancada
+        if ($request->parceiro_id) {
+            $filtros = '?parceiro_id=' . $request->parceiro_id;
+            $pesagens = $pesagens->where('ps.parceiro_id', $request->parceiro_id);
+        }
+        if ($request->id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&id=' . $request->id : '?id=' . $request->id;
+            $pesagens = $pesagens->where('ps.id', $request->id);
+        }
+        if ($request->placa) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&placa=' . $request->placa : '?placa=' . $request->placa;
+            $pesagens = $pesagens->where('ps.placa', $request->placa);
+        }
+        if ($request->sequencia) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&sequencia=' . $request->sequencia : '?sequencia=' . $request->sequencia;
+            $pesagens = $pesagens->where('ps.sequencia', $request->sequencia);
+        }
+        if ($request->situacao) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&situacao=' . $request->situacao : '?situacao=' . $request->situacao;
+            $pesagens = $pesagens->where('ps.situacao', $request->situacao);
+        }
+        if ($request->movimentacao) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&movimentacao=' . $request->movimentacao : '?movimentacao=' . $request->movimentacao;
+            $pesagens = $pesagens->where('ps.movimentacao', $request->movimentacao);
+        }
+        if ($request->produto_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&produto_id=' . $request->produto_id : '?produto_id=' . $request->produto_id;
+            $pesagens = $pesagens->where('ps.produto_id', $request->produto_id);
+        }
+        if ($request->motorista_id) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&motorista_id=' . $request->motorista_id : '?motorista_id=' . $request->motorista_id;
+            $pesagens = $pesagens->where('ps.motorista_id', $request->motorista_id);
+        }
+        if ($request->data_inicial) {
+            $filtros = strlen($filtros) > 0 ? $filtros . '&data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final :
+                '?data_inicial=' . $request->data_inicial . '&data_final=' . $request->data_final;
+            $pesagens = $pesagens->whereBetween('data', [$request->data_inicial, $request->data_final]);
+        }
+
+        $pesagens=$pesagens->where('situacao', '!=', 'CA');
+
+
+        $pesagens = $pesagens->orderBy('id', 'desc')->paginate(12);
+
+        foreach ($pesagens as $pesagem) {
+            if ($pesagem->situacao == 'CO') {
+                $pesagem->situacao = 'COMPLETO';
+            } else if ($pesagem->situacao == 'CA') {
+                $pesagem->situacao = 'CANCELADO';
+            } else if ($pesagem->situacao == 'ED') {
+                $pesagem->situacao = 'EDITADO';
+            } else if ($pesagem->situacao == 'IN') {
+                $pesagem->situacao = 'INCOMPLETO';
+            } else if ($pesagem->situacao == 'MA') {
+                $pesagem->situacao = 'MANUAL';
+            }
+        }
+
+        return view('app.pesagem._components.pesagem_row', compact('pesagens'));
+
+
+    }
 }

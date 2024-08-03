@@ -57,38 +57,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($pesagens as $pesagem)
-                        <tr>
-                            <th scope="row">{{ $pesagem->id }}</td>
-                            <td>{{ Carbon\Carbon::parse($pesagem->data)->format('d/m/Y') }}</td>
-                            <td>{{ $pesagem->placa }}</td>
-                            <td>{{ $pesagem->sequencia }}</td>
-                            <td>{{ $pesagem->parceiro }}</td>
-                            <td>{{ $pesagem->produto }}</td>
-                            <td>{{ $pesagem->motorista }}</td>
-                            <td>{{ str_replace(',', '.', number_format($pesagem->peso_tara, 0)) }}</td>
-                            <td>{{ str_replace(',', '.', number_format($pesagem->peso_bruto, 0)) }}</td>
-                            <td>{{ str_replace(',', '.', number_format($pesagem->peso_liquido, 0)) }}</td>
-                            <td>{{ $pesagem->movimentacao }}</td>
-                            <td>{{ $pesagem->situacao }}</td>
-                            <td>
-                                <div {{-- class="div-op" --}} class="btn-group btn-group-actions visible-on-hover">
-                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
-                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'1']) }}">
-                                        1
-                                    </a>
-                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
-                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'2']) }}">
-                                        2
-                                    </a>
-                                    <a class="btn btn-sm-template btn-outline-primary" target="_blank"
-                                        href="{{ route('pesagem.show', ['pesagem' => $pesagem->id, 'quant_impress'=>'3']) }}">3
-                                    </a>
-                                </div>
-                            </td>
-
-                        </tr>
-                    @endforeach
+                    @include('app.pesagem._components.pesagem_row', ['pesagens'=>$pesagens])
                 </tbody>
             </table>
             @component('app.shared.modal_delete')
@@ -102,5 +71,20 @@
 
 
     </div>
+    <script>
+        function reloadWeighings() {
+            $.ajax({
+                url: "{{ route('pesagem.reload') }}",
+                type: 'GET',
+                success: function(data) {
+                    $('tbody').html(data);
+                }
+            });
+        }
+    
+        // Refresh every 5 seconds
+        setInterval(reloadWeighings, 5000);
+    </script>
+
 
 @endsection
