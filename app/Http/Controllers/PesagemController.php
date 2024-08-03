@@ -252,7 +252,7 @@ class PesagemController extends Controller
         $total_cargas = $pesagens->count();
 
         foreach ($pesagens as $pesagem) {
-            if ($pesagem->movimentacao == 'SAíDA') {
+            if ($pesagem->movimentacao == 'SAÍDA') {
                 $pesagem->movimentacao = 'S';
             }
             if ($pesagem->movimentacao == 'ENTRADA') {
