@@ -40,7 +40,7 @@ class HomeController extends Controller
 
         $last_data_production = OrdemProducao::max('data');
         //$last_production = OrdemProducao::where('data', $last_data_production)->first();
-        $recursos = Produto::whereIn('id', [12, 13, 14,30, 347])->get();
+        $recursos = Produto::whereIn('id', [12, 14,30, 347, 27])->get();
         foreach ($recursos as $recurso) {
             $recurso->percent_estoque = round($recurso->estoque_atual / $recurso->estoque_maximo * 100, 0);
             $recurso->estoque_util = $recurso->estoque_atual - $recurso->lastro;

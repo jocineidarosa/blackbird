@@ -33,9 +33,9 @@ class PesagemController extends Controller
 
         $filtros = '';
         $pesagens = DB::table('pesagens as ps')
-            ->join('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
-            ->join('produtos as pd', 'ps.produto_id', '=', 'pd.id')
-            ->join('motoristas_ as mt', 'ps.motorista_id', '=', 'mt.id')
+            ->leftJoin('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
+            ->leftJoin('produtos as pd', 'ps.produto_id', '=', 'pd.id')
+            ->leftJoin('motoristas_ as mt', 'ps.motorista_id', '=', 'mt.id')
             ->selectRaw('ps.*, pc.nome as parceiro, pd.nome as produto, mt.nome as motorista');
         //campo de filtro no view index  
         if ($request->filtro_motorista) {
@@ -298,9 +298,9 @@ class PesagemController extends Controller
 
         $filtros = '';
         $pesagens = DB::table('pesagens as ps')
-            ->join('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
-            ->join('produtos as pd', 'ps.produto_id', '=', 'pd.id')
-            ->join('motoristas_ as mt', 'ps.motorista_id', '=', 'mt.id')
+            ->leftJoin('parceiros as pc', 'ps.parceiro_id', '=', 'pc.id')
+            ->leftJoin('produtos as pd', 'ps.produto_id', '=', 'pd.id')
+            ->leftJoin('motoristas_ as mt', 'ps.motorista_id', '=', 'mt.id')
             ->selectRaw('ps.*, pc.nome as parceiro, pd.nome as produto, mt.nome as motorista');
         //campo de filtro no view index  
         if ($request->filtro_motorista) {
@@ -365,7 +365,14 @@ class PesagemController extends Controller
             }
         }
 
-        return view('app.pesagem._components.pesagem_row', compact('pesagens'));
+       // return view('app.pesagem._components.pesagem_row', compact('pesagens'));
+
+
+        return view('app.pesagem._components.pesagem_row', [
+            'pesagens' => $pesagens,
+            'request' => $request->all(),
+            'filtros' => $filtros
+        ]);
 
 
     }
